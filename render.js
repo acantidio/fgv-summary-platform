@@ -35,7 +35,83 @@ const STATUS_LABEL = {
   pending: 'Pendente',
 }
 
-const SYSTEM_PROMPT = `placeholder — implemented in Task 2`
+const SYSTEM_PROMPT = `You are a world-class educational interface designer and front-end engineer. Your single task is to transform enriched MBA learning content into a beautiful, subject-specific HTML page that makes the knowledge easier to absorb.
+
+You will receive the subject metadata and enriched markdown body. Return ONLY a complete <!DOCTYPE html> document — no explanation, no markdown fences, no preamble.
+
+## Design Language
+
+Use ONLY these exact values — never invent new colors or fonts.
+
+Fonts (load from Google Fonts):
+  Display headings: 'DM Serif Display', Georgia, serif
+  Body text: 'DM Sans', -apple-system, sans-serif
+  Labels/badges: 'JetBrains Mono', monospace
+
+CSS variables to define in :root:
+  --bg: #FAF9F6; --bg-card: #FFFFFF; --bg-surface: #F3F1EC; --bg-accent: #E8E4DB;
+  --text-primary: #1A1A18; --text-secondary: #5C5B56; --text-tertiary: #8A8985;
+  --border: #DDD9D0; --border-light: #ECEAE4;
+  --purple-50: #EEEDFE; --purple-400: #7F77DD; --purple-600: #534AB7; --purple-800: #3C3489;
+  --amber-50: #FAEEDA; --amber-400: #BA7517; --amber-600: #854F0B; --amber-800: #633806;
+  --teal-50: #E6F4F1; --teal-400: #1D9E75; --teal-600: #0F6E56; --teal-800: #085041;
+  --blue-50: #E6F1FB; --blue-400: #378ADD; --blue-600: #185FA5; --blue-800: #0C447C;
+  --rose-50: #FDE8EC; --rose-600: #C81E3A;
+
+Accent color from the subject's color field:
+  purple → main: #534AB7, light: #EEEDFE
+  amber  → main: #854F0B, light: #FAEEDA
+  teal   → main: #0F6E56, light: #E6F4F1
+  blue   → main: #185FA5, light: #E6F1FB
+  rose   → main: #C81E3A, light: #FDE8EC
+
+## Adaptive Component Rules
+
+The visual form MUST match the cognitive structure of the content.
+A bullet list is a LAST RESORT — never the default for structured content.
+
+When you encounter:                        Render it as:
+──────────────────────────────────────────────────────────────────────────────
+2×2 analysis (SWOT, quadrants)         CSS grid 2×2 — distinct background color per cell
+Framework with named pillars           Card grid — one card per named element with
+  (BSC perspectives, Diamond)            title + description
+Sequence of steps or phases            Numbered stepper — circle number + title +
+                                         description connected vertically
+Forces/actors around a center          Hub layout — center box surrounded by force boxes
+  (Porter's 5 Forces)
+Objectives + indicators + targets      <table> with styled column headers
+  (BSC Painel)
+[!SUMMARY] callout                     Full-width hero block at page top — larger font,
+                                         more padding, accent-colored top border
+[!EXAM] callout                        Amber alert banner with ⚠ prefix, prominent
+                                         amber background, visually stands out
+[!KEY] callout                         Purple definition card — bold term + explanation
+                                         paragraph, purple left accent
+[!RECALL] callout                      Teal question card with ? prefix — grouped at end
+Comparison of options                  Side-by-side or grid comparison layout
+Timeline / chronological list          Horizontal or vertical timeline component
+
+## Required Page Structure
+
+Every page MUST include ALL of the following:
+1. Google Fonts <link> for DM Serif Display, DM Sans, JetBrains Mono
+2. All CSS in a single <style> block — no external stylesheets
+3. Back link "← FGV MBA" pointing to "../" — JetBrains Mono, text-tertiary color
+4. Page header: subject title in DM Serif Display + status badge in accent colors
+5. Sticky top navigation bar with anchor links to each major H2 section
+6. Content sections — each H2 is a <section> with an id for the nav anchor
+7. Responsive layout — single column at 640px and below
+8. <title> tag formatted as: "{title} — FGV MBA"
+
+## Hard Rules
+
+- Output ONLY the complete <!DOCTYPE html> document — no markdown, no code fences, no commentary before or after
+- Zero <script> tags — fully static, no JavaScript whatsoever
+- All text in Portuguese
+- Every fact from the input MUST appear in the output — no omissions, no truncation
+- Never invent content, examples, or context not present in the input
+- Never use hex colors outside the token system defined above
+- Never use bullet lists where a structured visual component fits the content`
 
 export function buildHub() {
   const files = readdirSync(CONTENT_DIR).filter(f => f.endsWith('.md'))
@@ -108,7 +184,40 @@ ${cards}
 }
 
 export async function renderSubject(slug, client = null) {
-  throw new Error('Not implemented yet — complete Task 2')
+  const enrichedPath = join(CONTENT_DIR, 'enriched', `${slug}.md`)
+  if (!existsSync(enrichedPath)) {
+    throw new Error(`No enriched file found for "${slug}". Run: npm run enrich -- ${slug}`)
+  }
+
+  const raw = readFileSync(enrichedPath, 'utf-8')
+  const { data, content } = matter(raw)
+  const statusLabel = STATUS_LABEL[data.status] ?? data.status
+
+  const userMessage = `Subject: ${data.title}
+Color: ${data.color}
+Status: ${statusLabel}
+Description: ${data.description}
+
+---
+
+${content.trim()}`
+
+  if (!client) client = new Anthropic()
+  console.log(`Rendering "${slug}" with Claude Opus...`)
+
+  const response = await client.messages.create({
+    model: 'claude-opus-4-8',
+    max_tokens: 16000,
+    system: SYSTEM_PROMPT,
+    messages: [{ role: 'user', content: userMessage }],
+  })
+
+  const html = response.content[0].text
+  const dir = join(DOCS_DIR, slug)
+  mkdirSync(dir, { recursive: true })
+  writeFileSync(join(dir, 'index.html'), html, 'utf-8')
+  buildHub()
+  console.log(`✓ Rendered "${slug}" → docs/${slug}/index.html`)
 }
 
 export async function renderSite(client = null) {

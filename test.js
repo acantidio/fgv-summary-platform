@@ -189,3 +189,33 @@ test('buildHub generates docs/index.html with sorted card links', async () => {
   const estratIdx = hub.indexOf('Estratégia')
   assert.ok(alphaIdx < estratIdx, 'cards must be sorted alphabetically by title')
 })
+
+// ── render.js: renderSubject ──────────────────────────────────────────────────
+test('renderSubject writes Anthropic response HTML to docs/[slug]/index.html', async () => {
+  const { renderSubject } = await import('./render.js')
+
+  const mockHtml = '<!DOCTYPE html><html lang="pt-BR"><head><title>Test — FGV MBA</title></head><body><p>mock content</p></body></html>'
+  const mockClient = {
+    messages: {
+      create: async () => ({ content: [{ type: 'text', text: mockHtml }] })
+    }
+  }
+
+  await renderSubject('estrategia-corporativa', mockClient)
+
+  const outputPath = join(DOCS_DIR, 'estrategia-corporativa', 'index.html')
+  assert.ok(existsSync(outputPath), 'docs/estrategia-corporativa/index.html must be created')
+  const written = readFileSync(outputPath, 'utf-8')
+  assert.equal(written, mockHtml, 'file contents must exactly match the Anthropic response text')
+})
+
+test('renderSubject throws a clear error when enriched file is missing', async () => {
+  const { renderSubject } = await import('./render.js')
+  const mockClient = { messages: { create: async () => ({}) } }
+
+  await assert.rejects(
+    () => renderSubject('__nonexistent_slug__', mockClient),
+    /npm run enrich/,
+    'error message must mention how to fix the problem'
+  )
+})
