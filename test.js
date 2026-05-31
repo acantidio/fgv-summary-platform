@@ -219,3 +219,38 @@ test('renderSubject throws a clear error when enriched file is missing', async (
     'error message must mention how to fix the problem'
   )
 })
+
+// ── render.js: renderSite ─────────────────────────────────────────────────────
+test('renderSite renders all enriched slugs and rebuilds hub', async () => {
+  const { renderSite } = await import('./render.js')
+
+  const renderedSlugs = []
+  const mockClient = {
+    messages: {
+      create: async (params) => {
+        const slugLine = params.messages[0].content.match(/Subject: (.+)/)
+        if (slugLine) renderedSlugs.push(slugLine[1])
+        return {
+          content: [{
+            type: 'text',
+            text: '<!DOCTYPE html><html lang="pt-BR"><head><title>T — FGV MBA</title></head><body><p>mock</p></body></html>'
+          }]
+        }
+      }
+    }
+  }
+
+  await renderSite(mockClient)
+
+  const enrichedDir = join(CONTENT_DIR, 'enriched')
+  const enrichedSlugs = readdirSync(enrichedDir).filter(f => f.endsWith('.md')).map(f => f.replace('.md', ''))
+
+  for (const slug of enrichedSlugs) {
+    assert.ok(
+      existsSync(join(DOCS_DIR, slug, 'index.html')),
+      `docs/${slug}/index.html must exist after renderSite`
+    )
+  }
+  assert.ok(existsSync(join(DOCS_DIR, 'index.html')), 'hub must exist after renderSite')
+  assert.ok(renderedSlugs.length >= enrichedSlugs.length, 'Anthropic must be called once per enriched slug')
+})

@@ -221,9 +221,29 @@ ${content.trim()}`
 }
 
 export async function renderSite(client = null) {
-  throw new Error('Not implemented yet — complete Task 3')
+  const enrichedDir = join(CONTENT_DIR, 'enriched')
+  if (!existsSync(enrichedDir)) {
+    console.log('No enriched files found. Run: npm run enrich -- --all')
+    return
+  }
+  const slugs = readdirSync(enrichedDir)
+    .filter(f => f.endsWith('.md'))
+    .map(f => f.replace('.md', ''))
+
+  for (const slug of slugs) {
+    await renderSubject(slug, client)
+  }
+  console.log(`✓ Done — rendered ${slugs.length} subjects`)
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  console.log('render.js CLI not yet implemented — complete Task 3')
+  const args = process.argv.slice(2)
+  if (args[0] === '--all') {
+    renderSite().catch(err => { console.error(err.message); process.exit(1) })
+  } else if (args[0]) {
+    renderSubject(args[0]).catch(err => { console.error(err.message); process.exit(1) })
+  } else {
+    console.error('Usage: node render.js [slug] | --all')
+    process.exit(1)
+  }
 }
