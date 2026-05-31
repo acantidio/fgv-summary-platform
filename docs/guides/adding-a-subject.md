@@ -115,7 +115,7 @@ rm content/enriched/[slug].md && npm run enrich -- [slug]
 
 ---
 
-## Step 5: Validate and Build
+## Step 5: Validate and Render
 
 ```bash
 npm test
@@ -129,13 +129,17 @@ Expected: all tests pass. Common failures and fixes:
 | `invalid status "done"` | Use `complete`, `in-progress`, or `pending` |
 | `invalid color "green"` | Use `purple`, `amber`, `teal`, `blue`, or `rose` |
 
-Once tests pass:
+Once tests pass, render the subject page with AI:
 
 ```bash
-npm run build
+npm run render -- [slug]
 ```
 
-Expected output: `✓ Built N subjects → docs/`
+Expected output:
+```
+Rendering "[slug]" with Claude Opus...
+✓ Rendered "[slug]" → docs/[slug]/index.html
+```
 
 ---
 
@@ -143,20 +147,28 @@ Expected output: `✓ Built N subjects → docs/`
 
 ```bash
 open docs/index.html
+open docs/[slug]/index.html
 ```
 
 Checklist:
 - [ ] New card appears on hub with correct title, color, and description
 - [ ] Click through to subject page — back link works
-- [ ] Summary callout (◎ Resumo) appears at the top
-- [ ] At least one Exam alert (⚠ Cai na Prova) is visible
+- [ ] Summary hero block (◎ Resumo) appears at the top
+- [ ] At least one Exam alert (⚠ Cai na Prova) is visible and styled prominently
 - [ ] At least one Key concept (◆ Conceito-Chave) card is present
 - [ ] Recall questions (? Recall Ativo) section appears at the bottom
+- [ ] Frameworks with inherent structure (matrices, steppers, tables) rendered as visual components — not bullet lists
+- [ ] Sticky nav present and anchor links work
 - [ ] All content from original notes is present
 
 **Mobile check (browser DevTools, 390px):**
 - Single column layout, no horizontal scroll
-- Callout cards readable and not clipped
+- Components stack and remain readable
+
+**If output quality is poor**, re-render (the call is free to retry):
+```bash
+npm run render -- [slug]
+```
 
 ---
 
@@ -168,7 +180,7 @@ git commit -m "feat: add [Subject Name]"
 git push
 ```
 
-GitHub Actions runs `npm test` + `npm run build` automatically. Site is live within ~2 minutes.
+GitHub Actions runs `npm test` and deploys the committed `docs/` files. Site is live within ~2 minutes.
 
 Check the run:
 ```bash
@@ -199,5 +211,6 @@ When notes for an existing subject grow (e.g., after more classes):
 
 1. Edit `content/[slug].md` — paste the updated Obsidian content, update `status` if needed
 2. Re-enrich: `rm content/enriched/[slug].md && npm run enrich -- [slug]`
-3. `npm test && npm run build`
-4. `git add content/[slug].md content/enriched/[slug].md docs/ && git commit -m "chore: update [Subject Name]" && git push`
+3. Re-render: `npm run render -- [slug]`
+4. `npm test`
+5. `git add content/[slug].md content/enriched/[slug].md docs/ && git commit -m "chore: update [Subject Name]" && git push`
