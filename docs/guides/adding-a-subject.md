@@ -35,12 +35,11 @@ Examples:
 | Liderança e Comportamento Organizacional | `lideranca-e-comportamento` |
 
 **Color selection:**
-Check current usage:
 ```bash
 grep "^color:" content/*.md
 ```
 
-Pick the color used least often. Available: `purple`, `amber`, `teal`, `blue`, `rose`. With 20 subjects total, you'll cycle through colors multiple times — that's fine.
+Pick the color used least often. Available: `purple`, `amber`, `teal`, `blue`, `rose`.
 
 ---
 
@@ -73,7 +72,6 @@ Before pasting, scan for these patterns:
 | `%%comment%%` | Remove entirely |
 | Tab-indented lists | Keep as-is — `marked` handles tabs fine |
 | `**bold**`, `*italic*` | Keep as-is |
-| `***triple***` | Renders as bold-italic — keep as-is |
 
 ### When notes are incomplete
 
@@ -87,22 +85,49 @@ If the class is still ongoing or notes are sparse, set `status: in-progress` and
 
 ---
 
-## Step 4: Validate and Build
+## Step 4: Enrich with AI
+
+Transform the raw notes into a structured learning document using Claude Opus 4.7:
+
+```bash
+npm run enrich -- [slug]
+```
+
+This reads `content/[slug].md`, calls Claude Opus 4.7, and writes `content/enriched/[slug].md`.
+
+**First-time setup** — make sure `.env` exists in the project root with your API key:
+```bash
+echo "ANTHROPIC_API_KEY=sk-ant-..." > .env
+```
+
+The `.env` file is gitignored and never committed.
+
+Expected output:
+```
+Enriching "[slug]" with Claude Opus 4.7...
+✓ Enriched [slug] (NNN in / NNN out)
+```
+
+**The enriched file is what gets built and displayed.** If you significantly update the raw notes later, delete the enriched file and re-run:
+```bash
+rm content/enriched/[slug].md && npm run enrich -- [slug]
+```
+
+---
+
+## Step 5: Validate and Build
 
 ```bash
 npm test
 ```
 
-Expected: all 5 tests pass. The first test (`content files exist and have valid frontmatter`) will catch any frontmatter errors immediately.
-
-Common failures and fixes:
+Expected: all tests pass. Common failures and fixes:
 
 | Error | Fix |
 |---|---|
 | `missing frontmatter field "title"` | Add `title:` to frontmatter |
 | `invalid status "done"` | Use `complete`, `in-progress`, or `pending` |
 | `invalid color "green"` | Use `purple`, `amber`, `teal`, `blue`, or `rose` |
-| `missing frontmatter field "slug"` | Add `slug:` field |
 
 Once tests pass:
 
@@ -114,41 +139,36 @@ Expected output: `✓ Built N subjects → docs/`
 
 ---
 
-## Step 5: Visual Check
+## Step 6: Visual Check
 
 ```bash
 open docs/index.html
 ```
 
 Checklist:
-- [ ] New card appears on hub with correct title
-- [ ] Badge shows correct status label in Portuguese (Concluído / Em andamento / Pendente)
-- [ ] Color accent strip is correct
-- [ ] Description text is readable
-- [ ] Click through to subject page — back link works, content renders
-- [ ] Nested lists render with proper indentation
-- [ ] Bold/italic text is styled correctly
+- [ ] New card appears on hub with correct title, color, and description
+- [ ] Click through to subject page — back link works
+- [ ] Summary callout (◎ Resumo) appears at the top
+- [ ] At least one Exam alert (⚠ Cai na Prova) is visible
+- [ ] At least one Key concept (◆ Conceito-Chave) card is present
+- [ ] Recall questions (? Recall Ativo) section appears at the bottom
+- [ ] All content from original notes is present
 
-**Mobile check (browser DevTools):**
-- Toggle device toolbar (iPhone 14 Pro: 393px)
-- Hub: single column, no horizontal scroll
-- Subject page: comfortable reading width, text not too small
+**Mobile check (browser DevTools, 390px):**
+- Single column layout, no horizontal scroll
+- Callout cards readable and not clipped
 
 ---
 
-## Step 6: Commit and Push
+## Step 7: Commit and Push
 
 ```bash
-git add content/[slug].md docs/
+git add content/[slug].md content/enriched/[slug].md docs/
 git commit -m "feat: add [Subject Name]"
 git push
 ```
 
-GitHub Actions will run automatically:
-1. Runs `npm test`
-2. Runs `npm run build`
-3. Commits updated `docs/` with `[skip ci]` tag
-4. Site is live within ~2 minutes
+GitHub Actions runs `npm test` + `npm run build` automatically. Site is live within ~2 minutes.
 
 Check the run:
 ```bash
@@ -157,15 +177,17 @@ gh run list --repo acantidio/fgv-summary-platform
 
 ---
 
-## Step 7: Create the Complementary Materials Folder
+## Step 8: Create the Complementary Materials Folder
 
 ```bash
 mkdir complementary-study-docs/[slug]
 ```
 
-This keeps `complementary-study-docs/` in sync with `content/`. Drop any teacher slides, PDFs, or books for this subject into that folder whenever you have them. The folder stays empty until materials are available — that's fine.
+Drop any teacher slides, PDFs, or books there whenever you have them.
 
-## Step 8: Update Obsidian Index
+---
+
+## Step 9: Update Obsidian Index
 
 Open `/Users/andrecantidio/Documents/Obsidian/main/MBA GE80/Índice.md` and add the new subject to the list if it isn't there already.
 
@@ -173,10 +195,9 @@ Open `/Users/andrecantidio/Documents/Obsidian/main/MBA GE80/Índice.md` and add 
 
 ## Updating Existing Content
 
-When notes for an existing subject grow (e.g., after more classes), just:
+When notes for an existing subject grow (e.g., after more classes):
 
 1. Edit `content/[slug].md` — paste the updated Obsidian content, update `status` if needed
-2. `npm test && npm run build`
-3. `git add content/[slug].md docs/ && git commit -m "chore: update [Subject Name]" && git push`
-
-The site rebuilds automatically.
+2. Re-enrich: `rm content/enriched/[slug].md && npm run enrich -- [slug]`
+3. `npm test && npm run build`
+4. `git add content/[slug].md content/enriched/[slug].md docs/ && git commit -m "chore: update [Subject Name]" && git push`
