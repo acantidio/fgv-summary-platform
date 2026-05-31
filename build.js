@@ -160,3 +160,23 @@ export function parseContent(filePath) {
     html: marked(content),
   }
 }
+
+export function buildSite() {
+  const files = readdirSync(CONTENT_DIR).filter(f => f.endsWith('.md'))
+  const subjects = files.map(f => parseContent(join(CONTENT_DIR, f)))
+
+  mkdirSync(DOCS_DIR, { recursive: true })
+
+  for (const subject of subjects) {
+    const dir = join(DOCS_DIR, subject.slug)
+    mkdirSync(dir, { recursive: true })
+    writeFileSync(join(dir, 'index.html'), renderSubjectPage(subject), 'utf-8')
+  }
+
+  writeFileSync(join(DOCS_DIR, 'index.html'), renderHubPage(subjects), 'utf-8')
+  console.log(`✓ Built ${subjects.length} subjects → docs/`)
+}
+
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  buildSite()
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FGV MBA — Resumo de Conteúdos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #FAF9F6; --bg-card: #FFFFFF; --bg-surface: #F3F1EC;
+      --text-primary: #1A1A18; --text-secondary: #5C5B56; --text-tertiary: #8A8985;
+      --border: #DDD9D0; --border-light: #ECEAE4;
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'DM Sans', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius: 16px;
+    }
+    body { font-family: var(--font-body); background: var(--bg); color: var(--text-primary); -webkit-font-smoothing: antialiased; line-height: 1.6; font-size: 16px; }
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: 800px; margin: 0 auto; padding: 48px 24px 80px; }
+    .badge { font-family: var(--font-mono); font-size: 10px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; display: inline-block; }
+    @media (max-width: 640px) { .container { padding: 32px 16px 48px; } }
+  </style>
+  <style>
+    .hub-header { padding: 56px 0 44px; }
+    .label { font-family: var(--font-mono); font-size: 11px; font-weight: 500; color: var(--text-tertiary); letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 12px; }
+    h1 { font-family: var(--font-display); font-size: clamp(28px, 5vw, 42px); font-weight: 400; line-height: 1.2; margin-bottom: 12px; }
+    .subtitle { font-size: 16px; color: var(--text-secondary); line-height: 1.7; max-width: 520px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .card { background: var(--bg-card); border: 1px solid var(--border-light); border-top: 4px solid transparent; border-radius: var(--radius); padding: 24px 28px 28px; display: block; transition: box-shadow 0.2s, transform 0.2s; }
+    .card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.07); transform: translateY(-2px); border-color: var(--border); }
+    .card h2 { font-family: var(--font-display); font-size: 20px; font-weight: 400; margin: 10px 0 8px; line-height: 1.3; }
+    .card p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+    @media (max-width: 640px) {
+      .grid { grid-template-columns: 1fr; }
+      .hub-header { padding: 40px 0 32px; }
+      .card { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="hub-header">
+      <span class="label">FGV · MBA em Gestão Empresarial</span>
+      <h1>Resumo de Conteúdos</h1>
+      <p class="subtitle">Consolidação dos aprendizados por disciplina. Para revisão e preparação para provas.</p>
+    </div>
+    <div class="grid">
+      <a href="./analise-demonstrativos/" class="card" style="border-top-color:#854F0B">
+        <span class="badge" style="background:#FAEEDA;color:#854F0B">Concluído</span>
+        <h2>Análise de Demonstrativos Contábeis</h2>
+        <p>Balanço patrimonial, DRE, indicadores de liquidez, alavancagem e rentabilidade.</p>
+      </a>
+      <a href="./estrategia-corporativa/" class="card" style="border-top-color:#534AB7">
+        <span class="badge" style="background:#EEEDFE;color:#534AB7">Concluído</span>
+        <h2>Estratégia Corporativa e de Negócios</h2>
+        <p>Metodologia de planejamento estratégico, BSC, OKR e ferramentas de análise de ambiente.</p>
+      </a>
+      <a href="./gestao-de-servicos/" class="card" style="border-top-color:#0F6E56">
+        <span class="badge" style="background:#E6F4F1;color:#0F6E56">Concluído</span>
+        <h2>Gestão de Serviços</h2>
+        <p>Marketing para serviços, carteiras de clientes, vendas, precificação e ambiente de negócios.</p>
+      </a>
+      <a href="./transformacao-digital/" class="card" style="border-top-color:#1A56DB">
+        <span class="badge" style="background:#EBF5FF;color:#1A56DB">Em andamento</span>
+        <h2>Transformação Digital</h2>
+        <p>Mundo VUCA, BANI e os 8 pilares da transformação digital nas organizações.</p>
+      </a>
+    </div>
+  </div>
+</body>
+</html>
