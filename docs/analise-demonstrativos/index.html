@@ -1,1 +1,580 @@
-<!DOCTYPE html><html lang="pt-BR"><head><title>T — FGV MBA</title></head><body><p>mock</p></body></html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Análise de Demonstrativos Contábeis — FGV MBA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+--bg:#FAF9F6;--bg-card:#FFFFFF;--bg-surface:#F3F1EC;--bg-accent:#E8E4DB;
+--text-primary:#1A1A18;--text-secondary:#5C5B56;--text-tertiary:#8A8985;
+--border:#DDD9D0;--border-light:#ECEAE4;
+--purple-50:#EEEDFE;--purple-400:#7F77DD;--purple-600:#534AB7;--purple-800:#3C3489;
+--amber-50:#FAEEDA;--amber-400:#BA7517;--amber-600:#854F0B;--amber-800:#633806;
+--teal-50:#E6F4F1;--teal-400:#1D9E75;--teal-600:#0F6E56;--teal-800:#085041;
+--blue-50:#E6F1FB;--blue-400:#378ADD;--blue-600:#185FA5;--blue-800:#0C447C;
+--rose-50:#FDE8EC;--rose-600:#C81E3A;
+--accent:#854F0B;--accent-light:#FAEEDA;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text-primary);font-family:'DM Sans',-apple-system,sans-serif;line-height:1.6;font-size:17px;}
+.wrap{max-width:980px;margin:0 auto;padding:0 24px;}
+a{color:var(--accent);}
+.backlink{font-family:'JetBrains Mono',monospace;color:var(--text-tertiary);font-size:13px;text-decoration:none;display:inline-block;margin:24px 0 8px;}
+.backlink:hover{color:var(--accent);}
+header.page{padding:8px 0 28px;border-bottom:1px solid var(--border);}
+header.page h1{font-family:'DM Serif Display',Georgia,serif;font-size:42px;font-weight:400;line-height:1.1;margin-bottom:14px;}
+.badge{font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.05em;background:var(--accent-light);color:var(--accent-800);padding:5px 12px;border-radius:20px;display:inline-block;}
+.desc{color:var(--text-secondary);margin-top:14px;font-size:16px;max-width:680px;}
+nav.sticky{position:sticky;top:0;z-index:50;background:rgba(250,249,246,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);margin-bottom:8px;}
+nav.sticky .wrap{display:flex;gap:6px;overflow-x:auto;padding:10px 24px;}
+nav.sticky a{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-secondary);text-decoration:none;white-space:nowrap;padding:6px 11px;border-radius:6px;transition:background .15s;}
+nav.sticky a:hover{background:var(--accent-light);color:var(--accent-800);}
+section{padding:38px 0;border-bottom:1px solid var(--border-light);}
+section h2{font-family:'DM Serif Display',Georgia,serif;font-size:30px;font-weight:400;margin-bottom:8px;}
+section h3{font-family:'DM Sans',sans-serif;font-size:21px;font-weight:600;margin:28px 0 12px;color:var(--accent-800);}
+section h4{font-family:'JetBrains Mono',monospace;font-size:14px;text-transform:uppercase;letter-spacing:.04em;margin:22px 0 10px;color:var(--text-secondary);}
+p{margin-bottom:12px;}
+.lead{color:var(--text-secondary);font-size:15px;margin-bottom:18px;}
+.tag{font-family:'JetBrains Mono',monospace;font-size:11px;background:var(--bg-accent);color:var(--text-secondary);padding:3px 9px;border-radius:5px;text-transform:uppercase;letter-spacing:.03em;}
+
+/* SUMMARY hero */
+.hero{background:var(--bg-card);border:1px solid var(--border);border-top:4px solid var(--accent);border-radius:12px;padding:34px 32px;margin:28px 0;box-shadow:0 1px 3px rgba(0,0,0,.03);}
+.hero .label{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.05em;color:var(--accent);text-transform:uppercase;margin-bottom:10px;}
+.hero p{font-size:19px;line-height:1.55;color:var(--text-primary);margin:0;}
+
+/* KEY card */
+.key{background:var(--purple-50);border-left:4px solid var(--purple-600);border-radius:8px;padding:18px 22px;margin:18px 0;}
+.key .term{font-weight:700;color:var(--purple-800);}
+.key p{margin:0;color:var(--text-primary);}
+.key .label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--purple-600);display:block;margin-bottom:6px;}
+
+/* EXAM banner */
+.exam{background:var(--amber-50);border:1px solid var(--amber-400);border-radius:8px;padding:16px 20px 16px 48px;margin:18px 0;position:relative;}
+.exam::before{content:"⚠";position:absolute;left:18px;top:15px;font-size:18px;}
+.exam .label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--amber-800);display:block;margin-bottom:5px;}
+.exam p{margin:0;color:var(--amber-800);font-weight:500;}
+
+/* RECALL */
+.recall-grid{display:grid;gap:14px;}
+.recall{background:var(--teal-50);border-left:4px solid var(--teal-600);border-radius:8px;padding:16px 20px 16px 46px;position:relative;}
+.recall::before{content:"?";position:absolute;left:18px;top:14px;font-family:'DM Serif Display',serif;font-size:22px;color:var(--teal-600);}
+.recall p{margin:0;color:var(--teal-800);}
+
+/* cards grid */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:18px 0;}
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:20px;}
+.card h5{font-family:'DM Sans',sans-serif;font-size:17px;font-weight:700;margin-bottom:8px;color:var(--accent-800);}
+.card ul{list-style:none;padding:0;margin:0;}
+.card ul li{padding:4px 0 4px 16px;position:relative;font-size:15px;color:var(--text-secondary);}
+.card ul li::before{content:"";position:absolute;left:0;top:12px;width:6px;height:6px;border-radius:50%;background:var(--accent-400);}
+.card ul li strong{color:var(--text-primary);}
+.sub{margin-left:14px;padding-left:14px;border-left:2px solid var(--border-light);margin-top:6px;}
+.sub li::before{background:var(--text-tertiary);width:4px;height:4px;top:13px;}
+
+/* two-col BP */
+.bp-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0;}
+.bp-col{border-radius:10px;padding:20px;border:1px solid var(--border);}
+.bp-col.ativo{background:var(--blue-50);border-color:var(--blue-400);}
+.bp-col.passivo{background:var(--amber-50);border-color:var(--amber-400);}
+.bp-col h5{font-family:'DM Serif Display',serif;font-size:22px;font-weight:400;margin-bottom:4px;}
+.bp-col .note{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary);margin-bottom:12px;}
+.bp-block{background:rgba(255,255,255,.55);border-radius:8px;padding:12px 14px;margin-bottom:10px;}
+.bp-block .head{font-weight:700;font-size:15px;}
+.warn-note{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--rose-600);display:block;margin-top:2px;}
+.bp-block ul{list-style:none;padding:0;margin:8px 0 0;}
+.bp-block ul li{font-size:14px;color:var(--text-secondary);padding:2px 0 2px 14px;position:relative;}
+.bp-block ul li::before{content:"–";position:absolute;left:0;color:var(--text-tertiary);}
+
+/* stepper */
+.stepper{margin:18px 0;}
+.step{display:flex;gap:16px;padding:12px 0;}
+.step-num{flex:0 0 38px;height:38px;border-radius:50%;background:var(--accent);color:#fff;font-family:'JetBrains Mono',monospace;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:15px;}
+.step-body h5{font-size:17px;font-weight:700;margin-bottom:4px;}
+.step-body p{margin:0;font-size:15px;color:var(--text-secondary);}
+.step-body ul{margin:6px 0 0;padding-left:18px;font-size:14px;color:var(--text-secondary);}
+
+/* DRE waterfall table */
+.dre-table{width:100%;border-collapse:collapse;margin:18px 0;font-size:15px;}
+.dre-table td{padding:9px 14px;border-bottom:1px solid var(--border-light);}
+.dre-table .op{font-family:'JetBrains Mono',monospace;color:var(--text-tertiary);width:50px;text-align:center;}
+.dre-table tr.total{background:var(--amber-50);font-weight:700;}
+.dre-table tr.total td{color:var(--amber-800);}
+.dre-table .ind{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);}
+.dre-table ul{margin:4px 0 0;padding-left:16px;font-size:13px;color:var(--text-secondary);}
+
+/* generic table */
+table.t{width:100%;border-collapse:collapse;margin:16px 0;font-size:15px;}
+table.t th{background:var(--accent);color:#fff;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.03em;padding:11px 14px;text-align:left;}
+table.t td{padding:11px 14px;border-bottom:1px solid var(--border-light);vertical-align:top;}
+table.t tr:nth-child(even) td{background:var(--bg-surface);}
+table.t .formula{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--accent-800);}
+
+/* indicator card */
+.ind-card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:18px 20px;margin:14px 0;}
+.ind-card h5{font-size:17px;font-weight:700;color:var(--accent-800);margin-bottom:4px;}
+.ind-card .formula{font-family:'JetBrains Mono',monospace;font-size:13px;background:var(--bg-surface);padding:6px 10px;border-radius:6px;display:inline-block;margin:4px 0 10px;color:var(--text-primary);}
+.ind-card ul{margin:0;padding-left:18px;font-size:14px;color:var(--text-secondary);}
+.ind-card ul li{margin-bottom:4px;}
+
+/* parametros mini-table */
+.param{display:grid;grid-template-columns:auto 1fr;gap:0;margin:8px 0;border:1px solid var(--border-light);border-radius:6px;overflow:hidden;font-size:14px;}
+.param div{padding:7px 12px;border-bottom:1px solid var(--border-light);}
+.param div:nth-child(odd){background:var(--bg-surface);font-family:'JetBrains Mono',monospace;font-weight:500;}
+.param div:last-child,.param div:nth-last-child(2){border-bottom:none;}
+
+@media(max-width:640px){
+header.page h1{font-size:32px;}
+.bp-grid{grid-template-columns:1fr;}
+.dre-table .op{width:40px;}
+.hero p{font-size:17px;}
+section h2{font-size:25px;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="backlink" href="../">← FGV MBA</a>
+<header class="page">
+<h1>Análise de Demonstrativos Contábeis</h1>
+<span class="badge">✓ Concluído</span>
+<p class="desc">Balanço patrimonial, DRE, indicadores de liquidez, alavancagem e rentabilidade.</p>
+</header>
+</div>
+
+<nav class="sticky">
+<div class="wrap">
+<a href="#bp">Balanço Patrimonial</a>
+<a href="#dre">DRE</a>
+<a href="#estoques">Estoques</a>
+<a href="#ind-dre">Indicadores DRE</a>
+<a href="#dre-ifrs">DRE IFRS</a>
+<a href="#bp-ifrs">BP IFRS</a>
+<a href="#fundamentalista">Análise Fundamentalista</a>
+<a href="#rentabilidade">Rentabilidade</a>
+<a href="#diagnostico">Diagnóstico</a>
+<a href="#recall">Recall</a>
+</div>
+</nav>
+
+<div class="wrap">
+
+<div class="hero">
+<span class="label">Resumo da Disciplina</span>
+<p>Esta disciplina apresenta a análise das demonstrações financeiras (Balanço Patrimonial e DRE) sob o padrão IFRS, com foco na extração e interpretação de indicadores de liquidez, alavancagem, lucratividade e rentabilidade. O aluno deve dominar a estrutura dos relatórios, o cálculo de indicadores (ROI, ROE, margens, liquidez, dívida líquida/EBITDA) e a análise fundamentalista para diagnóstico da saúde econômico-financeira da empresa.</p>
+</div>
+
+<section id="bp">
+<h2>Balanço Patrimonial</h2>
+<p class="lead">Relatório <strong>Financeiro</strong>, dividido em Ativo e Passivo.</p>
+<div class="key">
+<span class="label">Conceito-chave</span>
+<p><span class="term">Balanço Patrimonial (BP):</span> demonstração contábil que retrata a posição financeira da empresa em um dado momento, equilibrando duas dimensões — o Ativo (onde o dinheiro é aplicado) e o Passivo (de onde o dinheiro é captado). O Ativo evidencia a destinação dos recursos, enquanto o Passivo evidencia a origem desses recursos, seja de terceiros ou próprio.</p>
+</div>
+<div class="bp-grid">
+<div class="bp-col ativo">
+<h5>Ativo</h5>
+<div class="note">Onde o dinheiro é APLICADO</div>
+<div class="bp-block">
+<div class="head">Capital de Giro</div>
+<span class="warn-note">Aplicação de recurso em itens com liquidez</span>
+<ul><li>Caixa e Equivalentes</li><li>Aplicações Financeiras</li><li>Estoque</li><li>Clientes</li></ul>
+</div>
+<div class="bp-block">
+<div class="head">Ativo Fixo</div>
+<ul><li>Imóveis</li><li>Móveis e utensílios</li></ul>
+</div>
+</div>
+<div class="bp-col passivo">
+<h5>Passivo</h5>
+<div class="note">De onde é CAPTADO o dinheiro</div>
+<div class="bp-block">
+<div class="head">Capital de Terceiro</div>
+<ul><li>Fornecedores</li></ul>
+</div>
+<div class="bp-block">
+<div class="head">Capital Próprio</div>
+<ul><li>Sócios e Acionistas</li></ul>
+</div>
+</div>
+</div>
+</section>
+
+<section id="dre">
+<h2>DRE</h2>
+<p class="lead">Relatório <strong>Econômico</strong>.</p>
+<div class="key">
+<span class="label">Conceito-chave</span>
+<p><span class="term">DRE (Demonstração do Resultado do Exercício):</span> relatório econômico que evidencia a formação do resultado da empresa em um período, partindo da receita bruta e deduzindo custos, despesas e impostos até chegar ao lucro líquido. Seu objetivo central é evidenciar a situação econômica para análise de <strong>lucratividade</strong>.</p>
+</div>
+</section>
+
+<section id="estoques">
+<h2>Estrutura de Estoques na Indústria</h2>
+<p class="lead">O estoque na indústria se divide em três etapas sequenciais até a venda.</p>
+<div class="stepper">
+<div class="step">
+<div class="step-num">1</div>
+<div class="step-body">
+<h5>EMP — Estoque Matéria Prima</h5>
+<ul><li>Compra de Matéria prima</li><li>Matéria prima consumida</li></ul>
+</div>
+</div>
+<div class="step">
+<div class="step-num">2</div>
+<div class="step-body">
+<h5>EPP — Estoque Produto em Produção</h5>
+<p>Apropriação de custos:</p>
+<ul><li>Matéria Prima</li><li>Mão de Obra</li><li>Gastos Gerais Fabricação: Depreciação, Manutenção, Energia, Combustível, Insumos</li></ul>
+</div>
+</div>
+<div class="step">
+<div class="step-num">3</div>
+<div class="step-body">
+<h5>EPA — Estoque Produto Acabado</h5>
+<ul><li>Produto Acabado (Disponível pra venda)</li></ul>
+</div>
+</div>
+</div>
+<div class="exam">
+<span class="label">Atenção — Prova</span>
+<p>O impacto no resultado (DRE) somente ocorrerá em função do <strong>giro do estoque</strong>, que se dá quando ocorre a venda do produto acabado.</p>
+</div>
+</section>
+
+<section id="ind-dre">
+<h2>Indicadores da DRE</h2>
+<p class="lead">Aplicação dos indicadores para avaliação econômica — foco: DRE. Objetivo da DRE: evidenciar a situação econômica para análise de <strong>LUCRATIVIDADE</strong>.</p>
+<p>Temos 4 indicadores oficiais extraídos da DRE, sendo <strong>3 contábeis e 1 extracontábil</strong>. Por que contábil e extracontábil? Os contábeis vêm de linhas da DRE, enquanto o EBITDA vem da análise da DRE como um todo.</p>
+
+<div class="key">
+<span class="label">Conceito-chave</span>
+<p><span class="term">Margem Bruta (ou Markup):</span> indicador calculado como Lucro Bruto ÷ Receita de Vendas. Representa a lucratividade auferida exclusivamente sobre o produto e/ou serviço comercializado (core business). É o que sobra do faturamento para cobrir a operação (overhead/despesas operacionais) e ainda gerar lucro.</p>
+</div>
+
+<div class="cards">
+<div class="card">
+<h5>Margem Bruta / Markup</h5>
+<ul>
+<li><strong>Vem da linha:</strong> Lucro Bruto</li>
+<li>Lucro Bruto ÷ Receita de Vendas</li>
+<li>Lucratividade exclusiva sobre o Produto/serviço — Core Business</li>
+<li>É o que sobra para cobrir o overhead (despesas operacionais) e ainda dar lucro</li>
+</ul>
+</div>
+<div class="card">
+<h5>Margem Operacional</h5>
+<ul>
+<li><strong>Vem da linha:</strong> LAIR (Lucro antes do imposto de renda)</li>
+<li>LAIR ÷ Receita de Vendas</li>
+<li>Mede a eficiência do negócio</li>
+</ul>
+</div>
+<div class="card">
+<h5>Margem Líquida</h5>
+<ul><li><strong>Vem da linha:</strong> Lucro Líquido</li></ul>
+</div>
+<div class="card">
+<h5>EBITDA <span class="tag">Extracontábil</span></h5>
+<ul><li>Vem da análise da DRE como um todo</li></ul>
+</div>
+</div>
+
+<div class="key">
+<span class="label">Conceito-chave</span>
+<p><span class="term">Margem Operacional:</span> indicador calculado como LAIR (Lucro Antes do Imposto de Renda) ÷ Receita de Vendas. Mede a eficiência do negócio e é amplamente adotado para análise setorial.</p>
+</div>
+<div class="exam">
+<span class="label">Atenção — Prova</span>
+<p>A Margem Operacional é um índice amplamente adotado para <strong>análise setorial</strong>.</p>
+</div>
+
+<h3>Indicadores de Custeio</h3>
+<div class="cards">
+<div class="card"><h5>Custo da matéria prima</h5></div>
+<div class="card"><h5>Custo Fabril / Fabricação</h5></div>
+<div class="card"><h5>Custo dos produtos fabricados</h5></div>
+<div class="card"><h5>Custo dos produtos vendidos</h5></div>
+<div class="card"><h5>Custo de Conversão</h5></div>
+</div>
+</section>
+
+<section id="dre-ifrs">
+<h2>DRE — Padrão Contábil Internacional (IFRS)</h2>
+<table class="dre-table">
+<tr><td class="op"></td><td>Receita bruta de venda de bens e/ou serviços</td></tr>
+<tr><td class="op">(−)</td><td>Deduções:
+<ul><li>Impostos sobre vendas (ICMS/ISS/IPI/PIS/COFINS)</li><li>Abatimentos comerciais (descontos concedidos no ato da venda)</li><li>Devoluções</li></ul>
+</td></tr>
+<tr><td class="op">(=)</td><td>Receita líquida de venda de bens e/ou serviços <strong>(FATURAMENTO EFETIVO)</strong></td></tr>
+<tr><td class="op">(−)</td><td>Custo dos bens e serviços vendidos</td></tr>
+<tr class="total"><td class="op">(=)</td><td>Lucro Bruto <span class="ind">→ Margem Bruta OU Markup</span></td></tr>
+<tr><td class="op">(−)</td><td>Despesas Operacionais:
+<ul><li>Com Vendas</li><li>Gerais e administrativas</li><li>Resultado com equivalência patrimonial (resultado gerado pelas investidas)</li></ul>
+</td></tr>
+<tr><td class="op">(+/−)</td><td>Resultado antes do resultado financeiro e dos tributos</td></tr>
+<tr class="total"><td class="op">(=)</td><td>Resultado antes dos tributos sobre o lucro <strong>("LAIR")</strong></td></tr>
+<tr><td class="op">(−)</td><td>IR e CSLL</td></tr>
+<tr class="total"><td class="op">(=)</td><td>Lucro Líquido</td></tr>
+</table>
+</section>
+
+<section id="bp-ifrs">
+<h2>BP — Padrão Contábil Internacional (IFRS)</h2>
+<div class="exam">
+<span class="label">Atenção — Prova</span>
+<p>No BP em IFRS, os termos <strong>Capital de Giro</strong>, <strong>Ativo Fixo</strong>, <strong>Capital de Terceiros</strong> e <strong>Capital Próprio</strong> NÃO aparecem nas demonstrações — são apenas conhecimento conceitual. A estrutura formal usa Ativo Circulante/Não Circulante, Passivo Circulante/Não Circulante e Patrimônio Líquido.</p>
+</div>
+<div class="bp-grid">
+<div class="bp-col ativo">
+<h5>Ativo Total</h5>
+<div class="note">Aplicação $</div>
+<div class="bp-block">
+<div class="head">Capital de Giro<span class="warn-note">ISSO NÃO TEM NO BP! É SÓ CONHECIMENTO!</span></div>
+<ul>
+<li><strong>Ativo Circulante:</strong></li>
+<li>Disponível (Caixa e equivalentes de caixa)</li>
+<li>Aplicações financeiras</li>
+<li>Clientes</li>
+<li>Estoque</li>
+<li>Impostos a recuperar</li>
+</ul>
+</div>
+<div class="bp-block">
+<div class="head">Ativo Fixo<span class="warn-note">ISSO NÃO TEM NO BP! É SÓ CONHECIMENTO!</span></div>
+<ul>
+<li><strong>Ativo não circulante:</strong></li>
+<li>Realizável a longo prazo (capital de giro que se realiza em mais de 12 meses)</li>
+<li>Investimentos (M&A)</li>
+<li>Imobilizado</li>
+<li>Intangível (marcas, patentes, "goodwill", etc)</li>
+</ul>
+</div>
+</div>
+<div class="bp-col passivo">
+<h5>Passivo Total</h5>
+<div class="note">Captação $</div>
+<div class="bp-block">
+<div class="head">Capital de Terceiros<span class="warn-note">ISSO NÃO TEM NO BP! É SÓ CONHECIMENTO!</span></div>
+<ul>
+<li><strong>Passivo Circulante</strong> (vence a curto prazo - até 12 meses):</li>
+<li>Provisões Sociais e trabalhistas</li>
+<li>Fornecedores</li>
+<li>Provisões fiscais, Empréstimos e financiamentos</li>
+<li>Dividendos</li>
+<li><strong>Passivo Não Circulante</strong> (vence a longo prazo - após 12 meses):</li>
+<li>Provisões Sociais e trabalhistas</li>
+<li>Fornecedores</li>
+<li>Provisões fiscais, Empréstimos e financiamentos</li>
+<li>Dividendos</li>
+</ul>
+</div>
+<div class="bp-block">
+<div class="head">Capital Próprio<span class="warn-note">ISSO NÃO TEM NO BP! É SÓ CONHECIMENTO!</span></div>
+<ul>
+<li><strong>Patrimônio Líquido:</strong></li>
+<li>Capital Social</li>
+<li>Reserva de lucros</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+<section id="fundamentalista">
+<h2>Análise Fundamentalista</h2>
+<div class="key">
+<span class="label">Conceito-chave</span>
+<p><span class="term">Análise Fundamentalista:</span> método de avaliação da empresa a partir de suas demonstrações financeiras, sustentado em dois parâmetros fundamentais: Fidedignidade (garantida pelo Relatório dos Auditores Independentes) e Comparabilidade (exige no mínimo 2 exercícios sociais para permitir análise de tendências).</p>
+</div>
+<div class="cards">
+<div class="card"><h5>Fidedignidade</h5><ul><li>Garantida pelo Relatório dos Auditores Independentes</li></ul></div>
+<div class="card"><h5>Comparabilidade</h5><ul><li>No mínimo 2 exercícios sociais</li><li>Permite análise de tendências</li></ul></div>
+</div>
+
+<h3>Indicadores Financeiros (BP)</h3>
+
+<h4>Liquidez / Solvência</h4>
+<div class="ind-card">
+<h5>Liquidez Imediata</h5>
+<span class="formula">Disponível ÷ Passivo Circulante</span>
+<ul>
+<li>Avalia gestão de fluxo de caixa</li>
+<li>O que é disponível? <strong>Caixa e equivalente de caixa!</strong></li>
+<li>Quanto mais próximo de zero, MELHOR!</li>
+<li>Aceitável – até no máximo 0,10 (10%)</li>
+<li>Quanto maior, mostra que a empresa aplica mais dinheiro em tesouraria AO INVÉS do giro operacional. Isso é RUIM!</li>
+</ul>
+</div>
+<div class="exam">
+<span class="label">Atenção — Prova</span>
+<p>Na Liquidez Imediata, quanto <strong>mais próximo de zero, melhor</strong> (aceitável até no máximo 0,10 / 10%). Um índice alto indica dinheiro parado em tesouraria em vez do giro operacional — o que é ruim.</p>
+</div>
+
+<div class="ind-card">
+<h5>Liquidez Corrente</h5>
+<span class="formula">Ativo Circulante ÷ Passivo Circulante</span>
+<ul>
+<li>Mede capacidade de pagamento</li>
+<li>Se der 1: para cada R$1 de dívida de curto prazo, há R$1 no ativo circulante para pagar. Está no "breakeven" — "trabalha de graça"</li>
+<li>Acima de 1: Folga financeira!</li>
+<li>Análise: estar CHEIO/INCHADO de estoque faz a liquidez subir e parecer "boa", mas num mercado hipercompetitivo isso deixa o indicador "míope"</li>
+</ul>
+</div>
+
+<div class="ind-card">
+<h5>Liquidez Seca</h5>
+<span class="formula">(Ativo Circulante − Estoque) ÷ Passivo Circulante</span>
+<ul><li>Aqui estamos "descontando" o estoque!</li></ul>
+</div>
+
+<div class="key">
+<span class="label">Conceito-chave</span>
+<p><span class="term">GDE (Grau de Dependência do Estoque):</span> mede o quanto a liquidez da empresa depende dos estoques. Calculado como (Liquidez Corrente − Liquidez Seca) ÷ Liquidez Corrente. Parâmetros aceitáveis: até 40% para comércio/serviço e até 50% para indústria.</p>
+</div>
+
+<div class="ind-card">
+<h5>GDE — Grau de Dependência do Estoque</h5>
+<span class="formula">(Liquidez Corrente − Liquidez Seca) ÷ Liquidez Corrente</span>
+<div class="param">
+<div>Comércio / Serviço</div><div>Aceitável GDE de no máximo 40%</div>
+<div>Indústria</div><div>Aceitável GDE até 50%</div>
+</div>
+</div>
+
+<div class="ind-card">
+<h5>Liquidez Geral</h5>
+<span class="formula">(Ativo Circulante + Realizável LP) ÷ (Passivo Circulante + Passivo Não Circulante)</span>
+<ul>
+<li>Complementa a análise de liquidez</li>
+<li>Quando há discrepância com a liquidez corrente, com a liquidez geral caindo muito, sinaliza que grande parte do endividamento está alocado em longo prazo — o que é bom para o negócio</li>
+</ul>
+</div>
+
+<h4>Alavancagem Financeira / Risco</h4>
+<div class="ind-card">
+<h5>Endividamento Geral</h5>
+<span class="formula">Capital de Terceiros ÷ Ativo Total</span>
+<ul>
+<li>Capital de terceiros = Passivo Circulante + Passivo Não Circulante</li>
+<li>Quanto maior, maior o grau de alavancagem — mais dependente de capital de terceiros</li>
+<li>Operar alavancado não é problema, mas para ser confortável precisa de PRAZO! Quanto mais alongado o perfil do endividamento, mais barato o capital</li>
+<li>Operar com capital próprio é muito caro — mais caro que operar alavancado (com capital de terceiros), principalmente a longo prazo</li>
+</ul>
+</div>
+<div class="exam">
+<span class="label">Atenção — Prova</span>
+<p>Operar <strong>alavancado não é problema</strong>, desde que haja PRAZO. Quanto mais alongado o perfil do endividamento, mais barato o capital. Operar com capital próprio é mais caro do que operar com capital de terceiros a longo prazo.</p>
+</div>
+
+<div class="ind-card">
+<h5>Composição da Dívida</h5>
+<span class="formula">Passivo Circulante ÷ Capital de Terceiros Total</span>
+<ul>
+<li>Diz quanto da alavancagem está no curto prazo</li>
+<li>Parâmetro: abaixo de 0,5 (50%) é bom</li>
+</ul>
+</div>
+
+<div class="ind-card">
+<h5>Grau de Imobilização do Capital Próprio</h5>
+<span class="formula">Ativo Permanente ÷ Patrimônio Líquido</span>
+<ul>
+<li><strong>Ativo Permanente</strong> = Investimentos + Imobilizado + Intangível</li>
+<li>Índice menor que 1: a empresa tem capital próprio suficiente para cobrir o ativo permanente</li>
+<li>Considerando o longo prazo: Ativo Permanente ÷ (Patrimônio Líquido + Passivo Não Circulante)</li>
+<li>Se maior que 1, a empresa recorreu à dívida de curto prazo e mesmo assim não cobre os investimentos (ativo permanente)</li>
+</ul>
+</div>
+
+<h4>Ratio: Dívida Líquida sobre EBITDA</h4>
+<div class="key">
+<span class="label">Conceito-chave</span>
+<p><span class="term">Dívida Líquida / EBITDA:</span> indicador que mede quantos anos de geração de caixa a empresa necessita para cobrir sua dívida líquida total. A Dívida Líquida = Dívida bruta de curto e longo prazo − Caixa e Equivalentes de caixa.</p>
+</div>
+<div class="ind-card">
+<h5>Dívida Líquida / EBITDA</h5>
+<ul>
+<li><strong>O que mede:</strong> quantos anos de geração de CAIXA a empresa necessita para cobrir sua dívida líquida total</li>
+<li><strong>Dívida líquida</strong> = Dívida bruta de curto e longo prazo − Caixa e Equivalentes de caixa</li>
+<li><strong>Onde pegar:</strong> Relatório da administração / Comentário de desempenho (na B3 para empresas listadas)</li>
+</ul>
+<div class="param">
+<div>Até 2</div><div>Baixo fator de risco e elevada capacidade de solvência</div>
+<div>Entre 2 e 3</div><div>Risco moderado</div>
+<div>Acima de 3</div><div>Elevado fator de risco e possível insolvência</div>
+</div>
+</div>
+
+<h3>Indicadores Econômicos (DRE)</h3>
+<p>Lucratividade.</p>
+</section>
+
+<section id="rentabilidade">
+<h2>Rentabilidade — ROI e ROE</h2>
+<p class="lead">Avaliação conjunta da DRE com o BP.</p>
+
+<div class="key">
+<span class="label">Conceito-chave</span>
+<p><span class="term">ROI (Return on Investments):</span> retorno sobre o investimento total da empresa, calculado como Lucro Líquido ÷ Ativo Total. Funciona como payback — quanto tempo a empresa leva para retornar o investimento total. Parâmetros: Serviço 10–15 anos, Comércio 15–20 anos, Indústria 20–25 anos.</p>
+</div>
+<div class="ind-card">
+<h5>ROI — Return on Investments</h5>
+<span class="formula">Lucro Líquido ÷ Ativo Total</span>
+<ul><li>Payback: retorno sobre o investimento TOTAL da empresa</li></ul>
+<div class="param">
+<div>Serviço</div><div>10 a 15 anos</div>
+<div>Comércio</div><div>15 a 20 anos</div>
+<div>Indústria</div><div>20 a 25 anos</div>
+</div>
+</div>
+
+<div class="key">
+<span class="label">Conceito-chave</span>
+<p><span class="term">ROE (Return on Equity):</span> retorno sobre o capital próprio, calculado como Lucro Líquido ÷ Patrimônio Líquido. Mede o custo de oportunidade do capital, tendo como referência os Títulos do Tesouro Nacional. Para ser viável, a empresa deve gerar rendimento superior ao rendimento real do Tesouro.</p>
+</div>
+<div class="ind-card">
+<h5>ROE — Return on Equity (Retorno sobre o capital próprio)</h5>
+<span class="formula">Lucro Líquido ÷ Patrimônio Líquido</span>
+<ul>
+<li>Mede o Custo de oportunidade do capital</li>
+<li>Parâmetro: Títulos do Tesouro Nacional</li>
+<li>Em 2025: 18,6%. Porém, desconta a inflação (IPCA) de 4,26% → Rendimento Real do Tesouro Nacional: 14,34%</li>
+<li>SE a empresa não pagar mais do que o rendimento real do tesouro, é inviável</li>
+<li>Exemplo da Raia Drogasil: 18% em 2025</li>
+<li>De nada adianta auferir lucro se não houver geração de valor aos acionistas. O rendimento líquido gerado aos investidores deve, no mínimo, superar os títulos do Tesouro Nacional</li>
+</ul>
+</div>
+<div class="exam">
+<span class="label">Atenção — Prova</span>
+<p>De nada adianta auferir lucro se não houver <strong>geração de valor aos acionistas</strong>: o rendimento líquido (ROE) deve, no mínimo, superar o rendimento real dos Títulos do Tesouro Nacional, caso contrário o negócio é inviável.</p>
+</div>
+</section>
+
+<section id="diagnostico">
+<h2>Diagnóstico e Sugestões</h2>
+<div class="key">
+<span class="label">Conceito-chave</span>
+<p><span class="term">Debêntures:</span> títulos de crédito de longo prazo emitidos pela empresa, nos quais o investidor torna-se credor. Além de juros e participação nos resultados, algumas debêntures podem ser conversíveis em ações, transformando o credor em investidor. São uma forma de alongar o perfil de endividamento de curto prazo.</p>
+</div>
+<p>Para empresas com alto grau de alavancagem de curto prazo, para "converter" isso com as próprias pernas, é possível a emissão de <strong>debêntures</strong> — títulos de crédito de longo prazo onde você vira um "credor" da empresa. Além de juros e participação nos resultados, algumas podem ser conversíveis em ações, e aí o credor eventualmente vira investidor!</p>
+</section>
+
+<section id="recall">
+<h2>Perguntas de Recall</h2>
+<div class="recall-grid">
+<div class="recall"><p>Qual a diferença fundamental entre o Ativo e o Passivo no Balanço Patrimonial em termos de aplicação e captação de recursos?</p></div>
+<div class="recall"><p>Como se calcula a Margem Bruta (Markup) e o que ela representa em relação ao core business da empresa?</p></div>
+<div class="recall"><p>Por que na Liquidez Imediata o ideal é o índice ser o mais próximo possível de zero, e qual o limite aceitável?</p></div>
+<div class="recall"><p>Como se calcula o GDE (Grau de Dependência do Estoque) e quais os parâmetros aceitáveis para comércio/serviço e para indústria?</p></div>
+<div class="recall"><p>O que mede o indicador Dívida Líquida/EBITDA e quais os parâmetros de risco para valores até 2, entre 2 e 3, e acima de 3?</p></div>
+<div class="recall"><p>Por que o ROE deve superar o rendimento real dos Títulos do Tesouro Nacional para que o negócio seja considerado viável?</p></div>
+</div>
+</section>
+
+</div>
+</body>
+</html>

@@ -1,1 +1,172 @@
-<!DOCTYPE html><html lang="pt-BR"><head><title>T — FGV MBA</title></head><body><p>mock</p></body></html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transformação Digital — FGV MBA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+--bg:#FAF9F6;--bg-card:#FFFFFF;--bg-surface:#F3F1EC;--bg-accent:#E8E4DB;
+--text-primary:#1A1A18;--text-secondary:#5C5B56;--text-tertiary:#8A8985;
+--border:#DDD9D0;--border-light:#ECEAE4;
+--purple-50:#EEEDFE;--purple-400:#7F77DD;--purple-600:#534AB7;--purple-800:#3C3489;
+--amber-50:#FAEEDA;--amber-400:#BA7517;--amber-600:#854F0B;--amber-800:#633806;
+--teal-50:#E6F4F1;--teal-400:#1D9E75;--teal-600:#0F6E56;--teal-800:#085041;
+--blue-50:#E6F1FB;--blue-400:#378ADD;--blue-600:#185FA5;--blue-800:#0C447C;
+--rose-50:#FDE8EC;--rose-600:#C81E3A;
+--accent:#185FA5;--accent-light:#E6F1FB;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text-primary);font-family:'DM Sans',-apple-system,sans-serif;line-height:1.6;}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px;}
+a{color:inherit;}
+.backlink{font-family:'JetBrains Mono',monospace;color:var(--text-tertiary);font-size:.8rem;text-decoration:none;display:inline-block;margin:28px 0 0;}
+.backlink:hover{color:var(--accent);}
+header.page{padding:24px 0 28px;border-bottom:1px solid var(--border);}
+header.page h1{font-family:'DM Serif Display',Georgia,serif;font-size:2.6rem;line-height:1.1;margin-bottom:14px;color:var(--text-primary);}
+.badge{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;background:var(--accent-light);color:var(--blue-800);padding:5px 12px;border-radius:20px;display:inline-block;}
+.desc{color:var(--text-secondary);margin-top:14px;font-size:1.02rem;}
+nav.sticky{position:sticky;top:0;z-index:10;background:rgba(250,249,246,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);margin-bottom:32px;}
+nav.sticky .wrap{display:flex;gap:8px;flex-wrap:wrap;padding-top:12px;padding-bottom:12px;}
+nav.sticky a{font-family:'JetBrains Mono',monospace;font-size:.74rem;text-decoration:none;color:var(--text-secondary);padding:5px 11px;border-radius:6px;transition:.15s;}
+nav.sticky a:hover{background:var(--accent-light);color:var(--blue-800);}
+section{margin-bottom:48px;}
+h2{font-family:'DM Serif Display',Georgia,serif;font-size:1.9rem;margin-bottom:20px;padding-bottom:8px;border-bottom:2px solid var(--accent-light);}
+h3{font-family:'DM Sans',sans-serif;font-weight:700;font-size:1.15rem;margin:24px 0 14px;color:var(--text-primary);}
+p{margin-bottom:14px;color:var(--text-secondary);}
+.note{font-style:italic;color:var(--text-tertiary);font-size:.92rem;}
+/* hero summary */
+.hero{background:var(--bg-card);border-top:4px solid var(--accent);border-radius:10px;padding:32px 30px;margin:0 0 40px;box-shadow:0 2px 10px rgba(0,0,0,.03);}
+.hero .label{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}
+.hero p{font-size:1.12rem;color:var(--text-primary);margin:0;line-height:1.65;}
+/* key card */
+.key{background:var(--purple-50);border-left:4px solid var(--purple-600);border-radius:8px;padding:18px 22px;margin:18px 0;}
+.key .label{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--purple-600);margin-bottom:8px;}
+.key p{color:var(--text-primary);margin:0;}
+.key strong{color:var(--purple-800);}
+/* exam */
+.exam{background:var(--amber-50);border:1px solid var(--amber-400);border-radius:8px;padding:18px 22px;margin:18px 0;display:flex;gap:14px;}
+.exam .icon{font-size:1.3rem;color:var(--amber-600);line-height:1.3;}
+.exam .label{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--amber-800);margin-bottom:6px;}
+.exam p{color:var(--amber-800);margin:0;}
+.exam strong{color:var(--amber-800);}
+/* VUCA grid 2x2 */
+.vuca-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+.vuca-cell{border-radius:10px;padding:20px;border:1px solid var(--border-light);}
+.vuca-cell h4{font-family:'DM Serif Display',Georgia,serif;font-size:1.2rem;margin-bottom:8px;}
+.vuca-cell p{margin:0;font-size:.94rem;}
+.vc1{background:var(--blue-50);}.vc1 h4{color:var(--blue-800);}
+.vc2{background:var(--teal-50);}.vc2 h4{color:var(--teal-800);}
+.vc3{background:var(--amber-50);}.vc3 h4{color:var(--amber-800);}
+.vc4{background:var(--purple-50);}.vc4 h4{color:var(--purple-800);}
+/* recall */
+.recall-wrap{display:grid;gap:12px;}
+.recall{background:var(--teal-50);border-left:4px solid var(--teal-600);border-radius:8px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start;}
+.recall .q{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--teal-600);line-height:1;}
+.recall p{margin:0;color:var(--teal-800);font-weight:500;}
+.recall-head{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--teal-600);margin-bottom:14px;}
+@media(max-width:640px){
+header.page h1{font-size:2rem;}
+.vuca-grid{grid-template-columns:1fr;}
+h2{font-size:1.5rem;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="backlink" href="../">← FGV MBA</a>
+<header class="page">
+<h1>Transformação Digital</h1>
+<span class="badge">● Em andamento</span>
+<p class="desc">Mundo VUCA, BANI e os 8 pilares da transformação digital nas organizações.</p>
+</header>
+</div>
+
+<nav class="sticky">
+<div class="wrap">
+<a href="#contexto">Contexto VUCA/BANI</a>
+<a href="#pilares">8 Pilares</a>
+<a href="#recall">Recall</a>
+</div>
+</nav>
+
+<div class="wrap">
+
+<div class="hero">
+<div class="label">Resumo da disciplina</div>
+<p>Esta disciplina aborda como o ambiente de negócios contemporâneo, caracterizado pelo mundo VUCA e seus desdobramentos no BANI, exige das organizações uma resposta estruturada por meio da Transformação Digital. O aluno deve dominar as quatro dimensões do VUCA aplicadas a casos práticos e os 8 Pilares da Transformação Digital.</p>
+</div>
+
+<section id="contexto">
+<h2>Contexto: O Ambiente de Negócios Atual</h2>
+<p>Vivemos no mundo VUCA, o que causa o BANI.</p>
+
+<div class="key">
+<div class="label">Conceito-chave</div>
+<p><strong>VUCA</strong> é um acrônimo (Volatility, Uncertainty, Complexity, Ambiguity) que descreve o ambiente de negócios marcado por volatilidade, incerteza, complexidade e ambiguidade. Ele caracteriza cenários instáveis e de difícil previsão, exigindo das organizações capacidade de adaptação contínua.</p>
+</div>
+
+<div class="key">
+<div class="label">Conceito-chave</div>
+<p><strong>BANI</strong> (Brittle, Anxious, Nonlinear, Incomprehensible) é um modelo que evolui da lógica VUCA, descrevendo um mundo frágil, ansioso, não linear e incompreensível. Surge como consequência das condições impostas pelo ambiente VUCA.</p>
+</div>
+
+<h3>Dimensões do VUCA Aplicadas</h3>
+<div class="vuca-grid">
+<div class="vuca-cell vc1">
+<h4>Volatilidade</h4>
+<p>O rápido avanço da IA pode impactar e substituir os produtos que vendemos.</p>
+</div>
+<div class="vuca-cell vc2">
+<h4>Incerteza</h4>
+<p>Mudanças regulatórias causam incerteza ao dar suporte à gestão dos clientes.</p>
+</div>
+<div class="vuca-cell vc3">
+<h4>Complexidade</h4>
+<p>A interdependência das tecnologias das novas arquiteturas modernas para nossos produtos pode impactar nossos resultados.</p>
+</div>
+<div class="vuca-cell vc4">
+<h4>Ambiguidade</h4>
+<p>Diferenças nos conceitos de flexibilidade, facilidade e acessibilidade nos produtos (flexível para o cliente pode ser caótico para a empresa).</p>
+</div>
+</div>
+</section>
+
+<section id="pilares">
+<h2>8 Pilares da Transformação Digital</h2>
+
+<div class="exam">
+<div class="icon">⚠</div>
+<div>
+<div class="label">Atenção — prova</div>
+<p>Os <strong>8 Pilares/Eixos da Transformação Digital</strong> têm potencial para cair na prova, provavelmente contextualizando uma situação e pedindo explicação. Prepare-se para descrever e aplicar cada pilar.</p>
+</div>
+</div>
+
+<div class="key">
+<div class="label">Conceito-chave</div>
+<p>A <strong>Transformação Digital</strong> é o processo de integração de tecnologias digitais em todas as áreas de uma organização, estruturado em eixos ou pilares que orientam a mudança de processos, cultura e modelos de negócio para responder às demandas do ambiente VUCA/BANI.</p>
+</div>
+
+<p class="note">(Conteúdo em andamento — notas sendo completadas)</p>
+</section>
+
+<section id="recall">
+<h2>Perguntas de Recall</h2>
+<div class="recall-head">Teste sua memória</div>
+<div class="recall-wrap">
+<div class="recall"><span class="q">?</span><p>O que significa o acrônimo VUCA e quais são suas quatro dimensões?</p></div>
+<div class="recall"><span class="q">?</span><p>Como o modelo BANI se relaciona com o ambiente VUCA?</p></div>
+<div class="recall"><span class="q">?</span><p>Dê um exemplo prático de como a volatilidade do mundo VUCA pode impactar os produtos de uma empresa.</p></div>
+<div class="recall"><span class="q">?</span><p>Por que a ambiguidade pode gerar conflito entre a perspectiva do cliente e a da empresa? Explique com base no conceito de flexibilidade.</p></div>
+<div class="recall"><span class="q">?</span><p>O que se entende por Transformação Digital e qual sua importância diante do ambiente VUCA/BANI?</p></div>
+<div class="recall"><span class="q">?</span><p>Quantos são os pilares/eixos da Transformação Digital e por que são considerados relevantes para a prova?</p></div>
+</div>
+</section>
+
+</div>
+</body>
+</html>

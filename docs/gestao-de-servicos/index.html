@@ -1,1 +1,467 @@
-<!DOCTYPE html><html lang="pt-BR"><head><title>T — FGV MBA</title></head><body><p>mock</p></body></html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestão de Serviços — FGV MBA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+--bg:#FAF9F6;--bg-card:#FFFFFF;--bg-surface:#F3F1EC;--bg-accent:#E8E4DB;
+--text-primary:#1A1A18;--text-secondary:#5C5B56;--text-tertiary:#8A8985;
+--border:#DDD9D0;--border-light:#ECEAE4;
+--purple-50:#EEEDFE;--purple-400:#7F77DD;--purple-600:#534AB7;--purple-800:#3C3489;
+--amber-50:#FAEEDA;--amber-400:#BA7517;--amber-600:#854F0B;--amber-800:#633806;
+--teal-50:#E6F4F1;--teal-400:#1D9E75;--teal-600:#0F6E56;--teal-800:#085041;
+--blue-50:#E6F1FB;--blue-400:#378ADD;--blue-600:#185FA5;--blue-800:#0C447C;
+--rose-50:#FDE8EC;--rose-600:#C81E3A;
+--accent:#0F6E56;--accent-light:#E6F4F1;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text-primary);font-family:'DM Sans',-apple-system,sans-serif;line-height:1.65;font-size:17px;}
+a{color:inherit;}
+.wrap{max-width:920px;margin:0 auto;padding:0 24px;}
+.backlink{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-tertiary);text-decoration:none;display:inline-block;margin:28px 0 0;}
+.backlink:hover{color:var(--accent);}
+header.page{padding:24px 0 28px;border-bottom:1px solid var(--border);}
+header.page h1{font-family:'DM Serif Display',Georgia,serif;font-size:46px;line-height:1.1;font-weight:400;margin-bottom:14px;}
+.badge{font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.5px;background:var(--accent-light);color:var(--teal-800);padding:5px 12px;border-radius:20px;font-weight:500;}
+.subtitle{color:var(--text-secondary);margin-top:14px;max-width:680px;}
+nav.sticky{position:sticky;top:0;z-index:50;background:rgba(250,249,246,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);margin-bottom:8px;}
+nav.sticky .wrap{display:flex;gap:6px;overflow-x:auto;padding:12px 24px;scrollbar-width:thin;}
+nav.sticky a{font-family:'JetBrains Mono',monospace;font-size:12px;text-decoration:none;color:var(--text-secondary);white-space:nowrap;padding:5px 11px;border-radius:6px;}
+nav.sticky a:hover{background:var(--accent-light);color:var(--teal-800);}
+section{padding:38px 0;border-bottom:1px solid var(--border-light);}
+h2{font-family:'DM Serif Display',Georgia,serif;font-size:31px;font-weight:400;margin-bottom:20px;}
+h3{font-family:'DM Sans';font-size:20px;font-weight:600;margin:30px 0 14px;color:var(--text-primary);}
+p{margin-bottom:14px;}
+strong{font-weight:600;color:var(--text-primary);}
+/* hero summary */
+.hero{background:var(--bg-card);border-top:4px solid var(--accent);border-radius:8px;padding:34px 34px;margin:34px 0 8px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+.hero .lbl{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--accent);font-weight:600;}
+.hero p{font-size:19px;line-height:1.6;margin:14px 0 0;color:var(--text-secondary);}
+/* callouts */
+.key{background:var(--purple-50);border-left:4px solid var(--purple-600);border-radius:0 8px 8px 0;padding:18px 22px;margin:22px 0;}
+.key .lbl{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--purple-800);font-weight:600;display:block;margin-bottom:6px;}
+.key p{margin:0;color:var(--text-secondary);}
+.key p strong{color:var(--purple-800);}
+.exam{background:var(--amber-50);border:1px solid var(--amber-400);border-radius:8px;padding:18px 22px 18px 48px;margin:22px 0;position:relative;}
+.exam::before{content:"⚠";position:absolute;left:18px;top:16px;font-size:20px;}
+.exam .lbl{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--amber-800);font-weight:600;display:block;margin-bottom:6px;}
+.exam p{margin:0 0 8px;color:var(--amber-800);}
+.exam p:last-child{margin-bottom:0;}
+.exam ul{margin:6px 0 0 18px;color:var(--amber-800);}
+.exam strong{color:var(--amber-800);}
+/* cards grid */
+.cards{display:grid;gap:16px;margin:20px 0;}
+.cards.c2{grid-template-columns:repeat(2,1fr);}
+.cards.c3{grid-template-columns:repeat(3,1fr);}
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:20px;}
+.card h4{font-family:'DM Sans';font-size:17px;font-weight:600;margin-bottom:8px;color:var(--accent);}
+.card p{font-size:15px;color:var(--text-secondary);margin:0;}
+.card ul{margin:8px 0 0 16px;font-size:15px;color:var(--text-secondary);}
+/* pillars 3col */
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:20px 0;}
+.pillar{background:var(--accent-light);border-radius:8px;padding:22px;}
+.pillar .n{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);font-weight:600;}
+.pillar h4{font-family:'DM Serif Display',Georgia,serif;font-size:21px;font-weight:400;margin:6px 0 8px;}
+.pillar p{font-size:15px;color:var(--text-secondary);margin:0;}
+.pillar ul{margin:8px 0 0 16px;font-size:14px;color:var(--text-secondary);}
+/* stepper */
+.stepper{margin:24px 0;}
+.step{display:flex;gap:18px;padding-bottom:22px;position:relative;}
+.step:not(:last-child)::before{content:"";position:absolute;left:17px;top:38px;bottom:0;width:2px;background:var(--border);}
+.step .num{flex:none;width:36px;height:36px;border-radius:50%;background:var(--accent);color:#fff;font-family:'JetBrains Mono',monospace;font-weight:600;display:flex;align-items:center;justify-content:center;font-size:15px;}
+.step .body h4{margin:5px 0 4px;font-size:17px;}
+.step .body p{margin:0;font-size:15px;color:var(--text-secondary);}
+/* table */
+table{width:100%;border-collapse:collapse;margin:20px 0;background:var(--bg-card);border-radius:8px;overflow:hidden;border:1px solid var(--border);font-size:15px;}
+th{background:var(--accent);color:#fff;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.5px;text-align:left;padding:12px 16px;font-weight:600;}
+td{padding:12px 16px;border-top:1px solid var(--border-light);color:var(--text-secondary);vertical-align:top;}
+td strong{color:var(--text-primary);}
+/* generic detail list as cards */
+.deflist{display:grid;gap:12px;margin:18px 0;}
+.defitem{background:var(--bg-card);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:6px;padding:14px 18px;}
+.defitem .t{font-weight:600;color:var(--accent);}
+.defitem .d{font-size:15px;color:var(--text-secondary);}
+.defitem ul{margin:6px 0 0 18px;font-size:14px;color:var(--text-secondary);}
+/* note box */
+.note{background:var(--bg-surface);border-radius:8px;padding:18px 22px;margin:20px 0;font-size:15px;color:var(--text-secondary);}
+.note strong{color:var(--text-primary);}
+/* recall */
+.recall{background:var(--teal-50);border-left:4px solid var(--teal-600);border-radius:0 8px 8px 0;padding:16px 20px 16px 46px;margin:14px 0;position:relative;}
+.recall::before{content:"?";position:absolute;left:16px;top:14px;font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:600;color:var(--teal-600);}
+.recall p{margin:0;color:var(--teal-800);}
+.fullw{margin:8px 0;}
+@media(max-width:640px){
+header.page h1{font-size:34px;}
+.cards.c2,.cards.c3,.pillars{grid-template-columns:1fr;}
+body{font-size:16px;}
+h2{font-size:26px;}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<a class="backlink" href="../">← FGV MBA</a>
+</div>
+
+<header class="page">
+<div class="wrap">
+<h1>Gestão de Serviços</h1>
+<span class="badge">✓ Concluído</span>
+<p class="subtitle">Marketing para serviços, carteiras de clientes, vendas, precificação e ambiente de negócios.</p>
+</div>
+</header>
+
+<nav class="sticky">
+<div class="wrap">
+<a href="#marketing">Marketing p/ Serviços</a>
+<a href="#comunicacao">Ferramentas Comunicação</a>
+<a href="#vendas">Vendas e Negociação</a>
+<a href="#agencias">Agências</a>
+<a href="#vea">VEA</a>
+<a href="#mapeamento">Mapeamento Territorial</a>
+<a href="#custo">Centro de Custo</a>
+<a href="#margem">Margem</a>
+<a href="#precificacao">Precificação</a>
+<a href="#ambiente">Ambiente de Negócios</a>
+<a href="#capilaridade">Comunicação x Capilaridade</a>
+<a href="#ciclo">Ciclo de Vida</a>
+<a href="#recall">Recall</a>
+</div>
+</nav>
+
+<div class="wrap">
+
+<div class="hero">
+<span class="lbl">Resumo da Disciplina</span>
+<p>Esta disciplina aborda os fundamentos do marketing aplicado a serviços, desde a estrutura do mercado amplo e tipos de carteiras de clientes até ferramentas de comunicação, modalidades de venda (up-selling, cross-selling), precificação, ciclo de vida de produtos e cálculo de orçamento de marketing. O aluno deve dominar especialmente os conceitos de prova como os pilares do mercado amplo, as estratégias de venda vertical/associada e o cálculo do centro de custo de comunicação.</p>
+</div>
+
+<section id="marketing">
+<h2>Marketing para Serviços</h2>
+
+<div class="key">
+<span class="lbl">Conceito-chave</span>
+<p><strong>Mercado Amplo</strong>: É o conjunto total de pessoas com quem a empresa se relaciona comercialmente, dividido em três pilares — clientes reais (com quem há entrega/contrato vigente), prospects (ainda não conquistados) e clientes inativos (que já foram clientes e sofreram ruptura). O conjunto dos clientes reais forma a carteira de clientes.</p>
+</div>
+
+<div class="exam">
+<span class="lbl">Atenção — Prova</span>
+<p>Marketing = Mercado Amplo. O mercado amplo possui 3 pilares: <strong>Clientes reais, prospects e inativos</strong>. O conjunto dos clientes reais é a <strong>carteira de clientes</strong>, que pode ser aberta, fechada ou mista.</p>
+</div>
+
+<h3>Os três pilares do Mercado Amplo</h3>
+<div class="pillars">
+<div class="pillar">
+<span class="n">PILAR 01</span>
+<h4>Clientes reais</h4>
+<p>Aquele a quem entrego algo; compra comigo, tem contrato comigo. É a <strong>carteira de clientes (conjunto de clientes reais)</strong>.</p>
+</div>
+<div class="pillar">
+<span class="n">PILAR 02</span>
+<h4>Prospects</h4>
+<p>Aquele que ainda não conquistei.</p>
+</div>
+<div class="pillar">
+<span class="n">PILAR 03</span>
+<h4>Clientes inativos</h4>
+<p>Já foi meu cliente e não mais atendo; sofreu a <strong>Ruptura</strong>, que pode ser:</p>
+<ul>
+<li><strong>Interna</strong> (Ex.: deixar de atender clientes inadimplentes/mal pagadores)</li>
+<li><strong>Externa</strong> (Ex.: cliente resolve mudar por julgar que outra empresa oferece melhor serviço e atendimento)</li>
+</ul>
+</div>
+</div>
+<p>Para trazer um cliente inativo de volta, devo tratá-lo como <strong>Cliente Real</strong>, não como prospect. Não se pode falar qualquer coisa para um cliente inativo, e nunca se pode tocar no ponto da ruptura. Deve ser uma comunicação <strong>factual</strong>, enquanto com prospects pode-se usar uma comunicação criativa/mais lúdica.</p>
+
+<h3>Categorias de Carteiras</h3>
+<div class="key">
+<span class="lbl">Conceito-chave</span>
+<p><strong>Carteiras de clientes</strong>: Classificam-se em aberta (recebe entrantes espontâneos, exigindo criatividade), fechada (exige acordo prévio para haver negócio) e mista (atende tanto entrantes não cadastrados quanto clientes com cadastro/acordo prévio, no modelo "atacarejo").</p>
+</div>
+<div class="cards c3">
+<div class="card">
+<h4>Carteira Aberta</h4>
+<p>Tem necessidade latente de ter entrantes. É a pessoa que se interessa por algo e chega até você. Aqui, a criatividade representa muito! Desafios:</p>
+<ul>
+<li><strong>Fazer a conversão</strong>: transformar a intenção/interesse em concretização.</li>
+<li><strong>Monitorar o cliente (Fidelização)</strong>: acompanhar e trabalhar para garantir a recorrência.</li>
+</ul>
+</div>
+<div class="card">
+<h4>Carteira Fechada</h4>
+<p>Para haver negócio, necessita de acordo prévio (Ex.: Sam's Club).</p>
+</div>
+<div class="card">
+<h4>Carteira Mista</h4>
+<p>Atende tanto entrantes (não cadastrados) quanto clientes com cadastro/acordo prévio. É o "Atacarejo"! (Ex.: Farmácias, que vendem com e sem cadastro).</p>
+</div>
+</div>
+
+<h3>Órgãos Reguladores</h3>
+<div class="cards c2">
+<div class="card">
+<h4>CADE</h4>
+<p>Conselho Administrativo de Defesa Econômica: audita e legisla tudo que diz respeito a negócios no Brasil.</p>
+</div>
+<div class="card">
+<h4>CONAR</h4>
+<p>Conselho Nacional de Autorregulamentação Publicitária: audita e legisla a comunicação no Brasil.</p>
+</div>
+</div>
+
+<h3>Serviços e a abordagem CCQ</h3>
+<p>Serviços referem-se ao atendimento a <strong>PESSOAS</strong>: clientes, fornecedores, concorrentes, colaboradores, stakeholders, etc.</p>
+<div class="exam">
+<span class="lbl">Atenção — Prova</span>
+<p>Para comunicar <strong>produtos</strong>, utiliza-se uma comunicação <strong>descritiva</strong>. Para <strong>serviços</strong>, usa-se o <strong>CCQ: Confiança, Credibilidade e Qualidade</strong>.</p>
+</div>
+</section>
+
+<section id="comunicacao">
+<h2>Ferramentas de Comunicação</h2>
+<div class="deflist">
+<div class="defitem"><span class="t">Marketing</span> — <span class="d">Qualquer comunicação destinada ao Mercado Amplo.</span></div>
+<div class="defitem"><span class="t">Propaganda</span> — <span class="d">Ferramenta destinada a <strong>VENDER</strong>.</span></div>
+<div class="defitem"><span class="t">Promoção</span> — <span class="d">Tem como objetivo a alavancagem comercial — vender MAIS que o previsto. Toda promoção traz/precisa de <strong>Grau de Atratividade</strong>. O CONAR define que "toda promoção deve encerrar em algum momento".</span></div>
+<div class="defitem"><span class="t">Merchandising</span> — <span class="d">Quando uma empresa se utiliza de um público-alvo já conquistado por terceiros (Ex.: BBB).<ul><li>Em custos, é MUITO MAIS caro que a propaganda. O merchandising acontece dentro do programa; a propaganda, no intervalo (onde há grande esvaziamento do público).</li><li>Na propaganda existe a torre de transmissão (onde a propaganda passa). No merchandising isso não existe, pois a programação passa no canal.</li></ul></span></div>
+<div class="defitem"><span class="t">Marketing Institucional</span> — <span class="d">Promove a empresa, colocando o produto/serviço em "segundo plano".</span></div>
+<div class="defitem"><span class="t">DEMarketing ou Marketing Reverso</span> — <span class="d">Campanha para que o cliente gaste menos.</span></div>
+</div>
+
+<div class="key">
+<span class="lbl">Conceito-chave</span>
+<p><strong>DEMarketing (Marketing Reverso)</strong>: Estratégia em que a empresa incentiva o cliente a consumir menos. Embora pareça contraintuitivo, seu real motivo é adequar a capacidade de produção à demanda (Ex.: empresa de energia elétrica fazendo campanha para o cliente consumir menos).</p>
+</div>
+
+<div class="deflist">
+<div class="defitem"><span class="t">Marketing de Relacionamento/Commodity</span></div>
+<div class="defitem"><span class="t">Patrocínio</span> — <span class="d">Empresa que paga para que algo aconteça e, em troca, pede exposição da marca/produto/serviço (empresa patrocinadora). Motivação principal: <strong>ISENÇÃO DE IMPOSTOS</strong>.</span></div>
+<div class="defitem"><span class="t">Endomarketing</span> — <span class="d">Comunicação que ocorre dentro da própria empresa.<ul><li><strong>Ecologia Empresarial</strong>: importante devido à mão de obra flutuante. Não posso pensar apenas no meu colaborador; preciso pensar em terceirizados, etc.</li></ul></span></div>
+<div class="defitem"><span class="t">Mídia "Out of Home"</span> — <span class="d">Toda publicidade feita em formatos exteriores (consumida fora de casa), com objetivo de alcançar pessoas em seus trajetos.</span></div>
+<div class="defitem"><span class="t">Curiosidade</span> — <span class="d">A mídia mais "TOP/Nobre" é a mídia aeroportuária.</span></div>
+<div class="defitem"><span class="t">Redes Sociais</span> — <span class="d">Mídias digitais são DIFERENTES de redes sociais. Redes sociais são a forma de marketing mais barata, com possibilidade de crescimento orgânico (sem pagar).</span></div>
+<div class="defitem"><span class="t">Marketing digital</span> — <span class="d">Na maioria dos casos, é uma mídia impulsionada/paga.</span></div>
+</div>
+</section>
+
+<section id="vendas">
+<h2>Modalidades de Vendas e Negociação</h2>
+<div class="cards c3">
+<div class="card">
+<h4>B2B</h4>
+<p>Negócios corporativos (de empresa para empresa); uso de marketing direto. Ex.: feiras de negócio; revistas especializadas.</p>
+</div>
+<div class="card">
+<h4>B2C</h4>
+<p>Varejo (empresa transaciona com diversos clientes finais); uso de marketing abrangente. Lembrar: <strong>Direito Conexo</strong> — responsabilizar quem representa sua marca caso ocorra algum problema com essa pessoa que penalize a marca da empresa.</p>
+</div>
+<div class="card">
+<h4>E2C, E2B = ECOM</h4>
+<p>Comércio Eletrônico. Interfere diretamente no processo decisório de compra.</p>
+</div>
+</div>
+
+<div class="key">
+<span class="lbl">Conceito-chave</span>
+<p><strong>Up-selling, Cross-selling e Estratégia Integrada</strong>: O up-selling (venda vertical) busca fidelização; o cross-selling (venda associada/agregada) busca volume de vendas; e a estratégia integrada/convergente une ambos, fidelizando e gerando entrada de caixa simultaneamente.</p>
+</div>
+
+<div class="exam">
+<span class="lbl">Atenção — Prova</span>
+<p><strong>Up-selling (Venda Vertical) = Fidelização</strong></p>
+<ul>
+<li>Fidelização Contratual (Ex.: planos telefônicos que ofertam crédito/desconto no aparelho, mas fidelizam o cliente por contrato).</li>
+<li>Fidelização por dependência (Ex.: máquina Gilette em que só entram navalhas Gilette).</li>
+</ul>
+</div>
+
+<div class="exam">
+<span class="lbl">Atenção — Prova</span>
+<p><strong>Cross-selling (Venda Associada ou Agregada) = Volume.</strong> NUNCA usar "venda casada" como sinônimo!</p>
+</div>
+
+<div class="exam">
+<span class="lbl">Atenção — Prova</span>
+<p><strong>Estratégia Integrada ou Convergente</strong> = Fideliza e tem entrada de dinheiro no caixa. É praticamente um "combo" juntando up-selling e cross-selling.</p>
+</div>
+</section>
+
+<section id="agencias">
+<h2>Agências</h2>
+<h3>Ganhos obtidos ao contratar uma agência de marketing</h3>
+<div class="cards c2">
+<div class="card"><h4>Qualidade extrema</h4><p>Na criação e produção.</p></div>
+<div class="card"><h4>Inteligência Mercadológica</h4><p>Melhor horário de postagem, melhor canal de veiculação, segmentação, etc.</p></div>
+</div>
+<h3>Documentos e responsabilidades</h3>
+<div class="deflist">
+<div class="defitem"><span class="t">Briefing</span> — <span class="d">Resumo.</span></div>
+<div class="defitem"><span class="t">Minuta</span> — <span class="d">Contrato prévio.</span></div>
+<div class="defitem"><span class="t">Responsabilidade solidária</span> — <span class="d">Agências se tornam responsáveis de maneira solidária, tanto em forma quanto em conteúdo.</span></div>
+<div class="defitem"><span class="t">BV: Bônus de Veiculação</span> — <span class="d">Média de 20% para as agências — é sobre o BV que as agências negociam os valores de tabela dos meios de veiculação (TV, rádio, etc).</span></div>
+</div>
+</section>
+
+<section id="vea">
+<h2>VEA — Valor Emocional Agregado</h2>
+<div class="key">
+<span class="lbl">Conceito-chave</span>
+<p><strong>VEA (Valor Emocional Agregado)</strong>: Valor agregado que vai além do aspecto técnico, entrando no universo emocional do cliente. A venda de serviços é fortemente baseada no emocional.</p>
+</div>
+<p>Aspectos técnicos comerciais: <strong>P3Q</strong>.</p>
+</section>
+
+<section id="mapeamento">
+<h2>Mapeamento Territorial</h2>
+<div class="key">
+<span class="lbl">Conceito-chave</span>
+<p><strong>Mapeamento Territorial</strong>: Levantamento de informações realizado no mercado que permite a tomada de decisão estratégica, apoiando-se em pesquisas e em sistemas de gestão de relacionamento e operação.</p>
+</div>
+<div class="deflist">
+<div class="defitem"><span class="t">Pesquisa Quali/Quanti</span> — <span class="d">Se EU fizer, não posso divulgar (CONAR). Se eu quiser divulgar, a estratégia é contratar um instituto oficial de pesquisa.</span></div>
+<div class="defitem"><span class="t">ERP</span> — <span class="d">Da porta para dentro.</span></div>
+<div class="defitem"><span class="t">CRM</span> — <span class="d">Relacionamento com os clientes.</span></div>
+<div class="defitem"><span class="t">PRM</span> — <span class="d">Partner Relationship Manager.</span></div>
+</div>
+</section>
+
+<section id="custo">
+<h2>Centro de Custo com Comunicação/Marketing</h2>
+<div class="exam">
+<span class="lbl">Atenção — Prova</span>
+<p><strong>Vertente 1 — Na técnica (Kotler) = 6%</strong></p>
+<ul>
+<li>No primeiro semestre, utiliza o <strong>faturamento bruto do último ano fiscal</strong> (01/01 a 31/12 do último ano).</li>
+<li>No segundo semestre, utiliza o <strong>faturamento bruto do último ano em exercício</strong> (últimos 11 meses).</li>
+</ul>
+<p style="margin-top:10px;"><strong>Vertente 2 — Média do Mercado Brasileiro = 2,75% (arredonda para 3%)</strong> — menos que a metade da teoria! Valor ANUAL.</p>
+<ul>
+<li>Mesma base de cálculo: primeiro semestre usa faturamento bruto do último ano fiscal; segundo semestre usa faturamento bruto do ano em exercício (últimos 11 meses).</li>
+</ul>
+</div>
+<div class="exam">
+<span class="lbl">Exemplo — Cenário Brasil</span>
+<p>Faturamento bruto da empresa: R$ 50.000.000; 3% do faturamento anual = R$ 1,5M; divide por 12 meses = orçamento mensal; multiplica pela quantidade de meses da campanha = orçamento para a campanha.</p>
+</div>
+</section>
+
+<section id="margem">
+<h2>Definições de Margem</h2>
+<div class="key">
+<span class="lbl">Conceito-chave</span>
+<p><strong>Margem</strong>: Diferença entre o Custo Global de Produção/Operação (custo fixo + variável + tributos) e o preço efetivado (preço vendido). Pode ser negativa (proibida no Brasil), nula ou positiva.</p>
+</div>
+<table>
+<thead><tr><th>Tipo</th><th>Definição</th></tr></thead>
+<tbody>
+<tr><td><strong>Margem negativa</strong></td><td>Não pode no Brasil, chama-se "Dumping". É vender mais barato que o custo de produção (Ex.: supermercado coloca um produto abaixo do custo para que, via <strong>Logística Satélite</strong>, venda produtos dos "arredores" com preço mais elevado para "compensar").</td></tr>
+<tr><td><strong>Margem nula</strong></td><td>Vendo pelo custo que me chegou (preço do produto + tributos).</td></tr>
+<tr><td><strong>Margem positiva</strong></td><td>—</td></tr>
+</tbody>
+</table>
+</section>
+
+<section id="precificacao">
+<h2>Precificação</h2>
+<div class="exam">
+<span class="lbl">Atenção — Prova</span>
+<p>A política de precificação deve ser definida de acordo com a <strong>capacidade produtiva da empresa</strong>.</p>
+</div>
+<h3>Políticas de preço</h3>
+<div class="cards c3">
+<div class="card"><h4>Preço Premium</h4><p>Maior que o preço de mercado — aplicado quando houver restrição.</p></div>
+<div class="card"><h4>Preço de Combate</h4><p>Menor que o preço de mercado — aplicado quando não houver restrição.</p></div>
+<div class="card"><h4>Preço de mercado</h4><p>—</p></div>
+</div>
+<h3>Objetivos e seus indicadores</h3>
+<table>
+<thead><tr><th>Objetivo</th><th>Indicador / Prática</th></tr></thead>
+<tbody>
+<tr><td><strong>Lucratividade</strong></td><td>Mark-up. Ao trabalhar com produtos/serviços com sazonalidade, precisa-se de mark-up.</td></tr>
+<tr><td><strong>Volume de Vendas</strong></td><td>Prática de Cross-Selling.</td></tr>
+<tr><td><strong>Concorrência</strong></td><td>Prática de mapeamento territorial.</td></tr>
+<tr><td><strong>Prestígio ou Posicionamento</strong></td><td>Quando se conquista o VEA (Valor Emocional Agregado).</td></tr>
+</tbody>
+</table>
+</section>
+
+<section id="ambiente">
+<h2>Ambiente de Negócios</h2>
+<div class="key">
+<span class="lbl">Conceito-chave</span>
+<p><strong>4Ps (Mix de Marketing)</strong>: Conjunto de atributos controláveis pela empresa — Produto, Preço, Praça (distribuição) e Promoção. Opõem-se aos atributos incontroláveis (políticas econômicas, concorrência, aspectos legais, variação cambial).</p>
+</div>
+<h3>4Ps — Atributos controlados</h3>
+<div class="cards c2">
+<div class="card"><h4>Produto</h4><p>Qual é o produto.</p></div>
+<div class="card"><h4>Preço</h4><p>Definir preço do produto/serviço.</p></div>
+<div class="card"><h4>Distribuição (Praça)</h4><p>Onde e como você faz negócio.</p></div>
+<div class="card"><h4>Promoção</h4><p>—</p></div>
+</div>
+<p style="margin-top:18px;"><strong>Administração de margem</strong> (impacta o setor comercial) — Margem de contribuição.</p>
+<h3>Atributos incontroláveis</h3>
+<p>Políticas econômicas, concorrência, aspectos legais, variação cambial, etc. Indicadores/Variações macro e microeconômicas:</p>
+<div class="cards c2">
+<div class="card"><h4>Macro</h4><p>Corrige todos os setores em todas as regiões, simultaneamente (Ex.: variações no Dólar, Selic).</p></div>
+<div class="card"><h4>Micro</h4><p>Corrige um setor OU uma região (Ex.: INCC — apenas do setor da construção).</p></div>
+</div>
+</section>
+
+<section id="capilaridade">
+<h2>Comunicação x Capilaridade</h2>
+<p>NÃO fazer comunicação além da capilaridade (capacidade de distribuição), a não ser que haja:</p>
+<div class="deflist">
+<div class="defitem"><span class="t">Teaser</span> — <span class="d">Capacidade de expansão — anunciar uma expansão antes de ter a distribuição no local.</span></div>
+<div class="defitem"><span class="t">Capacidade de entrega remota</span></div>
+<div class="defitem"><span class="t">Valorização nominal</span> — <span class="d">Aumento no valor das ações — atrair investidor.</span></div>
+</div>
+</section>
+
+<section id="ciclo">
+<h2>Ciclo de Vida de Produtos e Serviços</h2>
+<div class="key">
+<span class="lbl">Conceito-chave</span>
+<p><strong>Ciclo de Vida do Produto</strong>: Sequência de quatro fases — Introdução (maior investimento em comunicação), Crescimento (maior investimento na área comercial), Maturidade e Declínio (não se gera mais negócios). Cada fase orienta o foco de investimento da empresa.</p>
+</div>
+<div class="stepper">
+<div class="step"><div class="num">1</div><div class="body"><h4>Introdução</h4><p>Maior investimento em comunicação/marketing.</p></div></div>
+<div class="step"><div class="num">2</div><div class="body"><h4>Crescimento</h4><p>Maior investimento na área comercial.</p></div></div>
+<div class="step"><div class="num">3</div><div class="body"><h4>Maturidade</h4><p>—</p></div></div>
+<div class="step"><div class="num">4</div><div class="body"><h4>Declínio</h4><p>Não se consegue mais gerar negócios.</p></div></div>
+</div>
+
+<h3>Tipos de produtos/serviços conforme tempo de mercado</h3>
+<table>
+<thead><tr><th>Tipo</th><th>Tempo de mercado</th><th>Características</th></tr></thead>
+<tbody>
+<tr><td><strong>Estilo (Clássicos)</strong></td><td>≥ 15 anos</td><td>Estão no mercado com grau de atratividade por tempo igual ou superior a 15 anos. Estão na maturidade; o esforço para vender é mínimo.</td></tr>
+<tr><td><strong>Tendência</strong></td><td>&gt; 5 e &lt; 15 anos</td><td>Estão no mercado com grau de atratividade por tempo superior a 5 anos e inferior a 15 anos.</td></tr>
+<tr><td><strong>Moda</strong></td><td>&lt; 5 anos</td><td>A venda deve ser INSTANTÂNEA — aqui se aplica a pré-venda.</td></tr>
+</tbody>
+</table>
+<p>Quanto menos tempo de mercado, maior o investimento em comunicação: <strong>Moda &gt; Tendência &gt; Estilo</strong>.</p>
+
+<div class="note">
+<strong>Métrica curiosa:</strong> Em média, é 28% mais caro comprar em loja física do que no e-commerce.
+</div>
+</section>
+
+<section id="recall">
+<h2>Perguntas de Recall</h2>
+<div class="recall fullw"><p>Quais são os três pilares do mercado amplo e como devo tratar comunicacionalmente um cliente inativo?</p></div>
+<div class="recall fullw"><p>Qual a diferença entre carteira aberta, fechada e mista de clientes, e quais os dois desafios principais da carteira aberta?</p></div>
+<div class="recall fullw"><p>O que diferencia up-selling, cross-selling e a estratégia integrada/convergente? Qual o objetivo de cada um?</p></div>
+<div class="recall fullw"><p>Segundo a vertente técnica (Kotler) e a média do mercado brasileiro, quais percentuais do faturamento se aplicam ao centro de custo de comunicação? Como se calcula o orçamento de uma campanha no cenário Brasil?</p></div>
+<div class="recall fullw"><p>O que é margem negativa (Dumping) e por que é proibida no Brasil? Como se relaciona com a Logística Satélite?</p></div>
+<div class="recall fullw"><p>Quais são as quatro fases do ciclo de vida de um produto e como se classificam estilo, tendência e moda quanto ao tempo de mercado e ao investimento em comunicação?</p></div>
+</section>
+
+</div>
+</body>
+</html>
