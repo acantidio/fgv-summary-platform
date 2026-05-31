@@ -91,6 +91,27 @@ Hover: lifts 2px, shadow deepens, border darkens.
 #### Label          → DM Sans 13px bold, uppercase, text-secondary
 ```
 
+### Callout components (`.callout`)
+
+Rendered from `> [!TYPE]` syntax in enriched content files. Four variants:
+
+| Class | Background | Left border | Label color | Purpose |
+|---|---|---|---|---|
+| `.callout-summary` | `var(--bg-surface)` | `var(--text-secondary)` | `var(--text-secondary)` | ◎ Resumo — cheat-sheet at top |
+| `.callout-exam` | `#FEF9EC` | `#D97706` | `#92400E` | ⚠ Cai na Prova — exam alert |
+| `.callout-key` | `#EEEDFE` | `#534AB7` | `#3730A3` | ◆ Conceito-Chave — key concept |
+| `.callout-recall` | `#E6F4F1` | `#0F6E56` | `#065F46` | ? Recall Ativo — self-test question |
+
+```
+┌────────────────────────────────────┐  ← 3px left border in variant color
+│ ⚠ CAI NA PROVA                     │  ← .callout-label: mono 10px, uppercase
+│                                    │
+│ Body text rendered from markdown.  │  ← .callout-body: 1.75 line-height
+└────────────────────────────────────┘
+```
+
+CSS is in the `<style>` block inside `renderSubjectPage()` in `build.js`.
+
 ---
 
 ## Modifying the Design

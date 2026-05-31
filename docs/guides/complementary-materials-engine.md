@@ -25,11 +25,11 @@ Build an automated pipeline (`process.js` or similar) that:
 3. **Synthesizes** the content using an AI model (Claude API) with the Obsidian notes as context
 4. **Outputs** structured Markdown sections that can be merged into the subject page or rendered as an additional "deep dive" section
 
-The workflow should be a single command:
+The workflow should be a single command (note: `npm run enrich` is already used for note enrichment — this engine will use a different script name, e.g. `npm run process`):
 
 ```bash
-npm run enrich estrategia-corporativa
-# or: npm run enrich --all
+npm run process -- estrategia-corporativa
+# or: npm run process -- --all
 ```
 
 ---
@@ -86,7 +86,7 @@ How the complementary materials connect to or expand on the in-class notes — c
 
 The synthesis step will use the Claude API (Anthropic SDK) with:
 
-- **Model:** `claude-sonnet-4-6` (or latest available at implementation time)
+- **Model:** `claude-opus-4-7` (always use the most capable model — same principle as `enrich.js`)
 - **Prompt caching:** enabled — the system prompt and extracted text are stable across runs
 - **Context:** the existing `content/[slug].md` is passed as context so the synthesis is anchored to what André already knows
 - **Output format:** structured Markdown matching the section headers above
