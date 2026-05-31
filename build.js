@@ -94,6 +94,60 @@ export function renderSubjectPage(subject) {
 </html>`
 }
 
+export function renderHubPage(subjects) {
+  const sorted = [...subjects].sort((a, b) =>
+    a.title.localeCompare(b.title, 'pt-BR')
+  )
+
+  const cards = sorted.map(s => {
+    const accent = ACCENT[s.color] ?? ACCENT.purple
+    const statusLabel = STATUS_LABEL[s.status] ?? s.status
+    return `      <a href="./${s.slug}/" class="card" style="border-top-color:${accent.main}">
+        <span class="badge" style="background:${accent.light};color:${accent.main}">${statusLabel}</span>
+        <h2>${s.title}</h2>
+        <p>${s.description}</p>
+      </a>`
+  }).join('\n')
+
+  return `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FGV MBA — Resumo de Conteúdos</title>
+  ${sharedCSS()}
+  <style>
+    .hub-header { padding: 56px 0 44px; }
+    .label { font-family: var(--font-mono); font-size: 11px; font-weight: 500; color: var(--text-tertiary); letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 12px; }
+    h1 { font-family: var(--font-display); font-size: clamp(28px, 5vw, 42px); font-weight: 400; line-height: 1.2; margin-bottom: 12px; }
+    .subtitle { font-size: 16px; color: var(--text-secondary); line-height: 1.7; max-width: 520px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .card { background: var(--bg-card); border: 1px solid var(--border-light); border-top: 4px solid transparent; border-radius: var(--radius); padding: 24px 28px 28px; display: block; transition: box-shadow 0.2s, transform 0.2s; }
+    .card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.07); transform: translateY(-2px); border-color: var(--border); }
+    .card h2 { font-family: var(--font-display); font-size: 20px; font-weight: 400; margin: 10px 0 8px; line-height: 1.3; }
+    .card p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+    @media (max-width: 640px) {
+      .grid { grid-template-columns: 1fr; }
+      .hub-header { padding: 40px 0 32px; }
+      .card { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="hub-header">
+      <span class="label">FGV · MBA em Gestão Empresarial</span>
+      <h1>Resumo de Conteúdos</h1>
+      <p class="subtitle">Consolidação dos aprendizados por disciplina. Para revisão e preparação para provas.</p>
+    </div>
+    <div class="grid">
+${cards}
+    </div>
+  </div>
+</body>
+</html>`
+}
+
 export function parseContent(filePath) {
   const raw = readFileSync(filePath, 'utf-8')
   const { data, content } = matter(raw)
