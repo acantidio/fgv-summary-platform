@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia de Bolso — Respostas Universais para Estratégia Corporativa</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #1A1A18; --bg-card: #232320; --bg-surface: #2A2A27; --bg-accent: #333330;
+  --text-primary: #F0EDE6; --text-secondary: #A8A7A1; --text-tertiary: #7A7975;
+  --border: #3A3A36; --border-light: #2F2F2C;
+  --purple-50: #2D2B4A; --purple-100: #3D3A6A; --purple-400: #7F77DD; --purple-600: #9B94E8; --purple-800: #CECBF6;
+  --teal-50: #1A3A30; --teal-100: #1F4A3C; --teal-400: #1D9E75; --teal-600: #5DCAA5; --teal-800: #9FE1CB;
+  --coral-50: #3A2520; --coral-100: #4A2E24; --coral-400: #D85A30; --coral-600: #F0997B; --coral-800: #F5C4B3;
+  --blue-50: #1A2D40; --blue-100: #1F3854; --blue-400: #378ADD; --blue-600: #85B7EB; --blue-800: #B5D4F4;
+  --amber-50: #3A2E18; --amber-100: #4A3A1E; --amber-400: #BA7517; --amber-600: #EF9F27; --amber-800: #FAC775;
+  --pink-50: #3A1E2A; --pink-400: #D4537E; --pink-600: #ED93B1; --pink-800: #F4C0D1;
+  --red-50: #3A1E1E; --red-400: #E24B4A; --red-600: #F09595; --red-800: #F7C1C1;
+  --green-50: #1E2E18; --green-400: #639922; --green-600: #97C459; --green-800: #C0DD97;
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --radius: 10px; --radius-lg: 16px; --radius-sm: 6px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--font-body); background: var(--bg); color: var(--text-primary); line-height: 1.7; font-size: 15px; -webkit-font-smoothing: antialiased; }
+
+.nav { position:sticky;top:0;z-index:100;background:rgba(26,26,24,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:12px 0 }
+.nav-inner { max-width:960px;margin:0 auto;padding:0 32px;display:flex;align-items:center;gap:20px;overflow-x:auto;scrollbar-width:none }
+.nav-inner::-webkit-scrollbar { display:none }
+.nav a { font-size:12px;font-weight:500;color:var(--text-tertiary);text-decoration:none;white-space:nowrap;padding:4px 0;border-bottom:2px solid transparent;transition:all 0.2s }
+.nav a:hover,.nav a.active { color:var(--text-primary);border-bottom-color:var(--amber-600) }
+
+.container { max-width:960px;margin:0 auto;padding:0 32px 80px }
+.hero { padding:60px 0 48px;border-bottom:1px solid var(--border);margin-bottom:48px }
+.hero-label { font-family:var(--font-mono);font-size:11px;font-weight:500;color:var(--amber-600);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px }
+.hero h1 { font-family:var(--font-display);font-size:36px;font-weight:400;line-height:1.2;margin-bottom:16px;max-width:700px }
+.hero p { font-size:16px;color:var(--text-secondary);max-width:600px;line-height:1.8 }
+
+.section { margin-bottom:56px }
+.section-header { display:flex;align-items:center;gap:12px;margin-bottom:24px;padding-bottom:12px;border-bottom:1px solid var(--border) }
+.section-number { font-family:var(--font-display);font-size:28px;color:var(--text-tertiary);line-height:1 }
+.section-title { font-family:var(--font-display);font-size:22px;font-weight:400;line-height:1.3 }
+.section-desc { font-size:14px;color:var(--text-secondary);margin-bottom:20px }
+
+.card { background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;margin-bottom:16px }
+.card-title { font-weight:600;font-size:15px;margin-bottom:6px }
+.card-desc { font-size:13px;color:var(--text-secondary);margin-bottom:14px }
+
+.grid-2 { display:grid;grid-template-columns:1fr 1fr;gap:14px }
+.grid-3 { display:grid;grid-template-columns:repeat(3,1fr);gap:14px }
+.grid-4 { display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px }
+@media(max-width:700px){ .grid-2,.grid-3,.grid-4{grid-template-columns:1fr} }
+
+.pill { display:inline-block;font-size:12px;padding:5px 12px;border-radius:20px;font-weight:500;margin:3px 2px }
+.pill-list { display:flex;flex-wrap:wrap;gap:4px }
+
+.tag { display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:4px }
+
+.opt-block { background:var(--bg-surface);border-radius:var(--radius);padding:14px 16px;border:1px solid var(--border) }
+.opt-label { font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px }
+.opt-item { font-size:13px;color:var(--text-primary);line-height:1.6;padding:4px 0;border-bottom:1px solid var(--border-light) }
+.opt-item:last-child { border-bottom:none }
+
+.tip { background:var(--amber-50);border-left:3px solid var(--amber-600);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:12px 16px;margin-top:12px }
+.tip p { font-size:13px;color:var(--amber-800);line-height:1.6 }
+.tip strong { color:var(--amber-600) }
+
+.warn { background:var(--red-50);border-left:3px solid var(--red-400);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:12px 16px;margin:12px 0 }
+.warn p { font-size:13px;color:var(--red-800);line-height:1.6 }
+
+.pillar-tag { font-size:11px;font-weight:600;padding:2px 8px;border-radius:3px;margin-right:4px }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+.section { animation:fadeUp 0.4s ease-out both }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+<div class="nav-inner">
+  <a href="#vmv" class="active">V/M/V</a>
+  <a href="#objetivos">Objetivos</a>
+  <a href="#diamante">Diamante</a>
+  <a href="#swot">SWOT</a>
+  <a href="#porter">Porter</a>
+  <a href="#bsc">BSC</a>
+  <a href="#okr">OKR</a>
+  <a href="#regras">Regras de Ouro</a>
+</div>
+</nav>
+
+<div class="container">
+
+<div class="hero">
+  <div class="hero-label">Guia de bolso para a prova</div>
+  <h1>Respostas universais para qualquer estudo de caso</h1>
+  <p>Opções de preenchimento que se aplicam a qualquer empresa, mercado ou setor. Adapte o vocabulário ao caso, mas a estrutura é sempre a mesma.</p>
+</div>
+
+<!-- ============================= -->
+<!-- VISÃO / MISSÃO / VALORES -->
+<!-- ============================= -->
+<div class="section" id="vmv">
+  <div class="section-header">
+    <span class="section-number">01</span>
+    <span class="section-title">Visão, Missão e Valores</span>
+  </div>
+
+  <div class="grid-3" style="margin-bottom:16px">
+    <div class="opt-block">
+      <div class="opt-label" style="color:var(--amber-600)">Visão — modelos universais</div>
+      <div class="opt-item">Ser referência em <em>[setor]</em> em <em>[região]</em> até <em>[ano]</em></div>
+      <div class="opt-item">Ser reconhecida como líder em <em>[diferencial]</em> no mercado de <em>[setor]</em></div>
+      <div class="opt-item">Impactar <em>[X vidas/empresas/clientes]</em> até <em>[ano]</em> por meio de <em>[proposta]</em></div>
+      <div class="opt-item">Transformar a forma como <em>[público]</em> experimenta <em>[serviço/produto]</em></div>
+      <div class="tip"><p><strong>Sempre inclua:</strong> horizonte temporal (3–5 anos) + elemento aspiracional + escopo geográfico ou de mercado.</p></div>
+    </div>
+    <div class="opt-block">
+      <div class="opt-label" style="color:var(--teal-600)">Missão — modelos universais</div>
+      <div class="opt-item">Promover <em>[benefício central]</em> por meio de <em>[como faz]</em>, gerando <em>[impacto]</em></div>
+      <div class="opt-item">Entregar <em>[valor]</em> com <em>[diferencial]</em> para <em>[público]</em></div>
+      <div class="opt-item">Empoderar <em>[público]</em> através de <em>[método/abordagem]</em></div>
+      <div class="opt-item">Conectar <em>[necessidade]</em> a <em>[solução]</em> com excelência e humanização</div>
+      <div class="tip"><p><strong>Lembre:</strong> a missão NÃO tem prazo, NÃO muda. É o porquê de existir. Deve funcionar daqui a 20 anos.</p></div>
+    </div>
+    <div class="opt-block">
+      <div class="opt-label" style="color:var(--purple-600)">Valores — banco universal</div>
+      <div class="opt-item">Inovação</div>
+      <div class="opt-item">Excelência / Qualidade</div>
+      <div class="opt-item">Integridade / Ética / Transparência</div>
+      <div class="opt-item">Foco no cliente / Humanização</div>
+      <div class="opt-item">Colaboração / Trabalho em equipe</div>
+      <div class="opt-item">Sustentabilidade / Responsabilidade social</div>
+      <div class="opt-item">Agilidade / Adaptabilidade</div>
+      <div class="opt-item">Aprendizado contínuo</div>
+      <div class="opt-item">Protagonismo / Autonomia</div>
+      <div class="tip"><p><strong>Escolha 3–5.</strong> Evite sobreposição (ex: "qualidade" e "excelência" juntos). Cada valor deve ser distinto.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================= -->
+<!-- OBJETIVOS ESTRATÉGICOS -->
+<!-- ============================= -->
+<div class="section" id="objetivos">
+  <div class="section-header">
+    <span class="section-number">02</span>
+    <span class="section-title">Objetivos Estratégicos — por pilar</span>
+  </div>
+  <p class="section-desc">Estes objetivos funcionam para qualquer empresa. Na prova, escolha 2–3 por pilar e adapte o vocabulário ao caso.</p>
+
+  <div class="warn"><p>Todos com <strong>VERBO NO INFINITIVO</strong>. Se termina em -ção, -mento ou -ância, está errado. Reescreva.</p></div>
+
+  <div class="grid-2" style="margin-bottom:16px">
+    <div class="opt-block">
+      <div class="opt-label" style="color:var(--amber-600)">💰 Financeiro</div>
+      <div class="opt-item"><strong>Aumentar</strong> a receita/faturamento</div>
+      <div class="opt-item"><strong>Reduzir</strong> custos operacionais</div>
+      <div class="opt-item"><strong>Aumentar</strong> o ticket médio</div>
+      <div class="opt-item"><strong>Expandir</strong> fontes de receita (novos produtos/serviços)</div>
+      <div class="opt-item"><strong>Melhorar</strong> a margem de lucro</div>
+      <div class="opt-item"><strong>Reduzir</strong> o CAC (custo de aquisição de cliente)</div>
+      <div class="opt-item"><strong>Aumentar</strong> o LTV (lifetime value) da base ativa</div>
+      <div class="opt-item"><strong>Diversificar</strong> fontes de receita</div>
+    </div>
+    <div class="opt-block">
+      <div class="opt-label" style="color:var(--teal-600)">👥 Clientes</div>
+      <div class="opt-item"><strong>Melhorar</strong> o índice de satisfação dos clientes</div>
+      <div class="opt-item"><strong>Aumentar</strong> a taxa de retenção/fidelização</div>
+      <div class="opt-item"><strong>Consolidar</strong> o posicionamento de marca</div>
+      <div class="opt-item"><strong>Fortalecer</strong> a confiança e o relacionamento com clientes</div>
+      <div class="opt-item"><strong>Expandir</strong> a base de clientes</div>
+      <div class="opt-item"><strong>Reduzir</strong> o churn (taxa de cancelamento)</div>
+      <div class="opt-item"><strong>Elevar</strong> o NPS (Net Promoter Score)</div>
+      <div class="opt-item"><strong>Criar</strong> programa de fidelização/recompensa</div>
+    </div>
+  </div>
+  <div class="grid-2">
+    <div class="opt-block">
+      <div class="opt-label" style="color:var(--blue-600)">⚙️ Processos internos</div>
+      <div class="opt-item"><strong>Otimizar</strong> processos operacionais</div>
+      <div class="opt-item"><strong>Implementar</strong> automação/tecnologia nos processos-chave</div>
+      <div class="opt-item"><strong>Padronizar</strong> fluxos de trabalho</div>
+      <div class="opt-item"><strong>Reduzir</strong> tempo de entrega/atendimento</div>
+      <div class="opt-item"><strong>Garantir</strong> qualidade e conformidade</div>
+      <div class="opt-item"><strong>Integrar</strong> sistemas e áreas</div>
+      <div class="opt-item"><strong>Desenvolver</strong> produto/serviço proprietário</div>
+      <div class="opt-item"><strong>Proteger</strong> propriedade intelectual (patentear)</div>
+    </div>
+    <div class="opt-block">
+      <div class="opt-label" style="color:var(--purple-600)">📚 Aprendizado e crescimento</div>
+      <div class="opt-item"><strong>Capacitar</strong> a equipe com treinamentos contínuos</div>
+      <div class="opt-item"><strong>Reter</strong> talentos-chave</div>
+      <div class="opt-item"><strong>Reduzir</strong> a taxa de turnover</div>
+      <div class="opt-item"><strong>Desenvolver</strong> cultura de inovação</div>
+      <div class="opt-item"><strong>Implementar</strong> remuneração baseada em resultado</div>
+      <div class="opt-item"><strong>Investir</strong> em tecnologia e infraestrutura</div>
+      <div class="opt-item"><strong>Criar</strong> programa de desenvolvimento de liderança</div>
+      <div class="opt-item"><strong>Promover</strong> ambiente de aprendizado contínuo</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================= -->
+<!-- ESTRATÉGIA DIAMANTE -->
+<!-- ============================= -->
+<div class="section" id="diamante">
+  <div class="section-header">
+    <span class="section-number">03</span>
+    <span class="section-title">Estratégia Diamante</span>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:14px">
+    <div class="opt-block">
+      <div class="opt-label" style="color:var(--purple-600)">Arena — Onde atuar</div>
+      <div class="opt-item"><strong>Segmentos:</strong> Classe A/B, profissionais de X–Y anos, PMEs, famílias com filhos, B2B/B2C</div>
+      <div class="opt-item"><strong>Geografia:</strong> Cidade-sede → Região metropolitana → Estado → Novos estados</div>
+      <div class="opt-item"><strong>Produtos:</strong> Serviço core + Produtos complementares + Licenciamento/Consultoria</div>
+      <div class="opt-item"><strong>Tecnologia:</strong> Metodologia proprietária, software próprio, plataforma digital</div>
+    </div>
+    <div class="opt-block">
+      <div class="opt-label" style="color:var(--teal-600)">Veículos — Como chegar</div>
+      <div class="opt-item">Crescimento orgânico (boca a boca, marketing)</div>
+      <div class="opt-item">Parcerias estratégicas com empresas complementares</div>
+      <div class="opt-item">Licenciamento de propriedade intelectual</div>
+      <div class="opt-item">Franquias ou filiais</div>
+      <div class="opt-item">Aquisições estratégicas</div>
+      <div class="opt-item">Investidores para escala</div>
+    </div>
+  </div>
+  <div class="grid-2" style="margin-bottom:14px">
+    <div class="opt-block">
+      <div class="opt-label" style="color:var(--coral-600)">Diferenciadores — Como ganhar</div>
+      <div class="opt-item">Metodologia/processo proprietário</div>
+      <div class="opt-item">Equipe altamente qualificada</div>
+      <div class="opt-item">Estrutura/localização premium</div>
+      <div class="opt-item">Tecnologia integrada à experiência do cliente</div>
+      <div class="opt-item">Atendimento personalizado/humanizado</div>
+      <div class="opt-item">Marca forte e reconhecida</div>
+    </div>
+    <div class="opt-block">
+      <div class="opt-label" style="color:var(--pink-600)">Recursos estratégicos — Como suportar</div>
+      <div class="opt-item">Propriedade intelectual (patentes, métodos)</div>
+      <div class="opt-item">Ativo tecnológico (softwares, plataformas)</div>
+      <div class="opt-item">Capital humano altamente qualificado</div>
+      <div class="opt-item">Base de dados/conhecimento do cliente</div>
+      <div class="opt-item">Marca e reputação</div>
+    </div>
+  </div>
+  <div class="grid-2">
+    <div class="opt-block">
+      <div class="opt-label" style="color:var(--blue-600)">Encenação — Sequência típica</div>
+      <div class="opt-item"><strong>Ano 1:</strong> Consolidar na cidade-sede, validar modelo</div>
+      <div class="opt-item"><strong>Ano 2–3:</strong> Expandir para região metropolitana, novos produtos</div>
+      <div class="opt-item"><strong>Ano 4–5:</strong> Expansão estadual/regional, parcerias, licenciamento</div>
+      <div class="tip"><p><strong>Padrão:</strong> sempre consolida antes de expandir. Mostrar timeline com datas.</p></div>
+    </div>
+    <div class="opt-block">
+      <div class="opt-label" style="color:var(--amber-600)">Lógica econômica — Como obter retorno</div>
+      <div class="opt-item">Preço premium (valor percebido alto)</div>
+      <div class="opt-item">Escala (volume com custo marginal baixo)</div>
+      <div class="opt-item">Recorrência (assinaturas, mensalidades)</div>
+      <div class="opt-item">Diversificação de receita (B2B + B2C)</div>
+      <div class="opt-item">Licenciamento de propriedade intelectual</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================= -->
+<!-- SWOT -->
+<!-- ============================= -->
+<div class="section" id="swot">
+  <div class="section-header">
+    <span class="section-number">04</span>
+    <span class="section-title">SWOT — Banco universal</span>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:14px">
+    <div class="opt-block" style="border-left:3px solid var(--purple-400)">
+      <div class="opt-label" style="color:var(--purple-600)">S — Forças (interno +)</div>
+      <div class="opt-item"><strong>S__</strong> Equipe qualificada/especializada</div>
+      <div class="opt-item"><strong>S__</strong> Metodologia/processo proprietário</div>
+      <div class="opt-item"><strong>S__</strong> Posicionamento inovador/diferenciado</div>
+      <div class="opt-item"><strong>S__</strong> Tecnologia própria ou avançada</div>
+      <div class="opt-item"><strong>S__</strong> Marca forte/reconhecida</div>
+      <div class="opt-item"><strong>S__</strong> Localização estratégica/estrutura premium</div>
+      <div class="opt-item"><strong>S__</strong> Base de clientes fiel</div>
+      <div class="opt-item"><strong>S__</strong> Cultura organizacional forte</div>
+    </div>
+    <div class="opt-block" style="border-left:3px solid var(--coral-400)">
+      <div class="opt-label" style="color:var(--coral-600)">W — Fraquezas (interno −)</div>
+      <div class="opt-item"><strong>W__</strong> Alto custo operacional</div>
+      <div class="opt-item"><strong>W__</strong> Dependência de profissionais-chave</div>
+      <div class="opt-item"><strong>W__</strong> Falta de processos padronizados</div>
+      <div class="opt-item"><strong>W__</strong> Baixa presença digital/marketing</div>
+      <div class="opt-item"><strong>W__</strong> Capacidade limitada de escala</div>
+      <div class="opt-item"><strong>W__</strong> Concentração de receita em poucos clientes</div>
+      <div class="opt-item"><strong>W__</strong> Infraestrutura tecnológica defasada</div>
+      <div class="opt-item"><strong>W__</strong> Ausência de propriedade intelectual</div>
+    </div>
+  </div>
+  <div class="grid-2" style="margin-bottom:14px">
+    <div class="opt-block" style="border-left:3px solid var(--teal-400)">
+      <div class="opt-label" style="color:var(--teal-600)">O — Oportunidades (externo +)</div>
+      <div class="opt-item"><strong>O__</strong> Mercado em expansão/crescimento do setor</div>
+      <div class="opt-item"><strong>O__</strong> Incentivos fiscais/regulatórios</div>
+      <div class="opt-item"><strong>O__</strong> Avanço de IA e novas tecnologias</div>
+      <div class="opt-item"><strong>O__</strong> Insatisfação do mercado com concorrentes</div>
+      <div class="opt-item"><strong>O__</strong> Mercado propenso a parcerias</div>
+      <div class="opt-item"><strong>O__</strong> Novos canais de distribuição (digital)</div>
+      <div class="opt-item"><strong>O__</strong> Mudança no comportamento do consumidor</div>
+      <div class="opt-item"><strong>O__</strong> Demanda não atendida em regiões adjacentes</div>
+    </div>
+    <div class="opt-block" style="border-left:3px solid var(--amber-400)">
+      <div class="opt-label" style="color:var(--amber-600)">T — Ameaças (externo −)</div>
+      <div class="opt-item"><strong>T__</strong> Entrada de novos concorrentes / players maiores</div>
+      <div class="opt-item"><strong>T__</strong> Mudanças regulatórias no setor</div>
+      <div class="opt-item"><strong>T__</strong> Avanço tecnológico acelerado (obsolescência)</div>
+      <div class="opt-item"><strong>T__</strong> Crise econômica / redução do poder de compra</div>
+      <div class="opt-item"><strong>T__</strong> Guerra de preços no setor</div>
+      <div class="opt-item"><strong>T__</strong> Mudança no comportamento do cliente</div>
+      <div class="opt-item"><strong>T__</strong> Escassez de mão de obra qualificada</div>
+      <div class="opt-item"><strong>T__</strong> Surgimento de produtos/serviços substitutos</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Ações universais para os 4 cruzamentos</div>
+    <div class="card-desc">Adapte ao caso, mas a lógica é sempre a mesma. Todos com verbo no infinitivo.</div>
+    <div class="grid-2">
+      <div class="opt-block" style="border-left:3px solid var(--purple-400)">
+        <div class="opt-label" style="color:var(--purple-600)">Ofensiva (S × O)</div>
+        <div class="opt-item"><strong>Aproveitar</strong> a expertise da equipe para capturar mercado em expansão</div>
+        <div class="opt-item"><strong>Expandir</strong> presença geográfica usando marca forte</div>
+        <div class="opt-item"><strong>Lançar</strong> novos produtos/serviços alavancando tecnologia própria</div>
+        <div class="opt-item"><strong>Estabelecer</strong> parcerias estratégicas usando posicionamento diferenciado</div>
+      </div>
+      <div class="opt-block" style="border-left:3px solid var(--teal-400)">
+        <div class="opt-label" style="color:var(--teal-600)">Defensiva (S × T)</div>
+        <div class="opt-item"><strong>Fortalecer</strong> diferenciais para se proteger de novos entrantes</div>
+        <div class="opt-item"><strong>Investir</strong> em atualização tecnológica contínua para evitar obsolescência</div>
+        <div class="opt-item"><strong>Proteger</strong> propriedade intelectual contra cópias</div>
+        <div class="opt-item"><strong>Diversificar</strong> receita para mitigar risco de crise setorial</div>
+      </div>
+    </div>
+    <div class="grid-2" style="margin-top:14px">
+      <div class="opt-block" style="border-left:3px solid var(--amber-400)">
+        <div class="opt-label" style="color:var(--amber-600)">Debilidade (W × O)</div>
+        <div class="opt-item"><strong>Buscar</strong> parcerias para compensar alto custo operacional</div>
+        <div class="opt-item"><strong>Investir</strong> em marketing digital para suprir baixa presença</div>
+        <div class="opt-item"><strong>Criar</strong> programa de formação interna para reduzir dependência</div>
+        <div class="opt-item"><strong>Adotar</strong> novas tecnologias para padronizar processos deficientes</div>
+      </div>
+      <div class="opt-block" style="border-left:3px solid var(--red-400)">
+        <div class="opt-label" style="color:var(--red-600)">Vulnerabilidade (W × T)</div>
+        <div class="opt-item"><strong>Implementar</strong> política de retenção de talentos (bonificação, plano de carreira)</div>
+        <div class="opt-item"><strong>Negociar</strong> contratos de longo prazo com fornecedores-chave</div>
+        <div class="opt-item"><strong>Constituir</strong> reserva financeira para períodos de crise</div>
+        <div class="opt-item"><strong>Acelerar</strong> digitalização para não ficar obsoleto ante novos concorrentes</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================= -->
+<!-- PORTER -->
+<!-- ============================= -->
+<div class="section" id="porter">
+  <div class="section-header">
+    <span class="section-number">05</span>
+    <span class="section-title">5 Forças de Porter — Respostas-modelo</span>
+  </div>
+  <p class="section-desc">Para cada força: exemplo + força/fraqueza + ação (verbo no infinitivo). Estes modelos funcionam para qualquer setor.</p>
+
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div class="opt-block" style="display:grid;grid-template-columns:140px 1fr 1fr 1fr;gap:12px;align-items:start">
+      <div><span class="tag" style="background:var(--purple-50);color:var(--purple-800)">Concorrentes</span></div>
+      <div><p style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">Exemplo genérico:</strong> Empresas tradicionais do setor + novos players digitais</p></div>
+      <div><p style="font-size:12px"><span style="color:var(--teal-600);font-weight:600">F:</span> Rivalidade estimula inovação · <span style="color:var(--red-600);font-weight:600">Fr:</span> Pressão nos preços</p></div>
+      <div><p style="font-size:12px;color:var(--amber-800);font-weight:500"><strong>Diferenciar</strong> a proposta de valor para competir por qualidade, não por preço</p></div>
+    </div>
+    <div class="opt-block" style="display:grid;grid-template-columns:140px 1fr 1fr 1fr;gap:12px;align-items:start">
+      <div><span class="tag" style="background:var(--blue-50);color:var(--blue-800)">Clientes</span></div>
+      <div><p style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">Exemplo genérico:</strong> Clientes exigentes, informados, com poder de troca</p></div>
+      <div><p style="font-size:12px"><span style="color:var(--teal-600);font-weight:600">F:</span> Alta disposição a pagar por valor · <span style="color:var(--red-600);font-weight:600">Fr:</span> Alto poder de barganha</p></div>
+      <div><p style="font-size:12px;color:var(--amber-800);font-weight:500"><strong>Criar</strong> programa de fidelização e elevar custo de troca</p></div>
+    </div>
+    <div class="opt-block" style="display:grid;grid-template-columns:140px 1fr 1fr 1fr;gap:12px;align-items:start">
+      <div><span class="tag" style="background:var(--teal-50);color:var(--teal-800)">Fornecedores</span></div>
+      <div><p style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">Exemplo genérico:</strong> Fornecedores de tecnologia / insumos especializados</p></div>
+      <div><p style="font-size:12px"><span style="color:var(--teal-600);font-weight:600">F:</span> Alta capacidade técnica · <span style="color:var(--red-600);font-weight:600">Fr:</span> Dependência / risco de ruptura</p></div>
+      <div><p style="font-size:12px;color:var(--amber-800);font-weight:500"><strong>Diversificar</strong> base de fornecedores e negociar contratos de longo prazo</p></div>
+    </div>
+    <div class="opt-block" style="display:grid;grid-template-columns:140px 1fr 1fr 1fr;gap:12px;align-items:start">
+      <div><span class="tag" style="background:var(--amber-50);color:var(--amber-800)">Substitutos</span></div>
+      <div><p style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">Exemplo genérico:</strong> Soluções alternativas de menor custo / modelo diferente</p></div>
+      <div><p style="font-size:12px"><span style="color:var(--teal-600);font-weight:600">F:</span> Custo menor / acessibilidade · <span style="color:var(--red-600);font-weight:600">Fr:</span> Menor qualidade / personalização</p></div>
+      <div><p style="font-size:12px;color:var(--amber-800);font-weight:500"><strong>Reforçar</strong> os diferenciais que o substituto não entrega (qualidade, experiência)</p></div>
+    </div>
+    <div class="opt-block" style="display:grid;grid-template-columns:140px 1fr 1fr 1fr;gap:12px;align-items:start">
+      <div><span class="tag" style="background:var(--coral-50);color:var(--coral-800)">Novos entrantes</span></div>
+      <div><p style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">Exemplo genérico:</strong> Empresa com capital para entrar no mercado rapidamente</p></div>
+      <div><p style="font-size:12px"><span style="color:var(--teal-600);font-weight:600">F:</span> Capital forte / velocidade · <span style="color:var(--red-600);font-weight:600">Fr:</span> Falta de experiência / relacionamento</p></div>
+      <div><p style="font-size:12px;color:var(--amber-800);font-weight:500"><strong>Fortalecer</strong> barreiras de entrada (marca, patentes, relacionamento, exclusividades)</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================= -->
+<!-- BSC -->
+<!-- ============================= -->
+<div class="section" id="bsc">
+  <div class="section-header">
+    <span class="section-number">06</span>
+    <span class="section-title">BSC — Indicadores e metas universais</span>
+  </div>
+  <p class="section-desc">Indicadores que se aplicam a qualquer empresa. Escolha o mais adequado ao caso e preencha DE → PARA.</p>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div class="opt-block">
+      <div class="opt-label" style="color:var(--amber-600)">Financeiro — Indicadores universais</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px">
+        <div style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">Receita mensal/anual</strong><br>Formato: R$ valor</div>
+        <div style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">Ticket médio</strong><br>Formato: R$ valor</div>
+        <div style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">CAC</strong><br>Formato: R$ por cliente</div>
+        <div style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">LTV</strong><br>Formato: R$ por cliente</div>
+        <div style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">Margem de lucro</strong><br>Formato: %</div>
+        <div style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">% receita de novos produtos</strong><br>Formato: %</div>
+      </div>
+    </div>
+
+    <div class="opt-block">
+      <div class="opt-label" style="color:var(--teal-600)">Clientes — Indicadores universais</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px">
+        <div style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">NPS</strong><br>Formato: pontos (0–100)</div>
+        <div style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">Taxa de retenção</strong><br>Formato: %</div>
+        <div style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">Taxa de churn</strong><br>Formato: % mensal</div>
+        <div style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">Nº de clientes ativos</strong><br>Formato: número absoluto</div>
+        <div style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">Taxa de indicação</strong><br>Formato: % dos clientes</div>
+        <div style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">CSAT (satisfação)</strong><br>Formato: nota 1–5 ou %</div>
+      </div>
+    </div>
+
+    <div class="opt-block">
+      <div class="opt-label" style="color:var(--blue-600)">Processos Internos — Indicadores universais</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px">
+        <div style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">Tempo médio de atendimento</strong><br>Formato: minutos/horas</div>
+        <div style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">% de processos automatizados</strong><br>Formato: %</div>
+        <div style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">Taxa de retrabalho/erro</strong><br>Formato: %</div>
+        <div style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">Nº de produtos/serviços lançados</strong><br>Formato: número</div>
+        <div style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">SLA de entrega</strong><br>Formato: % dentro do prazo</div>
+        <div style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">% de conformidade regulatória</strong><br>Formato: %</div>
+      </div>
+    </div>
+
+    <div class="opt-block">
+      <div class="opt-label" style="color:var(--purple-600)">Aprendizado e Crescimento — Indicadores universais</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px">
+        <div style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">Taxa de turnover</strong><br>Formato: % anual</div>
+        <div style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">Horas de treinamento/colaborador</strong><br>Formato: horas/ano</div>
+        <div style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">eNPS (satisfação interna)</strong><br>Formato: pontos</div>
+        <div style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">Nº de certificações obtidas</strong><br>Formato: número</div>
+        <div style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">% de vagas preenchidas internamente</strong><br>Formato: %</div>
+        <div style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">Investimento em capacitação</strong><br>Formato: R$ ou % do faturamento</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip" style="margin-top:16px"><p><strong>Formato do Alvo:</strong> SEMPRE → Atual: [valor] → Ano1: [meta] → Ano2: [meta] → Meta final: [valor]. Nunca pule as metas intermediárias.</p></div>
+</div>
+
+<!-- ============================= -->
+<!-- OKR -->
+<!-- ============================= -->
+<div class="section" id="okr">
+  <div class="section-header">
+    <span class="section-number">07</span>
+    <span class="section-title">OKR — Objetivos inspiradores + KRs universais</span>
+  </div>
+
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-title">Objetivos inspiradores (adapte ao caso)</div>
+    <div class="card-desc">O tom é motivacional, não gerencial. Sem números no objetivo.</div>
+    <div class="grid-2">
+      <div class="opt-block">
+        <div class="opt-label" style="color:var(--green-600)">Objetivos-modelo</div>
+        <div class="opt-item">Tornar a [empresa] sinônimo de excelência em [setor]</div>
+        <div class="opt-item">Fazer cada cliente se tornar um embaixador da marca</div>
+        <div class="opt-item">Construir uma equipe que o mercado inteiro queira contratar</div>
+        <div class="opt-item">Transformar nossa operação em referência de eficiência</div>
+        <div class="opt-item">Dominar o mercado de [região] com uma proposta que ninguém copia</div>
+        <div class="opt-item">Criar uma experiência que os clientes não encontram em nenhum concorrente</div>
+      </div>
+      <div class="opt-block">
+        <div class="opt-label" style="color:var(--blue-600)">KRs universais (DE → PARA)</div>
+        <div class="opt-item">NPS: de X para Y pontos</div>
+        <div class="opt-item">Taxa de retenção: de X% para Y%</div>
+        <div class="opt-item">Nº de publicações/menções: de X para Y</div>
+        <div class="opt-item">Taxa de conversão: de X% para Y%</div>
+        <div class="opt-item">Nº de eventos/parcerias: de X para Y</div>
+        <div class="opt-item">Turnover: de X% para Y%</div>
+        <div class="opt-item">Horas de treinamento: de X para Y h/pessoa</div>
+        <div class="opt-item">Receita de novo canal: de R$X para R$Y</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="warn"><p><strong>Diferença BSC × OKR:</strong> BSC diz "Melhorar satisfação dos clientes" (gerencial). OKR diz "Fazer cada cliente se tornar um embaixador da marca" (inspirador). O conteúdo pode ser o mesmo — o tom muda.</p></div>
+</div>
+
+<!-- ============================= -->
+<!-- REGRAS DE OURO -->
+<!-- ============================= -->
+<div class="section" id="regras">
+  <div class="section-header">
+    <span class="section-number">★</span>
+    <span class="section-title">Regras de ouro — Checklist antes de entregar</span>
+  </div>
+
+  <div class="card">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--border)">
+        <span class="tag" style="background:var(--red-50);color:var(--red-800)">Crítico</span>
+        <p style="font-size:14px">Todos os objetivos e ações começam com <strong>VERBO NO INFINITIVO</strong> (-ar, -er, -ir). Se termina em -ção, -mento, -ância → reescreva.</p>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--border)">
+        <span class="tag" style="background:var(--red-50);color:var(--red-800)">Crítico</span>
+        <p style="font-size:14px">SWOT: <strong>rastreabilidade obrigatória</strong> (S01, W01, O01, T01). Cada cruzamento cita as tags de origem.</p>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--border)">
+        <span class="tag" style="background:var(--red-50);color:var(--red-800)">Crítico</span>
+        <p style="font-size:14px">BSC: <strong>Mapa + Painel</strong>. Mapa conecta de baixo para cima. Painel tem 4 colunas: Objetivo, Indicador, Alvo (atual + metas intermediárias + meta final), Projeto.</p>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--border)">
+        <span class="tag" style="background:var(--amber-50);color:var(--amber-800)">Importante</span>
+        <p style="font-size:14px">Alvos do BSC: <strong>SEMPRE</strong> com valor atual + metas intermediárias por período + meta final. Nunca só atual → final.</p>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--border)">
+        <span class="tag" style="background:var(--amber-50);color:var(--amber-800)">Importante</span>
+        <p style="font-size:14px">OKR: Objetivo é <strong>inspirador e qualitativo</strong> (sem números). Key Results são <strong>quantitativos</strong> com DE → PARA + unidade. São 3 KRs.</p>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--border)">
+        <span class="tag" style="background:var(--amber-50);color:var(--amber-800)">Importante</span>
+        <p style="font-size:14px">Visão <strong>MUDA</strong> (3–5 anos). Missão <strong>NÃO MUDA</strong>. Valores: 3–5, sem sobreposição.</p>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--border)">
+        <span class="tag" style="background:var(--blue-50);color:var(--blue-800)">Dica</span>
+        <p style="font-size:14px">Proposta de Valor: preencha o lado do <strong>Cliente PRIMEIRO</strong> (necessidades, desejos, medos), depois o Produto com tags, depois o Encaixe.</p>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-start;padding:10px 0">
+        <span class="tag" style="background:var(--blue-50);color:var(--blue-800)">Dica</span>
+        <p style="font-size:14px">Leia o enunciado DUAS vezes. Se pede um pilar específico, responda naquele pilar. Resposta fora do pedido = nota zero na questão.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const sections = document.querySelectorAll('.section[id]');
+const navLinks = document.querySelectorAll('.nav a');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const link = document.querySelector(`.nav a[href="#${entry.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

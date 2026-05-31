@@ -1,0 +1,170 @@
+<style>
+  :root {
+    --bg: #FAF9F6; --bg-card: #FFFFFF; --bg-surface: #F3F1EC;
+    --text-primary: #1A1A18; --text-secondary: #5C5B56; --text-tertiary: #8A8985;
+    --border: #DDD9D0; --border-light: #ECEAE4;
+    --purple-50: #EEEDFE; --purple-600: #534AB7; --purple-800: #3C3489;
+    --amber-50: #FAEEDA; --amber-400: #BA7517; --amber-600: #854F0B;
+    --teal-50: #E6F4F1; --teal-600: #0F6E56;
+    --font-display: 'DM Serif Display', Georgia, serif;
+    --font-body: 'DM Sans', -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-body); background: var(--bg); color: var(--text-primary); -webkit-font-smoothing: antialiased; }
+  .page-title { font-family: var(--font-display); font-size: 26px; font-weight: 400; margin-bottom: 6px; }
+  .page-subtitle { font-size: 14px; color: var(--text-secondary); margin-bottom: 32px; line-height: 1.6; }
+
+  /* Option cards wrapper */
+  .options-grid { display: flex; flex-direction: column; gap: 24px; }
+
+  .opt-card {
+    background: var(--bg-card);
+    border: 2px solid var(--border-light);
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .opt-card:hover { border-color: var(--purple-600); box-shadow: 0 4px 20px rgba(83,74,183,0.08); }
+  .opt-card.selected { border-color: var(--purple-600); box-shadow: 0 4px 24px rgba(83,74,183,0.14); }
+
+  .opt-header {
+    display: flex; align-items: center; gap: 14px;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--border-light);
+    background: var(--bg-surface);
+  }
+  .opt-letter {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: var(--purple-600); color: white;
+    font-family: var(--font-mono); font-size: 14px; font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .opt-name { font-weight: 600; font-size: 15px; }
+  .opt-tagline { font-size: 13px; color: var(--text-secondary); margin-top: 1px; }
+
+  .opt-body { padding: 20px 24px; }
+
+  /* ── OPTION A: Strict component library ── */
+  .demo-a-callout {
+    background: var(--amber-50);
+    border-left: 3px solid var(--amber-600);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .demo-a-callout .lbl { font-family: var(--font-mono); font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--amber-600); margin-bottom: 4px; }
+  .demo-a-key {
+    background: var(--purple-50);
+    border-left: 3px solid var(--purple-600);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    font-size: 13px;
+  }
+  .demo-a-key .lbl { font-family: var(--font-mono); font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--purple-800); margin-bottom: 4px; }
+  .demo-a-note { font-size: 12px; color: var(--text-tertiary); margin-top: 12px; font-style: italic; }
+
+  /* ── OPTION B: Full AI freedom ── */
+  .demo-b-swot {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+    border-radius: 10px; overflow: hidden; font-size: 12px; margin-bottom: 10px;
+  }
+  .demo-b-swot-cell { padding: 12px 14px; }
+  .demo-b-swot-cell h5 { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+  .demo-b-swot-cell p { line-height: 1.5; font-size: 12px; }
+  .s { background: #EBF5E1; } .s h5 { color: #2E6B13; }
+  .w { background: #FEF3EC; } .w h5 { color: #92400E; }
+  .o { background: #E6F4F1; } .o h5 { color: #0F6E56; }
+  .t { background: #FEF0F0; } .t h5 { color: #991B1B; }
+  .demo-b-note { font-size: 12px; color: var(--text-tertiary); font-style: italic; }
+
+  /* ── OPTION C: Hybrid ── */
+  .demo-c-top { display: flex; gap: 10px; margin-bottom: 10px; }
+  .demo-c-card { flex: 1; background: var(--bg-surface); border: 1px solid var(--border-light); border-radius: 10px; padding: 12px; }
+  .demo-c-card .lbl { font-family: var(--font-mono); font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 4px; }
+  .demo-c-card .val { font-size: 13px; font-weight: 600; }
+  .demo-c-matrix {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+    border-radius: 8px; overflow: hidden; font-size: 12px;
+  }
+  .demo-c-matrix div { padding: 10px 12px; background: var(--bg-surface); border: 1px solid var(--border-light); }
+  .demo-c-matrix h5 { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 3px; }
+  .demo-c-note { font-size: 12px; color: var(--text-tertiary); font-style: italic; margin-top: 10px; }
+</style>
+
+<h2 class="page-title">How much freedom does the AI get?</h2>
+<p class="page-subtitle">All three use the same fonts and color tokens. The question is whether the AI follows a fixed component set, invents freely, or something in between.</p>
+
+<div class="options-grid">
+
+  <!-- OPTION A -->
+  <div class="opt-card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="opt-header">
+      <div class="opt-letter">A</div>
+      <div>
+        <div class="opt-name">Strict component library</div>
+        <div class="opt-tagline">AI picks from a fixed set of components, fills them with content</div>
+      </div>
+    </div>
+    <div class="opt-body">
+      <div class="demo-a-callout">
+        <div class="lbl">⚠ Cai na Prova</div>
+        BSC e OKR caem em todas as provas. Saber montar o Mapa e o Painel.
+      </div>
+      <div class="demo-a-key">
+        <div class="lbl">◆ Conceito-Chave</div>
+        <strong>SWOT</strong> — Análise cruzando ambiente interno (Forças e Fraquezas) com externo (Oportunidades e Ameaças)...
+      </div>
+      <p class="demo-a-note">Same callout blocks as today. Predictable, consistent across all subjects. Limited visual variety.</p>
+    </div>
+  </div>
+
+  <!-- OPTION B -->
+  <div class="opt-card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="opt-header">
+      <div class="opt-letter">B</div>
+      <div>
+        <div class="opt-name">Full AI freedom</div>
+        <div class="opt-tagline">AI writes any HTML/CSS it wants — only the fonts and color tokens are enforced</div>
+      </div>
+    </div>
+    <div class="opt-body">
+      <div class="demo-b-swot">
+        <div class="demo-b-swot-cell s"><h5>Forças</h5><p>Controlo hoje · Ambiente interno</p></div>
+        <div class="demo-b-swot-cell w"><h5>Fraquezas</h5><p>Não tenho hoje · Ambiente interno</p></div>
+        <div class="demo-b-swot-cell o"><h5>Oportunidades</h5><p>Mercado externo · Hoje</p></div>
+        <div class="demo-b-swot-cell t"><h5>Ameaças</h5><p>Ambiente externo · Hoje</p></div>
+      </div>
+      <p class="demo-b-note">SWOT becomes a matrix, BSC becomes a table, Diamond becomes a diagram. AI invents components per content. Less predictable, potentially stunning.</p>
+    </div>
+  </div>
+
+  <!-- OPTION C -->
+  <div class="opt-card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="opt-header">
+      <div class="opt-letter">C</div>
+      <div>
+        <div class="opt-name">Guided freedom (recommended)</div>
+        <div class="opt-tagline">AI gets a design system + component library, plus permission to invent new ones</div>
+      </div>
+    </div>
+    <div class="opt-body">
+      <div class="demo-c-top">
+        <div class="demo-c-card"><div class="lbl">Componente padrão</div><div class="val">◆ Conceito-Chave</div></div>
+        <div class="demo-c-card"><div class="lbl">Componente inventado</div><div class="val">Matriz SWOT 2×2</div></div>
+        <div class="demo-c-card"><div class="lbl">Componente inventado</div><div class="val">Painel BSC</div></div>
+      </div>
+      <div class="demo-c-matrix">
+        <div><h5>Forças</h5>Ambiente interno</div>
+        <div><h5>Fraquezas</h5>Ambiente interno</div>
+        <div><h5>Oportunidades</h5>Mercado externo</div>
+        <div><h5>Ameaças</h5>Mercado externo</div>
+      </div>
+      <p class="demo-c-note">Callouts still exist where appropriate. For structured content (matrices, tables, flows), the AI builds purpose-fit components. Best of both.</p>
+    </div>
+  </div>
+
+</div>

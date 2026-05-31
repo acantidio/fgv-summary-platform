@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estratégia Corporativa e de Negócios — Material de Estudo</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FAF9F6;
+  --bg-card: #FFFFFF;
+  --bg-surface: #F3F1EC;
+  --bg-accent: #E8E4DB;
+  --text-primary: #1A1A18;
+  --text-secondary: #5C5B56;
+  --text-tertiary: #8A8985;
+  --border: #DDD9D0;
+  --border-light: #ECEAE4;
+
+  --purple-50: #EEEDFE; --purple-100: #CECBF6; --purple-400: #7F77DD; --purple-600: #534AB7; --purple-800: #3C3489; --purple-900: #26215C;
+  --teal-50: #E1F5EE; --teal-100: #9FE1CB; --teal-400: #1D9E75; --teal-600: #0F6E56; --teal-800: #085041; --teal-900: #04342C;
+  --coral-50: #FAECE7; --coral-100: #F5C4B3; --coral-400: #D85A30; --coral-600: #993C1D; --coral-800: #712B13;
+  --blue-50: #E6F1FB; --blue-100: #B5D4F4; --blue-400: #378ADD; --blue-600: #185FA5; --blue-800: #0C447C;
+  --amber-50: #FAEEDA; --amber-100: #FAC775; --amber-400: #BA7517; --amber-600: #854F0B; --amber-800: #633806;
+  --pink-50: #FBEAF0; --pink-400: #D4537E; --pink-600: #993556; --pink-800: #72243E;
+  --red-50: #FCEBEB; --red-400: #E24B4A; --red-600: #A32D2D; --red-800: #791F1F;
+  --green-50: #EAF3DE; --green-400: #639922; --green-600: #3B6D11; --green-800: #27500A;
+  --gray-50: #F1EFE8; --gray-400: #888780; --gray-600: #5F5E5A;
+
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --radius: 10px;
+  --radius-lg: 16px;
+  --radius-sm: 6px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text-primary);
+  line-height: 1.7;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* === NAV === */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(250,249,246,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-light);
+  padding: 12px 0;
+}
+.nav-inner {
+  max-width: 960px; margin: 0 auto; padding: 0 32px;
+  display: flex; align-items: center; gap: 24px;
+  overflow-x: auto; scrollbar-width: none;
+}
+.nav-inner::-webkit-scrollbar { display: none; }
+.nav a {
+  font-size: 13px; font-weight: 500; color: var(--text-tertiary);
+  text-decoration: none; white-space: nowrap; padding: 4px 0;
+  border-bottom: 2px solid transparent; transition: all 0.2s;
+}
+.nav a:hover, .nav a.active { color: var(--text-primary); border-bottom-color: var(--purple-600); }
+
+/* === LAYOUT === */
+.container { max-width: 960px; margin: 0 auto; padding: 0 32px 80px; }
+
+/* === HERO === */
+.hero {
+  padding: 80px 0 60px;
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 60px;
+}
+.hero-label {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+  color: var(--purple-600); letter-spacing: 2px; text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.hero h1 {
+  font-family: var(--font-display); font-size: 42px; font-weight: 400;
+  line-height: 1.2; margin-bottom: 20px; color: var(--text-primary);
+  max-width: 700px;
+}
+.hero p {
+  font-size: 17px; color: var(--text-secondary); max-width: 600px; line-height: 1.8;
+}
+
+/* === SECTIONS === */
+.section { margin-bottom: 72px; }
+.section-header {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 32px; padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-light);
+}
+.section-number {
+  font-family: var(--font-display); font-size: 32px;
+  color: var(--border); line-height: 1;
+}
+.section-title {
+  font-family: var(--font-display); font-size: 26px;
+  font-weight: 400; line-height: 1.3;
+}
+.section-subtitle {
+  font-size: 15px; color: var(--text-secondary); margin-bottom: 24px;
+}
+
+/* === CARDS === */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  margin-bottom: 20px;
+  transition: box-shadow 0.25s;
+}
+.card:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.04); }
+.card-title {
+  font-family: var(--font-display); font-size: 20px;
+  margin-bottom: 8px; line-height: 1.3;
+}
+.card-desc { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; }
+
+/* === GRID === */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+@media (max-width: 700px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+}
+
+/* === TAGS === */
+.tag {
+  display: inline-block; font-size: 11px; font-weight: 600;
+  padding: 3px 10px; border-radius: 4px; white-space: nowrap;
+}
+.tag-purple { background: var(--purple-50); color: var(--purple-800); }
+.tag-teal { background: var(--teal-50); color: var(--teal-800); }
+.tag-coral { background: var(--coral-50); color: var(--coral-800); }
+.tag-amber { background: var(--amber-50); color: var(--amber-800); }
+.tag-blue { background: var(--blue-50); color: var(--blue-800); }
+.tag-pink { background: var(--pink-50); color: var(--pink-800); }
+.tag-red { background: var(--red-50); color: var(--red-800); }
+.tag-green { background: var(--green-50); color: var(--green-800); }
+
+/* === ALERT / PROVA === */
+.alert-prova {
+  background: var(--pink-50); border-left: 4px solid var(--pink-600);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 16px 20px; margin-bottom: 20px;
+}
+.alert-prova .alert-label {
+  font-size: 11px; font-weight: 700; color: var(--pink-800);
+  text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;
+}
+.alert-prova p { font-size: 14px; color: var(--pink-800); }
+
+.alert-info {
+  background: var(--blue-50); border-left: 4px solid var(--blue-600);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 16px 20px; margin-bottom: 20px;
+}
+.alert-info p { font-size: 14px; color: var(--blue-800); }
+
+/* === PILL LIST === */
+.pill-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.pill {
+  font-size: 12px; padding: 4px 12px;
+  border-radius: 20px; font-weight: 500;
+}
+
+/* === PILLAR STACK === */
+.pillar {
+  padding: 16px 20px; border-radius: var(--radius);
+  margin-bottom: 4px; text-align: center;
+}
+.pillar-label { font-weight: 600; font-size: 14px; }
+.pillar-desc { font-size: 12px; margin-top: 2px; }
+.arrow-down {
+  text-align: center; color: var(--text-tertiary);
+  font-size: 18px; margin: 2px 0;
+}
+
+/* === SWOT MATRIX === */
+.swot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; border-radius: var(--radius-lg); overflow: hidden; }
+.swot-cell { padding: 20px; }
+.swot-cell h4 { font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+.swot-cell p { font-size: 13px; line-height: 1.6; }
+
+/* === DIAMOND === */
+.diamond-center {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 12px; padding: 32px 0;
+}
+.diamond-node {
+  padding: 14px 24px; border-radius: var(--radius);
+  text-align: center; font-weight: 500; font-size: 14px;
+  max-width: 280px; width: 100%;
+}
+.diamond-row { display: flex; justify-content: center; gap: 24px; width: 100%; }
+
+/* === EXAMPLE BOX === */
+.example-box {
+  background: var(--bg-surface);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  margin: 24px 0;
+}
+.example-label {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+  color: var(--teal-600); letter-spacing: 1.5px; text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+/* === STEPPER === */
+.step-row { display: flex; gap: 10px; margin-bottom: 16px; }
+.step-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 13px; flex-shrink: 0; margin-top: 2px;
+}
+.step-content { flex: 1; }
+.step-content strong { font-weight: 600; }
+.step-content p { font-size: 14px; color: var(--text-secondary); margin-top: 2px; }
+
+/* === CONNECTOR ITEMS === */
+.connector-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.connector-card {
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  border-left: 4px solid;
+}
+.connector-card h5 { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+.connector-card p { font-size: 12px; line-height: 1.5; }
+
+/* === BSC TABLE === */
+.bsc-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: var(--radius); overflow: hidden; font-size: 13px; }
+.bsc-table thead th {
+  background: var(--bg-accent); padding: 12px 14px;
+  text-align: left; font-weight: 600; font-size: 12px;
+  color: var(--text-secondary); letter-spacing: 0.5px; text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+}
+.bsc-table tbody td {
+  padding: 10px 14px; border-bottom: 1px solid var(--border-light);
+  vertical-align: top;
+}
+.bsc-table tbody tr:last-child td { border-bottom: none; }
+
+/* === CHECKLIST === */
+.checklist-item {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 12px 0; border-bottom: 1px solid var(--border-light);
+}
+.checklist-item:last-child { border-bottom: none; }
+
+/* === IMPORTANCE BLOCK === */
+.importance-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 24px;
+  border: 1px solid var(--border-light);
+}
+.importance-block .ib-left {
+  padding: 16px 20px;
+  background: var(--bg-accent);
+}
+.importance-block .ib-right {
+  padding: 16px 20px;
+  background: var(--bg-card);
+}
+.importance-block .ib-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 6px;
+}
+.importance-block p {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* === ANIMATIONS === */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.section { animation: fadeUp 0.5s ease-out both; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#metodologia" class="active">Metodologia</a>
+    <a href="#pilares">Pilares</a>
+    <a href="#direcionamento">Direcionamento</a>
+    <a href="#proposta-valor">Proposta de Valor</a>
+    <a href="#vmv">Visão/Missão/Valores</a>
+    <a href="#diamante">Diamante</a>
+    <a href="#ambiente">Ambiente</a>
+    <a href="#swot">SWOT</a>
+    <a href="#porter">Porter</a>
+    <a href="#desdobramento">Desdobramento</a>
+    <a href="#bsc">BSC</a>
+    <a href="#okr">OKR</a>
+    <a href="#prova">Prova</a>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-label">Material de estudo</div>
+  <h1>Estratégia Corporativa e de Negócios</h1>
+  <p>Do desempenho atual ao desempenho futuro por meio da estratégia. Metodologia completa: Direcionamento → Ambiente → Desdobramento.</p>
+</div>
+
+<!-- =============================== -->
+<!-- 1. METODOLOGIA GERAL -->
+<!-- =============================== -->
+<div class="section" id="metodologia">
+  <div class="section-header">
+    <span class="section-number">01</span>
+    <span class="section-title">Metodologia Estratégica</span>
+  </div>
+  <p class="section-subtitle">O macro objetivo é sair do desempenho atual para o desempenho futuro. A estratégia é o caminho. A metodologia organiza esse caminho em três fases sequenciais, cada uma com suas ferramentas.</p>
+
+  <div class="grid-3" style="margin-bottom:20px">
+    <div class="card" style="border-top:4px solid var(--purple-600)">
+      <span class="tag tag-purple" style="margin-bottom:10px">Fase 1</span>
+      <div class="card-title">Direcionamento</div>
+      <div class="card-desc">Onde queremos chegar? Quem somos?</div>
+      <p style="font-size:13px;color:var(--text-secondary)">Proposta de Valor, Visão/Missão/Valores, Objetivos Estratégicos, Estratégia Diamante</p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--teal-600)">
+      <span class="tag tag-teal" style="margin-bottom:10px">Fase 2</span>
+      <div class="card-title">Ambiente</div>
+      <div class="card-desc">Onde estamos hoje? Qual o cenário?</div>
+      <p style="font-size:13px;color:var(--text-secondary)">Análise SWOT (com cruzamentos), 5 Forças de Porter</p>
+    </div>
+    <div class="card" style="border-top:4px solid var(--coral-600)">
+      <span class="tag tag-coral" style="margin-bottom:10px">Fase 3</span>
+      <div class="card-title">Desdobramento</div>
+      <div class="card-desc">Como vamos executar e medir?</div>
+      <p style="font-size:13px;color:var(--text-secondary)">Revisão de Objetivos, BSC (Mapa + Painel), OKR</p>
+    </div>
+  </div>
+
+  <div class="card" style="background:var(--bg-surface);border:1px dashed var(--border)">
+    <p style="font-size:14px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">Triângulo Certeza × Incerteza:</strong> A lógica é levar do nível Estratégico (alta incerteza), passando pelo Tático/Gerencial, até o Operacional (alta certeza). Cada fase da metodologia reduz a incerteza progressivamente.</p>
+  </div>
+</div>
+
+<!-- =============================== -->
+<!-- 2. PILARES DA EMPRESA -->
+<!-- =============================== -->
+<div class="section" id="pilares">
+  <div class="section-header">
+    <span class="section-number">02</span>
+    <span class="section-title">Os 4 Pilares da Empresa</span>
+  </div>
+  <p class="section-subtitle">As quatro perspectivas que sustentam toda estrutura estratégica. São os mesmos pilares do BSC. Leia de baixo para cima: a base causa o resultado no topo.</p>
+
+  <div style="max-width:520px;margin:0 auto">
+    <div class="pillar" style="background:var(--amber-50)">
+      <div class="pillar-label" style="color:var(--amber-800)">Financeiro</div>
+      <div class="pillar-desc" style="color:var(--amber-600)">Receita, lucro, ROI — o resultado final</div>
+    </div>
+    <div class="arrow-down">↑</div>
+    <div class="pillar" style="background:var(--teal-50)">
+      <div class="pillar-label" style="color:var(--teal-800)">Clientes</div>
+      <div class="pillar-desc" style="color:var(--teal-600)">Satisfação, retenção, participação de mercado</div>
+    </div>
+    <div class="arrow-down">↑</div>
+    <div class="pillar" style="background:var(--blue-50)">
+      <div class="pillar-label" style="color:var(--blue-800)">Processos Internos</div>
+      <div class="pillar-desc" style="color:var(--blue-600)">Operações, inovação, qualidade</div>
+    </div>
+    <div class="arrow-down">↑</div>
+    <div class="pillar" style="background:var(--purple-50)">
+      <div class="pillar-label" style="color:var(--purple-800)">Aprendizado e Crescimento</div>
+      <div class="pillar-desc" style="color:var(--purple-600)">Pessoas, cultura, tecnologia, capacitação</div>
+    </div>
+  </div>
+</div>
+
+<!-- =============================== -->
+<!-- 3. DIRECIONAMENTO -->
+<!-- =============================== -->
+<div class="section" id="direcionamento">
+  <div class="section-header">
+    <span class="section-number">03</span>
+    <span class="section-title">Fase 1 — Direcionamento</span>
+  </div>
+  <p class="section-subtitle">Definir para onde a empresa quer ir. Inclui Proposta de Valor, Visão/Missão/Valores, Objetivos Estratégicos e Estratégia Diamante.</p>
+</div>
+
+<!-- =============================== -->
+<!-- 3A. PROPOSTA DE VALOR -->
+<!-- =============================== -->
+<div class="section" id="proposta-valor">
+  <div class="section-header">
+    <span class="section-number">3a</span>
+    <span class="section-title">Proposta de Valor</span>
+  </div>
+  <p class="section-subtitle">Originada pelo conceito de Porter e desenvolvida por Alex Osterwalder no Business Model Canvas. Uma versão posterior incorporou também o comportamento do cliente. A proposta funciona como um espelho: lado esquerdo (produto) responde ao lado direito (cliente).</p>
+
+  <div class="importance-block">
+    <div class="ib-left">
+      <div class="ib-label" style="color:var(--purple-600)">Por que existe</div>
+      <p>Garantir que a empresa não crie produtos ou serviços no vácuo. Força a organização a <strong>partir do cliente</strong> — suas dores, desejos e necessidades — antes de definir o que oferecer.</p>
+    </div>
+    <div class="ib-right">
+      <div class="ib-label" style="color:var(--teal-600)">Objetivo na estratégia</div>
+      <p>Conectar cada entrega da empresa a uma demanda real do cliente por meio do <strong>encaixe (fit)</strong>. Se um produto não tem tag correspondente no lado do cliente, ele não se justifica estrategicamente.</p>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:20px">
+    <div class="card" style="border-left:4px solid var(--purple-600)">
+      <div class="card-title" style="color:var(--purple-800)">Lado Esquerdo — Produto</div>
+      <div class="card-desc">O que oferecemos? Cada item recebe uma tag (A, B, C...)</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="padding:8px 12px;background:var(--purple-50);border-radius:var(--radius-sm)">
+          <strong style="font-size:13px;color:var(--purple-800)">Características</strong>
+          <p style="font-size:12px;color:var(--purple-600)">O que entregamos concretamente</p>
+        </div>
+        <div style="padding:8px 12px;background:var(--purple-50);border-radius:var(--radius-sm)">
+          <strong style="font-size:13px;color:var(--purple-800)">Benefícios</strong>
+          <p style="font-size:12px;color:var(--purple-600)">Os ganhos que geramos para o cliente</p>
+        </div>
+        <div style="padding:8px 12px;background:var(--purple-50);border-radius:var(--radius-sm)">
+          <strong style="font-size:13px;color:var(--purple-800)">Experiência</strong>
+          <p style="font-size:12px;color:var(--purple-600)">Como o cliente vivencia e sente o produto</p>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="border-left:4px solid var(--teal-600)">
+      <div class="card-title" style="color:var(--teal-800)">Lado Direito — Cliente</div>
+      <div class="card-desc">O que o cliente precisa? Preenchido primeiro.</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="padding:8px 12px;background:var(--teal-50);border-radius:var(--radius-sm)">
+          <strong style="font-size:13px;color:var(--teal-800)">Necessidades</strong>
+          <p style="font-size:12px;color:var(--teal-600)">O que o cliente precisa resolver</p>
+        </div>
+        <div style="padding:8px 12px;background:var(--teal-50);border-radius:var(--radius-sm)">
+          <strong style="font-size:13px;color:var(--teal-800)">Desejos</strong>
+          <p style="font-size:12px;color:var(--teal-600)">Aspirações, resultados que ele quer</p>
+        </div>
+        <div style="padding:8px 12px;background:var(--teal-50);border-radius:var(--radius-sm)">
+          <strong style="font-size:13px;color:var(--teal-800)">Medos</strong>
+          <p style="font-size:12px;color:var(--teal-600)">Frustrações, riscos, obstáculos temidos</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4 ETAPAS -->
+  <div class="card">
+    <div class="card-title">As 4 Etapas do Preenchimento</div>
+    <div class="card-desc">Ordem obrigatória para construir a Proposta de Valor</div>
+    <div class="grid-4">
+      <div style="text-align:center;padding:12px;background:var(--bg-surface);border-radius:var(--radius)">
+        <div style="font-family:var(--font-display);font-size:28px;color:var(--purple-400)">1</div>
+        <div style="font-size:12px;color:var(--text-secondary);line-height:1.4">Definir Produto, Cliente ideal e Substituto</div>
+      </div>
+      <div style="text-align:center;padding:12px;background:var(--bg-surface);border-radius:var(--radius)">
+        <div style="font-family:var(--font-display);font-size:28px;color:var(--teal-400)">2</div>
+        <div style="font-size:12px;color:var(--text-secondary);line-height:1.4">Preencher lado direito (Cliente)</div>
+      </div>
+      <div style="text-align:center;padding:12px;background:var(--bg-surface);border-radius:var(--radius)">
+        <div style="font-family:var(--font-display);font-size:28px;color:var(--purple-400)">3</div>
+        <div style="font-size:12px;color:var(--text-secondary);line-height:1.4">Preencher lado esquerdo (Produto) com tags</div>
+      </div>
+      <div style="text-align:center;padding:12px;background:var(--bg-surface);border-radius:var(--radius)">
+        <div style="font-family:var(--font-display);font-size:28px;color:var(--amber-400)">4</div>
+        <div style="font-size:12px;color:var(--text-secondary);line-height:1.4">Encaixe: conectar tags do produto ao cliente</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- EXEMPLO PRÁTICO: ESCOLA DIGITAL -->
+  <!-- ============================================== -->
+  <div class="example-box">
+    <div class="example-label">Exemplo prático — Estudo de caso</div>
+    <h3 style="font-family:var(--font-display);font-size:22px;margin-bottom:6px">Escola de Educação Digital</h3>
+    <p style="font-size:14px;color:var(--text-secondary);margin-bottom:20px">
+      Equipe: André Cantidio, Francisca Jenifer, Walquiria Casagrande, Tatiana Casimiro, Daniel Silva, Ana Carla Dias, Lívia Vasconcelos
+    </p>
+
+    <!-- Etapa 1 -->
+    <h4 style="font-size:15px;font-weight:600;margin-bottom:12px;color:var(--purple-800)">Etapa 1 — Definição base</h4>
+    <div class="grid-3" style="margin-bottom:24px">
+      <div style="background:var(--bg-card);border-radius:var(--radius);padding:14px 16px;border:1px solid var(--border-light)">
+        <div style="font-size:11px;font-weight:600;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Produto / Serviço</div>
+        <p style="font-size:14px;font-weight:500">Educação que prepare para o mundo digital</p>
+      </div>
+      <div style="background:var(--bg-card);border-radius:var(--radius);padding:14px 16px;border:1px solid var(--border-light)">
+        <div style="font-size:11px;font-weight:600;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Cliente ideal</div>
+        <p style="font-size:14px;font-weight:500">Pais de 30–45 anos, alto padrão de renda</p>
+        <p style="font-size:12px;color:var(--text-secondary);margin-top:2px">Filhos de 7–14 anos no ensino fundamental</p>
+      </div>
+      <div style="background:var(--bg-card);border-radius:var(--radius);padding:14px 16px;border:1px solid var(--border-light)">
+        <div style="font-size:11px;font-weight:600;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">Substitutos</div>
+        <p style="font-size:14px;font-weight:500">Escolas com modelo tradicional de ensino</p>
+      </div>
+    </div>
+
+    <!-- Etapa 2: Lado Direito -->
+    <h4 style="font-size:15px;font-weight:600;margin-bottom:12px;color:var(--teal-800)">Etapa 2 — Lado direito: Cliente</h4>
+    <div class="grid-3" style="margin-bottom:24px">
+      <div style="background:var(--bg-card);border-radius:var(--radius);padding:14px 16px;border:1px solid var(--border-light)">
+        <div style="font-size:12px;font-weight:600;color:var(--teal-800);margin-bottom:8px">Necessidades</div>
+        <div class="pill-list">
+          <span class="pill" style="background:var(--teal-50);color:var(--teal-800)">Educar filhos com métodos que garantam engajamento</span>
+          <span class="pill" style="background:var(--teal-50);color:var(--teal-800)">Experiência educacional pautada em tecnologia</span>
+        </div>
+      </div>
+      <div style="background:var(--bg-card);border-radius:var(--radius);padding:14px 16px;border:1px solid var(--border-light)">
+        <div style="font-size:12px;font-weight:600;color:var(--teal-800);margin-bottom:8px">Desejos</div>
+        <div class="pill-list">
+          <span class="pill" style="background:var(--teal-50);color:var(--teal-800)">Aprender brincando</span>
+          <span class="pill" style="background:var(--teal-50);color:var(--teal-800)">Ver o filho liderando mudanças</span>
+          <span class="pill" style="background:var(--teal-50);color:var(--teal-800)">Status</span>
+          <span class="pill" style="background:var(--teal-50);color:var(--teal-800)">Acesso a tecnologias de ponta</span>
+        </div>
+      </div>
+      <div style="background:var(--bg-card);border-radius:var(--radius);padding:14px 16px;border:1px solid var(--border-light)">
+        <div style="font-size:12px;font-weight:600;color:var(--teal-800);margin-bottom:8px">Medos</div>
+        <div class="pill-list">
+          <span class="pill" style="background:var(--teal-50);color:var(--teal-800)">Tédio no colégio</span>
+          <span class="pill" style="background:var(--teal-50);color:var(--teal-800)">Obsolescência no mercado digital</span>
+          <span class="pill" style="background:var(--teal-50);color:var(--teal-800)">Isolamento social</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Etapa 3: Lado Esquerdo -->
+    <h4 style="font-size:15px;font-weight:600;margin-bottom:12px;color:var(--purple-800)">Etapa 3 — Lado esquerdo: Produto (com tags)</h4>
+    <div class="grid-3" style="margin-bottom:24px">
+      <div style="background:var(--bg-card);border-radius:var(--radius);padding:14px 16px;border:1px solid var(--border-light)">
+        <div style="font-size:12px;font-weight:600;color:var(--purple-800);margin-bottom:8px">Características</div>
+        <div class="pill-list">
+          <span class="pill" style="background:var(--purple-50);color:var(--purple-800)"><strong>A</strong> — Currículo em tecnologias centrais</span>
+          <span class="pill" style="background:var(--purple-50);color:var(--purple-800)"><strong>B</strong> — Aulas gamificadas e interativas</span>
+          <span class="pill" style="background:var(--purple-50);color:var(--purple-800)"><strong>C</strong> — Professores mentores de competências futuras</span>
+          <span class="pill" style="background:var(--purple-50);color:var(--purple-800)"><strong>D</strong> — Estrutura física moderna e integrativa</span>
+          <span class="pill" style="background:var(--purple-50);color:var(--purple-800)"><strong>E</strong> — Método exclusivo de ensino</span>
+        </div>
+      </div>
+      <div style="background:var(--bg-card);border-radius:var(--radius);padding:14px 16px;border:1px solid var(--border-light)">
+        <div style="font-size:12px;font-weight:600;color:var(--purple-800);margin-bottom:8px">Benefícios</div>
+        <div class="pill-list">
+          <span class="pill" style="background:var(--purple-50);color:var(--purple-800)"><strong>F</strong> — Engajamento total no ensino</span>
+          <span class="pill" style="background:var(--purple-50);color:var(--purple-800)"><strong>G</strong> — Sensação de bem-estar indo à escola</span>
+          <span class="pill" style="background:var(--purple-50);color:var(--purple-800)"><strong>H</strong> — Orgulho e prestígio do desenvolvimento</span>
+        </div>
+      </div>
+      <div style="background:var(--bg-card);border-radius:var(--radius);padding:14px 16px;border:1px solid var(--border-light)">
+        <div style="font-size:12px;font-weight:600;color:var(--purple-800);margin-bottom:8px">Experiência</div>
+        <div class="pill-list">
+          <span class="pill" style="background:var(--purple-50);color:var(--purple-800)"><strong>I</strong> — Tranquilidade no uso da tecnologia</span>
+          <span class="pill" style="background:var(--purple-50);color:var(--purple-800)"><strong>J</strong> — Transparência no acompanhamento</span>
+          <span class="pill" style="background:var(--purple-50);color:var(--purple-800)"><strong>K</strong> — Pertencimento e protagonismo</span>
+          <span class="pill" style="background:var(--purple-50);color:var(--purple-800)"><strong>L</strong> — Maior retenção de conteúdo</span>
+          <span class="pill" style="background:var(--purple-50);color:var(--purple-800)"><strong>M</strong> — Ambiente de aprendizado moderno</span>
+          <span class="pill" style="background:var(--purple-50);color:var(--purple-800)"><strong>N</strong> — Foco aumentado</span>
+          <span class="pill" style="background:var(--purple-50);color:var(--purple-800)"><strong>O</strong> — Inovação do desenvolvimento cognitivo</span>
+          <span class="pill" style="background:var(--purple-50);color:var(--purple-800)"><strong>P</strong> — Tranquilidade sobre preparo para o futuro</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Etapa 4: Encaixe -->
+    <h4 style="font-size:15px;font-weight:600;margin-bottom:12px;color:var(--amber-800)">Etapa 4 — O encaixe (Fit)</h4>
+    <p style="font-size:13px;color:var(--text-secondary);margin-bottom:14px">Cada tag do lado esquerdo é vinculada aos itens do lado direito que ela atende. Uma mesma tag pode aparecer em mais de uma categoria — isso mostra itens de alto impacto.</p>
+    <div class="grid-3" style="margin-bottom:16px">
+      <div style="background:var(--bg-card);border-radius:var(--radius);padding:14px 16px;border:1px solid var(--border-light);border-top:3px solid var(--teal-600)">
+        <div style="font-size:12px;font-weight:600;color:var(--amber-800);margin-bottom:8px">Necessidades ← atendidas por</div>
+        <div class="pill-list">
+          <span class="pill" style="background:var(--amber-50);color:var(--amber-800);font-weight:600">A</span>
+          <span class="pill" style="background:var(--amber-50);color:var(--amber-800);font-weight:600">D</span>
+          <span class="pill" style="background:var(--amber-50);color:var(--amber-800);font-weight:600">I</span>
+          <span class="pill" style="background:var(--amber-50);color:var(--amber-800);font-weight:600">L</span>
+          <span class="pill" style="background:var(--amber-50);color:var(--amber-800);font-weight:600">M</span>
+          <span class="pill" style="background:var(--amber-50);color:var(--amber-800);font-weight:600">P</span>
+        </div>
+        <p style="font-size:11px;color:var(--text-tertiary);margin-top:8px">Currículo, estrutura, tranquilidade, retenção, ambiente, preparo futuro</p>
+      </div>
+      <div style="background:var(--bg-card);border-radius:var(--radius);padding:14px 16px;border:1px solid var(--border-light);border-top:3px solid var(--teal-600)">
+        <div style="font-size:12px;font-weight:600;color:var(--amber-800);margin-bottom:8px">Desejos ← atendidos por</div>
+        <div class="pill-list">
+          <span class="pill" style="background:var(--amber-50);color:var(--amber-800);font-weight:600">K</span>
+          <span class="pill" style="background:var(--amber-50);color:var(--amber-800);font-weight:600">C</span>
+          <span class="pill" style="background:var(--amber-50);color:var(--amber-800);font-weight:600">P</span>
+          <span class="pill" style="background:var(--amber-50);color:var(--amber-800);font-weight:600">I</span>
+          <span class="pill" style="background:var(--amber-50);color:var(--amber-800);font-weight:600">M</span>
+          <span class="pill" style="background:var(--amber-50);color:var(--amber-800);font-weight:600">F</span>
+        </div>
+        <p style="font-size:11px;color:var(--text-tertiary);margin-top:8px">Protagonismo, mentores, preparo, tranquilidade, ambiente, engajamento</p>
+      </div>
+      <div style="background:var(--bg-card);border-radius:var(--radius);padding:14px 16px;border:1px solid var(--border-light);border-top:3px solid var(--teal-600)">
+        <div style="font-size:12px;font-weight:600;color:var(--amber-800);margin-bottom:8px">Medos ← cobertos por</div>
+        <div class="pill-list">
+          <span class="pill" style="background:var(--amber-50);color:var(--amber-800);font-weight:600">B</span>
+          <span class="pill" style="background:var(--amber-50);color:var(--amber-800);font-weight:600">N</span>
+          <span class="pill" style="background:var(--amber-50);color:var(--amber-800);font-weight:600">D</span>
+          <span class="pill" style="background:var(--amber-50);color:var(--amber-800);font-weight:600">A</span>
+          <span class="pill" style="background:var(--amber-50);color:var(--amber-800);font-weight:600">G</span>
+          <span class="pill" style="background:var(--amber-50);color:var(--amber-800);font-weight:600">K</span>
+        </div>
+        <p style="font-size:11px;color:var(--text-tertiary);margin-top:8px">Gamificação, foco, estrutura, currículo, bem-estar, pertencimento</p>
+      </div>
+    </div>
+
+    <div class="alert-info">
+      <p><strong>Análise:</strong> A tag <strong>P</strong> (tranquilidade sobre preparo futuro) aparece em Necessidades e Desejos — é um item de alto impacto. As tags <strong>A</strong>, <strong>D</strong> e <strong>K</strong> também aparecem em múltiplas categorias, mostrando que currículo tecnológico, estrutura moderna e protagonismo são pilares centrais da proposta. O encaixe prova que cada entrega resolve uma necessidade real do cliente.</p>
+    </div>
+  </div>
+</div>
+
+<!-- =============================== -->
+<!-- 3B. VISÃO / MISSÃO / VALORES -->
+<!-- =============================== -->
+<div class="section" id="vmv">
+  <div class="section-header">
+    <span class="section-number">3b</span>
+    <span class="section-title">Visão, Missão e Valores</span>
+  </div>
+  <p class="section-subtitle">A tríade direcionadora. Pensar no futuro de forma positiva e inspiradora.</p>
+
+  <div class="importance-block">
+    <div class="ib-left">
+      <div class="ib-label" style="color:var(--amber-600)">Por que existe</div>
+      <p>Criar a <strong>identidade estratégica</strong> da organização. Sem visão não há destino; sem missão não há propósito; sem valores não há cultura. Juntos, são a bússola que orienta toda decisão.</p>
+    </div>
+    <div class="ib-right">
+      <div class="ib-label" style="color:var(--teal-600)">Objetivo na estratégia</div>
+      <p>Alimentar diretamente a construção dos <strong>objetivos estratégicos</strong>. Cada objetivo deve ser rastreável a pelo menos um desses três elementos, garantindo coerência entre identidade e ação.</p>
+    </div>
+  </div>
+
+  <div class="grid-3" style="margin-bottom:20px">
+    <div class="card" style="border-top:4px solid var(--amber-400)">
+      <div class="card-title" style="color:var(--amber-800)">Visão</div>
+      <div class="card-desc">O desejo de futuro</div>
+      <p style="font-size:13px;color:var(--text-secondary);margin-bottom:8px">Horizonte recomendado: 3 a 5 anos</p>
+      <span class="tag tag-amber">A Visão MUDA</span>
+    </div>
+    <div class="card" style="border-top:4px solid var(--teal-400)">
+      <div class="card-title" style="color:var(--teal-800)">Missão</div>
+      <div class="card-desc">O porquê de existir</div>
+      <p style="font-size:13px;color:var(--text-secondary);margin-bottom:8px">Razão de ser da organização</p>
+      <span class="tag tag-teal">A Missão NÃO MUDA</span>
+    </div>
+    <div class="card" style="border-top:4px solid var(--purple-400)">
+      <div class="card-title" style="color:var(--purple-800)">Valores</div>
+      <div class="card-desc">As crenças e princípios</div>
+      <p style="font-size:13px;color:var(--text-secondary);margin-bottom:8px">Padrão de mercado: 3 a 7 valores</p>
+      <span class="tag tag-purple">Não é limitante</span>
+    </div>
+  </div>
+
+  <div class="alert-prova">
+    <div class="alert-label">Destaque para a prova</div>
+    <p>Visão MUDA (horizonte temporal). Missão NÃO MUDA (razão de existir). Os três alimentam a construção dos Objetivos Estratégicos.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Objetivos Estratégicos</div>
+    <div class="card-desc">Derivados da Proposta de Valor + Visão/Missão/Valores</div>
+    <p style="font-size:14px;color:var(--text-secondary);margin-bottom:12px">Cada objetivo deve estar conectado a um dos 4 pilares (Financeiro, Clientes, Processos, Aprendizado). Levanta-se alto volume e depois filtra-se para selecionar.</p>
+    <div class="alert-info">
+      <p><strong>Regra fundamental:</strong> Objetivos estratégicos são sempre escritos com <strong>verbos no infinitivo</strong>. Ex: "Aumentar a receita", "Reduzir o turnover", "Implementar sistema de gestão".</p>
+    </div>
+  </div>
+
+  <!-- EXEMPLO PRÁTICO: VMV -->
+  <div class="example-box">
+    <div class="example-label">Exemplo prático — Escola de Educação Digital</div>
+
+    <div class="grid-3" style="margin-bottom:20px">
+      <div style="background:var(--bg-card);border-radius:var(--radius);padding:16px;border:1px solid var(--border-light);border-top:3px solid var(--amber-400)">
+        <div style="font-size:11px;font-weight:600;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">Visão (horizonte 2030)</div>
+        <p style="font-size:14px;font-weight:500;line-height:1.5;font-style:italic">"Ser a referência no estado em educação disruptiva do ensino fundamental até 2030"</p>
+      </div>
+      <div style="background:var(--bg-card);border-radius:var(--radius);padding:16px;border:1px solid var(--border-light);border-top:3px solid var(--teal-400)">
+        <div style="font-size:11px;font-weight:600;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">Missão (Propósito Transformador)</div>
+        <p style="font-size:14px;font-weight:500;line-height:1.5;font-style:italic">"Empoderar a nova geração através de um ecossistema educacional imersivo, com tecnologia de ponta e conexão humana, transformando aprendizado em experiência de descoberta contínua"</p>
+      </div>
+      <div style="background:var(--bg-card);border-radius:var(--radius);padding:16px;border:1px solid var(--border-light);border-top:3px solid var(--purple-400)">
+        <div style="font-size:11px;font-weight:600;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">Valores (5 valores)</div>
+        <div class="pill-list">
+          <span class="pill" style="background:var(--purple-50);color:var(--purple-800)">Agilidade</span>
+          <span class="pill" style="background:var(--purple-50);color:var(--purple-800)">Tecnologia à serviço do humano</span>
+          <span class="pill" style="background:var(--purple-50);color:var(--purple-800)">Disrupção</span>
+          <span class="pill" style="background:var(--purple-50);color:var(--purple-800)">Protagonismo criativo</span>
+          <span class="pill" style="background:var(--purple-50);color:var(--purple-800)">Excelência em experiência</span>
+        </div>
+      </div>
+    </div>
+
+    <h4 style="font-size:15px;font-weight:600;margin-bottom:12px;color:var(--coral-800)">Objetivos Estratégicos (por pilar)</h4>
+    <div class="grid-4" style="margin-bottom:16px">
+      <div style="background:var(--amber-50);border-radius:var(--radius);padding:12px 14px">
+        <div style="font-size:11px;font-weight:600;color:var(--amber-800);margin-bottom:6px">Financeiro</div>
+        <p style="font-size:12px;color:var(--amber-600);line-height:1.5">Garantir que o ticket médio reflita o valor agregado · Expandir oferta de produtos e serviços · Reduzir o CAC</p>
+      </div>
+      <div style="background:var(--teal-50);border-radius:var(--radius);padding:12px 14px">
+        <div style="font-size:11px;font-weight:600;color:var(--teal-800);margin-bottom:6px">Clientes</div>
+        <p style="font-size:12px;color:var(--teal-600);line-height:1.5">Consolidar posicionamento de marca · Garantir alto índice de engajamento e satisfação · Fortalecer confiança com os responsáveis</p>
+      </div>
+      <div style="background:var(--blue-50);border-radius:var(--radius);padding:12px 14px">
+        <div style="font-size:11px;font-weight:600;color:var(--blue-800);margin-bottom:6px">Processos Internos</div>
+        <p style="font-size:12px;color:var(--blue-600);line-height:1.5">Patentear metodologia proprietária · Garantir jornada tecnológica imersiva · Otimizar integração físico-digital</p>
+      </div>
+      <div style="background:var(--purple-50);border-radius:var(--radius);padding:12px 14px">
+        <div style="font-size:11px;font-weight:600;color:var(--purple-800);margin-bottom:6px">Aprendizado</div>
+        <p style="font-size:12px;color:var(--purple-600);line-height:1.5">Montar remuneração baseada em resultado · Desenvolver treinamentos em inovação · Reter talentos</p>
+      </div>
+    </div>
+
+    <div class="alert-info">
+      <p><strong>Análise:</strong> Note como a visão é específica (estado, 2030, ensino fundamental) e a missão é atemporal (empoderar, transformar). Os 5 valores estão dentro da faixa recomendada (3–7). Todos os objetivos usam verbos no infinitivo e cada um está vinculado a um pilar.</p>
+    </div>
+  </div>
+</div>
+
+<!-- =============================== -->
+<!-- 3C. ESTRATÉGIA DIAMANTE -->
+<!-- =============================== -->
+<div class="section" id="diamante">
+  <div class="section-header">
+    <span class="section-number">3c</span>
+    <span class="section-title">Estratégia Diamante</span>
+  </div>
+  <p class="section-subtitle">Cinco facetas estratégicas com a Lógica Econômica no centro. Cada pilar reforça e é reforçado pelos demais (lógica do auto-reforço).</p>
+
+  <div class="importance-block">
+    <div class="ib-left">
+      <div class="ib-label" style="color:var(--coral-600)">Por que existe</div>
+      <p>Preencher as <strong>lacunas que missão e visão não cobrem</strong>: onde exatamente atuar, como chegar lá, o que nos diferencia, com quais recursos e em qual velocidade. Transforma aspiração em plano concreto.</p>
+    </div>
+    <div class="ib-right">
+      <div class="ib-label" style="color:var(--blue-600)">Objetivo na estratégia</div>
+      <p>Garantir <strong>coerência interna</strong> entre todas as escolhas estratégicas. A lógica do auto-reforço assegura que arena, veículos, diferenciadores, recursos e encenação se sustentam mutuamente — e que a lógica econômica fecha a conta.</p>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:24px">
+    <div style="background:var(--purple-50);color:var(--purple-800);padding:14px 28px;border-radius:var(--radius);text-align:center;font-weight:500;width:280px">
+      <strong>Arena</strong><br><span style="font-size:13px;font-weight:400">Onde vamos atuar? Área geográfica?</span>
+    </div>
+    <div style="display:flex;gap:16px;align-items:center">
+      <div style="background:var(--teal-50);color:var(--teal-800);padding:14px 20px;border-radius:var(--radius);text-align:center;font-weight:500;width:200px">
+        <strong>Veículos</strong><br><span style="font-size:13px;font-weight:400">Como chegar na arena?</span>
+      </div>
+      <div style="background:var(--amber-50);color:var(--amber-800);padding:18px 24px;border-radius:var(--radius);text-align:center;font-weight:600;width:220px;border:2px solid var(--amber-400)">
+        Lógica Econômica<br><span style="font-size:13px;font-weight:400">Retorno financeiro</span>
+      </div>
+      <div style="background:var(--coral-50);color:var(--coral-800);padding:14px 20px;border-radius:var(--radius);text-align:center;font-weight:500;width:200px">
+        <strong>Diferenciadores</strong><br><span style="font-size:13px;font-weight:400">Quais diferenciais?</span>
+      </div>
+    </div>
+    <div style="display:flex;gap:16px">
+      <div style="background:var(--blue-50);color:var(--blue-800);padding:14px 20px;border-radius:var(--radius);text-align:center;font-weight:500;width:220px">
+        <strong>Encenação</strong><br><span style="font-size:13px;font-weight:400">Lógica e velocidade?</span>
+      </div>
+      <div style="background:var(--pink-50);color:var(--pink-800);padding:14px 20px;border-radius:var(--radius);text-align:center;font-weight:500;width:220px">
+        <strong>Recursos Estratégicos</strong><br><span style="font-size:13px;font-weight:400">Como suportar o negócio?</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="background:var(--bg-surface);border:1px dashed var(--border)">
+    <p style="font-size:14px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">Auto-reforço:</strong> Cada tópico deve reforçar e ser reforçado por múltiplos (mas não obrigatoriamente todos) os pontos dos outros pilares. As regras gerais estão no slide.</p>
+  </div>
+
+  <!-- EXEMPLO PRÁTICO: DIAMANTE -->
+  <div class="example-box">
+    <div class="example-label">Exemplo prático — Escola de Educação Digital</div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+      <div style="background:var(--bg-card);border-radius:var(--radius);padding:14px 16px;border:1px solid var(--border-light);border-left:3px solid var(--purple-600)">
+        <div style="font-size:12px;font-weight:600;color:var(--purple-800);margin-bottom:6px">Arena — Onde vamos atuar?</div>
+        <p style="font-size:12px;color:var(--text-secondary);margin-bottom:6px">Segmentos: Pais classe A e B; Crianças com afinidade tecnológica do fundamental</p>
+        <p style="font-size:12px;color:var(--text-secondary);margin-bottom:6px">Produtos: Educação premium · Modelo inovador para escolas · Licenciamento de softwares e roteiros</p>
+        <p style="font-size:12px;color:var(--text-secondary)">Tecnologias: Metodologia proprietária · Design pedagógico · Softwares proprietários</p>
+      </div>
+      <div style="background:var(--bg-card);border-radius:var(--radius);padding:14px 16px;border:1px solid var(--border-light);border-left:3px solid var(--teal-600)">
+        <div style="font-size:12px;font-weight:600;color:var(--teal-800);margin-bottom:6px">Veículos — Como chegar lá?</div>
+        <p style="font-size:12px;color:var(--text-secondary)">Crescimento orgânico · Incentivos e parcerias · Licenciamento de propriedade intelectual · Investidores para escala</p>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+      <div style="background:var(--bg-card);border-radius:var(--radius);padding:14px 16px;border:1px solid var(--border-light);border-left:3px solid var(--coral-600)">
+        <div style="font-size:12px;font-weight:600;color:var(--coral-800);margin-bottom:6px">Diferenciadores — Como ganhar?</div>
+        <p style="font-size:12px;color:var(--text-secondary)">Metodologia proprietária inovadora · Corpo docente altamente qualificado · Localização e estrutura premium · Integração humana mediada por tecnologia · Ementa à prova de futuro</p>
+      </div>
+      <div style="background:var(--bg-card);border-radius:var(--radius);padding:14px 16px;border:1px solid var(--border-light);border-left:3px solid var(--pink-600)">
+        <div style="font-size:12px;font-weight:600;color:var(--pink-800);margin-bottom:6px">Recursos Estratégicos — Como suportar?</div>
+        <p style="font-size:12px;color:var(--text-secondary)">Propriedade intelectual · Ativo tecnológico · Capital humano altamente qualificado</p>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+      <div style="background:var(--bg-card);border-radius:var(--radius);padding:14px 16px;border:1px solid var(--border-light);border-left:3px solid var(--blue-600)">
+        <div style="font-size:12px;font-weight:600;color:var(--blue-800);margin-bottom:6px">Encenação — Sequência e velocidade</div>
+        <div style="font-size:12px;color:var(--text-secondary)">
+          <div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:4px">
+            <span class="pill" style="background:var(--blue-50);color:var(--blue-800)">01/26: Fortaleza</span>
+            <span class="pill" style="background:var(--blue-50);color:var(--blue-800)">01/27: + Eusébio e Aquiraz</span>
+            <span class="pill" style="background:var(--blue-50);color:var(--blue-800)">01/29: + Cariri e Sobral</span>
+            <span class="pill" style="background:var(--blue-50);color:var(--blue-800)">01/30: Novos produtos, novas tecnologias e parcerias</span>
+          </div>
+        </div>
+      </div>
+      <div style="background:var(--bg-card);border-radius:var(--radius);padding:14px 16px;border:1px solid var(--border-light);border-left:3px solid var(--amber-600)">
+        <div style="font-size:12px;font-weight:600;color:var(--amber-800);margin-bottom:6px">Lógica Econômica — Como obter retorno?</div>
+        <p style="font-size:12px;color:var(--text-secondary)">Preço premium (valor percebido) · Expandir oferta de produtos e serviços · Licenciamento de propriedade intelectual para receita B2B</p>
+      </div>
+    </div>
+
+    <div class="alert-info">
+      <p><strong>Análise:</strong> A encenação mostra expansão geográfica gradual (Fortaleza → região metropolitana → interior), o que é coerente com a lógica de consolidar antes de expandir. O auto-reforço funciona: a metodologia proprietária (diferenciador) sustenta o licenciamento (veículo), que gera receita B2B (lógica econômica), que permite investir em tecnologia (recurso).</p>
+    </div>
+  </div>
+</div>
+
+<!-- =============================== -->
+<!-- 4. AMBIENTE -->
+<!-- =============================== -->
+<div class="section" id="ambiente">
+  <div class="section-header">
+    <span class="section-number">04</span>
+    <span class="section-title">Fase 2 — Ambiente</span>
+  </div>
+  <p class="section-subtitle">Analisar o ambiente HOJE, AGORA. Onde a empresa está posicionada no cenário atual — forças internas e pressões externas.</p>
+</div>
+
+<!-- =============================== -->
+<!-- 4A. SWOT -->
+<!-- =============================== -->
+<div class="section" id="swot">
+  <div class="section-header">
+    <span class="section-number">4a</span>
+    <span class="section-title">Análise SWOT</span>
+  </div>
+
+  <div class="alert-prova">
+    <div class="alert-label">Destaque para a prova — sempre cai</div>
+    <p>Saber diferenciar interno × externo, conhecer os 4 cruzamentos e usar rastreabilidade com tags (S01, W01, O01, T01). Todas as ações com verbos no infinitivo.</p>
+  </div>
+
+  <div class="importance-block">
+    <div class="ib-left">
+      <div class="ib-label" style="color:var(--red-600)">Por que existe</div>
+      <p>Fazer uma <strong>radiografia do momento atual</strong> da empresa: o que ela controla (forças e fraquezas internas) versus o que o mercado impõe (oportunidades e ameaças externas). Sem esse diagnóstico, a estratégia é construída sobre suposições.</p>
+    </div>
+    <div class="ib-right">
+      <div class="ib-label" style="color:var(--teal-600)">Objetivo na estratégia</div>
+      <p>Gerar <strong>ações estratégicas concretas</strong> a partir dos 4 cruzamentos. Cada ação (ofensiva, defensiva, debilidade, vulnerabilidade) nasce do confronto direto entre fatores internos e externos, garantindo que nenhuma ação seja arbitrária — toda ação tem rastreabilidade.</p>
+    </div>
+  </div>
+  <div class="swot-grid" style="margin-bottom:20px">
+    <div class="swot-cell" style="background:var(--purple-50)">
+      <h4 style="color:var(--purple-800)">S — Forças (Strengths)</h4>
+      <p style="color:var(--purple-600)">Ambiente <strong>INTERNO</strong> — o que eu <strong>TENHO</strong> hoje. Eu controlo.<br>Tags: S01, S02, S03...</p>
+    </div>
+    <div class="swot-cell" style="background:var(--coral-50)">
+      <h4 style="color:var(--coral-800)">W — Fraquezas (Weaknesses)</h4>
+      <p style="color:var(--coral-600)">Ambiente <strong>INTERNO</strong> — o que eu <strong>NÃO TENHO</strong> hoje. Eu controlo.<br>Tags: W01, W02...</p>
+    </div>
+    <div class="swot-cell" style="background:var(--teal-50)">
+      <h4 style="color:var(--teal-800)">O — Oportunidades (Opportunities)</h4>
+      <p style="color:var(--teal-600)">Ambiente <strong>EXTERNO</strong> — o mercado hoje.<br>Ex: Novos produtos, mercado em expansão</p>
+    </div>
+    <div class="swot-cell" style="background:var(--amber-50)">
+      <h4 style="color:var(--amber-800)">T — Ameaças (Threats)</h4>
+      <p style="color:var(--amber-600)">Ambiente <strong>EXTERNO</strong> — o mercado hoje.<br>Ex: Mudança no comportamento do cliente</p>
+    </div>
+  </div>
+
+  <!-- Cruzamentos -->
+  <div class="card">
+    <div class="card-title">Os 4 Cruzamentos Estratégicos</div>
+    <div class="card-desc">Todas as ações devem usar verbos no infinitivo</div>
+    <div class="connector-grid">
+      <div class="connector-card" style="background:var(--purple-50);border-color:var(--purple-600)">
+        <h5 style="color:var(--purple-800)">Ação Ofensiva</h5>
+        <p style="color:var(--purple-600)"><strong>Forças × Oportunidades</strong> — Usar o que tenho para aproveitar o que o mercado oferece. Cenário mais favorável.</p>
+      </div>
+      <div class="connector-card" style="background:var(--teal-50);border-color:var(--teal-600)">
+        <h5 style="color:var(--teal-800)">Ação Defensiva</h5>
+        <p style="color:var(--teal-600)"><strong>Forças × Ameaças</strong> — Usar o que tenho para me proteger das ameaças externas.</p>
+      </div>
+      <div class="connector-card" style="background:var(--amber-50);border-color:var(--amber-600)">
+        <h5 style="color:var(--amber-800)">Debilidade</h5>
+        <p style="color:var(--amber-600)"><strong>Oportunidades × Fraquezas</strong> — Ação para ANULAR a debilidade e aproveitar oportunidades.</p>
+      </div>
+      <div class="connector-card" style="background:var(--red-50);border-color:var(--red-600)">
+        <h5 style="color:var(--red-800)">Vulnerabilidade</h5>
+        <p style="color:var(--red-600)"><strong>Fraquezas × Ameaças</strong> — Ação para ANULAR a vulnerabilidade. Cenário mais crítico.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXEMPLO PRÁTICO: SWOT -->
+  <div class="example-box">
+    <div class="example-label">Exemplo prático — Escola de Educação Digital</div>
+
+    <h4 style="font-size:15px;font-weight:600;margin-bottom:12px;color:var(--text-primary)">Matriz SWOT com rastreabilidade</h4>
+    <div class="swot-grid" style="margin-bottom:20px">
+      <div class="swot-cell" style="background:var(--purple-50)">
+        <h4 style="color:var(--purple-800)">Forças (Interno +)</h4>
+        <div class="pill-list" style="margin-top:6px">
+          <span class="pill" style="background:var(--bg-card);color:var(--purple-800)"><strong>S01</strong> Metodologia proprietária</span>
+          <span class="pill" style="background:var(--bg-card);color:var(--purple-800)"><strong>S02</strong> Posicionamento inovador</span>
+          <span class="pill" style="background:var(--bg-card);color:var(--purple-800)"><strong>S03</strong> Colaboradores com alta capacitação</span>
+        </div>
+      </div>
+      <div class="swot-cell" style="background:var(--coral-50)">
+        <h4 style="color:var(--coral-800)">Fraquezas (Interno −)</h4>
+        <div class="pill-list" style="margin-top:6px">
+          <span class="pill" style="background:var(--bg-card);color:var(--coral-800)"><strong>W01</strong> Alto custo operacional</span>
+          <span class="pill" style="background:var(--bg-card);color:var(--coral-800)"><strong>W02</strong> Dependência de capital humano extremamente qualificado</span>
+        </div>
+      </div>
+      <div class="swot-cell" style="background:var(--teal-50)">
+        <h4 style="color:var(--teal-800)">Oportunidades (Externo +)</h4>
+        <div class="pill-list" style="margin-top:6px">
+          <span class="pill" style="background:var(--bg-card);color:var(--teal-800)"><strong>O01</strong> Incentivos ao mercado de tecnologia</span>
+          <span class="pill" style="background:var(--bg-card);color:var(--teal-800)"><strong>O02</strong> Mercado propenso a parcerias com empresas tecnológicas</span>
+          <span class="pill" style="background:var(--bg-card);color:var(--teal-800)"><strong>O03</strong> Alta taxa de insatisfação com ensino tradicional</span>
+        </div>
+      </div>
+      <div class="swot-cell" style="background:var(--amber-50)">
+        <h4 style="color:var(--amber-800)">Ameaças (Externo −)</h4>
+        <div class="pill-list" style="margin-top:6px">
+          <span class="pill" style="background:var(--bg-card);color:var(--amber-800)"><strong>T01</strong> Mudança de regulação na educação</span>
+          <span class="pill" style="background:var(--bg-card);color:var(--amber-800)"><strong>T02</strong> Rápido avanço tecnológico</span>
+        </div>
+      </div>
+    </div>
+
+    <h4 style="font-size:15px;font-weight:600;margin-bottom:12px;color:var(--text-primary)">Cruzamentos estratégicos (com rastreabilidade)</h4>
+    <div class="connector-grid" style="margin-bottom:16px">
+      <div class="connector-card" style="background:var(--purple-50);border-color:var(--purple-600)">
+        <h5 style="color:var(--purple-800)">Ação Ofensiva (S × O)</h5>
+        <div style="font-size:12px;color:var(--purple-600);line-height:1.6;margin-top:6px">
+          <strong>A01</strong> (S02/O03) — Elaborar estratégia de marketing otimizada para público insatisfeito<br>
+          <strong>A02</strong> (S02/O02) — Promover parcerias com empresas de tecnologia<br>
+          <strong>A03</strong> (S01/O01) — Obter incentivos para melhoria da metodologia proprietária
+        </div>
+      </div>
+      <div class="connector-card" style="background:var(--teal-50);border-color:var(--teal-600)">
+        <h5 style="color:var(--teal-800)">Ação Defensiva (S × T)</h5>
+        <div style="font-size:12px;color:var(--teal-600);line-height:1.6;margin-top:6px">
+          <strong>ADF01</strong> (S03/T02) — Promover workshops de atualização tecnológica<br>
+          <strong>ADF02</strong> (S01/T01) — Gerar dados e documentações que agilizem conformidade a novas regulações
+        </div>
+      </div>
+      <div class="connector-card" style="background:var(--amber-50);border-color:var(--amber-600)">
+        <h5 style="color:var(--amber-800)">Anular Debilidade (O × W)</h5>
+        <div style="font-size:12px;color:var(--amber-600);line-height:1.6;margin-top:6px">
+          <strong>DB01</strong> (W01/O02) — Otimizar custos com ferramentas através de parcerias com fornecedora<br>
+          <strong>DB02</strong> (W02/O02) — Criar universidade corporativa para formação de profissionais qualificados
+        </div>
+      </div>
+      <div class="connector-card" style="background:var(--red-50);border-color:var(--red-600)">
+        <h5 style="color:var(--red-800)">Anular Vulnerabilidade (W × T)</h5>
+        <div style="font-size:12px;color:var(--red-600);line-height:1.6;margin-top:6px">
+          <strong>V01</strong> (W02/T01) — Prover certificações pedagógicas internas<br>
+          <strong>V02</strong> (W01/T02) — Negociar atualizações de tecnologia em contrato com fornecedores
+        </div>
+      </div>
+    </div>
+
+    <div class="alert-info">
+      <p><strong>Análise:</strong> A rastreabilidade é exemplar — cada ação cita exatamente quais tags a originaram (ex: A01 vem de S02 × O03). Todos os verbos estão no infinitivo: elaborar, promover, obter, gerar, otimizar, criar, prover, negociar. As ações de vulnerabilidade (cenário mais crítico) focam em certificação e contratos, mitigando diretamente as fraquezas ante as ameaças.</p>
+    </div>
+  </div>
+<!-- =============================== -->
+<div class="section" id="porter">
+  <div class="section-header">
+    <span class="section-number">4b</span>
+    <span class="section-title">5 Forças de Porter</span>
+  </div>
+  <p class="section-subtitle">A empresa no centro, pressionada por cinco forças competitivas. Para cada uma: citar exemplo, identificar força/fraqueza e definir uma ação (verbo no infinitivo).</p>
+
+  <div class="importance-block">
+    <div class="ib-left">
+      <div class="ib-label" style="color:var(--purple-600)">Por que existe</div>
+      <p>Analisar a <strong>estrutura competitiva do setor</strong> onde a empresa está inserida. Enquanto a SWOT olha para a empresa vs. mercado de forma ampla, Porter foca especificamente nas 5 pressões que determinam a rentabilidade do negócio.</p>
+    </div>
+    <div class="ib-right">
+      <div class="ib-label" style="color:var(--coral-600)">Objetivo na estratégia</div>
+      <p>Identificar <strong>onde a empresa é forte e onde é vulnerável</strong> em cada frente competitiva, e definir ações específicas para cada uma. Complementa a SWOT ao detalhar as forças externas com mais granularidade.</p>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:20px">
+    <div style="background:var(--coral-50);color:var(--coral-800);padding:12px 24px;border-radius:var(--radius);text-align:center;font-weight:500;width:260px">
+      <strong>Novos Entrantes</strong><br><span style="font-size:13px;font-weight:400">Ameaça de novos concorrentes</span>
+    </div>
+    <div style="font-size:18px;color:var(--text-tertiary)">↓</div>
+    <div style="display:flex;gap:16px;align-items:center">
+      <div style="background:var(--teal-50);color:var(--teal-800);padding:12px 20px;border-radius:var(--radius);text-align:center;font-weight:500;width:180px">
+        <strong>Fornecedores</strong><br><span style="font-size:13px;font-weight:400">Poder de barganha</span>
+      </div>
+      <div style="font-size:18px;color:var(--text-tertiary)">→</div>
+      <div style="background:var(--purple-50);color:var(--purple-800);padding:16px 24px;border-radius:var(--radius);text-align:center;font-weight:600;width:200px;border:2px solid var(--purple-400)">
+        Rivalidade entre<br>Concorrentes
+      </div>
+      <div style="font-size:18px;color:var(--text-tertiary)">←</div>
+      <div style="background:var(--blue-50);color:var(--blue-800);padding:12px 20px;border-radius:var(--radius);text-align:center;font-weight:500;width:180px">
+        <strong>Clientes</strong><br><span style="font-size:13px;font-weight:400">Poder de barganha</span>
+      </div>
+    </div>
+    <div style="font-size:18px;color:var(--text-tertiary)">↑</div>
+    <div style="background:var(--amber-50);color:var(--amber-800);padding:12px 24px;border-radius:var(--radius);text-align:center;font-weight:500;width:260px">
+      <strong>Substitutos</strong><br><span style="font-size:13px;font-weight:400">Ameaça de produtos substitutos</span>
+    </div>
+  </div>
+
+  <div class="alert-info">
+    <p><strong>Na prova prática:</strong> Para cada uma das 5 forças → citar um exemplo (pode ser genérico), identificar se é força ou fraqueza para a empresa, e definir uma ação com verbo no infinitivo.</p>
+  </div>
+
+  <!-- EXEMPLO PRÁTICO: PORTER -->
+  <div class="example-box">
+    <div class="example-label">Exemplo prático — Escola de Educação Digital</div>
+
+    <div style="display:grid;grid-template-columns:1fr;gap:10px">
+      <div style="background:var(--bg-card);border-radius:var(--radius);padding:14px 16px;border:1px solid var(--border-light);display:grid;grid-template-columns:160px 1fr 1fr 1fr;gap:12px;align-items:start">
+        <div><span class="tag tag-coral">Concorrentes</span></div>
+        <div><p style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">Exemplo:</strong> Escolas Tradicionais · Home Schooling · Empresas de Tecnologia · Grande escola que importe modelo consolidado</p></div>
+        <div><p style="font-size:12px"><span style="color:var(--teal-600);font-weight:600">Força:</span> Método consolidado · <span style="color:var(--red-600);font-weight:600">Fraqueza:</span> Rigidez na adoção de inovação</p></div>
+        <div><p style="font-size:12px;color:var(--purple-800);font-weight:500">Adotar ciclos contínuos de revisão e atualização do método de ensino</p></div>
+      </div>
+
+      <div style="background:var(--bg-card);border-radius:var(--radius);padding:14px 16px;border:1px solid var(--border-light);display:grid;grid-template-columns:160px 1fr 1fr 1fr;gap:12px;align-items:start">
+        <div><span class="tag tag-blue">Clientes</span></div>
+        <div><p style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">Exemplo:</strong> Pais de família</p></div>
+        <div><p style="font-size:12px"><span style="color:var(--teal-600);font-weight:600">Força:</span> Poder de decisão / Medo do fracasso do filho · <span style="color:var(--red-600);font-weight:600">Fraqueza:</span> Desconhecimento do mercado e cenário interno</p></div>
+        <div><p style="font-size:12px;color:var(--purple-800);font-weight:500">Convencer os pais da importância da proposta pedagógica moderna</p></div>
+      </div>
+
+      <div style="background:var(--bg-card);border-radius:var(--radius);padding:14px 16px;border:1px solid var(--border-light);display:grid;grid-template-columns:160px 1fr 1fr 1fr;gap:12px;align-items:start">
+        <div><span class="tag tag-teal">Fornecedores</span></div>
+        <div><p style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">Exemplo:</strong> Empresas de tecnologia (Meta, Microsoft)</p></div>
+        <div><p style="font-size:12px"><span style="color:var(--teal-600);font-weight:600">Força:</span> Alto conhecimento e capacidade técnica · <span style="color:var(--red-600);font-weight:600">Fraqueza:</span> Quebra na cadeia de abastecimento</p></div>
+        <div><p style="font-size:12px;color:var(--purple-800);font-weight:500">Desenvolver estratégias de parcerias duradouras</p></div>
+      </div>
+
+      <div style="background:var(--bg-card);border-radius:var(--radius);padding:14px 16px;border:1px solid var(--border-light);display:grid;grid-template-columns:160px 1fr 1fr 1fr;gap:12px;align-items:start">
+        <div><span class="tag tag-amber">Substitutos</span></div>
+        <div><p style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">Exemplo:</strong> Ensino domiciliar (Home Schooling)</p></div>
+        <div><p style="font-size:12px"><span style="color:var(--teal-600);font-weight:600">Força:</span> Custo muito baixo · <span style="color:var(--red-600);font-weight:600">Fraqueza:</span> Falta de socialização</p></div>
+        <div><p style="font-size:12px;color:var(--purple-800);font-weight:500">Reforçar a importância da socialização do aluno</p></div>
+      </div>
+
+      <div style="background:var(--bg-card);border-radius:var(--radius);padding:14px 16px;border:1px solid var(--border-light);display:grid;grid-template-columns:160px 1fr 1fr 1fr;gap:12px;align-items:start">
+        <div><span class="tag tag-pink">Novos Entrantes</span></div>
+        <div><p style="font-size:12px;color:var(--text-secondary)"><strong style="color:var(--text-primary)">Exemplo:</strong> Escola com investimento para modernizar rápido</p></div>
+        <div><p style="font-size:12px"><span style="color:var(--teal-600);font-weight:600">Força:</span> Alta capacidade financeira · <span style="color:var(--red-600);font-weight:600">Fraqueza:</span> Desconhecimento do cenário interno</p></div>
+        <div><p style="font-size:12px;color:var(--purple-800);font-weight:500">Fortalecer a cultura organizacional visando retenção de talentos</p></div>
+      </div>
+    </div>
+
+    <div class="alert-info" style="margin-top:16px">
+      <p><strong>Análise:</strong> Para cada força: exemplo concreto, ponto forte e fraco identificados, e ação com verbo no infinitivo (adotar, convencer, desenvolver, reforçar, fortalecer). Note como a equipe usou a fraqueza do substituto (falta de socialização do home schooling) como oportunidade para diferenciação.</p>
+    </div>
+  </div>
+</div>
+
+<!-- =============================== -->
+<!-- 5. DESDOBRAMENTO -->
+<!-- =============================== -->
+<div class="section" id="desdobramento">
+  <div class="section-header">
+    <span class="section-number">05</span>
+    <span class="section-title">Fase 3 — Desdobramento</span>
+  </div>
+  <p class="section-subtitle">Transformar a estratégia em ação. Validar objetivos, construir o BSC e definir OKRs.</p>
+
+  <div class="card">
+    <div class="card-title">Revisão dos Objetivos</div>
+    <div class="card-desc">Antes de montar o BSC</div>
+    <p style="font-size:14px;color:var(--text-secondary)">Preencher os objetivos levantados nas fases anteriores (Direcionamento + Ambiente) e validar quais devem ir para o mapa estratégico do BSC. Nem todos os objetivos levantados sobrevivem — é um filtro de relevância estratégica.</p>
+  </div>
+</div>
+
+<!-- =============================== -->
+<!-- 5A. BSC -->
+<!-- =============================== -->
+<div class="section" id="bsc">
+  <div class="section-header">
+    <span class="section-number">5a</span>
+    <span class="section-title">BSC — Balanced Scorecard</span>
+  </div>
+
+  <div class="alert-prova">
+    <div class="alert-label">Destaque para a prova — sempre cai</div>
+    <p>BSC = Mapa Estratégico + Painel de Gestão. O mapa conecta de baixo para cima (causa e efeito). O painel detalha cada objetivo com indicador, alvo (valor atual + meta) e projeto.</p>
+  </div>
+
+  <div class="importance-block">
+    <div class="ib-left">
+      <div class="ib-label" style="color:var(--coral-600)">Por que existe</div>
+      <p>Traduzir a estratégia em <strong>gestão mensurável</strong>. Sem o BSC, a estratégia fica no nível aspiracional. O BSC é o ponto onde a incerteza estratégica se transforma em certeza operacional — com indicadores, metas numéricas e projetos concretos.</p>
+    </div>
+    <div class="ib-right">
+      <div class="ib-label" style="color:var(--amber-600)">Objetivo na estratégia</div>
+      <p>Criar um <strong>sistema de causa e efeito visual</strong> (mapa) e um <strong>painel de controle</strong> que permite acompanhar se a estratégia está sendo executada. Conecta os 4 pilares em cadeia: investimento em pessoas → melhoria de processos → satisfação de clientes → resultado financeiro.</p>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:20px">
+    <!-- Mapa -->
+    <div class="card" style="border-top:4px solid var(--coral-600)">
+      <div class="card-title">Mapa Estratégico</div>
+      <div class="card-desc">Conexões de causa e efeito — sempre de baixo para cima</div>
+      <div style="display:flex;flex-direction:column;gap:4px;margin-top:12px">
+        <div class="pillar" style="background:var(--amber-50)">
+          <div class="pillar-label" style="color:var(--amber-800);font-size:13px">Financeiro</div>
+          <div class="pillar-desc" style="color:var(--amber-600);font-size:11px">Aumentar receita ← Reduzir custos</div>
+        </div>
+        <div class="arrow-down" style="font-size:14px">↑</div>
+        <div class="pillar" style="background:var(--teal-50)">
+          <div class="pillar-label" style="color:var(--teal-800);font-size:13px">Clientes</div>
+          <div class="pillar-desc" style="color:var(--teal-600);font-size:11px">Melhorar satisfação ← Reter clientes</div>
+        </div>
+        <div class="arrow-down" style="font-size:14px">↑</div>
+        <div class="pillar" style="background:var(--blue-50)">
+          <div class="pillar-label" style="color:var(--blue-800);font-size:13px">Processos</div>
+          <div class="pillar-desc" style="color:var(--blue-600);font-size:11px">Otimizar operações ← Inovar processos</div>
+        </div>
+        <div class="arrow-down" style="font-size:14px">↑</div>
+        <div class="pillar" style="background:var(--purple-50)">
+          <div class="pillar-label" style="color:var(--purple-800);font-size:13px">Aprendizado</div>
+          <div class="pillar-desc" style="color:var(--purple-600);font-size:11px">Capacitar equipe ← Investir em tecnologia</div>
+        </div>
+      </div>
+    </div>
+    <!-- Painel -->
+    <div class="card" style="border-top:4px solid var(--coral-600)">
+      <div class="card-title">Painel de Gestão</div>
+      <div class="card-desc">Para cada objetivo do mapa, preencher 4 colunas</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px">
+        <div style="padding:10px 14px;background:var(--bg-surface);border-radius:var(--radius-sm)">
+          <strong style="font-size:13px">1. Objetivo</strong>
+          <p style="font-size:12px;color:var(--text-secondary)">Vem das fases anteriores (já validado)</p>
+        </div>
+        <div style="padding:10px 14px;background:var(--bg-surface);border-radius:var(--radius-sm)">
+          <strong style="font-size:13px">2. Indicador</strong>
+          <p style="font-size:12px;color:var(--text-secondary)">Forma ou fórmula — o que vou medir?</p>
+        </div>
+        <div style="padding:10px 14px;background:var(--bg-surface);border-radius:var(--radius-sm);border-left:3px solid var(--pink-600)">
+          <strong style="font-size:13px">3. Alvo (meta)</strong>
+          <p style="font-size:12px;color:var(--text-secondary)">Mensurável, com números. SEMPRE: valor ATUAL + meta por período</p>
+        </div>
+        <div style="padding:10px 14px;background:var(--bg-surface);border-radius:var(--radius-sm)">
+          <strong style="font-size:13px">4. Projetos / Iniciativas</strong>
+          <p style="font-size:12px;color:var(--text-secondary)">Qual projeto faz eu atingir esse objetivo?</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXEMPLO PRÁTICO: BSC -->
+  <div class="example-box">
+    <div class="example-label">Exemplo prático — Escola de Educação Digital</div>
+
+    <h4 style="font-size:15px;font-weight:600;margin-bottom:14px;color:var(--text-primary)">Painel BSC preenchido (por perspectiva)</h4>
+
+    <!-- Financeiro -->
+    <div style="margin-bottom:16px">
+      <div style="font-size:12px;font-weight:600;color:var(--amber-800);background:var(--amber-50);padding:8px 14px;border-radius:var(--radius-sm) var(--radius-sm) 0 0">Perspectiva Financeira</div>
+      <table class="bsc-table" style="border:1px solid var(--border-light)">
+        <thead><tr><th style="width:22%">Objetivo</th><th style="width:22%">Indicador</th><th style="width:34%">Alvo (atual → meta)</th><th style="width:22%">Projeto</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:500">Expandir oferta de produtos e serviços</td><td>% de receita proveniente de serviços B2B</td><td>Atual: 0% B2B → 2026: 10% · 2028: 20% · 2030: 30%</td><td>Projeto VR Edu: Criar e vender pacotes pedagógicos para colégios tradicionais</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Clientes -->
+    <div style="margin-bottom:16px">
+      <div style="font-size:12px;font-weight:600;color:var(--teal-800);background:var(--teal-50);padding:8px 14px;border-radius:var(--radius-sm) var(--radius-sm) 0 0">Perspectiva dos Clientes</div>
+      <table class="bsc-table" style="border:1px solid var(--border-light)">
+        <thead><tr><th style="width:22%">Objetivo</th><th style="width:22%">Indicador</th><th style="width:34%">Alvo (atual → meta)</th><th style="width:22%">Projeto</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:500">Garantir alto índice de engajamento e satisfação</td><td>NPS e taxa de assiduidade</td><td>Atual: NPS 80 / Assiduidade 95% → 2026: NPS mín. 85 / Assid. 98%</td><td>Criar programa de fidelização e recompensa (pais e filhos)</td></tr>
+          <tr><td style="font-weight:500">Fortalecer confiança e prestígio com responsáveis</td><td>Taxa de retenção</td><td>Atual: 85% → Q3/2026: 90% · Q2/2027: 95%</td><td>Desenvolver aplicativo de acompanhamento para os pais</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Processos -->
+    <div style="margin-bottom:16px">
+      <div style="font-size:12px;font-weight:600;color:var(--blue-800);background:var(--blue-50);padding:8px 14px;border-radius:var(--radius-sm) var(--radius-sm) 0 0">Perspectiva dos Processos Internos</div>
+      <table class="bsc-table" style="border:1px solid var(--border-light)">
+        <thead><tr><th style="width:22%">Objetivo</th><th style="width:22%">Indicador</th><th style="width:34%">Alvo (atual → meta)</th><th style="width:22%">Projeto</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:500">Garantir jornada tecnológica imersiva em todas as disciplinas</td><td>% de disciplinas com integração VR/Holografia</td><td>Atual: 50% com 30%+ de carga imersiva → 2027: 80% · 2028: 100%</td><td>Laboratório interno de adaptação de conteúdos em VR e Holografia</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Aprendizado -->
+    <div style="margin-bottom:16px">
+      <div style="font-size:12px;font-weight:600;color:var(--purple-800);background:var(--purple-50);padding:8px 14px;border-radius:var(--radius-sm) var(--radius-sm) 0 0">Perspectiva do Aprendizado e Crescimento</div>
+      <table class="bsc-table" style="border:1px solid var(--border-light)">
+        <thead><tr><th style="width:22%">Objetivo</th><th style="width:22%">Indicador</th><th style="width:34%">Alvo (atual → meta)</th><th style="width:22%">Projeto</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:500">Montar esquema de remuneração baseado em resultado</td><td>Taxa de turnover</td><td>Atual: 30% → 2026: 20% · 2027: 10%</td><td>Criar programa "Partners" para profissionais que excederem expectativas</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="alert-info">
+      <p><strong>Análise:</strong> O painel segue perfeitamente a estrutura exigida: cada objetivo tem indicador mensurável, alvo com valor atual + metas por período, e projeto/iniciativa responsável. Note como a taxa de turnover (30% → 10%) na base do BSC sustenta a qualidade do corpo docente, que sustenta a experiência do aluno (processos), que gera satisfação dos pais (clientes), que gera receita premium (financeiro) — a lógica de causa e efeito de baixo para cima.</p>
+    </div>
+  </div>
+<!-- =============================== -->
+<div class="section" id="okr">
+  <div class="section-header">
+    <span class="section-number">5b</span>
+    <span class="section-title">OKR — Objectives and Key Results</span>
+  </div>
+  <div class="alert-prova">
+    <div class="alert-label">Destaque para a prova — sempre cai</div>
+    <p>OKR complementa o BSC. Entender a estrutura básica: Objetivo (qualitativo, inspirador) + Key Results (quantitativos, mensuráveis).</p>
+  </div>
+
+  <div class="importance-block">
+    <div class="ib-left">
+      <div class="ib-label" style="color:var(--green-600)">Por que existe</div>
+      <p>Trazer <strong>foco e ritmo</strong> para a execução. Enquanto o BSC é o painel completo da estratégia (visão de longo prazo), o OKR opera em ciclos mais curtos e define exatamente o que precisa acontecer agora para avançar. É a ferramenta que traduz o estratégico em tático.</p>
+    </div>
+    <div class="ib-right">
+      <div class="ib-label" style="color:var(--blue-600)">Objetivo na estratégia</div>
+      <p>Complementar o BSC com <strong>metas de curto prazo mensuráveis</strong>. O objetivo (O) é inspirador e qualitativo; os Key Results (KR) são numéricos com DE → PARA. A fórmula "Vamos (O) por meio de (KR1), (KR2) e (KR3)" garante clareza e alinhamento da equipe.</p>
+    </div>
+  </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Estrutura do OKR</div>
+    <div class="card-desc">Complementa o BSC, focando em ciclos mais curtos e resultados-chave mensuráveis.</div>
+    <div class="grid-2" style="margin-bottom:16px">
+      <div style="padding:14px;background:var(--green-50);border-radius:var(--radius)">
+        <strong style="font-size:14px;color:var(--green-800)">Objective (O)</strong>
+        <p style="font-size:13px;color:var(--green-600);margin-top:4px">Qualitativo e inspirador. O que quero alcançar?</p>
+      </div>
+      <div style="padding:14px;background:var(--blue-50);border-radius:var(--radius)">
+        <strong style="font-size:14px;color:var(--blue-800)">Key Results (KR)</strong>
+        <p style="font-size:13px;color:var(--blue-600);margin-top:4px">Quantitativos e mensuráveis. Como sei que cheguei lá?</p>
+      </div>
+    </div>
+
+    <div style="background:var(--bg-surface);border-radius:var(--radius);padding:16px 20px;text-align:center;margin-bottom:16px">
+      <p style="font-size:15px;color:var(--text-primary);line-height:1.6">
+        <strong>Fórmula:</strong> Vamos <span style="background:var(--green-50);color:var(--green-800);padding:2px 8px;border-radius:4px;font-weight:600">(objetivo)</span> por meio do <span style="background:var(--blue-50);color:var(--blue-800);padding:2px 8px;border-radius:4px;font-weight:600">(KR #1)</span>, <span style="background:var(--blue-50);color:var(--blue-800);padding:2px 8px;border-radius:4px;font-weight:600">(KR #2)</span> e <span style="background:var(--blue-50);color:var(--blue-800);padding:2px 8px;border-radius:4px;font-weight:600">(KR #3)</span>
+      </p>
+    </div>
+
+    <div style="font-size:14px;color:var(--text-secondary)">
+      <p style="margin-bottom:8px"><strong style="color:var(--text-primary)">Frequência de reuniões:</strong> Definida no início (semanal, quinzenal, mensal). Serve para acompanhar o progresso dos KRs.</p>
+      <p><strong style="color:var(--text-primary)">Colunas do painel:</strong> Objetivo · Resultado Chave · DE (valor atual) · PARA (meta) · Unidade · Progresso do KR</p>
+    </div>
+  </div>
+
+  <!-- EXEMPLO PRÁTICO: OKR -->
+  <div class="example-box">
+    <div class="example-label">Exemplo prático — Escola de Educação Digital</div>
+
+    <p style="font-size:13px;color:var(--text-secondary);margin-bottom:4px">Frequência de reuniões: <strong style="color:var(--text-primary)">Mensal</strong></p>
+    <p style="font-size:14px;color:var(--text-primary);font-weight:500;margin-bottom:16px;font-style:italic">"Vamos consolidar posicionamento de marca por meio de publicações em veículos de tecnologia, elevação da taxa de conversão e participação em eventos."</p>
+
+    <div style="margin-bottom:16px">
+      <div style="font-size:12px;font-weight:600;color:var(--green-800);background:var(--green-50);padding:8px 14px;border-radius:var(--radius-sm) var(--radius-sm) 0 0;display:flex;align-items:center;gap:8px">
+        <span>Objetivo:</span>
+        <span style="font-weight:500">Consolidar posicionamento de marca</span>
+      </div>
+      <table class="bsc-table" style="border:1px solid var(--border-light)">
+        <thead><tr><th style="width:40%">Resultado chave</th><th style="width:12%">De</th><th style="width:12%">Para</th><th style="width:18%">Unidade</th><th style="width:18%">Progresso</th></tr></thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:500">Aumentar o número de publicações e menções orgânicas em veículos de tecnologia</td>
+            <td style="text-align:center">0</td>
+            <td style="text-align:center;font-weight:600;color:var(--teal-800)">24</td>
+            <td style="text-align:center">Publicações</td>
+            <td style="text-align:center"><span class="tag tag-amber">0%</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:500">Elevar a taxa de conversão de Leads em matrículas efetivas</td>
+            <td style="text-align:center">15%</td>
+            <td style="text-align:center;font-weight:600;color:var(--teal-800)">45%</td>
+            <td style="text-align:center">%</td>
+            <td style="text-align:center"><span class="tag tag-amber">0%</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:500">Participar de eventos e feiras de tecnologia e educação</td>
+            <td style="text-align:center">0</td>
+            <td style="text-align:center;font-weight:600;color:var(--teal-800)">12</td>
+            <td style="text-align:center">Eventos</td>
+            <td style="text-align:center"><span class="tag tag-amber">0</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="alert-info">
+      <p><strong>Análise:</strong> O objetivo "Consolidar posicionamento de marca" é qualitativo e inspirador — não tem número. Os 3 KRs são quantitativos com valores DE → PARA claros: 0→24 publicações, 15%→45% conversão, 0→12 eventos. Cada KR tem unidade de medida e coluna de progresso para acompanhamento. O OKR se conecta diretamente ao BSC: o mesmo objetivo aparece na perspectiva de Clientes do painel BSC, mostrando como as duas ferramentas se complementam.</p>
+    </div>
+  </div>
+</div>
+
+<!-- =============================== -->
+<!-- CHECKLIST PROVA -->
+<!-- =============================== -->
+<div class="section" id="prova">
+  <div class="section-header">
+    <span class="section-number">★</span>
+    <span class="section-title">Checklist — Destaques para a Prova</span>
+  </div>
+
+  <div class="card">
+    <div class="checklist-item">
+      <span class="tag tag-pink" style="margin-top:2px">Sempre cai</span>
+      <p style="font-size:14px"><strong>BSC:</strong> Saber que é Mapa + Painel. Mapa conecta de baixo para cima. Painel tem objetivo, indicador, alvo (atual + meta) e projeto.</p>
+    </div>
+    <div class="checklist-item">
+      <span class="tag tag-pink" style="margin-top:2px">Sempre cai</span>
+      <p style="font-size:14px"><strong>SWOT:</strong> Diferenciar interno × externo, saber os 4 cruzamentos (ofensiva, defensiva, debilidade, vulnerabilidade) e usar rastreabilidade com tags.</p>
+    </div>
+    <div class="checklist-item">
+      <span class="tag tag-pink" style="margin-top:2px">Sempre cai</span>
+      <p style="font-size:14px"><strong>OKR:</strong> Entender a estrutura de Objectives (qualitativo) e Key Results (quantitativo) como complemento ao BSC.</p>
+    </div>
+    <div class="checklist-item">
+      <span class="tag tag-blue" style="margin-top:2px">Importante</span>
+      <p style="font-size:14px"><strong>Visão × Missão:</strong> Visão MUDA (horizonte 3–5 anos). Missão NÃO MUDA (razão de existir). Valores: 3 a 7, mas não é limitante.</p>
+    </div>
+    <div class="checklist-item">
+      <span class="tag tag-blue" style="margin-top:2px">Importante</span>
+      <p style="font-size:14px"><strong>Objetivos:</strong> Sempre verbos no infinitivo, vinculados a um dos 4 pilares, originados da Proposta de Valor + Visão/Missão/Valores.</p>
+    </div>
+    <div class="checklist-item">
+      <span class="tag tag-blue" style="margin-top:2px">Importante</span>
+      <p style="font-size:14px"><strong>Proposta de Valor:</strong> 4 etapas do Canvas. O encaixe (etapa 4) conecta tags do lado esquerdo ao direito.</p>
+    </div>
+    <div class="checklist-item">
+      <span class="tag tag-green" style="margin-top:2px">Prova prática</span>
+      <p style="font-size:14px"><strong>Estudo de caso:</strong> Criar a estratégia completa da empresa percorrendo todas as fases — Direcionamento, Ambiente e Desdobramento.</p>
+    </div>
+    <div class="checklist-item">
+      <span class="tag tag-green" style="margin-top:2px">Prova prática</span>
+      <p style="font-size:14px"><strong>Porter:</strong> Para cada uma das 5 forças, citar exemplo, identificar força/fraqueza e definir ação (verbo no infinitivo).</p>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<script>
+// Sticky nav active state on scroll
+const sections = document.querySelectorAll('.section[id]');
+const navLinks = document.querySelectorAll('.nav a');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const id = entry.target.id;
+      const link = document.querySelector(`.nav a[href="#${id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

@@ -1,257 +1,537 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Estratégia Corporativa e de Negócios — FGV MBA</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #FAF9F6; --bg-card: #FFFFFF; --bg-surface: #F3F1EC;
-      --text-primary: #1A1A18; --text-secondary: #5C5B56; --text-tertiary: #8A8985;
-      --border: #DDD9D0; --border-light: #ECEAE4;
-      --font-display: 'DM Serif Display', Georgia, serif;
-      --font-body: 'DM Sans', -apple-system, sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
-      --radius: 16px;
-    }
-    body { font-family: var(--font-body); background: var(--bg); color: var(--text-primary); -webkit-font-smoothing: antialiased; line-height: 1.6; font-size: 16px; }
-    a { color: inherit; text-decoration: none; }
-    .container { max-width: 800px; margin: 0 auto; padding: 48px 24px 80px; }
-    .badge { font-family: var(--font-mono); font-size: 10px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; display: inline-block; }
-    @media (max-width: 640px) { .container { padding: 32px 16px 48px; } }
-  </style>
-  <style>
-    .back { font-family: var(--font-mono); font-size: 12px; color: var(--text-tertiary); letter-spacing: 0.5px; display: inline-block; margin-bottom: 28px; transition: color 0.15s; }
-    .back:hover { color: var(--text-primary); }
-    .subject-header { background: var(--bg-card); border: 1px solid var(--border-light); border-top: 4px solid #534AB7; border-radius: var(--radius); padding: 24px 28px; margin-bottom: 32px; }
-    .subject-header h1 { font-family: var(--font-display); font-size: clamp(24px, 4vw, 36px); font-weight: 400; line-height: 1.2; margin-top: 10px; }
-    .content h2 { font-family: var(--font-display); font-size: 22px; font-weight: 400; margin: 40px 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border-light); line-height: 1.3; }
-    .content h3 { font-size: 15px; font-weight: 600; margin: 24px 0 10px; }
-    .content h4 { font-size: 13px; font-weight: 600; color: var(--text-secondary); margin: 16px 0 8px; text-transform: uppercase; letter-spacing: 0.5px; }
-    .content p { margin-bottom: 14px; line-height: 1.75; }
-    .content ul, .content ol { padding-left: 22px; margin-bottom: 14px; }
-    .content li { margin-bottom: 5px; line-height: 1.65; }
-    .content li > ul, .content li > ol { margin-top: 5px; margin-bottom: 2px; }
-    .content strong { font-weight: 600; }
-    .content em { font-style: italic; color: var(--text-secondary); }
-    .content code { font-family: var(--font-mono); font-size: 13px; background: var(--bg-surface); padding: 2px 6px; border-radius: 4px; }
-    .content pre { background: var(--bg-surface); padding: 18px; border-radius: 8px; overflow-x: auto; margin-bottom: 18px; }
-    .content pre code { background: none; padding: 0; }
-    .content blockquote { border-left: 3px solid var(--border); padding: 2px 0 2px 18px; color: var(--text-secondary); margin-bottom: 14px; }
-    .content hr { border: none; border-top: 1px solid var(--border-light); margin: 28px 0; }
-    .callout { border-radius: 8px; padding: 16px 20px; margin: 24px 0; }
-    .callout-label { font-family: var(--font-mono); font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
-    .callout-body { line-height: 1.75; }
-    .callout-body p { margin-bottom: 8px; }
-    .callout-body p:last-child { margin-bottom: 0; }
-    .callout-exam { background: #FEF9EC; border-left: 3px solid #D97706; }
-    .callout-exam .callout-label { color: #92400E; }
-    .callout-key { background: #EEEDFE; border-left: 3px solid #534AB7; }
-    .callout-key .callout-label { color: #3730A3; }
-    .callout-recall { background: #E6F4F1; border-left: 3px solid #0F6E56; }
-    .callout-recall .callout-label { color: #065F46; }
-    .callout-summary { background: var(--bg-surface); border: 1px solid var(--border); border-left: 3px solid var(--text-secondary); }
-    .callout-summary .callout-label { color: var(--text-secondary); }
-    @media (max-width: 640px) {
-      .subject-header { padding: 20px; }
-      .content h2 { font-size: 19px; margin-top: 32px; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estratégia Corporativa e de Negócios — FGV MBA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAF9F6; --bg-card: #FFFFFF; --bg-surface: #F3F1EC; --bg-accent: #E8E4DB;
+    --text-primary: #1A1A18; --text-secondary: #5C5B56; --text-tertiary: #8A8985;
+    --border: #DDD9D0; --border-light: #ECEAE4;
+    --purple-50: #EEEDFE; --purple-400: #7F77DD; --purple-600: #534AB7; --purple-800: #3C3489;
+    --amber-50: #FAEEDA; --amber-400: #BA7517; --amber-600: #854F0B; --amber-800: #633806;
+    --teal-50: #E6F4F1; --teal-400: #1D9E75; --teal-600: #0F6E56; --teal-800: #085041;
+    --blue-50: #E6F1FB; --blue-400: #378ADD; --blue-600: #185FA5; --blue-800: #0C447C;
+    --rose-50: #FDE8EC; --rose-600: #C81E3A;
+    --accent: #534AB7; --accent-light: #EEEDFE;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--text-primary);
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    line-height: 1.65; font-size: 17px;
+  }
+  .container { max-width: 920px; margin: 0 auto; padding: 0 24px; }
+  a { color: var(--accent); }
+
+  .backlink {
+    font-family: 'JetBrains Mono', monospace; font-size: 13px;
+    color: var(--text-tertiary); text-decoration: none;
+    display: inline-block; margin: 28px 0 0;
+  }
+  .backlink:hover { color: var(--accent); }
+
+  header.page-header { padding: 24px 0 28px; border-bottom: 1px solid var(--border); }
+  header.page-header h1 {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 44px; line-height: 1.1; font-weight: 400; margin-bottom: 14px;
+  }
+  .badge {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    background: var(--accent-light); color: var(--accent-800, var(--purple-800));
+    padding: 5px 12px; border-radius: 100px; display: inline-block;
+  }
+  .badge.purple { color: var(--purple-800); }
+  .page-desc { color: var(--text-secondary); margin-top: 14px; max-width: 680px; }
+
+  nav.sticky {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(250,249,246,0.92); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border); margin-bottom: 8px;
+  }
+  nav.sticky .inner {
+    max-width: 920px; margin: 0 auto; padding: 12px 24px;
+    display: flex; gap: 8px; overflow-x: auto; flex-wrap: wrap;
+  }
+  nav.sticky a {
+    font-family: 'JetBrains Mono', monospace; font-size: 12.5px;
+    text-decoration: none; color: var(--text-secondary);
+    padding: 5px 12px; border-radius: 6px; white-space: nowrap;
+  }
+  nav.sticky a:hover { background: var(--accent-light); color: var(--accent); }
+
+  section { padding: 44px 0 12px; border-bottom: 1px solid var(--border-light); }
+  section h2 {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 32px; font-weight: 400; margin-bottom: 20px; line-height: 1.15;
+  }
+  section h3 {
+    font-family: 'DM Sans', sans-serif; font-size: 21px; font-weight: 700;
+    margin: 32px 0 14px;
+  }
+  p { margin-bottom: 14px; }
+  strong { font-weight: 700; }
+
+  /* SUMMARY hero */
+  .summary-hero {
+    background: var(--bg-card); border-top: 4px solid var(--accent);
+    border-radius: 10px; padding: 34px 36px; margin: 32px 0 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .summary-hero .label {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);
+    margin-bottom: 12px; display: block;
+  }
+  .summary-hero p { font-size: 19px; line-height: 1.6; color: var(--text-primary); margin: 0; }
+
+  /* EXAM banner */
+  .exam {
+    background: var(--amber-50); border-left: 5px solid var(--amber-600);
+    border-radius: 8px; padding: 18px 22px; margin: 22px 0;
+  }
+  .exam .label {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase; color: var(--amber-800);
+    display: block; margin-bottom: 8px;
+  }
+  .exam p { color: var(--amber-800); margin: 0; }
+  .exam strong { color: var(--amber-800); }
+
+  /* KEY definition */
+  .key {
+    background: var(--purple-50); border-left: 5px solid var(--purple-600);
+    border-radius: 8px; padding: 18px 22px; margin: 22px 0;
+  }
+  .key .label {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase; color: var(--purple-800);
+    display: block; margin-bottom: 8px;
+  }
+  .key p { margin: 0; color: var(--text-primary); }
+
+  /* Card grid */
+  .card-grid { display: grid; gap: 16px; margin: 20px 0; }
+  .card-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .card-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .card-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 20px;
+  }
+  .card .ctitle {
+    font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 17px;
+    margin-bottom: 8px; color: var(--accent);
+  }
+  .card .ctitle .tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    background: var(--accent-light); color: var(--accent);
+    padding: 2px 7px; border-radius: 4px; margin-left: 6px;
+  }
+  .card p { font-size: 15px; color: var(--text-secondary); margin: 0; }
+  .card ul { margin: 8px 0 0 18px; font-size: 14px; color: var(--text-secondary); }
+
+  /* Pillars 4 */
+  .pillar {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-top: 3px solid var(--accent); border-radius: 8px;
+    padding: 18px; text-align: center; font-weight: 700; color: var(--text-primary);
+  }
+
+  /* Stepper */
+  .stepper { margin: 20px 0; }
+  .step { display: flex; gap: 16px; padding-bottom: 18px; position: relative; }
+  .step:not(:last-child)::before {
+    content: ''; position: absolute; left: 16px; top: 36px; bottom: 0;
+    width: 2px; background: var(--border);
+  }
+  .step .num {
+    flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%;
+    background: var(--accent); color: #fff; display: flex;
+    align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 15px;
+    z-index: 1;
+  }
+  .step .scontent { padding-top: 4px; }
+  .step .scontent .stitle { font-weight: 700; margin-bottom: 2px; }
+  .step .scontent p { margin: 0; font-size: 15px; color: var(--text-secondary); }
+
+  /* Triangle / level flow */
+  .levelflow { display: flex; flex-direction: column; gap: 0; margin: 20px 0; }
+  .level {
+    padding: 14px 20px; border: 1px solid var(--border); background: var(--bg-card);
+    text-align: center; font-weight: 700;
+  }
+  .level:first-child { border-radius: 8px 8px 0 0; background: var(--purple-50); color: var(--purple-800); }
+  .level:last-child { border-radius: 0 0 8px 8px; }
+  .level .sub { font-weight: 400; font-size: 14px; color: var(--text-tertiary); display: block; }
+
+  /* SWOT 2x2 */
+  .swot { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 20px 0; }
+  .swot .cell { border-radius: 10px; padding: 20px; }
+  .swot .cell .ch {
+    font-family: 'DM Sans'; font-weight: 700; font-size: 17px; margin-bottom: 6px;
+  }
+  .swot .cell p { font-size: 14px; margin: 4px 0 0; }
+  .swot .s { background: var(--teal-50); }
+  .swot .s .ch { color: var(--teal-800); }
+  .swot .w { background: var(--rose-50); }
+  .swot .w .ch { color: var(--rose-600); }
+  .swot .o { background: var(--blue-50); }
+  .swot .o .ch { color: var(--blue-800); }
+  .swot .t { background: var(--amber-50); }
+  .swot .t .ch { color: var(--amber-800); }
+  .swot .tagline {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-tertiary);
+    margin-top: 6px;
+  }
+
+  /* SWOT crossings */
+  .cross-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 20px 0; }
+  .cross {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 18px;
+  }
+  .cross .cn {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--accent); margin-bottom: 4px; text-transform: uppercase;
+  }
+  .cross .ct { font-weight: 700; margin-bottom: 4px; }
+  .cross p { font-size: 14px; color: var(--text-secondary); margin: 0; }
+
+  /* Porter hub */
+  .hub { margin: 24px 0; }
+  .hub-center {
+    background: var(--accent); color: #fff; text-align: center;
+    padding: 16px; border-radius: 10px; font-weight: 700; font-size: 18px;
+    margin-bottom: 16px;
+  }
+  .hub-forces { display: grid; grid-template-columns: repeat(5,1fr); gap: 12px; }
+  .force {
+    background: var(--purple-50); border: 1px solid var(--purple-400);
+    border-radius: 8px; padding: 14px; text-align: center;
+    font-weight: 700; color: var(--purple-800); font-size: 15px;
+  }
+
+  /* Table */
+  table { width: 100%; border-collapse: collapse; margin: 20px 0;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  th {
+    background: var(--accent); color: #fff; text-align: left;
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.04em; padding: 12px 16px;
+  }
+  td { padding: 12px 16px; border-top: 1px solid var(--border-light); font-size: 15px; vertical-align: top; }
+
+  /* generic list */
+  .clean-list { list-style: none; margin: 16px 0; }
+  .clean-list li {
+    background: var(--bg-card); border: 1px solid var(--border-light);
+    border-left: 3px solid var(--accent);
+    padding: 12px 16px; border-radius: 6px; margin-bottom: 8px; font-size: 15px;
+  }
+
+  /* Recall */
+  .recall-grid { display: grid; gap: 14px; margin: 20px 0; }
+  .recall {
+    background: var(--teal-50); border: 1px solid var(--teal-400);
+    border-radius: 10px; padding: 18px 20px; display: flex; gap: 14px;
+  }
+  .recall .q {
+    font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--teal-600);
+    line-height: 1; flex-shrink: 0;
+  }
+  .recall p { margin: 0; color: var(--teal-800); }
+
+  @media (max-width: 640px) {
+    header.page-header h1 { font-size: 32px; }
+    section h2 { font-size: 26px; }
+    .card-grid.cols-2, .card-grid.cols-3, .card-grid.cols-4 { grid-template-columns: 1fr; }
+    .swot, .cross-grid { grid-template-columns: 1fr; }
+    .hub-forces { grid-template-columns: 1fr 1fr; }
+    .summary-hero { padding: 24px; }
+  }
+</style>
 </head>
 <body>
-  <div class="container">
-    <a href="../" class="back">← FGV MBA</a>
-    <div class="subject-header">
-      <span class="badge" style="background:#EEEDFE;color:#534AB7">Concluído</span>
-      <h1>Estratégia Corporativa e de Negócios</h1>
+
+<div class="container">
+  <a href="../" class="backlink">← FGV MBA</a>
+</div>
+
+<div class="container">
+  <header class="page-header">
+    <h1>Estratégia Corporativa e de Negócios</h1>
+    <span class="badge purple">Concluído</span>
+    <p class="page-desc">Metodologia de planejamento estratégico, BSC, OKR e ferramentas de análise de ambiente.</p>
+  </header>
+</div>
+
+<nav class="sticky">
+  <div class="inner">
+    <a href="#visao-geral">Visão Geral</a>
+    <a href="#direcionamento">Fase 1 — Direcionamento</a>
+    <a href="#ambiente">Fase 2 — Ambiente</a>
+    <a href="#desdobramento">Fase 3 — Desdobramento</a>
+    <a href="#recall">Recall</a>
+  </div>
+</nav>
+
+<div class="container">
+
+  <div class="summary-hero">
+    <span class="label">Resumo da Disciplina</span>
+    <p>Esta disciplina ensina a construir a estratégia de uma empresa, conduzindo-a do desempenho atual ao desempenho futuro por meio de uma metodologia estruturada em três fases (Direcionamento, Ambiente e Desdobramento). O aluno precisa dominar as ferramentas de cada fase — com destaque para SWOT, BSC e OKR — e saber aplicá-las em um estudo de caso prático.</p>
+  </div>
+
+  <div class="exam">
+    <span class="label">⚠ Cai na Prova</span>
+    <p>A prova é um <strong>estudo de caso</strong> no qual você deverá criar a estratégia de uma empresa com os principais tópicos. <strong>BSC e OKR caem em todas as provas.</strong> É preciso saber a IMPORTÂNCIA de cada fase da metodologia (Direcionamento, Ambiente, Desdobramento) e de cada ferramenta (Missão, Visão, Valores; Proposta de Valor; SWOT; BSC). Destaques principais: <strong>SWOT</strong> e <strong>BSC</strong> (sempre cai).</p>
+  </div>
+
+  <section id="visao-geral">
+    <h2>Visão Geral e Fundamentos</h2>
+    <p>O macro objetivo é <strong>chegar ao desempenho futuro, partindo do desempenho atual, por meio da estratégia.</strong></p>
+
+    <h3>Os Quatro Pilares da Empresa</h3>
+    <p>Toda a estratégia se organiza em torno de quatro pilares:</p>
+    <div class="card-grid cols-4">
+      <div class="pillar">Financeiro</div>
+      <div class="pillar">Clientes</div>
+      <div class="pillar">Processos Internos</div>
+      <div class="pillar">Gestão de Pessoas<br><span style="font-weight:400;font-size:13px;color:var(--text-tertiary)">(Aprendizado/Crescimento)</span></div>
     </div>
-    <div class="content"><div class="callout callout-summary"><div class="callout-label">◎ Resumo</div><div class="callout-body"><p>Esta disciplina ensina a construir a estratégia de uma empresa, conduzindo-a do desempenho atual ao desempenho futuro por meio de uma metodologia estruturada em três fases (Direcionamento, Ambiente e Desdobramento). O aluno precisa dominar as ferramentas de cada fase — com destaque para SWOT, BSC e OKR — e saber aplicá-las em um estudo de caso prático.</p>
-</div></div>
 
+    <h3>Triângulo Certeza × Incerteza</h3>
+    <p>A estratégia deve ser levada do nível <strong>Estratégico</strong>, passando pelo nível <strong>Tático/Gerencial</strong>, até o nível <strong>Operacional</strong> — caminhando da incerteza para a certeza.</p>
+    <div class="levelflow">
+      <div class="level">Estratégico <span class="sub">Incerteza</span></div>
+      <div class="level">Tático / Gerencial</div>
+      <div class="level">Operacional <span class="sub">Certeza</span></div>
+    </div>
+  </section>
 
+  <section id="direcionamento">
+    <h2>Fase 1 — Direcionamento</h2>
 
-<div class="callout callout-exam"><div class="callout-label">⚠ Cai na Prova</div><div class="callout-body"><p>A prova é um <strong>estudo de caso</strong> no qual você deverá criar a estratégia de uma empresa com os principais tópicos. <strong>BSC e OKR caem em todas as provas.</strong> É preciso saber a IMPORTÂNCIA de cada fase da metodologia (Direcionamento, Ambiente, Desdobramento) e de cada ferramenta (Missão, Visão, Valores; Proposta de Valor; SWOT; BSC). Destaques principais: <strong>SWOT</strong> e <strong>BSC</strong> (sempre cai).</p>
-</div></div>
+    <h3>Proposta de Valor</h3>
+    <div class="key">
+      <span class="label">Conceito-Chave</span>
+      <p>A <strong>Proposta de Valor</strong> define o valor que a empresa entrega ao cliente, conectando o que o produto oferece às necessidades, dores e ganhos do cliente. Fundamenta-se no conceito de Porter e foi desenvolvida por Alex Osterwalder no <strong>Business Model Canvas</strong>, com uma versão posterior focada também no comportamento do cliente.</p>
+    </div>
+    <p>Etapas da Proposta de Valor (Business Model Canvas):</p>
+    <div class="stepper">
+      <div class="step">
+        <div class="num">1</div>
+        <div class="scontent"><div class="stitle">Produto / Cliente / Substituto</div></div>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <div class="scontent"><div class="stitle">Lado direito — Cliente</div></div>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <div class="scontent"><div class="stitle">Lado esquerdo — Produto</div></div>
+      </div>
+      <div class="step">
+        <div class="num">4</div>
+        <div class="scontent"><div class="stitle">Encaixe</div><p>Conectar o lado direito ao esquerdo, observando as letrinhas em cima de cada card. No lado esquerdo, coloca-se uma "tag" em cada item (letrinhas na esquerda) e, na direita, colocam-se as tags correspondentes.</p></div>
+      </div>
+    </div>
 
+    <h3>Visão, Missão e Valores</h3>
+    <div class="key">
+      <span class="label">Conceito-Chave</span>
+      <p><strong>Visão, Missão e Valores</strong> formam o núcleo direcionador da empresa. Deve-se pensar no futuro de forma positiva e inspiradora. A <strong>Visão</strong> é o desejo (recomenda-se horizonte de 3 ou 5 anos) e MUDA ao longo do tempo. A <strong>Missão</strong> é o porquê da existência da empresa e NÃO MUDA. Os <strong>Valores</strong> são as crenças da organização — pela metodologia/padrão de mercado, recomenda-se de 3 a 7 valores, mas isso NÃO é limitante.</p>
+    </div>
+    <div class="card-grid cols-3">
+      <div class="card">
+        <div class="ctitle">Visão</div>
+        <p>Desejo; recomendação de tempo de 3 ou 5 anos; a visão <strong>MUDA</strong>.</p>
+      </div>
+      <div class="card">
+        <div class="ctitle">Missão</div>
+        <p>O porquê; a missão <strong>NÃO MUDA</strong>.</p>
+      </div>
+      <div class="card">
+        <div class="ctitle">Valores</div>
+        <p>Crenças; de 3 a 7 valores (não limitante).</p>
+      </div>
+    </div>
 
-<h2>Visão Geral e Fundamentos</h2>
-<p>O macro objetivo é <strong>chegar ao desempenho futuro, partindo do desempenho atual, por meio da estratégia.</strong></p>
-<h3>Os Quatro Pilares da Empresa</h3>
-<p>Toda a estratégia se organiza em torno de quatro pilares:</p>
-<ul>
-<li>Financeiro</li>
-<li>Clientes</li>
-<li>Processos Internos</li>
-<li>Gestão de Pessoas (Aprendizado/Crescimento)</li>
-</ul>
-<h3>Triângulo Certeza x Incerteza</h3>
-<p>A estratégia deve ser levada do nível <strong>Estratégico</strong>, passando pelo nível <strong>Tático/Gerencial</strong>, até o nível <strong>Operacional</strong> — caminhando da incerteza para a certeza.</p>
-<h2>Fase 1 — Direcionamento</h2>
-<h3>Proposta de Valor</h3>
-<div class="callout callout-key"><div class="callout-label">◆ Conceito-Chave</div><div class="callout-body"><p>A <strong>Proposta de Valor</strong> define o valor que a empresa entrega ao cliente, conectando o que o produto oferece às necessidades, dores e ganhos do cliente. Fundamenta-se no conceito de Porter e foi desenvolvida por Alex Osterwalder no <strong>Business Model Canvas</strong>, com uma versão posterior focada também no comportamento do cliente.</p>
-</div></div>
+    <h3>Objetivos Estratégicos</h3>
+    <ul class="clean-list">
+      <li>Os objetivos devem "partir" da Proposta de Valor, Visão, Missão e Valores.</li>
+      <li>Cada objetivo deve estar conectado a um dos pilares da empresa: Financeiro, Clientes, Processos Internos e Aprendizado/Crescimento.</li>
+      <li>Geralmente levanta-se um grande volume de objetivos a partir de um dos materiais de origem (PV, Visão...) e depois aplica-se um filtro para selecionar.</li>
+    </ul>
+    <div class="exam">
+      <span class="label">⚠ Cai na Prova</span>
+      <p>Os objetivos devem SEMPRE ser escritos com <strong>VERBOS NO INFINITIVO</strong>.</p>
+    </div>
 
+    <h3>Estratégia Diamante</h3>
+    <div class="key">
+      <span class="label">Conceito-Chave</span>
+      <p>A <strong>Estratégia Diamante</strong> estrutura a estratégia em cinco elementos centrais (mais a lógica econômica), respondendo onde, como e por que a empresa atuará. Sua lógica do <strong>autorreforço</strong> exige que cada tópico reforce e seja reforçado por múltiplos (não necessariamente todos) os demais pilares da estratégia.</p>
+    </div>
+    <div class="card-grid cols-2">
+      <div class="card"><div class="ctitle">Arena</div><p>Onde vamos atuar? Qual a área geográfica de atuação?</p></div>
+      <div class="card"><div class="ctitle">Veículos</div><p>Como vamos chegar nessa arena?</p></div>
+      <div class="card"><div class="ctitle">Diferenciadores</div><p>Quais os diferenciais que você tem?</p></div>
+      <div class="card"><div class="ctitle">Recursos Estratégicos</div><p>Como você vai suportar esse negócio?</p></div>
+      <div class="card"><div class="ctitle">Encenação</div><p>Qual a lógica e a velocidade para chegar onde você quer?</p></div>
+      <div class="card"><div class="ctitle">Lógica Econômica</div><p>Como você vai obter retorno financeiro?</p></div>
+    </div>
+    <ul class="clean-list">
+      <li><strong>Regras Gerais:</strong> No Slide!</li>
+      <li><strong>Lógica do autorreforço:</strong> cada tópico deve reforçar e ser reforçado por múltiplos pontos dos outros pilares da Estratégia Diamante (não precisa todos).</li>
+    </ul>
+  </section>
 
-<p>Etapas da Proposta de Valor (Business Model Canvas):</p>
-<ol>
-<li>Produto / Cliente / Substituto</li>
-<li>Lado direito — Cliente</li>
-<li>Lado esquerdo — Produto</li>
-<li>Encaixe — conectar o lado direito ao esquerdo, observando as letrinhas em cima de cada card. No lado esquerdo, coloca-se uma &quot;tag&quot; em cada item (letrinhas na esquerda) e, na direita, colocam-se as tags correspondentes.</li>
-</ol>
-<h3>Visão, Missão e Valores</h3>
-<div class="callout callout-key"><div class="callout-label">◆ Conceito-Chave</div><div class="callout-body"><p><strong>Visão, Missão e Valores</strong> formam o núcleo direcionador da empresa. Deve-se pensar no futuro de forma positiva e inspiradora. A <strong>Visão</strong> é o desejo (recomenda-se horizonte de 3 ou 5 anos) e MUDA ao longo do tempo. A <strong>Missão</strong> é o porquê da existência da empresa e NÃO MUDA. Os <strong>Valores</strong> são as crenças da organização — pela metodologia/padrão de mercado, recomenda-se de 3 a 7 valores, mas isso NÃO é limitante.</p>
-</div></div>
+  <section id="ambiente">
+    <h2>Fase 2 — Ambiente</h2>
+    <p>O objetivo desta fase é analisar o ambiente da empresa <strong>HOJE, AGORA</strong>.</p>
 
+    <h3>SWOT</h3>
+    <div class="key">
+      <span class="label">Conceito-Chave</span>
+      <p>A <strong>SWOT</strong> (Strengths, Weaknesses, Opportunities, Threats) é uma matriz de análise que cruza o ambiente interno (Forças e Fraquezas, que a empresa controla) com o ambiente externo (Oportunidades e Ameaças, o mercado). Os cruzamentos entre esses quadrantes geram ações estratégicas: ofensivas, defensivas, de anulação de debilidade e de anulação de vulnerabilidade.</p>
+    </div>
+    <div class="swot">
+      <div class="cell s">
+        <div class="ch">Strength · Forças</div>
+        <p>Eu TENHO HOJE; ambiente interno, que eu controlo.</p>
+        <div class="tagline">Tags: S01, S02, S03</div>
+      </div>
+      <div class="cell w">
+        <div class="ch">Weakness · Fraquezas</div>
+        <p>Eu NÃO TENHO HOJE; ambiente interno, que eu controlo.</p>
+        <div class="tagline">Tags: W01, W02</div>
+      </div>
+      <div class="cell o">
+        <div class="ch">Opportunities · Oportunidades</div>
+        <p>Ambiente EXTERNO HOJE, o mercado.</p>
+        <p>Ex.: novos produtos; mercado em expansão.</p>
+      </div>
+      <div class="cell t">
+        <div class="ch">Threats · Ameaças</div>
+        <p>Ambiente EXTERNO HOJE, o mercado.</p>
+        <p>Ex.: mudança no comportamento do cliente.</p>
+      </div>
+    </div>
+    <p>Deve haver <strong>rastreabilidade</strong> — importante taguear cada item (Forças: S01, S02, S03; Fraquezas: W01, W02).</p>
 
-<ul>
-<li><strong>Visão:</strong> Desejo; recomendação de tempo de 3 ou 5 anos; a visão MUDA.</li>
-<li><strong>Missão:</strong> O porquê; a missão NÃO MUDA.</li>
-<li><strong>Valores:</strong> Crenças; de 3 a 7 valores (não limitante).</li>
-</ul>
-<h3>Objetivos Estratégicos</h3>
-<ul>
-<li>Os objetivos devem &quot;partir&quot; da Proposta de Valor, Visão, Missão e Valores.</li>
-<li>Cada objetivo deve estar conectado a um dos pilares da empresa: Financeiro, Clientes, Processos Internos e Aprendizado/Crescimento.</li>
-<li>Geralmente levanta-se um grande volume de objetivos a partir de um dos materiais de origem (PV, Visão...) e depois aplica-se um filtro para selecionar.</li>
-</ul>
-<div class="callout callout-exam"><div class="callout-label">⚠ Cai na Prova</div><div class="callout-body"><p>Os objetivos devem SEMPRE ser escritos com VERBOS NO INFINITIVO.</p>
-</div></div>
+    <p><strong>Cruzamentos da SWOT:</strong></p>
+    <div class="cross-grid">
+      <div class="cross">
+        <div class="cn">Forças × Oportunidades</div>
+        <div class="ct">Ação Ofensiva</div>
+        <p>Cruzamento de Forças com Oportunidades.</p>
+      </div>
+      <div class="cross">
+        <div class="cn">Forças × Ameaças</div>
+        <div class="ct">Ação Defensiva</div>
+        <p>Cruzamento de Forças com Ameaças.</p>
+      </div>
+      <div class="cross">
+        <div class="cn">Oportunidades × Fraquezas</div>
+        <div class="ct">Debilidade</div>
+        <p>Ação para ANULAR a debilidade — cruzamento de Oportunidades com Fraquezas.</p>
+      </div>
+      <div class="cross">
+        <div class="cn">Fraquezas × Ameaças</div>
+        <div class="ct">Vulnerabilidade</div>
+        <p>Ação para ANULAR a vulnerabilidade — cruzamento de Fraquezas com Ameaças.</p>
+      </div>
+    </div>
+    <div class="exam">
+      <span class="label">⚠ Cai na Prova</span>
+      <p>Na SWOT, use sempre <strong>VERBOS NO INFINITIVO</strong>.</p>
+    </div>
 
+    <h3>As 5 Forças de Porter</h3>
+    <div class="key">
+      <span class="label">Conceito-Chave</span>
+      <p>As <strong>5 Forças de Porter</strong> analisam a competitividade do setor a partir da empresa no centro, considerando: Novos Entrantes, Clientes, Fornecedores, Concorrentes e Substitutos. Para cada força, identificam-se forças e fraquezas e definem-se ações para a empresa.</p>
+    </div>
+    <div class="hub">
+      <div class="hub-center">Empresa</div>
+      <div class="hub-forces">
+        <div class="force">Novo Concorrente / Novo Entrante</div>
+        <div class="force">Clientes</div>
+        <div class="force">Fornecedor</div>
+        <div class="force">Concorrente</div>
+        <div class="force">Substituto</div>
+      </div>
+    </div>
+    <p>Para cada força:</p>
+    <ul class="clean-list">
+      <li>Citar um exemplo (pode ser mais genérico — ver exemplo do board).</li>
+      <li>Colocar Força e Fraqueza desse pilar (clientes, fornecedor etc.).</li>
+      <li>Colocar uma ação que precisamos fazer para cada pilar (verbo no infinitivo).</li>
+    </ul>
+  </section>
 
-<h3>Estratégia Diamante</h3>
-<div class="callout callout-key"><div class="callout-label">◆ Conceito-Chave</div><div class="callout-body"><p>A <strong>Estratégia Diamante</strong> estrutura a estratégia em cinco elementos centrais (mais a lógica econômica), respondendo onde, como e por que a empresa atuará. Sua lógica do <strong>autorreforço</strong> exige que cada tópico reforce e seja reforçado por múltiplos (não necessariamente todos) os demais pilares da estratégia.</p>
-</div></div>
+  <section id="desdobramento">
+    <h2>Fase 3 — Desdobramento</h2>
 
+    <h3>Revisão dos Objetivos</h3>
+    <ul class="clean-list">
+      <li>Montagem do mapa estratégico: preencher os objetivos levantados nas fases anteriores e validar se os objetivos mapeados devem ir para o mapa do BSC.</li>
+    </ul>
 
-<ul>
-<li><strong>Arena:</strong> Onde vamos atuar? Qual a área geográfica de atuação?</li>
-<li><strong>Veículos:</strong> Como vamos chegar nessa arena?</li>
-<li><strong>Diferenciadores:</strong> Quais os diferenciais que você tem?</li>
-<li><strong>Recursos Estratégicos:</strong> Como você vai suportar esse negócio?</li>
-<li><strong>Encenação:</strong> Qual a lógica e a velocidade para chegar onde você quer?</li>
-<li><strong>Lógica Econômica:</strong> Como você vai obter retorno financeiro?</li>
-<li><strong>Regras Gerais:</strong> No Slide!</li>
-<li><strong>Lógica do autorreforço:</strong> cada tópico deve reforçar e ser reforçado por múltiplos pontos dos outros pilares da Estratégia Diamante (não precisa todos).</li>
-</ul>
-<h2>Fase 2 — Ambiente</h2>
-<p>O objetivo desta fase é analisar o ambiente da empresa <strong>HOJE, AGORA</strong>.</p>
-<h3>SWOT</h3>
-<div class="callout callout-key"><div class="callout-label">◆ Conceito-Chave</div><div class="callout-body"><p>A <strong>SWOT</strong> (Strengths, Weaknesses, Opportunities, Threats) é uma matriz de análise que cruza o ambiente interno (Forças e Fraquezas, que a empresa controla) com o ambiente externo (Oportunidades e Ameaças, o mercado). Os cruzamentos entre esses quadrantes geram ações estratégicas: ofensivas, defensivas, de anulação de debilidade e de anulação de vulnerabilidade.</p>
-</div></div>
+    <h3>BSC (Balanced Scorecard)</h3>
+    <div class="key">
+      <span class="label">Conceito-Chave</span>
+      <p>O <strong>BSC (Balanced Scorecard)</strong> é composto por <strong>Mapa + Painel</strong>. No mapa, os objetivos são sempre conectados de baixo para cima. No painel, cada objetivo recebe indicadores (o que medir), alvos (metas mensuráveis com valor atual e meta por período) e projetos/iniciativas (o que será feito para atingir o objetivo).</p>
+    </div>
+    <p><strong>No mapa:</strong> sempre conectar de baixo para cima.</p>
+    <p><strong>No painel:</strong></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Componente</th>
+          <th>O que preencher</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Objetivos</strong></td><td>Vindos das fases anteriores.</td></tr>
+        <tr><td><strong>Indicadores</strong></td><td>Preencher com forma ou fórmulas — o que eu vou medir.</td></tr>
+        <tr><td><strong>Alvos</strong></td><td>As metas; devem ser mensuráveis (números). SEMPRE preencher com o valor atual do indicador e a meta esperada por período.</td></tr>
+        <tr><td><strong>Projetos / Iniciativas</strong></td><td>Qual o projeto responsável por fazer com que eu atinja meu objetivo.</td></tr>
+      </tbody>
+    </table>
+    <div class="exam">
+      <span class="label">⚠ Cai na Prova</span>
+      <p>Lembre-se: <strong>BSC é Mapa + Painel</strong>, e o BSC sempre cai na prova.</p>
+    </div>
 
+    <h3>OKR</h3>
+    <div class="key">
+      <span class="label">Conceito-Chave</span>
+      <p>O <strong>OKR (Objectives and Key Results)</strong> é uma metodologia de definição de objetivos e resultados-chave, usada no desdobramento da estratégia. Junto com o BSC, é um dos tópicos que cai em todas as provas.</p>
+    </div>
+  </section>
 
-<ul>
-<li><strong>Strength (Forças):</strong> Eu TENHO HOJE; ambiente interno, que eu controlo.</li>
-<li><strong>Weakness (Fraquezas):</strong> Eu NÃO TENHO HOJE; ambiente interno, que eu controlo.</li>
-<li><strong>Opportunities (Oportunidades):</strong> Ambiente EXTERNO HOJE, o mercado.<ul>
-<li>Ex.: novos produtos; mercado em expansão.</li>
-</ul>
-</li>
-<li><strong>Threats (Ameaças):</strong> Ambiente EXTERNO HOJE, o mercado.<ul>
-<li>Ex.: mudança no comportamento do cliente.</li>
-</ul>
-</li>
-</ul>
-<p>Deve haver <strong>rastreabilidade</strong> — importante taguear cada item:</p>
-<ul>
-<li>Forças: S01, S02, S03</li>
-<li>Fraquezas: W01, W02</li>
-</ul>
-<p>Cruzamentos da SWOT:</p>
-<ul>
-<li><strong>Ação Ofensiva:</strong> cruzamento de Forças com Oportunidades.</li>
-<li><strong>Ação Defensiva:</strong> cruzamento de Forças com Ameaças.</li>
-<li><strong>Debilidade:</strong> ação para ANULAR a debilidade — cruzamento de Oportunidades com Fraquezas.</li>
-<li><strong>Vulnerabilidade:</strong> ação para ANULAR a vulnerabilidade — cruzamento de Fraquezas com Ameaças.</li>
-</ul>
-<div class="callout callout-exam"><div class="callout-label">⚠ Cai na Prova</div><div class="callout-body"><p>Na SWOT, use sempre <strong>VERBOS NO INFINITIVO</strong>.</p>
-</div></div>
-
-
-<h3>As 5 Forças de Porter</h3>
-<div class="callout callout-key"><div class="callout-label">◆ Conceito-Chave</div><div class="callout-body"><p>As <strong>5 Forças de Porter</strong> analisam a competitividade do setor a partir da empresa no centro, considerando: Novos Entrantes, Clientes, Fornecedores, Concorrentes e Substitutos. Para cada força, identificam-se forças e fraquezas e definem-se ações para a empresa.</p>
-</div></div>
-
-
-<p>Estrutura:</p>
-<ul>
-<li>Empresa no centro</li>
-<li>Novo Concorrente / Novo Entrante</li>
-<li>Clientes</li>
-<li>Fornecedor</li>
-<li>Concorrente</li>
-<li>Substituto</li>
-</ul>
-<p>Para cada força:</p>
-<ul>
-<li>Citar um exemplo (pode ser mais genérico — ver exemplo do board).</li>
-<li>Colocar Força e Fraqueza desse pilar (clientes, fornecedor etc.).</li>
-<li>Colocar uma ação que precisamos fazer para cada pilar (verbo no infinitivo).</li>
-</ul>
-<h2>Fase 3 — Desdobramento</h2>
-<h3>Revisão dos Objetivos</h3>
-<ul>
-<li>Montagem do mapa estratégico: preencher os objetivos levantados nas fases anteriores e validar se os objetivos mapeados devem ir para o mapa do BSC.</li>
-</ul>
-<h3>BSC (Balanced Scorecard)</h3>
-<div class="callout callout-key"><div class="callout-label">◆ Conceito-Chave</div><div class="callout-body"><p>O <strong>BSC (Balanced Scorecard)</strong> é composto por <strong>Mapa + Painel</strong>. No mapa, os objetivos são sempre conectados de baixo para cima. No painel, cada objetivo recebe indicadores (o que medir), alvos (metas mensuráveis com valor atual e meta por período) e projetos/iniciativas (o que será feito para atingir o objetivo).</p>
-</div></div>
-
-
-<ul>
-<li><strong>No mapa:</strong> sempre conectar de baixo para cima.</li>
-<li><strong>No painel:</strong><ul>
-<li><strong>Objetivos:</strong> (vindos das fases anteriores)</li>
-<li><strong>Indicadores:</strong> preencher com forma ou fórmulas — o que eu vou medir.</li>
-<li><strong>Alvos:</strong> as metas; devem ser mensuráveis (números). SEMPRE preencher com o valor atual do indicador e a meta esperada por período.</li>
-<li><strong>Projetos/Iniciativas:</strong> qual o projeto responsável por fazer com que eu atinja meu objetivo.</li>
-</ul>
-</li>
-</ul>
-<div class="callout callout-exam"><div class="callout-label">⚠ Cai na Prova</div><div class="callout-body"><p>Lembre-se: <strong>BSC é Mapa + Painel</strong>, e o BSC sempre cai na prova.</p>
-</div></div>
-
-
-<h3>OKR</h3>
-<div class="callout callout-key"><div class="callout-label">◆ Conceito-Chave</div><div class="callout-body"><p>O <strong>OKR (Objectives and Key Results)</strong> é uma metodologia de definição de objetivos e resultados-chave, usada no desdobramento da estratégia. Junto com o BSC, é um dos tópicos que cai em todas as provas.</p>
-</div></div>
-
-
-<h2>Perguntas de Recall</h2>
-<div class="callout callout-recall"><div class="callout-label">? Recall Ativo</div><div class="callout-body"><p>Quais são os quatro pilares da empresa que orientam a estratégia e a que perspectiva cada objetivo deve estar conectado?</p>
-</div></div>
-
-
-
-<div class="callout callout-recall"><div class="callout-label">? Recall Ativo</div><div class="callout-body"><p>Na análise SWOT, qual a diferença entre Forças/Fraquezas e Oportunidades/Ameaças, e quais ações resultam de cada cruzamento (ofensiva, defensiva, debilidade e vulnerabilidade)?</p>
-</div></div>
-
-
-
-<div class="callout callout-recall"><div class="callout-label">? Recall Ativo</div><div class="callout-body"><p>O que distingue Visão, Missão e Valores, e quais deles mudam ou não mudam ao longo do tempo?</p>
-</div></div>
-
-
-
-<div class="callout callout-recall"><div class="callout-label">? Recall Ativo</div><div class="callout-body"><p>Quais são os elementos da Estratégia Diamante e o que significa sua lógica do autorreforço?</p>
-</div></div>
-
-
-
-<div class="callout callout-recall"><div class="callout-label">? Recall Ativo</div><div class="callout-body"><p>O BSC é composto por quais duas partes, e quais informações devem constar no painel (objetivos, indicadores, alvos e projetos)?</p>
-</div></div>
-
-
-
-<div class="callout callout-recall"><div class="callout-label">? Recall Ativo</div><div class="callout-body"><p>Quais são as 5 Forças de Porter e o que se deve definir para cada uma delas na análise?</p>
-</div></div>
+  <section id="recall">
+    <h2>Perguntas de Recall</h2>
+    <div class="recall-grid">
+      <div class="recall"><span class="q">?</span><p>Quais são os quatro pilares da empresa que orientam a estratégia e a que perspectiva cada objetivo deve estar conectado?</p></div>
+      <div class="recall"><span class="q">?</span><p>Na análise SWOT, qual a diferença entre Forças/Fraquezas e Oportunidades/Ameaças, e quais ações resultam de cada cruzamento (ofensiva, defensiva, debilidade e vulnerabilidade)?</p></div>
+      <div class="recall"><span class="q">?</span><p>O que distingue Visão, Missão e Valores, e quais deles mudam ou não mudam ao longo do tempo?</p></div>
+      <div class="recall"><span class="q">?</span><p>Quais são os elementos da Estratégia Diamante e o que significa sua lógica do autorreforço?</p></div>
+      <div class="recall"><span class="q">?</span><p>O BSC é composto por quais duas partes, e quais informações devem constar no painel (objetivos, indicadores, alvos e projetos)?</p></div>
+      <div class="recall"><span class="q">?</span><p>Quais são as 5 Forças de Porter e o que se deve definir para cada uma delas na análise?</p></div>
+    </div>
+  </section>
 
 </div>
-  </div>
+
 </body>
 </html>
