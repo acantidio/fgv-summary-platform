@@ -1,1 +1,17 @@
 node_modules/
+
+# Complementary study materials — kept locally, not in git (can be large files)
+complementary-study-docs/**/*.pdf
+complementary-study-docs/**/*.pptx
+complementary-study-docs/**/*.docx
+complementary-study-docs/**/*.xlsx
+complementary-study-docs/**/*.ppt
+complementary-study-docs/**/*.doc
+complementary-study-docs/**/*.zip
+complementary-study-docs/**/*.mp4
+complementary-study-docs/**/*.png
+complementary-study-docs/**/*.jpg
+complementary-study-docs/**/*.jpeg
+# Keep folder structure and README tracked
+!complementary-study-docs/**/.gitkeep
+!complementary-study-docs/**/README.md

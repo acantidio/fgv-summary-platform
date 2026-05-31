@@ -157,7 +157,15 @@ gh run list --repo acantidio/fgv-summary-platform
 
 ---
 
-## Step 7: Update Obsidian Index
+## Step 7: Create the Complementary Materials Folder
+
+```bash
+mkdir complementary-study-docs/[slug]
+```
+
+This keeps `complementary-study-docs/` in sync with `content/`. Drop any teacher slides, PDFs, or books for this subject into that folder whenever you have them. The folder stays empty until materials are available — that's fine.
+
+## Step 8: Update Obsidian Index
 
 Open `/Users/andrecantidio/Documents/Obsidian/main/MBA GE80/Índice.md` and add the new subject to the list if it isn't there already.
 

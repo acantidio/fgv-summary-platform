@@ -107,16 +107,30 @@ GitHub Actions will run tests, rebuild, and re-deploy automatically. The live si
 ## Architecture at a Glance
 
 ```
-content/[slug].md      ← Obsidian note + frontmatter (edit here)
-build.js               ← Full pipeline: read → render → write docs/
-test.js                ← 5 tests covering content, parse, render, build
-docs/index.html        ← Generated hub page (never edit directly)
-docs/[slug]/index.html ← Generated subject pages (never edit directly)
-.github/workflows/deploy.yml ← CI: runs on push to main
+content/[slug].md                        ← Obsidian note + frontmatter (edit here)
+complementary-study-docs/[slug]/         ← PDFs, slides, books per subject (dump files here)
+build.js                                 ← Full pipeline: read → render → write docs/
+test.js                                  ← 5 tests covering content, parse, render, build
+docs/index.html                          ← Generated hub page (never edit directly)
+docs/[slug]/index.html                   ← Generated subject pages (never edit directly)
+.github/workflows/deploy.yml             ← CI: runs on push to main
 ```
 
 `build.js` exports: `parseContent()`, `renderSubjectPage()`, `renderHubPage()`, `buildSite()`.
 All rendering is pure HTML + CSS — zero JavaScript on the output pages.
+
+---
+
+## Complementary Materials
+
+Each subject has a dedicated folder at `complementary-study-docs/[slug]/` for teacher slides, PDFs, books, and any other supplementary files. Dump materials there as-is — no naming convention required.
+
+**When adding a new subject**, always create the corresponding folder:
+```bash
+mkdir complementary-study-docs/[slug]
+```
+
+A future automated engine will process these files and enrich the subject pages. See [`docs/guides/complementary-materials-engine.md`](docs/guides/complementary-materials-engine.md) for the full roadmap. To trigger that work: start a session and say **"Let's build the complementary materials engine."**
 
 ---
 
@@ -125,6 +139,7 @@ All rendering is pure HTML + CSS — zero JavaScript on the output pages.
 - [Adding a Subject (full guide)](docs/guides/adding-a-subject.md) — complete walkthrough with edge cases
 - [Content Model Reference](docs/guides/content-model.md) — all frontmatter fields and valid values
 - [Design System](docs/guides/design-system.md) — colors, fonts, CSS variables, breakpoints
+- [Complementary Materials Engine](docs/guides/complementary-materials-engine.md) — planned pipeline for processing PDFs, slides, and books
 
 ---
 
