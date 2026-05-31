@@ -83,6 +83,64 @@ test('renderHubPage returns HTML with sorted card links for all subjects', async
   assert.ok(html.indexOf('Alpha Subject') < html.indexOf('Beta Subject'), 'cards must be sorted by title')
 })
 
+// ── Callout parsing ───────────────────────────────────────────────────────────
+test('parseCallouts converts [!EXAM] block to callout HTML', async () => {
+  const { parseCallouts } = await import('./build.js')
+  const input = '> [!EXAM]\n> BSC cai em todas as provas.\n'
+  const output = parseCallouts(input)
+  assert.ok(output.includes('class="callout callout-exam"'), 'must have callout-exam class')
+  assert.ok(output.includes('Cai na Prova'), 'must include exam label text')
+  assert.ok(output.includes('BSC cai em todas as provas'), 'must preserve body text')
+})
+
+test('parseCallouts handles all four callout types', async () => {
+  const { parseCallouts } = await import('./build.js')
+  const types = ['EXAM', 'KEY', 'RECALL', 'SUMMARY']
+  for (const type of types) {
+    const input = `> [!${type}]\n> Body text for ${type}.\n`
+    const output = parseCallouts(input)
+    assert.ok(
+      output.includes(`callout-${type.toLowerCase()}`),
+      `must produce callout-${type.toLowerCase()} class for [!${type}]`
+    )
+  }
+})
+
+test('parseContent prefers enriched file over raw when enriched file exists', async () => {
+  const { parseContent } = await import('./build.js')
+  const { mkdirSync, writeFileSync, unlinkSync } = await import('node:fs')
+
+  const enrichedDir = join(__dirname, 'content', 'enriched')
+  const enrichedPath = join(enrichedDir, 'estrategia-corporativa.md')
+  mkdirSync(enrichedDir, { recursive: true })
+  writeFileSync(enrichedPath, `---
+title: Estratégia Corporativa e de Negócios
+slug: estrategia-corporativa
+description: Metodologia de planejamento estratégico.
+status: complete
+color: purple
+---
+
+> [!EXAM]
+> Enriched content marker — this line only exists in the enriched file.
+`, 'utf-8')
+
+  try {
+    const result = parseContent(join(CONTENT_DIR, 'estrategia-corporativa.md'))
+    assert.ok(
+      result.html.includes('callout-exam'),
+      'parseContent must use the enriched file (which has [!EXAM] callout)'
+    )
+  } finally {
+    unlinkSync(enrichedPath)
+  }
+})
+
+test('enrich.js exports enrichSubject as a function without side effects on import', async () => {
+  const mod = await import('./enrich.js')
+  assert.equal(typeof mod.enrichSubject, 'function', 'must export enrichSubject function')
+})
+
 // ── Task 6: buildSite ─────────────────────────────────────────────────────────
 test('buildSite generates docs/index.html and all subject pages', async () => {
   const { buildSite } = await import('./build.js')

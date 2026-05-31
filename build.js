@@ -1,5 +1,5 @@
-import { readFileSync, writeFileSync, mkdirSync, readdirSync } from 'node:fs'
-import { join, dirname } from 'node:path'
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, existsSync } from 'node:fs'
+import { join, dirname, basename } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import matter from 'gray-matter'
 import { marked } from 'marked'
@@ -20,6 +20,24 @@ const STATUS_LABEL = {
   complete: 'Concluído',
   'in-progress': 'Em andamento',
   pending: 'Pendente',
+}
+
+const CALLOUT_LABELS = {
+  EXAM:    '⚠ Cai na Prova',
+  KEY:     '◆ Conceito-Chave',
+  RECALL:  '? Recall Ativo',
+  SUMMARY: '◎ Resumo',
+}
+
+export function parseCallouts(markdown) {
+  return markdown.replace(
+    /^> \[!(EXAM|KEY|RECALL|SUMMARY)\]\n((?:^> ?.*\n?)*)/gm,
+    (_, type, body) => {
+      const text = body.replace(/^> ?/gm, '').trim()
+      const renderedBody = marked.parse(text)
+      return `\n<div class="callout callout-${type.toLowerCase()}"><div class="callout-label">${CALLOUT_LABELS[type]}</div><div class="callout-body">${renderedBody}</div></div>\n\n`
+    }
+  )
 }
 
 function sharedCSS() {
@@ -149,7 +167,9 @@ ${cards}
 }
 
 export function parseContent(filePath) {
-  const raw = readFileSync(filePath, 'utf-8')
+  const enrichedPath = join(CONTENT_DIR, 'enriched', basename(filePath))
+  const effectivePath = existsSync(enrichedPath) ? enrichedPath : filePath
+  const raw = readFileSync(effectivePath, 'utf-8')
   const { data, content } = matter(raw)
   return {
     title: data.title,
@@ -157,7 +177,7 @@ export function parseContent(filePath) {
     description: data.description,
     status: data.status,
     color: data.color,
-    html: marked(content),
+    html: marked.parse(parseCallouts(content)),
   }
 }
 
