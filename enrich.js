@@ -4,6 +4,20 @@ import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import matter from 'gray-matter'
 
+// Load .env if present (local enrichment only — never committed)
+try {
+  const envPath = join(dirname(fileURLToPath(import.meta.url)), '.env')
+  if (existsSync(envPath)) {
+    const lines = readFileSync(envPath, 'utf-8').split('\n')
+    for (const line of lines) {
+      const [key, ...rest] = line.split('=')
+      if (key && rest.length && !process.env[key.trim()]) {
+        process.env[key.trim()] = rest.join('=').trim()
+      }
+    }
+  }
+} catch { /* ignore */ }
+
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const CONTENT_DIR = join(__dirname, 'content')
 const ENRICHED_DIR = join(__dirname, 'content', 'enriched')
