@@ -43,6 +43,19 @@
     .content pre code { background: none; padding: 0; }
     .content blockquote { border-left: 3px solid var(--border); padding: 2px 0 2px 18px; color: var(--text-secondary); margin-bottom: 14px; }
     .content hr { border: none; border-top: 1px solid var(--border-light); margin: 28px 0; }
+    .callout { border-radius: 8px; padding: 16px 20px; margin: 24px 0; }
+    .callout-label { font-family: var(--font-mono); font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
+    .callout-body { line-height: 1.75; }
+    .callout-body p { margin-bottom: 8px; }
+    .callout-body p:last-child { margin-bottom: 0; }
+    .callout-exam { background: #FEF9EC; border-left: 3px solid #D97706; }
+    .callout-exam .callout-label { color: #92400E; }
+    .callout-key { background: #EEEDFE; border-left: 3px solid #534AB7; }
+    .callout-key .callout-label { color: #3730A3; }
+    .callout-recall { background: #E6F4F1; border-left: 3px solid #0F6E56; }
+    .callout-recall .callout-label { color: #065F46; }
+    .callout-summary { background: var(--bg-surface); border: 1px solid var(--border); border-left: 3px solid var(--text-secondary); }
+    .callout-summary .callout-label { color: var(--text-secondary); }
     @media (max-width: 640px) {
       .subject-header { padding: 20px; }
       .content h2 { font-size: 19px; margin-top: 32px; }

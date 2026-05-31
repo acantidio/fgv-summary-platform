@@ -111,12 +111,24 @@ test('parseContent prefers enriched file over raw when enriched file exists', as
   const { mkdirSync, writeFileSync, unlinkSync } = await import('node:fs')
 
   const enrichedDir = join(__dirname, 'content', 'enriched')
-  const enrichedPath = join(enrichedDir, 'estrategia-corporativa.md')
+  const testSlug = '_test-callout-fixture'
+  const enrichedPath = join(enrichedDir, `${testSlug}.md`)
+  const rawPath = join(__dirname, 'content', `${testSlug}.md`)
   mkdirSync(enrichedDir, { recursive: true })
+  writeFileSync(rawPath, `---
+title: Test Fixture
+slug: ${testSlug}
+description: Fixture for enriched-file preference test.
+status: complete
+color: purple
+---
+
+Raw content only.
+`, 'utf-8')
   writeFileSync(enrichedPath, `---
-title: Estratégia Corporativa e de Negócios
-slug: estrategia-corporativa
-description: Metodologia de planejamento estratégico.
+title: Test Fixture
+slug: ${testSlug}
+description: Fixture for enriched-file preference test.
 status: complete
 color: purple
 ---
@@ -126,13 +138,14 @@ color: purple
 `, 'utf-8')
 
   try {
-    const result = parseContent(join(CONTENT_DIR, 'estrategia-corporativa.md'))
+    const result = parseContent(rawPath)
     assert.ok(
       result.html.includes('callout-exam'),
       'parseContent must use the enriched file (which has [!EXAM] callout)'
     )
   } finally {
     unlinkSync(enrichedPath)
+    unlinkSync(rawPath)
   }
 })
 

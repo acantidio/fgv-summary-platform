@@ -68,7 +68,7 @@ export async function enrichSubject(slug) {
   console.log(`Enriching "${slug}" with Claude Opus 4.7...`)
 
   const response = await client.messages.create({
-    model: 'claude-opus-4-7',
+    model: 'claude-opus-4-8',
     max_tokens: 8192,
     system: SYSTEM_PROMPT,
     messages: [{ role: 'user', content: content.trim() }],
