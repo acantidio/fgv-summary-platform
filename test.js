@@ -170,3 +170,22 @@ test('buildSite generates docs/index.html and all subject pages', async () => {
   assert.ok(hub.includes('href="./estrategia-corporativa/"'), 'hub must link to estrategia-corporativa')
   assert.ok(hub.includes('href="./gestao-de-servicos/"'), 'hub must link to gestao-de-servicos')
 })
+
+// ── render.js: buildHub ───────────────────────────────────────────────────────
+test('buildHub generates docs/index.html with sorted card links', async () => {
+  const { buildHub } = await import('./render.js')
+  buildHub()
+
+  assert.ok(existsSync(join(DOCS_DIR, 'index.html')), 'docs/index.html must exist')
+  const hub = readFileSync(join(DOCS_DIR, 'index.html'), 'utf-8')
+  assert.ok(hub.startsWith('<!DOCTYPE html>'), 'must start with DOCTYPE')
+  assert.ok(hub.includes('lang="pt-BR"'), 'must declare pt-BR language')
+  assert.ok(hub.includes('href="./estrategia-corporativa/"'), 'must link to estrategia-corporativa')
+  assert.ok(hub.includes('href="./gestao-de-servicos/"'), 'must link to gestao-de-servicos')
+  assert.ok(hub.includes('href="./transformacao-digital/"'), 'must link to transformacao-digital')
+  assert.ok(hub.includes('href="./analise-demonstrativos/"'), 'must link to analise-demonstrativos')
+  assert.ok(!hub.includes('<script'), 'must contain no script tags')
+  const alphaIdx = hub.indexOf('Análise')
+  const estratIdx = hub.indexOf('Estratégia')
+  assert.ok(alphaIdx < estratIdx, 'cards must be sorted alphabetically by title')
+})
