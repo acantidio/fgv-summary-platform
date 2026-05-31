@@ -1,0 +1,138 @@
+# Content Model Reference
+
+Every file in `content/` is a Markdown file with a YAML frontmatter block followed by free-form Markdown content.
+
+---
+
+## Frontmatter Fields
+
+```yaml
+---
+title: string       # required
+slug: string        # required
+description: string # required
+status: string      # required — see valid values below
+color: string       # required — see valid values below
+---
+```
+
+### `title`
+Full subject name in Portuguese, as it appears on the hub card and subject page header.
+
+```yaml
+title: Gestão de Projetos e Metodologias Ágeis
+```
+
+### `slug`
+URL-safe identifier. Becomes the output path: `docs/[slug]/index.html` and the URL `…/[slug]/`.
+
+Rules:
+- Lowercase only
+- Hyphens instead of spaces
+- No accents, special characters, or underscores
+- Must be unique across all `content/*.md` files
+
+```yaml
+slug: gestao-de-projetos
+```
+
+### `description`
+One concise sentence shown on the hub card. Describes what the subject covers — not a full summary, just enough to distinguish it from others.
+
+```yaml
+description: Metodologias ágeis, gestão de escopo, cronograma e riscos em projetos.
+```
+
+### `status`
+
+| Value | Hub badge label | Meaning |
+|---|---|---|
+| `complete` | Concluído | Class finished, notes comprehensive |
+| `in-progress` | Em andamento | Class ongoing or notes incomplete |
+| `pending` | Pendente | Placeholder for upcoming subject |
+
+```yaml
+status: complete
+```
+
+### `color`
+
+| Value | Light bg | Main (accent) | Use for |
+|---|---|---|---|
+| `purple` | `#EEEDFE` | `#534AB7` | Strategy, planning subjects |
+| `amber` | `#FAEEDA` | `#854F0B` | Finance, accounting subjects |
+| `teal` | `#E6F4F1` | `#0F6E56` | Operations, services subjects |
+| `blue` | `#EBF5FF` | `#1A56DB` | Technology, digital subjects |
+| `rose` | `#FDE8EC` | `#C81E3A` | People, leadership subjects |
+
+Colors are purely aesthetic — pick the one that fits best or distribute evenly as subjects grow.
+
+```yaml
+color: blue
+```
+
+---
+
+## Body Content
+
+Everything below the closing `---` is rendered as Markdown by `marked`. The full Markdown spec is supported:
+
+```markdown
+## Section heading        → <h2> with display font + border-bottom
+### Sub-section           → <h3> bold
+#### Label                → <h4> uppercase small caps
+**bold text**             → <strong>
+*italic text*             → <em> in secondary color
+`inline code`             → monospace on surface background
+- bullet list             → <ul> with proper indentation
+  - nested bullet         → nested <ul>
+1. numbered list          → <ol>
+---                       → <hr> thin separator line
+> blockquote              → left-border callout in secondary color
+```
+
+### Obsidian-Specific Patterns to Clean
+
+| Pattern | Replace with |
+|---|---|
+| `[[Page Name]]` | `Page Name` |
+| `[[Page Name\|Display]]` | `Display` |
+| `![[image.png]]` | *(remove)* |
+| `%%comment%%` | *(remove)* |
+| `#hashtag` on its own line | *(remove)* |
+
+---
+
+## Full Example
+
+```markdown
+---
+title: Gestão de Projetos e Metodologias Ágeis
+slug: gestao-de-projetos
+description: Metodologias ágeis, gestão de escopo, cronograma e riscos em projetos.
+status: complete
+color: blue
+---
+
+## Resumo
+
+**Gerenciar é equilibrar escopo, tempo, custo e qualidade para entregar valor.**
+
+## Prova
+
+Estudo de caso: montar um plano de projeto com EAP, cronograma e matriz de riscos.
+
+Destaques: PMBOK, Scrum, Kanban.
+
+## Tópicos
+
+- Grupos de processo (PMBOK):
+	- Iniciação
+	- Planejamento
+	- Execução
+	- Monitoramento e controle
+	- Encerramento
+- Metodologias ágeis:
+	- Scrum: Sprints, backlog, retrospectiva
+	- Kanban: fluxo contínuo, WIP limit
+```
