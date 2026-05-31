@@ -86,7 +86,7 @@ How the complementary materials connect to or expand on the in-class notes — c
 
 The synthesis step will use the Claude API (Anthropic SDK) with:
 
-- **Model:** `claude-opus-4-7` (always use the most capable model — same principle as `enrich.js`)
+- **Model:** always use the latest Claude Opus model available at implementation time — same principle as `enrich.js`. Never use Sonnet or Haiku for synthesis.
 - **Prompt caching:** enabled — the system prompt and extracted text are stable across runs
 - **Context:** the existing `content/[slug].md` is passed as context so the synthesis is anchored to what André already knows
 - **Output format:** structured Markdown matching the section headers above

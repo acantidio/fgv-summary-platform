@@ -154,7 +154,7 @@ All rendering is pure HTML + CSS — zero JavaScript on the output pages.
 
 ### Enrichment model
 
-Always use **Claude Opus 4.7** (`claude-opus-4-7`) for enrichment. This is a one-time-per-subject operation where learning quality matters more than speed or cost. Never downgrade to a smaller model.
+Always use the **latest Claude Opus model** for enrichment — check `enrich.js` for the current model ID. This is a one-time-per-subject operation where learning quality matters more than speed or cost. Never downgrade to a smaller model (no Sonnet, no Haiku).
 
 ---
 
@@ -209,5 +209,5 @@ A future automated engine will process these files and enrich the subject pages.
 - Never commit with failing tests
 - Never edit `build.js` templates unless the design needs to change globally
 - Do not add JavaScript to the output pages — the design is intentionally JS-free
-- Never use a model weaker than Claude Opus 4.7 for enrichment — learning quality depends on it
+- Never use a model weaker than Claude Opus for enrichment — learning quality depends on it (check `enrich.js` for current model ID)
 - Never commit `.env` — it contains the API key and is gitignored
