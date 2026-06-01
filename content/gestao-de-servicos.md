@@ -37,7 +37,10 @@ color: teal
 	- Na propaganda, existe a torre de transmissão, que é ONDE a propaganda irá passar. No merchandising, isso não existe, pois a programação passa no canal.
 - Marketing Institucional: Promove a empresa, colocando o produto/serviço em "segundo plano."
 - DEMarketing ou Marketing Reverso: Campanha para que o cliente gaste menos; **Real motivo: Utilizado para adequar capacidade de produção à demanda** (Ex.: Empresa de energia elétrica fazendo campanha para o cliente consumir/gastar menos)
-- Marketing de Relacionamento/Commodity
+- **Marketing de Relacionamento / Commodity**: Estratégia que desloca o foco da venda pontual (transação) para o vínculo de longo prazo com o cliente — criar, manter e fortalecer a relação para gerar recorrência e fidelização.
+	- **Como funciona**: Apoia-se no conhecimento do cliente (histórico, preferências), operacionalizado via **CRM**; comunicação personalizada e contínua (pós-venda, programas de fidelidade); transforma clientes reais em recorrentes e reduz a **ruptura (churn)**. Conecta-se ao up-selling/cross-selling e à gestão da carteira de clientes.
+	- **Importância para serviços**: Serviço é atendimento a PESSOAS, baseado em **CCQ** (Confiança, Credibilidade e Qualidade) e no emocional (**VEA**) — é o relacionamento que constrói confiança ao longo do tempo e reduz o risco percebido do intangível. Reter cliente custa menos que conquistar.
+	- **Relação com commodity**: Commodity é produto/serviço padronizado, sem diferenciação técnica, em que a concorrência se dá por preço. Sem diferencial técnico, o **relacionamento passa a ser o principal (às vezes único) fator de diferenciação** — o vínculo com o cliente evita que a escolha seja só por preço e cria barreira à troca.
 - Patrocínio: Empresa que paga para que algo aconteça, e em troca peço exposição da minha marca/produto/serviço = Empresa patrocinadora; Motivação principal: ISENÇÃO DE IMPOSTOS!
 - Endomarketing: Comunicação que vai ocorrer dentro da própria empresa.
 	- Ecologia Empresarial: Importante devido à mão de obra flutuante. Não posso mais pensar apenas no meu colaborador, preciso pensar em terceirizados, etc.

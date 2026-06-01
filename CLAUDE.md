@@ -125,7 +125,7 @@ GitHub Actions will run tests and deploy the committed `docs/` files. The live s
 
 | Command | Purpose |
 |---|---|
-| `npm test` | Run all tests |
+| `npm test` | Run all tests ⚠️ **destructive** — overwrites real `docs/*/index.html` with mock HTML; run `git restore docs/` afterward |
 | `npm run render -- [slug]` | AI-render one subject page (run once per subject) |
 | `npm run render -- --all` | AI-render all subjects that have enriched files |
 | `npm run enrich -- [slug]` | AI-enrich one subject (run once per subject) |
@@ -211,3 +211,9 @@ A future automated engine will process these files and enrich the subject pages.
 - Do not add JavaScript to the output pages — the design is intentionally JS-free
 - Never use a model weaker than Claude Opus for enrichment or rendering — learning quality depends on it (check `enrich.js` and `render.js` for current model ID)
 - Never commit `.env` — it contains the API key and is gitignored
+
+## ⚠️ Gotcha: `npm test` clobbers `docs/`
+
+`npm test` has a **destructive side effect**: the `renderSite` test in `test.js` runs `renderSite(mockClient)` against the real `DOCS_DIR` (`./docs`, not a temp dir), overwriting every `docs/[slug]/index.html` and `docs/index.html` with tiny mock HTML (`<p>mock</p>`). After running tests, the local rendered pages look gutted (≈1 line each).
+
+**Always run `git restore docs/` after `npm test`** to recover the real committed pages. Never commit the post-test mock state. If you need to inspect or hand-edit the real HTML, restore first.
