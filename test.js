@@ -52,6 +52,69 @@ test('buildHub generates docs/index.html with sorted card links', async () => {
   assert.ok(alphaIdx < estratIdx, 'cards must be sorted alphabetically by title')
 })
 
+// ── calc.js: calcIndicators ───────────────────────────────────────────────────
+test('calcIndicators computes all BP indicators from Raia Drogasil 2025 data', async () => {
+  const { calcIndicators } = await import('./docs/calculadora-indicadores/calc.js')
+
+  const result = calcIndicators({
+    recLiq: null, lucBruto: null, lair: null, ll: null,
+    at: 24393381, ac: 13519926, caixa: 296965, estoque: 9127427,
+    rlp: 500417, inv: 1390158, imob: 7220602, intang: 1762278,
+    pc: 9589193, pnc: 7482059, pl: 7322129, dlEbitda: null
+  })
+
+  const near = (a, b) => Math.abs(a - b) < 0.001
+
+  assert.equal(result.ct, 17071252, 'Capital de Terceiros')
+  assert.equal(result.ap, 10373038, 'Ativo Permanente')
+  assert.ok(near(result.liqImediata, 0.031), `liqImediata got ${result.liqImediata}`)
+  assert.ok(near(result.liqCorrente, 1.410), `liqCorrente got ${result.liqCorrente}`)
+  assert.ok(near(result.liqSeca, 0.458), `liqSeca got ${result.liqSeca}`)
+  assert.ok(near(result.gde, 0.675), `gde got ${result.gde}`)
+  assert.ok(near(result.liqGeral, 0.821), `liqGeral got ${result.liqGeral}`)
+  assert.ok(near(result.endGeral, 0.700), `endGeral got ${result.endGeral}`)
+  assert.ok(near(result.compDivida, 0.562), `compDivida got ${result.compDivida}`)
+  assert.ok(near(result.imobCP, 1.417), `imobCP got ${result.imobCP}`)
+  assert.ok(near(result.imobRNC, 0.701), `imobRNC got ${result.imobRNC}`)
+})
+
+test('calcIndicators computes DRE indicators from MRV 2025 data', async () => {
+  const { calcIndicators } = await import('./docs/calculadora-indicadores/calc.js')
+
+  const result = calcIndicators({
+    recLiq: null, lucBruto: null, lair: null, ll: -1042256,
+    at: 16142630, ac: null, caixa: null, estoque: null,
+    rlp: null, inv: null, imob: null, intang: null,
+    pc: null, pnc: null, pl: 5327812, dlEbitda: null
+  })
+
+  const near = (a, b) => Math.abs(a - b) < 0.001
+  assert.ok(near(result.roi, -0.0646), `roi got ${result.roi}`)
+  assert.ok(near(result.roe, -0.1956), `roe got ${result.roe}`)
+  assert.equal(result.payback, null, 'payback must be null when ll < 0')
+})
+
+test('calcIndicators returns null for indicators with missing inputs', async () => {
+  const { calcIndicators } = await import('./docs/calculadora-indicadores/calc.js')
+  const empty = { recLiq:null,lucBruto:null,lair:null,ll:null,at:null,ac:null,
+    caixa:null,estoque:null,rlp:null,inv:null,imob:null,intang:null,
+    pc:null,pnc:null,pl:null,dlEbitda:null }
+  const result = calcIndicators(empty)
+  assert.equal(result.liqImediata, null)
+  assert.equal(result.roi, null)
+  assert.equal(result.roe, null)
+})
+
+test('calcIndicators handles dlEbitda as pass-through input', async () => {
+  const { calcIndicators } = await import('./docs/calculadora-indicadores/calc.js')
+  const result = calcIndicators({
+    recLiq:null,lucBruto:null,lair:null,ll:null,at:null,ac:null,
+    caixa:null,estoque:null,rlp:null,inv:null,imob:null,intang:null,
+    pc:null,pnc:null,pl:null,dlEbitda:2.5
+  })
+  assert.equal(result.dlEbitda, 2.5)
+})
+
 test('buildHub includes Ferramentas section linking to calculadora-indicadores', async () => {
   const { buildHub } = await import('./render.js')
   buildHub()
