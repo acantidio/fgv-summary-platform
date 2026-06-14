@@ -113,7 +113,7 @@ Every page MUST include ALL of the following:
 - Never use hex colors outside the token system defined above
 - Never use bullet lists where a structured visual component fits the content`
 
-export function buildHub() {
+export function buildHub(outDir = DOCS_DIR) {
   const files = readdirSync(CONTENT_DIR).filter(f => f.endsWith('.md'))
   const subjects = files
     .map(f => matter(readFileSync(join(CONTENT_DIR, f), 'utf-8')).data)
@@ -189,11 +189,11 @@ ${cards}
 </body>
 </html>`
 
-  mkdirSync(DOCS_DIR, { recursive: true })
-  writeFileSync(join(DOCS_DIR, 'index.html'), html, 'utf-8')
+  mkdirSync(outDir, { recursive: true })
+  writeFileSync(join(outDir, 'index.html'), html, 'utf-8')
 }
 
-export async function renderSubject(slug, client = null) {
+export async function renderSubject(slug, client = null, outDir = DOCS_DIR) {
   const enrichedPath = join(CONTENT_DIR, 'enriched', `${slug}.md`)
   if (!existsSync(enrichedPath)) {
     throw new Error(`No enriched file found for "${slug}". Run: npm run enrich -- ${slug}`)
@@ -223,14 +223,14 @@ ${content.trim()}`
   })
 
   const html = response.content[0].text
-  const dir = join(DOCS_DIR, slug)
+  const dir = join(outDir, slug)
   mkdirSync(dir, { recursive: true })
   writeFileSync(join(dir, 'index.html'), html, 'utf-8')
-  buildHub()
-  console.log(`✓ Rendered "${slug}" → docs/${slug}/index.html`)
+  buildHub(outDir)
+  console.log(`✓ Rendered "${slug}" → ${outDir}/${slug}/index.html`)
 }
 
-export async function renderSite(client = null) {
+export async function renderSite(client = null, outDir = DOCS_DIR) {
   const enrichedDir = join(CONTENT_DIR, 'enriched')
   if (!existsSync(enrichedDir)) {
     console.log('No enriched files found. Run: npm run enrich -- --all')
@@ -241,7 +241,7 @@ export async function renderSite(client = null) {
     .map(f => f.replace('.md', ''))
 
   for (const slug of slugs) {
-    await renderSubject(slug, client)
+    await renderSubject(slug, client, outDir)
   }
   console.log(`✓ Done — rendered ${slugs.length} subjects`)
 }

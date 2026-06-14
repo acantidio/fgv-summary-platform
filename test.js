@@ -1,6 +1,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { readFileSync, readdirSync, existsSync } from 'node:fs'
+import { readFileSync, readdirSync, existsSync, mkdtempSync, rmSync } from 'node:fs'
+import { tmpdir } from 'node:os'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import matter from 'gray-matter'
@@ -34,22 +35,27 @@ test('enrich.js exports enrichSubject as a function without side effects on impo
 })
 
 // ── render.js: buildHub ───────────────────────────────────────────────────────
-test('buildHub generates docs/index.html with sorted card links', async () => {
+test('buildHub generates index.html with sorted card links', async () => {
   const { buildHub } = await import('./render.js')
-  buildHub()
+  const tmp = mkdtempSync(join(tmpdir(), 'fgv-test-'))
+  try {
+    buildHub(tmp)
 
-  assert.ok(existsSync(join(DOCS_DIR, 'index.html')), 'docs/index.html must exist')
-  const hub = readFileSync(join(DOCS_DIR, 'index.html'), 'utf-8')
-  assert.ok(hub.startsWith('<!DOCTYPE html>'), 'must start with DOCTYPE')
-  assert.ok(hub.includes('lang="pt-BR"'), 'must declare pt-BR language')
-  assert.ok(hub.includes('href="./estrategia-corporativa/index.html"'), 'must link to estrategia-corporativa')
-  assert.ok(hub.includes('href="./gestao-de-servicos/index.html"'), 'must link to gestao-de-servicos')
-  assert.ok(hub.includes('href="./transformacao-digital/index.html"'), 'must link to transformacao-digital')
-  assert.ok(hub.includes('href="./analise-demonstrativos/index.html"'), 'must link to analise-demonstrativos')
-  assert.ok(!hub.includes('<script'), 'must contain no script tags')
-  const alphaIdx = hub.indexOf('Análise')
-  const estratIdx = hub.indexOf('Estratégia')
-  assert.ok(alphaIdx < estratIdx, 'cards must be sorted alphabetically by title')
+    assert.ok(existsSync(join(tmp, 'index.html')), 'index.html must be created')
+    const hub = readFileSync(join(tmp, 'index.html'), 'utf-8')
+    assert.ok(hub.startsWith('<!DOCTYPE html>'), 'must start with DOCTYPE')
+    assert.ok(hub.includes('lang="pt-BR"'), 'must declare pt-BR language')
+    assert.ok(hub.includes('href="./estrategia-corporativa/index.html"'), 'must link to estrategia-corporativa')
+    assert.ok(hub.includes('href="./gestao-de-servicos/index.html"'), 'must link to gestao-de-servicos')
+    assert.ok(hub.includes('href="./transformacao-digital/index.html"'), 'must link to transformacao-digital')
+    assert.ok(hub.includes('href="./analise-demonstrativos/index.html"'), 'must link to analise-demonstrativos')
+    assert.ok(!hub.includes('<script'), 'must contain no script tags')
+    const alphaIdx = hub.indexOf('Análise')
+    const estratIdx = hub.indexOf('Estratégia')
+    assert.ok(alphaIdx < estratIdx, 'cards must be sorted alphabetically by title')
+  } finally {
+    rmSync(tmp, { recursive: true, force: true })
+  }
 })
 
 // ── calc.js: calcIndicators ───────────────────────────────────────────────────
@@ -229,15 +235,20 @@ test('docs/calculadora-indicadores/index.html exists', () => {
 
 test('buildHub includes Ferramentas section linking to calculadora-indicadores', async () => {
   const { buildHub } = await import('./render.js')
-  buildHub()
-  const hub = readFileSync(join(DOCS_DIR, 'index.html'), 'utf-8')
-  assert.ok(hub.includes('href="./calculadora-indicadores/index.html"'), 'hub must link to calculadora-indicadores')
-  assert.ok(hub.includes('Ferramentas'), 'hub must include Ferramentas label')
-  assert.ok(!hub.includes('<script'), 'hub must still contain no script tags')
+  const tmp = mkdtempSync(join(tmpdir(), 'fgv-test-'))
+  try {
+    buildHub(tmp)
+    const hub = readFileSync(join(tmp, 'index.html'), 'utf-8')
+    assert.ok(hub.includes('href="./calculadora-indicadores/index.html"'), 'hub must link to calculadora-indicadores')
+    assert.ok(hub.includes('Ferramentas'), 'hub must include Ferramentas label')
+    assert.ok(!hub.includes('<script'), 'hub must still contain no script tags')
+  } finally {
+    rmSync(tmp, { recursive: true, force: true })
+  }
 })
 
 // ── render.js: renderSubject ──────────────────────────────────────────────────
-test('renderSubject writes Anthropic response HTML to docs/[slug]/index.html', async () => {
+test('renderSubject writes Anthropic response HTML to [slug]/index.html', async () => {
   const { renderSubject } = await import('./render.js')
 
   const mockHtml = '<!DOCTYPE html><html lang="pt-BR"><head><title>Test — FGV MBA</title></head><body><p>mock content</p></body></html>'
@@ -247,12 +258,17 @@ test('renderSubject writes Anthropic response HTML to docs/[slug]/index.html', a
     }
   }
 
-  await renderSubject('estrategia-corporativa', mockClient)
+  const tmp = mkdtempSync(join(tmpdir(), 'fgv-test-'))
+  try {
+    await renderSubject('estrategia-corporativa', mockClient, tmp)
 
-  const outputPath = join(DOCS_DIR, 'estrategia-corporativa', 'index.html')
-  assert.ok(existsSync(outputPath), 'docs/estrategia-corporativa/index.html must be created')
-  const written = readFileSync(outputPath, 'utf-8')
-  assert.equal(written, mockHtml, 'file contents must exactly match the Anthropic response text')
+    const outputPath = join(tmp, 'estrategia-corporativa', 'index.html')
+    assert.ok(existsSync(outputPath), 'estrategia-corporativa/index.html must be created')
+    const written = readFileSync(outputPath, 'utf-8')
+    assert.equal(written, mockHtml, 'file contents must exactly match the Anthropic response text')
+  } finally {
+    rmSync(tmp, { recursive: true, force: true })
+  }
 })
 
 test('renderSubject throws a clear error when enriched file is missing', async () => {
@@ -286,17 +302,22 @@ test('renderSite renders all enriched slugs and rebuilds hub', async () => {
     }
   }
 
-  await renderSite(mockClient)
+  const tmp = mkdtempSync(join(tmpdir(), 'fgv-test-'))
+  try {
+    await renderSite(mockClient, tmp)
 
-  const enrichedDir = join(CONTENT_DIR, 'enriched')
-  const enrichedSlugs = readdirSync(enrichedDir).filter(f => f.endsWith('.md')).map(f => f.replace('.md', ''))
+    const enrichedDir = join(CONTENT_DIR, 'enriched')
+    const enrichedSlugs = readdirSync(enrichedDir).filter(f => f.endsWith('.md')).map(f => f.replace('.md', ''))
 
-  for (const slug of enrichedSlugs) {
-    assert.ok(
-      existsSync(join(DOCS_DIR, slug, 'index.html')),
-      `docs/${slug}/index.html must exist after renderSite`
-    )
+    for (const slug of enrichedSlugs) {
+      assert.ok(
+        existsSync(join(tmp, slug, 'index.html')),
+        `${slug}/index.html must exist after renderSite`
+      )
+    }
+    assert.ok(existsSync(join(tmp, 'index.html')), 'hub must exist after renderSite')
+    assert.ok(renderedSlugs.length >= enrichedSlugs.length, 'Anthropic must be called once per enriched slug')
+  } finally {
+    rmSync(tmp, { recursive: true, force: true })
   }
-  assert.ok(existsSync(join(DOCS_DIR, 'index.html')), 'hub must exist after renderSite')
-  assert.ok(renderedSlugs.length >= enrichedSlugs.length, 'Anthropic must be called once per enriched slug')
 })
