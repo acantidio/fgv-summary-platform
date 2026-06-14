@@ -93,6 +93,29 @@ header.page h1{font-family:'DM Serif Display',Georgia,serif;font-size:38px;font-
 /* empty state */
 .empty-state{text-align:center;padding:48px 24px;color:var(--text-tertiary);}
 .empty-state p{font-size:15px;}
+
+/* Report button */
+.report-btn{display:block;margin:32px auto 0;font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--bg-surface);border:1px solid var(--border);border-radius:8px;padding:10px 24px;cursor:pointer;color:var(--text-secondary);}
+.report-btn:hover{border-color:var(--teal-400);color:var(--teal-600);}
+
+/* Report modal */
+.report-modal{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:24px;}
+.report-backdrop{position:absolute;inset:0;background:rgba(26,26,24,.5);}
+.report-dialog{position:relative;background:var(--bg-card);border:1px solid var(--border);border-radius:16px;width:100%;max-width:700px;max-height:82vh;display:flex;flex-direction:column;box-shadow:0 12px 48px rgba(0,0,0,.2);}
+.report-dialog-header{padding:20px 24px;border-bottom:1px solid var(--border-light);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.report-dialog-header h3{font-family:'DM Serif Display',serif;font-size:20px;font-weight:400;}
+.report-close-x{background:none;border:none;cursor:pointer;color:var(--text-tertiary);font-size:18px;line-height:1;padding:4px 8px;border-radius:4px;}
+.report-close-x:hover{color:var(--text-primary);}
+.report-dialog-body{padding:24px;overflow-y:auto;flex:1;}
+.report-section-label{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-tertiary);margin-bottom:12px;margin-top:28px;}
+.report-section-label:first-child{margin-top:0;}
+.report-bullet{font-size:14px;color:var(--text-secondary);line-height:1.65;margin-bottom:10px;padding-left:18px;position:relative;}
+.report-bullet::before{content:'–';position:absolute;left:0;color:var(--teal-600);font-weight:700;}
+.report-dialog-footer{padding:14px 24px;border-top:1px solid var(--border-light);display:flex;gap:8px;justify-content:flex-end;flex-shrink:0;}
+.btn-ghost{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--bg-surface);color:var(--text-secondary);border:1px solid var(--border);border-radius:8px;padding:8px 20px;cursor:pointer;}
+.btn-ghost:hover{border-color:var(--teal-400);color:var(--teal-600);}
+.btn-solid{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--teal-600);color:#fff;border:none;border-radius:8px;padding:8px 20px;cursor:pointer;}
+.btn-solid:hover{background:var(--teal-800);}
 </style>
 </head>
 <body>
@@ -229,6 +252,22 @@ header.page h1{font-family:'DM Serif Display',Georgia,serif;font-size:38px;font-
     </div>
   </div>
 </div>
+<!-- Report modal -->
+<div id="report-modal" class="report-modal" style="display:none">
+  <div class="report-backdrop" id="report-backdrop"></div>
+  <div class="report-dialog">
+    <div class="report-dialog-header">
+      <h3>Relatório Fundamentalista</h3>
+      <button class="report-close-x" id="report-close-x">✕</button>
+    </div>
+    <div class="report-dialog-body" id="report-dialog-body"></div>
+    <div class="report-dialog-footer">
+      <button class="btn-ghost" id="report-copy-btn">Copiar texto</button>
+      <button class="btn-solid" id="report-close-btn">Fechar</button>
+    </div>
+  </div>
+</div>
+
 <script>
 // ── calc.js ───────────────────────────────────────────────────────────────────
 function safe(v) { return v ?? 0 }
@@ -744,8 +783,108 @@ function renderResults() {
     </div>`
   }).join('')
 
-  container.innerHTML = `<h2 class="results-title">Resultados</h2>${groupsHtml}`
+  container.innerHTML = `<h2 class="results-title">Resultados</h2>${groupsHtml}
+    <button class="report-btn" id="gen-report-btn">Gerar Relatório Fundamentalista →</button>`
+
+  document.getElementById('gen-report-btn').addEventListener('click', () => {
+    openReportModal(allResults)
+  })
 }
+
+// ── Report generation ─────────────────────────────────────────────────────────
+
+function generateConclusion(ind) {
+  const bullets = []
+
+  // Perspectiva do credor
+  const goodLiq = ind.liqCorrente !== null && ind.liqCorrente > 1.0
+  const lowRisk = ind.dlEbitda === null || ind.dlEbitda <= 2.0
+  if (goodLiq && lowRisk) {
+    bullets.push('Do ponto de vista de uma instituição financeira, concederia crédito à empresa, pois, mesmo operando alavancada, evidencia excesso de caixa, elevado fator de liquidez, baixo grau de risco e alta capacidade de solvência.')
+  } else if (goodLiq && !lowRisk) {
+    bullets.push('Do ponto de vista de uma instituição financeira, concederia crédito com cautela: apesar de a liquidez corrente ser satisfatória, o nível de endividamento (DL/EBITDA) demanda acompanhamento próximo do fluxo de caixa.')
+  } else {
+    bullets.push('Do ponto de vista de uma instituição financeira, demandaria garantias adicionais antes de conceder crédito, tendo em vista os indicadores de liquidez e endividamento identificados.')
+  }
+
+  // Perspectiva do investidor
+  if (ind.roe !== null) {
+    if (ind.roe > 0.1434) {
+      const py = ind.payback !== null ? `, com tempo de recuperação (payback) de ${dec(ind.payback, 1)} anos` : ''
+      bullets.push(`Como investidor, aplicaria recursos na entidade em função do retorno sobre o capital próprio (${pct(ind.roe)}) superar o rendimento real dos Títulos do Tesouro Nacional (14,34%)${py}.`)
+    } else if (ind.roe > 0) {
+      bullets.push(`Como investidor, aguardaria melhora nos indicadores de rentabilidade antes de alocar recursos, tendo em vista que o retorno sobre o capital próprio (${pct(ind.roe)}) não supera a taxa de referência da renda fixa (14,34%), sinalizando destruição de valor econômico.`)
+    } else {
+      bullets.push(`Como investidor, não aplicaria recursos na entidade: o ROE negativo (${pct(ind.roe)}) indica destruição de valor no período — o capital estaria melhor alocado em renda fixa.`)
+    }
+  }
+
+  // Sugestões de melhoria
+  const suggestions = []
+  if (ind.liqImediata !== null && ind.liqImediata > 0.10) {
+    suggestions.push('utilização de parte do excesso de caixa para quitação de débitos de curto prazo, visando maior eficiência na gestão do fluxo de caixa')
+  }
+  if (ind.compDivida !== null && ind.compDivida >= 0.50) {
+    suggestions.push('adoção de uma política de endividamento de longo prazo, visando melhora do fôlego financeiro das operações')
+  }
+  if (ind.imobCP !== null && ind.imobCP >= 1.0) {
+    suggestions.push('revisão da estrutura de financiamento do ativo permanente, reduzindo a dependência de capital de terceiros de curto prazo')
+  }
+  if (suggestions.length > 0) {
+    bullets.push(`Como sugestão para melhoria dos pontos críticos identificados, recomenda-se: ${suggestions.join('; ')}.`)
+  }
+
+  return bullets
+}
+
+function buildReportData(allResults) {
+  const ind = allResults[0]
+  const ORDER = ['liqImediata','liqCorrente','gde','liqGeral','endGeral','compDivida','imobCP','imobRNC','dlEbitda','margBruta','roi','roe']
+  const analysisTexts = ORDER.map(k => diagnoseText(k, ind)).filter(Boolean)
+  const conclusionTexts = generateConclusion(ind)
+  return { analysisTexts, conclusionTexts }
+}
+
+function openReportModal(allResults) {
+  const { analysisTexts, conclusionTexts } = buildReportData(allResults)
+  const body = document.getElementById('report-dialog-body')
+  const mkBullets = texts => texts.map(t => `<p class="report-bullet">${t}</p>`).join('')
+  body.innerHTML = `
+    <p class="report-section-label">Análise</p>
+    ${mkBullets(analysisTexts)}
+    <p class="report-section-label">Conclusão</p>
+    ${mkBullets(conclusionTexts)}
+  `
+  document.getElementById('report-modal').style.display = 'flex'
+}
+
+function reportAsPlainText(allResults) {
+  const { analysisTexts, conclusionTexts } = buildReportData(allResults)
+  return [
+    'ANÁLISE', '',
+    ...analysisTexts.map(t => `- ${t}`),
+    '', 'CONCLUSÃO', '',
+    ...conclusionTexts.map(t => `- ${t}`)
+  ].join('\n')
+}
+
+document.getElementById('report-close-x').addEventListener('click', () => {
+  document.getElementById('report-modal').style.display = 'none'
+})
+document.getElementById('report-close-btn').addEventListener('click', () => {
+  document.getElementById('report-modal').style.display = 'none'
+})
+document.getElementById('report-backdrop').addEventListener('click', () => {
+  document.getElementById('report-modal').style.display = 'none'
+})
+document.getElementById('report-copy-btn').addEventListener('click', () => {
+  const text = reportAsPlainText(state.periods.map(p => calcIndicators(p.inputs)))
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('report-copy-btn')
+    btn.textContent = 'Copiado!'
+    setTimeout(() => { btn.textContent = 'Copiar texto' }, 2000)
+  })
+})
 
 renderForm()
 </script>
