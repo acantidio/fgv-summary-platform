@@ -219,6 +219,14 @@ test('trendArrow returns correct symbol and favorability', async () => {
   assert.equal(trendArrow('liqCorrente', 1.30, null), null)
 })
 
+// ── calculadora-indicadores ───────────────────────────────────────────────────
+test('docs/calculadora-indicadores/index.html exists', () => {
+  assert.ok(
+    existsSync(join(DOCS_DIR, 'calculadora-indicadores', 'index.html')),
+    'calculator page must exist at docs/calculadora-indicadores/index.html'
+  )
+})
+
 test('buildHub includes Ferramentas section linking to calculadora-indicadores', async () => {
   const { buildHub } = await import('./render.js')
   buildHub()
