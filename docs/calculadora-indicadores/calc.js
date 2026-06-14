@@ -77,7 +77,7 @@ function pct(v) {
   if (v === null) return '—'
   return (v * 100).toFixed(2).replace('.', ',') + '%'
 }
-function dec(v, places = 2) { return v === null ? '—' : v.toFixed(places) }
+function dec(v, places = 2) { return v === null ? '—' : v.toFixed(places).replace('.', ',') }
 
 export function diagnoseText(indicator, ind) {
   switch (indicator) {
