@@ -122,7 +122,7 @@ export function buildHub() {
   const cards = subjects.map(s => {
     const accent = ACCENT[s.color] ?? ACCENT.purple
     const statusLabel = STATUS_LABEL[s.status] ?? s.status
-    return `      <a href="./${s.slug}/" class="card" style="border-top-color:${accent.main}">
+    return `      <a href="./${s.slug}/index.html" class="card" style="border-top-color:${accent.main}">
         <span class="badge" style="background:${accent.light};color:${accent.main}">${statusLabel}</span>
         <h2>${s.title}</h2>
         <p>${s.description}</p>
@@ -178,7 +178,7 @@ ${cards}
     <div style="margin-top:48px">
       <span class="label" style="margin-bottom:12px">Ferramentas</span>
       <div class="grid" style="margin-top:12px">
-        <a href="./calculadora-indicadores/" class="card" style="border-top-color:#1D9E75">
+        <a href="./calculadora-indicadores/index.html" class="card" style="border-top-color:#1D9E75">
           <span class="badge" style="background:#E6F4F1;color:#0F6E56">Ferramenta</span>
           <h2>Calculadora de Indicadores</h2>
           <p>Calcule e diagnostique indicadores fundamentalistas a partir de dados do BP e DRE de qualquer empresa.</p>
