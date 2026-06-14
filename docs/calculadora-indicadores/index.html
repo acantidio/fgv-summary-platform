@@ -97,7 +97,7 @@ header.page h1{font-family:'DM Serif Display',Georgia,serif;font-size:38px;font-
 </head>
 <body>
 <div class="wrap">
-  <a href="../" class="backlink">← Hub</a>
+  <a href="../index.html" class="backlink">← Hub</a>
   <header class="page">
     <span class="page-badge">Ferramenta · Análise Fundamentalista</span>
     <h1>Calculadora de Indicadores</h1>
@@ -229,6 +229,525 @@ header.page h1{font-family:'DM Serif Display',Georgia,serif;font-size:38px;font-
     </div>
   </div>
 </div>
-<script type="module" src="./calc-ui.js"></script>
+<script>
+// ── calc.js ───────────────────────────────────────────────────────────────────
+function safe(v) { return v ?? 0 }
+function div(a, b) {
+  if (a == null || b == null || b === 0) return null
+  return a / b
+}
+
+function calcIndicators(inputs) {
+  const { recLiq, lucBruto, lair, ll, at, ac, caixa, estoque,
+          rlp, inv, imob, intang, pc, pnc, pl, dlEbitda } = inputs
+
+  const ct = (pc != null || pnc != null) ? safe(pc) + safe(pnc) : null
+  const ap = (inv != null || imob != null || intang != null)
+    ? safe(inv) + safe(imob) + safe(intang) : null
+
+  const liqCorrente = div(ac, pc)
+  const liqSeca = (ac != null && estoque != null && pc != null)
+    ? div(ac - estoque, pc) : div(ac, pc)
+  const gde = (liqCorrente != null && liqSeca != null && liqCorrente !== 0)
+    ? (liqCorrente - liqSeca) / liqCorrente : null
+
+  return {
+    ct,
+    ap,
+    liqImediata: div(caixa, pc),
+    liqCorrente,
+    liqSeca,
+    gde,
+    liqGeral: (ac != null || rlp != null) && (pc != null || pnc != null)
+      ? div(safe(ac) + safe(rlp), safe(pc) + safe(pnc)) : null,
+    endGeral: div(ct, at),
+    compDivida: div(pc, ct),
+    imobCP: div(ap, pl),
+    imobRNC: (ap != null && (pl != null || pnc != null))
+      ? div(ap, safe(pl) + safe(pnc)) : null,
+    dlEbitda: dlEbitda ?? null,
+    margBruta: div(lucBruto, recLiq),
+    margOp: div(lair, recLiq),
+    margLiq: div(ll, recLiq),
+    roi: div(ll, at),
+    payback: (ll != null && ll > 0 && at != null && at !== 0) ? at / ll : null,
+    roe: div(ll, pl),
+  }
+}
+
+function diagnoseBadge(indicator, value) {
+  if (value === null || value === undefined) return null
+  switch (indicator) {
+    case 'liqImediata':  return value <= 0.10 ? 'ok' : 'crit'
+    case 'liqCorrente':
+      if (value > 1.0) return 'ok'
+      if (Math.abs(value - 1.0) < 0.005) return 'warn'
+      return 'crit'
+    case 'liqSeca':      return null
+    case 'gde':          return null
+    case 'liqGeral':     return value >= 1.0 ? 'ok' : 'crit'
+    case 'endGeral':     return 'neutral'
+    case 'compDivida':   return value < 0.50 ? 'ok' : 'crit'
+    case 'imobCP':       return value < 1.0 ? 'ok' : 'crit'
+    case 'imobRNC':      return value < 1.0 ? 'ok' : 'crit'
+    case 'dlEbitda':
+      if (value <= 2.0) return 'ok'
+      if (value <= 3.0) return 'warn'
+      return 'crit'
+    case 'margBruta':
+    case 'margOp':
+    case 'margLiq':      return 'neutral'
+    case 'roi':          return null
+    case 'roe':
+      if (value > 0.1434) return 'ok'
+      if (value > 0) return 'warn'
+      return 'crit'
+    default:             return null
+  }
+}
+
+function pct(v) {
+  if (v === null) return '—'
+  return (v * 100).toFixed(2).replace('.', ',') + '%'
+}
+function dec(v, places = 2) { return v === null ? '—' : v.toFixed(places).replace('.', ',') }
+
+function diagnoseText(indicator, ind) {
+  switch (indicator) {
+    case 'liqImediata': {
+      if (ind.liqImediata === null) return null
+      const v = pct(ind.liqImediata)
+      return ind.liqImediata <= 0.10
+        ? `Identificamos eficiente política de gestão de caixa, com volume reduzido de recursos em tesouraria (${v}), evidenciando que o capital está empregado no giro operacional do negócio.`
+        : `Identificamos ineficiente política de gestão de caixa, mantendo alto volume de recursos em tesouraria (${v}), o que significa que o capital encontra-se estagnado em caixa e equivalentes, e não empregado no giro operacional do negócio.`
+    }
+    case 'liqCorrente': {
+      if (ind.liqCorrente === null) return null
+      const v = dec(ind.liqCorrente)
+      if (ind.liqCorrente > 1.0) return `No que tange à capacidade de honrar suas dívidas de curto prazo, verifica-se folga financeira (${v}), revelando-se com alta capacidade de solvência.`
+      if (Math.abs(ind.liqCorrente - 1.0) < 0.005) return `No que tange à capacidade de honrar suas dívidas de curto prazo, a empresa opera no ponto de equilíbrio (${v}), sem folga financeira — trabalha de graça.`
+      return `No que tange à capacidade de honrar suas dívidas de curto prazo, identifica-se insuficiência financeira (${v}), sinalizando risco de solvência no curto prazo.`
+    }
+    case 'liqSeca': return null
+    case 'gde': {
+      if (ind.gde === null) return null
+      const v = pct(ind.gde)
+      return ind.gde <= 0.40
+        ? `Foi observado baixo grau de dependência dos estoques (${v}), demonstrando concentração de recursos abaixo do padrão de mercado nesse item do capital de giro.`
+        : `Foi observado elevado grau de dependência dos estoques (${v}), sinalizando que a liquidez da empresa está fortemente atrelada à realização do estoque.`
+    }
+    case 'liqGeral': {
+      if (ind.liqGeral === null) return null
+      const v = pct(ind.liqGeral)
+      return ind.liqGeral >= 1.0
+        ? `Em se tratando da capacidade de liquidar suas dívidas de curto e longo prazo, observa-se conformidade, com o índice apresentando-se acima da unidade (${v}).`
+        : `Em se tratando da capacidade de liquidar suas dívidas de curto e longo prazo, o índice (${v}) apresenta-se abaixo da unidade. Caso a liquidez corrente seja adequada, isso pode indicar que o endividamento está alocado majoritariamente no longo prazo — o que é positivo para o negócio.`
+    }
+    case 'endGeral': {
+      if (ind.endGeral === null) return null
+      return `Quanto à análise de estrutura de capital, a empresa opera com ${pct(ind.endGeral)} de dependência de capital de terceiros no financiamento do ativo. Operar alavancado não é problema desde que haja prazo — quanto mais alongado o perfil, mais barato o capital.`
+    }
+    case 'compDivida': {
+      if (ind.compDivida === null) return null
+      const v = pct(ind.compDivida)
+      return ind.compDivida < 0.50
+        ? `A maior parte do endividamento tem viés de longo prazo (${v}), contribuindo para reduzir o custo do capital financiado e ampliar o fôlego financeiro das operações.`
+        : `A maior parte do endividamento tem viés de curto prazo (${v}), o que contribui para onerar o custo do capital financiado e reduzir o fôlego financeiro das operações.`
+    }
+    case 'imobCP': {
+      if (ind.imobCP === null) return null
+      const v = dec(ind.imobCP)
+      return ind.imobCP < 1.0
+        ? `Quanto ao grau de imobilização do patrimônio líquido, nota-se que o capital próprio foi suficiente para cobrir as aplicações efetuadas no ativo permanente (${v}), evidenciando adequada alocação de recursos.`
+        : `Quanto ao grau de imobilização do patrimônio líquido, o capital próprio não foi suficiente para cobrir as aplicações efetuadas no ativo permanente (${v}), evidenciando dependência de capital de terceiros para financiar ativos fixos.`
+    }
+    case 'imobRNC': {
+      if (ind.imobRNC === null) return null
+      const v = dec(ind.imobRNC)
+      return ind.imobRNC < 1.0
+        ? `Considerando os recursos não correntes (PL + PNC), a cobertura do ativo permanente (${v}) mostra-se adequada, sem necessidade de recorrer ao capital de curto prazo.`
+        : `Considerando os recursos não correntes (PL + PNC), a cobertura do ativo permanente (${v}) é insuficiente, indicando que a empresa recorreu ao capital de curto prazo para financiar ativos de longo prazo.`
+    }
+    case 'dlEbitda': {
+      if (ind.dlEbitda === null) return null
+      const v = dec(ind.dlEbitda)
+      if (ind.dlEbitda <= 2.0) return `Consolidando a análise financeira mediante o ratio Dívida Líquida/EBITDA de ${v}, a empresa apresenta baixo fator de risco e elevada capacidade de solvência.`
+      if (ind.dlEbitda <= 3.0) return `O ratio Dívida Líquida/EBITDA de ${v} indica risco moderado, demandando atenção ao ritmo de geração de caixa frente ao endividamento.`
+      return `O ratio Dívida Líquida/EBITDA de ${v} sinaliza elevado fator de risco e possível insolvência, indicando que a geração de caixa é insuficiente frente ao endividamento total.`
+    }
+    case 'margBruta': {
+      if (ind.margBruta === null && ind.margOp === null && ind.margLiq === null) return null
+      return `No que concerne à avaliação econômica, a empresa apresenta margem bruta de ${pct(ind.margBruta)}, margem operacional de ${pct(ind.margOp)} e margem líquida de ${pct(ind.margLiq)}.`
+    }
+    case 'margOp':
+    case 'margLiq':
+      return null
+    case 'roi': {
+      if (ind.roi === null) return null
+      if (ind.roi < 0) return `A empresa apresenta prejuízo líquido no período, inviabilizando o cálculo do payback sobre os ativos totais.`
+      const anos = ind.payback !== null ? dec(ind.payback, 1) + ' anos' : '—'
+      return `Avaliando conjuntamente DRE e BP, o retorno sobre os investimentos totais (ROI) é de ${pct(ind.roi)}, com tempo de recuperação (payback) de ${anos}.`
+    }
+    case 'roe': {
+      if (ind.roe === null) return null
+      const v = pct(ind.roe)
+      if (ind.roe > 0.1434) return `Podemos concluir sobre a total cobertura do custo de oportunidade do capital — o rendimento líquido gerado aos investidores (${v}) supera o rendimento real dos Títulos do Tesouro Nacional (14,34%), evidenciando geração de valor econômico.`
+      if (ind.roe > 0) return `A empresa aufere lucro, porém o retorno sobre o capital próprio (${v}) não supera o rendimento real dos Títulos do Tesouro Nacional (14,34%), sinalizando destruição de valor econômico para os acionistas.`
+      return `A empresa apresenta prejuízo no período, com ROE negativo (${v}). De nada adianta auferir receita se não há geração de valor — o capital estaria melhor alocado em renda fixa.`
+    }
+    default: return null
+  }
+}
+
+const HIGHER_IS_BETTER = {
+  liqImediata: false,
+  liqCorrente: true,
+  liqSeca:     true,
+  gde:         false,
+  liqGeral:    true,
+  endGeral:    null,
+  compDivida:  false,
+  imobCP:      false,
+  imobRNC:     false,
+  dlEbitda:    false,
+  margBruta:   true,
+  margOp:      true,
+  margLiq:     true,
+  roi:         true,
+  roe:         true,
+}
+
+function trendArrow(indicator, prev, curr) {
+  if (prev === null || prev === undefined || curr === null || curr === undefined) return null
+  const diff = curr - prev
+  const threshold = Math.abs(prev) * 0.01
+  if (Math.abs(diff) <= threshold) return { symbol: '→', favorable: null }
+  const up = diff > 0
+  const dir = HIGHER_IS_BETTER[indicator] ?? null
+  const favorable = dir === null ? null : (dir === up)
+  return { symbol: up ? '↑' : '↓', favorable }
+}
+
+// ── calc-ui.js ────────────────────────────────────────────────────────────────
+const FIELDS = {
+  dre:       ['recLiq','lucBruto','lair','ll'],
+  bpativo:   ['at','ac','caixa','estoque','rlp','inv','imob','intang'],
+  bppassivo: ['pc','pnc','pl'],
+  ratio:     ['dlEbitda'],
+}
+const ALL_FIELDS = [...FIELDS.dre, ...FIELDS.bpativo, ...FIELDS.bppassivo, ...FIELDS.ratio]
+const MAX_PERIODS = 5
+
+let state = {
+  periods: [
+    { label: String(new Date().getFullYear()), inputs: emptyInputs() }
+  ]
+}
+
+function emptyInputs() {
+  return Object.fromEntries(ALL_FIELDS.map(f => [f, null]))
+}
+
+function parseNum(s) {
+  if (!s || !s.trim()) return null
+  // pt-BR format: dots = thousands sep, comma = decimal sep
+  const n = parseFloat(s.replace(/\./g, '').replace(',', '.'))
+  return isNaN(n) ? null : n
+}
+
+function fmtInputVal(v) {
+  if (v === null || v === undefined) return ''
+  return v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+}
+
+function renderPeriodTabs() {
+  const container = document.getElementById('period-tabs')
+  container.innerHTML = state.periods.map((p, i) => `
+    <div class="period-tab" data-period="${i}">
+      <input type="text" value="${p.label}" aria-label="Rótulo do período ${i+1}"
+             data-period-label="${i}" maxlength="6">
+      ${state.periods.length > 1
+        ? `<button class="rm-btn" data-remove-period="${i}" title="Remover período">✕</button>`
+        : ''}
+    </div>
+  `).join('')
+}
+
+function renderFormHeaders() {
+  ['dre','bpativo','bppassivo','ratio'].forEach(section => {
+    const row = document.getElementById(`${section}-header-row`)
+    const extras = state.periods.map(p =>
+      `<th style="min-width:120px;text-align:right">${p.label}</th>`
+    ).join('')
+    const existing = row.querySelector('th')
+    row.innerHTML = existing.outerHTML + extras
+  })
+}
+
+function renderFormInputs() {
+  state.periods.forEach((period, pi) => {
+    ['dre','bpativo','bppassivo','ratio'].forEach(section => {
+      const table = document.getElementById(`${section}-table`)
+      const rows = table.querySelectorAll('tbody tr[data-field]')
+      rows.forEach(tr => {
+        const field = tr.getAttribute('data-field')
+        let td = tr.querySelector(`td[data-period-input="${pi}"]`)
+        if (!td) {
+          td = document.createElement('td')
+          td.setAttribute('data-period-input', pi)
+          td.style.textAlign = 'right'
+          tr.appendChild(td)
+        }
+        const val = period.inputs[field]
+        td.innerHTML = `<input class="num-input" type="text" inputmode="decimal"
+          data-field="${field}" data-period="${pi}"
+          value="${val !== null ? fmtInputVal(val) : ''}" placeholder="—">`
+      })
+    })
+  })
+}
+
+function renderForm() {
+  renderPeriodTabs()
+  renderFormHeaders()
+  renderFormInputs()
+  renderResults()
+}
+
+function rebuildFormStructure() {
+  ['dre','bpativo','bppassivo','ratio'].forEach(section => {
+    const table = document.getElementById(`${section}-table`)
+    table.querySelectorAll('tbody tr[data-field]').forEach(tr => {
+      tr.querySelectorAll('td[data-period-input]').forEach(td => td.remove())
+    })
+    const headerRow = document.getElementById(`${section}-header-row`)
+    const first = headerRow.querySelector('th')
+    headerRow.innerHTML = first.outerHTML
+  })
+}
+
+document.getElementById('add-period-btn').addEventListener('click', () => {
+  if (state.periods.length >= MAX_PERIODS) return
+  const lastLabel = state.periods[state.periods.length - 1].label
+  const newLabel = String(parseInt(lastLabel, 10) - 1) || ''
+  state.periods.push({ label: newLabel, inputs: emptyInputs() })
+  rebuildFormStructure()
+  renderForm()
+})
+
+document.getElementById('period-tabs').addEventListener('click', e => {
+  const btn = e.target.closest('[data-remove-period]')
+  if (!btn) return
+  const i = parseInt(btn.getAttribute('data-remove-period'), 10)
+  state.periods.splice(i, 1)
+  rebuildFormStructure()
+  renderForm()
+})
+
+document.getElementById('period-tabs').addEventListener('input', e => {
+  const inp = e.target.closest('[data-period-label]')
+  if (!inp) return
+  const i = parseInt(inp.getAttribute('data-period-label'), 10)
+  state.periods[i].label = inp.value
+  renderFormHeaders()
+  renderResults()
+})
+
+document.getElementById('calc-form').addEventListener('focusout', e => {
+  const inp = e.target.closest('[data-field][data-period]')
+  if (!inp) return
+  const field = inp.getAttribute('data-field')
+  const pi = parseInt(inp.getAttribute('data-period'), 10)
+  const parsed = parseNum(inp.value)
+  state.periods[pi].inputs[field] = parsed
+  inp.value = fmtInputVal(parsed)
+  renderResults()
+})
+
+document.getElementById('calc-form').addEventListener('input', e => {
+  const inp = e.target.closest('[data-field][data-period]')
+  if (!inp) return
+  const field = inp.getAttribute('data-field')
+  const pi = parseInt(inp.getAttribute('data-period'), 10)
+  state.periods[pi].inputs[field] = parseNum(inp.value)
+  renderResults()
+})
+
+function fmtPct(v) { return v === null ? '—' : (v * 100).toFixed(2).replace('.', ',') + '%' }
+function fmtDec(v, d = 2) { return v === null ? '—' : v.toFixed(d).replace('.', ',') }
+function fmtYears(v) { return v === null ? '—' : v.toFixed(1).replace('.', ',') + ' anos' }
+
+function badgeHtml(b) {
+  if (!b || b === 'neutral') return ''
+  const labels = { ok: '✓ Adequado', warn: '⚠ Atenção', crit: '✗ Crítico' }
+  return `<span class="badge ${b}">${labels[b] || ''}</span>`
+}
+
+function trendHtml(indicator, prev, curr) {
+  if (prev === null || curr === null) return ''
+  const t = trendArrow(indicator, prev, curr)
+  if (!t) return ''
+  const cls = t.favorable === true ? 'good' : t.favorable === false ? 'bad' : 'neutral'
+  return `<span class="trend ${cls}">${t.symbol}</span>`
+}
+
+function valueCell(indicator, allResults, periodIdx) {
+  const ind = allResults[periodIdx]
+  const prev = periodIdx < allResults.length - 1 ? allResults[periodIdx + 1] : null
+
+  const raw = ind[indicator]
+  let display = '—'
+
+  if (['liqCorrente','liqSeca','imobCP','imobRNC','dlEbitda'].includes(indicator)) {
+    display = fmtDec(raw)
+  } else if (['liqImediata','liqGeral','endGeral','compDivida','gde','margBruta','margOp','margLiq','roi','roe'].includes(indicator)) {
+    display = fmtPct(raw)
+  }
+
+  const badge = diagnoseBadge(indicator, raw)
+  const trend = prev ? trendHtml(indicator, prev[indicator], raw) : ''
+
+  return `<td class="value-cell">
+    <span class="result-val${raw === null ? ' empty' : ''}">${display}${trend}</span>
+    ${badgeHtml(badge)}
+  </td>`
+}
+
+function diagRow(indicator, allResults, colCount) {
+  const ind = allResults[0]
+  const text = diagnoseText(indicator, ind)
+  if (!text) return ''
+  return `<tr class="diag-row">
+    <td colspan="${colCount + 1}"><p class="diag-text">${text}</p></td>
+  </tr>`
+}
+
+function gdeRow(allResults) {
+  return allResults.map((ind, i) => {
+    const v = ind.gde
+    if (v === null) return '<td class="value-cell"><span class="result-val empty">—</span></td>'
+    const pv = fmtPct(v)
+    const prev = i < allResults.length - 1 ? allResults[i + 1] : null
+    const trend = prev ? trendHtml('gde', prev.gde, v) : ''
+    const okCS = v <= 0.40 ? 'ok' : 'crit'
+    const okInd = v <= 0.50 ? 'ok' : 'crit'
+    return `<td class="value-cell">
+      <span class="result-val">${pv}${trend}</span>
+      <div class="gde-benchmarks">
+        <span class="badge ${okCS}">Comércio/Serv ≤40%</span>
+        <span class="badge ${okInd}">Indústria ≤50%</span>
+      </div>
+    </td>`
+  }).join('')
+}
+
+function roiRow(allResults) {
+  return allResults.map((ind, i) => {
+    const v = ind.roi
+    const prev = i < allResults.length - 1 ? allResults[i + 1] : null
+    const trend = prev ? trendHtml('roi', prev.roi, v) : ''
+    if (v === null) return '<td class="value-cell"><span class="result-val empty">—</span></td>'
+    const pv = fmtPct(v)
+    const py = ind.payback !== null ? fmtYears(ind.payback) : '—'
+    return `<td class="value-cell">
+      <span class="result-val">${pv}${trend}</span>
+      <div class="roi-benchmarks">Payback: ${py}</div>
+      <div class="roi-benchmarks">Serviço 10–15a · Comércio 15–20a · Indústria 20–25a</div>
+    </td>`
+  }).join('')
+}
+
+const GROUPS = [
+  {
+    title: 'Liquidez / Solvência',
+    rows: [
+      { key: 'liqImediata', label: 'Liquidez Imediata', hint: 'Caixa / PC', diag: true },
+      { key: 'liqCorrente', label: 'Liquidez Corrente', hint: 'AC / PC', diag: true },
+      { key: 'liqSeca',     label: 'Liquidez Seca',     hint: '(AC − Estoque) / PC', diag: false },
+      { key: 'gde',         label: 'GDE',               hint: '(LC − LS) / LC', diag: true, custom: 'gde' },
+      { key: 'liqGeral',    label: 'Liquidez Geral',    hint: '(AC + RLP) / (PC + PNC)', diag: true },
+    ]
+  },
+  {
+    title: 'Alavancagem / Risco',
+    rows: [
+      { key: 'endGeral',    label: 'Endividamento Geral',           hint: 'CT / Ativo Total', diag: true },
+      { key: 'compDivida',  label: 'Composição da Dívida',          hint: 'PC / CT', diag: true },
+      { key: 'imobCP',      label: 'Grau de Imobilização CP',       hint: 'AP / PL', diag: true },
+      { key: 'imobRNC',     label: 'Grau de Imobilização RNC',      hint: 'AP / (PL + PNC)', diag: true },
+    ]
+  },
+  {
+    title: 'Dívida Líquida / EBITDA',
+    rows: [
+      { key: 'dlEbitda', label: 'DL / EBITDA', hint: 'Input direto do Relatório da Administração', diag: true },
+    ]
+  },
+  {
+    title: 'Lucratividade (DRE)',
+    rows: [
+      { key: 'margBruta', label: 'Margem Bruta (Markup)',   hint: 'Lucro Bruto / Receita de Vendas', diag: true },
+      { key: 'margOp',    label: 'Margem Operacional',      hint: 'LAIR / Receita de Vendas', diag: false },
+      { key: 'margLiq',   label: 'Margem Líquida',          hint: 'Lucro Líquido / Receita de Vendas', diag: false },
+    ]
+  },
+  {
+    title: 'Rentabilidade',
+    rows: [
+      { key: 'roi', label: 'ROI — Return on Investments', hint: 'Lucro Líquido / Ativo Total', diag: true, custom: 'roi' },
+      { key: 'roe', label: 'ROE — Return on Equity',      hint: 'Lucro Líquido / PL', diag: true },
+    ]
+  },
+]
+
+function renderResults() {
+  const allResults = state.periods.map(p => calcIndicators(p.inputs))
+  const hasAnyValue = allResults.some(r =>
+    Object.values(r).some(v => v !== null && typeof v === 'number')
+  )
+
+  const container = document.getElementById('results')
+
+  if (!hasAnyValue) {
+    container.innerHTML = `<div class="empty-state"><p>Preencha os campos acima para ver os indicadores calculados.</p></div>`
+    return
+  }
+
+  const colCount = state.periods.length
+  const headerCols = state.periods.map(p => `<th>${p.label}</th>`).join('')
+
+  const groupsHtml = GROUPS.map(group => {
+    const rowsHtml = group.rows.map(row => {
+      let valueCells
+      if (row.custom === 'gde') {
+        valueCells = gdeRow(allResults)
+      } else if (row.custom === 'roi') {
+        valueCells = roiRow(allResults)
+      } else {
+        valueCells = allResults.map((_, i) => valueCell(row.key, allResults, i)).join('')
+      }
+
+      const diagHtml = row.diag ? diagRow(row.key, allResults, colCount) : ''
+
+      return `<tr>
+        <td class="ind-name">${row.label}<div class="formula-hint">${row.hint}</div></td>
+        ${valueCells}
+      </tr>${diagHtml}`
+    }).join('')
+
+    return `<div class="results-group">
+      <p class="results-group-title">${group.title}</p>
+      <table class="results-table">
+        <thead><tr><th class="ind-col">Indicador</th>${headerCols}</tr></thead>
+        <tbody>${rowsHtml}</tbody>
+      </table>
+    </div>`
+  }).join('')
+
+  container.innerHTML = `<h2 class="results-title">Resultados</h2>${groupsHtml}`
+}
+
+renderForm()
+</script>
 </body>
 </html>
