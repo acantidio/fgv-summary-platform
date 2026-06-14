@@ -52,6 +52,15 @@ test('buildHub generates docs/index.html with sorted card links', async () => {
   assert.ok(alphaIdx < estratIdx, 'cards must be sorted alphabetically by title')
 })
 
+test('buildHub includes Ferramentas section linking to calculadora-indicadores', async () => {
+  const { buildHub } = await import('./render.js')
+  buildHub()
+  const hub = readFileSync(join(DOCS_DIR, 'index.html'), 'utf-8')
+  assert.ok(hub.includes('href="./calculadora-indicadores/"'), 'hub must link to calculadora-indicadores')
+  assert.ok(hub.includes('Ferramentas'), 'hub must include Ferramentas label')
+  assert.ok(!hub.includes('<script'), 'hub must still contain no script tags')
+})
+
 // ── render.js: renderSubject ──────────────────────────────────────────────────
 test('renderSubject writes Anthropic response HTML to docs/[slug]/index.html', async () => {
   const { renderSubject } = await import('./render.js')
