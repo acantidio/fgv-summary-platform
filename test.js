@@ -115,6 +115,83 @@ test('calcIndicators handles dlEbitda as pass-through input', async () => {
   assert.equal(result.dlEbitda, 2.5)
 })
 
+// ── calc.js: diagnoseBadge ────────────────────────────────────────────────────
+test('diagnoseBadge returns correct badge for each indicator', async () => {
+  const { diagnoseBadge } = await import('./docs/calculadora-indicadores/calc.js')
+
+  assert.equal(diagnoseBadge('liqImediata', 0.03), 'ok')
+  assert.equal(diagnoseBadge('liqImediata', 0.10), 'ok')
+  assert.equal(diagnoseBadge('liqImediata', 0.54), 'crit')
+
+  assert.equal(diagnoseBadge('liqCorrente', 1.41), 'ok')
+  assert.equal(diagnoseBadge('liqCorrente', 1.00), 'warn')
+  assert.equal(diagnoseBadge('liqCorrente', 0.80), 'crit')
+
+  assert.equal(diagnoseBadge('liqSeca', 0.45), null)
+  assert.equal(diagnoseBadge('gde', 0.67), null)
+
+  assert.equal(diagnoseBadge('liqGeral', 1.10), 'ok')
+  assert.equal(diagnoseBadge('liqGeral', 0.82), 'crit')
+
+  assert.equal(diagnoseBadge('endGeral', 0.70), 'neutral')
+
+  assert.equal(diagnoseBadge('compDivida', 0.29), 'ok')
+  assert.equal(diagnoseBadge('compDivida', 0.56), 'crit')
+
+  assert.equal(diagnoseBadge('imobCP', 0.80), 'ok')
+  assert.equal(diagnoseBadge('imobCP', 1.42), 'crit')
+
+  assert.equal(diagnoseBadge('imobRNC', 0.70), 'ok')
+  assert.equal(diagnoseBadge('imobRNC', 1.10), 'crit')
+
+  assert.equal(diagnoseBadge('dlEbitda', 1.5), 'ok')
+  assert.equal(diagnoseBadge('dlEbitda', 2.5), 'warn')
+  assert.equal(diagnoseBadge('dlEbitda', 3.5), 'crit')
+
+  assert.equal(diagnoseBadge('margBruta', 0.33), 'neutral')
+  assert.equal(diagnoseBadge('margOp', 0.19), 'neutral')
+  assert.equal(diagnoseBadge('margLiq', 0.16), 'neutral')
+
+  assert.equal(diagnoseBadge('roi', 0.05), null)
+
+  assert.equal(diagnoseBadge('roe', 0.18), 'ok')
+  assert.equal(diagnoseBadge('roe', 0.10), 'warn')
+  assert.equal(diagnoseBadge('roe', -0.20), 'crit')
+
+  assert.equal(diagnoseBadge('liqImediata', null), null)
+})
+
+// ── calc.js: diagnoseText ─────────────────────────────────────────────────────
+test('diagnoseText returns appropriate phrase for each indicator state', async () => {
+  const { diagnoseText } = await import('./docs/calculadora-indicadores/calc.js')
+
+  const t1 = diagnoseText('liqImediata', { liqImediata: 0.03 })
+  assert.ok(t1.includes('eficiente'), `liqImediata ok: got "${t1}"`)
+
+  const t2 = diagnoseText('liqImediata', { liqImediata: 0.54 })
+  assert.ok(t2.includes('ineficiente'), `liqImediata crit: got "${t2}"`)
+
+  const t3 = diagnoseText('liqCorrente', { liqCorrente: 1.41 })
+  assert.ok(t3.includes('folga financeira'), `liqCorrente ok: got "${t3}"`)
+
+  const t4 = diagnoseText('liqCorrente', { liqCorrente: 1.00 })
+  assert.ok(t4.includes('equilíbrio'), `liqCorrente warn: got "${t4}"`)
+
+  const t5 = diagnoseText('liqCorrente', { liqCorrente: 0.80 })
+  assert.ok(t5.includes('insuficiência'), `liqCorrente crit: got "${t5}"`)
+
+  const t6 = diagnoseText('roe', { roe: 0.18 })
+  assert.ok(t6.includes('cobertura do custo de oportunidade'), `roe ok: got "${t6}"`)
+
+  const t7 = diagnoseText('roe', { roe: -0.20 })
+  assert.ok(t7.includes('prejuízo'), `roe crit: got "${t7}"`)
+
+  const t8 = diagnoseText('margBruta', { margBruta: 0.33, margOp: 0.19, margLiq: 0.16 })
+  assert.ok(t8.includes('33,00%') && t8.includes('19,00%') && t8.includes('16,00%'), `margens: got "${t8}"`)
+
+  assert.equal(diagnoseText('liqImediata', { liqImediata: null }), null)
+})
+
 test('buildHub includes Ferramentas section linking to calculadora-indicadores', async () => {
   const { buildHub } = await import('./render.js')
   buildHub()
