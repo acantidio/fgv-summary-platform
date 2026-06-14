@@ -166,4 +166,31 @@ export function diagnoseText(indicator, ind) {
   }
 }
 
-export function trendArrow(indicator, prev, curr) { return null }
+const HIGHER_IS_BETTER = {
+  liqImediata: false,
+  liqCorrente: true,
+  liqSeca:     true,
+  gde:         false,
+  liqGeral:    true,
+  endGeral:    null,
+  compDivida:  false,
+  imobCP:      false,
+  imobRNC:     false,
+  dlEbitda:    false,
+  margBruta:   true,
+  margOp:      true,
+  margLiq:     true,
+  roi:         true,
+  roe:         true,
+}
+
+export function trendArrow(indicator, prev, curr) {
+  if (prev === null || prev === undefined || curr === null || curr === undefined) return null
+  const diff = curr - prev
+  const threshold = Math.abs(prev) * 0.01
+  if (Math.abs(diff) <= threshold) return { symbol: '→', favorable: null }
+  const up = diff > 0
+  const dir = HIGHER_IS_BETTER[indicator] ?? null
+  const favorable = dir === null ? null : (dir === up)
+  return { symbol: up ? '↑' : '↓', favorable }
+}

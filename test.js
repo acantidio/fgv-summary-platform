@@ -192,6 +192,33 @@ test('diagnoseText returns appropriate phrase for each indicator state', async (
   assert.equal(diagnoseText('liqImediata', { liqImediata: null }), null)
 })
 
+// ── calc.js: trendArrow ───────────────────────────────────────────────────────
+test('trendArrow returns correct symbol and favorability', async () => {
+  const { trendArrow } = await import('./docs/calculadora-indicadores/calc.js')
+
+  const t1 = trendArrow('liqImediata', 0.05, 0.10)
+  assert.equal(t1.symbol, '↑')
+  assert.equal(t1.favorable, false, 'liqImediata rising is unfavorable')
+
+  const t2 = trendArrow('liqCorrente', 1.30, 1.41)
+  assert.equal(t2.symbol, '↑')
+  assert.equal(t2.favorable, true)
+
+  const t3 = trendArrow('margLiq', 0.20, 0.16)
+  assert.equal(t3.symbol, '↓')
+  assert.equal(t3.favorable, false)
+
+  const t4 = trendArrow('endGeral', 0.65, 0.70)
+  assert.equal(t4.symbol, '↑')
+  assert.equal(t4.favorable, null)
+
+  const t5 = trendArrow('liqCorrente', 1.400, 1.401)
+  assert.equal(t5.symbol, '→')
+
+  assert.equal(trendArrow('liqCorrente', null, 1.41), null)
+  assert.equal(trendArrow('liqCorrente', 1.30, null), null)
+})
+
 test('buildHub includes Ferramentas section linking to calculadora-indicadores', async () => {
   const { buildHub } = await import('./render.js')
   buildHub()
