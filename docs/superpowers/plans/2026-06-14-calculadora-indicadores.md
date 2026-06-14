@@ -1,0 +1,1352 @@
+# Calculadora de Indicadores Fundamentalistas — Implementation Plan
+
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+
+**Goal:** Build a standalone interactive calculator at `docs/calculadora-indicadores/index.html` that takes BP/DRE inputs across multiple periods, computes 15 financial indicators, and displays diagnostics with contextual Portuguese phrases following the professor's fundamentalist report style.
+
+**Architecture:** Pure HTML/CSS/JS — zero dependencies, zero build step. Pure calculation logic is extracted to `docs/calculadora-indicadores/calc.js` (ES module) so it can be tested by the existing `test.js` Node test runner. The HTML file imports `calc.js` and handles UI rendering. The hub (`docs/index.html`) is updated via `buildHub()` in `render.js` to include a "Ferramentas" section linking to the calculator.
+
+**Tech Stack:** Vanilla HTML5, CSS custom properties (existing design system), ES modules, Node built-in test runner (`node:test`)
+
+---
+
+## File Map
+
+| File | Action | Responsibility |
+|---|---|---|
+| `docs/calculadora-indicadores/calc.js` | Create | Pure functions: calcIndicators, diagnoseBadge, diagnoseText, trendArrow |
+| `docs/calculadora-indicadores/index.html` | Create | UI: design system CSS, form structure, period manager, JS wiring |
+| `render.js` | Modify (lines 175–178) | Add "Ferramentas" section to buildHub() output |
+| `test.js` | Modify | Add tests for hub tools link, calc.js functions, file existence |
+
+---
+
+## Task 1: Add "Ferramentas" section to hub
+
+**Files:**
+- Modify: `render.js` (lines 132–184, `buildHub` function)
+- Modify: `test.js` (add test after line 53)
+
+- [ ] **Step 1: Write the failing test**
+
+Add this test to `test.js` after the existing `buildHub` test block (after line 53):
+
+```js
+test('buildHub includes Ferramentas section linking to calculadora-indicadores', async () => {
+  const { buildHub } = await import('./render.js')
+  buildHub()
+  const hub = readFileSync(join(DOCS_DIR, 'index.html'), 'utf-8')
+  assert.ok(hub.includes('href="./calculadora-indicadores/"'), 'hub must link to calculadora-indicadores')
+  assert.ok(hub.includes('Ferramentas'), 'hub must include Ferramentas label')
+  assert.ok(!hub.includes('<script'), 'hub must still contain no script tags')
+})
+```
+
+- [ ] **Step 2: Run to confirm it fails**
+
+```bash
+npm test 2>&1 | grep -A 3 "Ferramentas"
+```
+
+Expected: `AssertionError` — `hub must link to calculadora-indicadores`
+
+- [ ] **Step 3: Modify `buildHub()` in render.js**
+
+In `render.js`, find the `html` template literal inside `buildHub()`. Replace the closing section:
+
+```js
+// BEFORE (lines 175–178):
+    <div class="grid">
+${cards}
+    </div>
+  </div>
+```
+
+```js
+// AFTER:
+    <div class="grid">
+${cards}
+    </div>
+    <div style="margin-top:48px">
+      <span class="label" style="margin-bottom:12px">Ferramentas</span>
+      <div class="grid" style="margin-top:12px">
+        <a href="./calculadora-indicadores/" class="card" style="border-top-color:#1D9E75">
+          <span class="badge" style="background:#E6F4F1;color:#0F6E56">Ferramenta</span>
+          <h2>Calculadora de Indicadores</h2>
+          <p>Calcule e diagnostique indicadores fundamentalistas a partir de dados do BP e DRE de qualquer empresa.</p>
+        </a>
+      </div>
+    </div>
+  </div>
+```
+
+- [ ] **Step 4: Run tests**
+
+```bash
+npm test
+```
+
+Expected: all tests pass including the new Ferramentas test.
+
+- [ ] **Step 5: Rebuild hub so docs/index.html reflects the change**
+
+```bash
+node -e "import('./render.js').then(m => m.buildHub())"
+```
+
+- [ ] **Step 6: Commit**
+
+```bash
+git add render.js test.js docs/index.html
+git commit -m "feat: add Ferramentas section to hub linking to calculadora-indicadores"
+```
+
+---
+
+## Task 2: calc.js — `calcIndicators()`
+
+**Files:**
+- Create: `docs/calculadora-indicadores/calc.js`
+- Modify: `test.js` (add import + calcIndicators tests)
+
+- [ ] **Step 1: Create empty calc.js so the import doesn't throw**
+
+Create `docs/calculadora-indicadores/calc.js` with just the export stubs:
+
+```js
+export function calcIndicators(inputs) { return {} }
+export function diagnoseBadge(indicator, value) { return null }
+export function diagnoseText(indicator, indicators) { return null }
+export function trendArrow(indicator, prev, curr) { return null }
+```
+
+- [ ] **Step 2: Write the failing tests for `calcIndicators`**
+
+Add to `test.js` (after the Ferramentas test):
+
+```js
+// ── calc.js: calcIndicators ───────────────────────────────────────────────────
+test('calcIndicators computes all BP indicators from Raia Drogasil 2025 data', async () => {
+  const { calcIndicators } = await import('./docs/calculadora-indicadores/calc.js')
+
+  const result = calcIndicators({
+    recLiq: null, lucBruto: null, lair: null, ll: null,
+    at: 24393381, ac: 13519926, caixa: 296965, estoque: 9127427,
+    rlp: 500417, inv: 1390158, imob: 7220602, intang: 1762278,
+    pc: 9589193, pnc: 7482059, pl: 7322129, dlEbitda: null
+  })
+
+  const near = (a, b) => Math.abs(a - b) < 0.001
+
+  assert.equal(result.ct, 17071252, 'Capital de Terceiros')
+  assert.equal(result.ap, 10373038, 'Ativo Permanente')
+  assert.ok(near(result.liqImediata, 0.031), `liqImediata got ${result.liqImediata}`)
+  assert.ok(near(result.liqCorrente, 1.410), `liqCorrente got ${result.liqCorrente}`)
+  assert.ok(near(result.liqSeca, 0.458), `liqSeca got ${result.liqSeca}`)
+  assert.ok(near(result.gde, 0.675), `gde got ${result.gde}`)
+  assert.ok(near(result.liqGeral, 0.821), `liqGeral got ${result.liqGeral}`)
+  assert.ok(near(result.endGeral, 0.700), `endGeral got ${result.endGeral}`)
+  assert.ok(near(result.compDivida, 0.562), `compDivida got ${result.compDivida}`)
+  assert.ok(near(result.imobCP, 1.417), `imobCP got ${result.imobCP}`)
+  assert.ok(near(result.imobRNC, 0.701), `imobRNC got ${result.imobRNC}`)
+})
+
+test('calcIndicators computes DRE indicators from MRV 2025 data', async () => {
+  const { calcIndicators } = await import('./docs/calculadora-indicadores/calc.js')
+
+  const result = calcIndicators({
+    recLiq: null, lucBruto: null, lair: null, ll: -1042256,
+    at: 16142630, ac: null, caixa: null, estoque: null,
+    rlp: null, inv: null, imob: null, intang: null,
+    pc: null, pnc: null, pl: 5327812, dlEbitda: null
+  })
+
+  const near = (a, b) => Math.abs(a - b) < 0.001
+  assert.ok(near(result.roi, -0.0646), `roi got ${result.roi}`)
+  assert.ok(near(result.roe, -0.1956), `roe got ${result.roe}`)
+  assert.equal(result.payback, null, 'payback must be null when ll < 0')
+})
+
+test('calcIndicators returns null for indicators with missing inputs', async () => {
+  const { calcIndicators } = await import('./docs/calculadora-indicadores/calc.js')
+  const empty = { recLiq:null,lucBruto:null,lair:null,ll:null,at:null,ac:null,
+    caixa:null,estoque:null,rlp:null,inv:null,imob:null,intang:null,
+    pc:null,pnc:null,pl:null,dlEbitda:null }
+  const result = calcIndicators(empty)
+  assert.equal(result.liqImediata, null)
+  assert.equal(result.roi, null)
+  assert.equal(result.roe, null)
+})
+
+test('calcIndicators handles dlEbitda as pass-through input', async () => {
+  const { calcIndicators } = await import('./docs/calculadora-indicadores/calc.js')
+  const result = calcIndicators({
+    recLiq:null,lucBruto:null,lair:null,ll:null,at:null,ac:null,
+    caixa:null,estoque:null,rlp:null,inv:null,imob:null,intang:null,
+    pc:null,pnc:null,pl:null,dlEbitda:2.5
+  })
+  assert.equal(result.dlEbitda, 2.5)
+})
+```
+
+- [ ] **Step 3: Run to confirm failure**
+
+```bash
+npm test 2>&1 | grep -E "fail|Error" | head -10
+```
+
+Expected: multiple assertion failures.
+
+- [ ] **Step 4: Implement `calcIndicators` in `calc.js`**
+
+Replace the stub with:
+
+```js
+function safe(v) { return v ?? 0 }
+function div(a, b) {
+  if (a == null || b == null || b === 0) return null
+  return a / b
+}
+
+export function calcIndicators(inputs) {
+  const { recLiq, lucBruto, lair, ll, at, ac, caixa, estoque,
+          rlp, inv, imob, intang, pc, pnc, pl, dlEbitda } = inputs
+
+  const ct = (pc != null || pnc != null) ? safe(pc) + safe(pnc) : null
+  const ap = (inv != null || imob != null || intang != null)
+    ? safe(inv) + safe(imob) + safe(intang) : null
+
+  const liqCorrente = div(ac, pc)
+  const liqSeca = (ac != null && estoque != null && pc != null)
+    ? div(ac - estoque, pc) : div(ac, pc)
+  const gde = (liqCorrente != null && liqSeca != null && liqCorrente !== 0)
+    ? (liqCorrente - liqSeca) / liqCorrente : null
+
+  return {
+    ct,
+    ap,
+    liqImediata: div(caixa, pc),
+    liqCorrente,
+    liqSeca,
+    gde,
+    liqGeral: (ac != null || rlp != null) && (pc != null || pnc != null)
+      ? div(safe(ac) + safe(rlp), safe(pc) + safe(pnc)) : null,
+    endGeral: div(ct, at),
+    compDivida: div(pc, ct),
+    imobCP: div(ap, pl),
+    imobRNC: (ap != null && (pl != null || pnc != null))
+      ? div(ap, safe(pl) + safe(pnc)) : null,
+    dlEbitda: dlEbitda ?? null,
+    margBruta: div(lucBruto, recLiq),
+    margOp: div(lair, recLiq),
+    margLiq: div(ll, recLiq),
+    roi: div(ll, at),
+    payback: (ll != null && ll > 0 && at != null && at !== 0) ? at / ll : null,
+    roe: div(ll, pl),
+  }
+}
+
+export function diagnoseBadge(indicator, value) { return null }
+export function diagnoseText(indicator, indicators) { return null }
+export function trendArrow(indicator, prev, curr) { return null }
+```
+
+- [ ] **Step 5: Run tests**
+
+```bash
+npm test
+```
+
+Expected: all calcIndicators tests pass.
+
+- [ ] **Step 6: Commit**
+
+```bash
+git add docs/calculadora-indicadores/calc.js test.js
+git commit -m "feat: add calcIndicators to calc.js with full BP/DRE indicator formulas"
+```
+
+---
+
+## Task 3: calc.js — `diagnoseBadge()` and `diagnoseText()`
+
+**Files:**
+- Modify: `docs/calculadora-indicadores/calc.js`
+- Modify: `test.js`
+
+- [ ] **Step 1: Write failing tests**
+
+Add to `test.js`:
+
+```js
+// ── calc.js: diagnoseBadge ────────────────────────────────────────────────────
+test('diagnoseBadge returns correct badge for each indicator', async () => {
+  const { diagnoseBadge } = await import('./docs/calculadora-indicadores/calc.js')
+
+  // Liquidez Imediata: ok ≤ 0.10, crit > 0.10
+  assert.equal(diagnoseBadge('liqImediata', 0.03), 'ok')
+  assert.equal(diagnoseBadge('liqImediata', 0.10), 'ok')
+  assert.equal(diagnoseBadge('liqImediata', 0.54), 'crit')
+
+  // Liquidez Corrente: ok > 1, warn ≈ 1, crit < 1
+  assert.equal(diagnoseBadge('liqCorrente', 1.41), 'ok')
+  assert.equal(diagnoseBadge('liqCorrente', 1.00), 'warn')
+  assert.equal(diagnoseBadge('liqCorrente', 0.80), 'crit')
+
+  // Liquidez Seca: no isolated badge
+  assert.equal(diagnoseBadge('liqSeca', 0.45), null)
+
+  // GDE: no single badge (dual benchmarks shown in UI)
+  assert.equal(diagnoseBadge('gde', 0.67), null)
+
+  // Liquidez Geral: ok ≥ 1, crit < 1
+  assert.equal(diagnoseBadge('liqGeral', 1.10), 'ok')
+  assert.equal(diagnoseBadge('liqGeral', 0.82), 'crit')
+
+  // Endividamento Geral: always neutral
+  assert.equal(diagnoseBadge('endGeral', 0.70), 'neutral')
+
+  // Composição da Dívida: ok < 0.50, crit ≥ 0.50
+  assert.equal(diagnoseBadge('compDivida', 0.29), 'ok')
+  assert.equal(diagnoseBadge('compDivida', 0.56), 'crit')
+
+  // Grau de Imobilização CP: ok < 1, crit ≥ 1
+  assert.equal(diagnoseBadge('imobCP', 0.80), 'ok')
+  assert.equal(diagnoseBadge('imobCP', 1.42), 'crit')
+
+  // Grau de Imobilização RNC: ok < 1, crit ≥ 1
+  assert.equal(diagnoseBadge('imobRNC', 0.70), 'ok')
+  assert.equal(diagnoseBadge('imobRNC', 1.10), 'crit')
+
+  // DL/EBITDA: ok ≤ 2, warn 2–3, crit > 3
+  assert.equal(diagnoseBadge('dlEbitda', 1.5), 'ok')
+  assert.equal(diagnoseBadge('dlEbitda', 2.5), 'warn')
+  assert.equal(diagnoseBadge('dlEbitda', 3.5), 'crit')
+
+  // Margens: neutral (no universal benchmark)
+  assert.equal(diagnoseBadge('margBruta', 0.33), 'neutral')
+  assert.equal(diagnoseBadge('margOp', 0.19), 'neutral')
+  assert.equal(diagnoseBadge('margLiq', 0.16), 'neutral')
+
+  // ROI: no single badge (all three sector benchmarks shown)
+  assert.equal(diagnoseBadge('roi', 0.05), null)
+
+  // ROE: ok > 14.34%, warn 0–14.34%, crit < 0
+  assert.equal(diagnoseBadge('roe', 0.18), 'ok')
+  assert.equal(diagnoseBadge('roe', 0.10), 'warn')
+  assert.equal(diagnoseBadge('roe', -0.20), 'crit')
+
+  // null input always returns null
+  assert.equal(diagnoseBadge('liqImediata', null), null)
+})
+
+// ── calc.js: diagnoseText ─────────────────────────────────────────────────────
+test('diagnoseText returns appropriate phrase for each indicator state', async () => {
+  const { diagnoseText } = await import('./docs/calculadora-indicadores/calc.js')
+
+  // liqImediata ok
+  const t1 = diagnoseText('liqImediata', { liqImediata: 0.03 })
+  assert.ok(t1.includes('eficiente'), `liqImediata ok: got "${t1}"`)
+
+  // liqImediata crit
+  const t2 = diagnoseText('liqImediata', { liqImediata: 0.54 })
+  assert.ok(t2.includes('ineficiente'), `liqImediata crit: got "${t2}"`)
+
+  // liqCorrente ok
+  const t3 = diagnoseText('liqCorrente', { liqCorrente: 1.41 })
+  assert.ok(t3.includes('folga financeira'), `liqCorrente ok: got "${t3}"`)
+
+  // liqCorrente warn
+  const t4 = diagnoseText('liqCorrente', { liqCorrente: 1.00 })
+  assert.ok(t4.includes('equilíbrio'), `liqCorrente warn: got "${t4}"`)
+
+  // liqCorrente crit
+  const t5 = diagnoseText('liqCorrente', { liqCorrente: 0.80 })
+  assert.ok(t5.includes('insuficiência'), `liqCorrente crit: got "${t5}"`)
+
+  // roe ok
+  const t6 = diagnoseText('roe', { roe: 0.18 })
+  assert.ok(t6.includes('cobertura do custo de oportunidade'), `roe ok: got "${t6}"`)
+
+  // roe crit (prejuízo)
+  const t7 = diagnoseText('roe', { roe: -0.20 })
+  assert.ok(t7.includes('prejuízo'), `roe crit: got "${t7}"`)
+
+  // margens — frase agregada com os três valores
+  const t8 = diagnoseText('margBruta', { margBruta: 0.33, margOp: 0.19, margLiq: 0.16 })
+  assert.ok(t8.includes('33,00%') && t8.includes('19,00%') && t8.includes('16,00%'), `margens: got "${t8}"`)
+
+  // null value returns null
+  assert.equal(diagnoseText('liqImediata', { liqImediata: null }), null)
+})
+```
+
+- [ ] **Step 2: Run to confirm failure**
+
+```bash
+npm test 2>&1 | grep "diagnoseBadge\|diagnoseText\|AssertionError" | head -10
+```
+
+Expected: failures on both new tests.
+
+- [ ] **Step 3: Implement `diagnoseBadge` and `diagnoseText` in `calc.js`**
+
+Replace the `diagnoseBadge` and `diagnoseText` stubs:
+
+```js
+export function diagnoseBadge(indicator, value) {
+  if (value === null || value === undefined) return null
+  switch (indicator) {
+    case 'liqImediata':  return value <= 0.10 ? 'ok' : 'crit'
+    case 'liqCorrente':
+      if (value > 1.0) return 'ok'
+      if (Math.abs(value - 1.0) < 0.005) return 'warn'
+      return 'crit'
+    case 'liqSeca':      return null
+    case 'gde':          return null
+    case 'liqGeral':     return value >= 1.0 ? 'ok' : 'crit'
+    case 'endGeral':     return 'neutral'
+    case 'compDivida':   return value < 0.50 ? 'ok' : 'crit'
+    case 'imobCP':       return value < 1.0 ? 'ok' : 'crit'
+    case 'imobRNC':      return value < 1.0 ? 'ok' : 'crit'
+    case 'dlEbitda':
+      if (value <= 2.0) return 'ok'
+      if (value <= 3.0) return 'warn'
+      return 'crit'
+    case 'margBruta':
+    case 'margOp':
+    case 'margLiq':      return 'neutral'
+    case 'roi':          return null
+    case 'roe':
+      if (value > 0.1434) return 'ok'
+      if (value > 0) return 'warn'
+      return 'crit'
+    default:             return null
+  }
+}
+
+function pct(v) { return v === null ? '—' : (v * 100).toFixed(2) + '%' }
+function dec(v, places = 2) { return v === null ? '—' : v.toFixed(places) }
+
+export function diagnoseText(indicator, ind) {
+  switch (indicator) {
+    case 'liqImediata': {
+      if (ind.liqImediata === null) return null
+      const v = dec(ind.liqImediata)
+      return ind.liqImediata <= 0.10
+        ? `Identificamos eficiente política de gestão de caixa, com volume reduzido de recursos em tesouraria (${v}), evidenciando que o capital está empregado no giro operacional do negócio.`
+        : `Identificamos ineficiente política de gestão de caixa, mantendo alto volume de recursos em tesouraria (${v}), o que significa que o capital encontra-se estagnado em caixa e equivalentes, e não empregado no giro operacional do negócio.`
+    }
+    case 'liqCorrente': {
+      if (ind.liqCorrente === null) return null
+      const v = dec(ind.liqCorrente)
+      if (ind.liqCorrente > 1.0) return `No que tange à capacidade de honrar suas dívidas de curto prazo, verifica-se folga financeira (${v}), revelando-se com alta capacidade de solvência.`
+      if (Math.abs(ind.liqCorrente - 1.0) < 0.005) return `No que tange à capacidade de honrar suas dívidas de curto prazo, a empresa opera no ponto de equilíbrio (${v}), sem folga financeira — trabalha de graça.`
+      return `No que tange à capacidade de honrar suas dívidas de curto prazo, identifica-se insuficiência financeira (${v}), sinalizando risco de solvência no curto prazo.`
+    }
+    case 'liqSeca': return null
+    case 'gde': {
+      if (ind.gde === null) return null
+      const v = pct(ind.gde)
+      return ind.gde <= 0.40
+        ? `Foi observado baixo grau de dependência dos estoques (${v}), demonstrando concentração de recursos abaixo do padrão de mercado nesse item do capital de giro.`
+        : `Foi observado elevado grau de dependência dos estoques (${v}), sinalizando que a liquidez da empresa está fortemente atrelada à realização do estoque.`
+    }
+    case 'liqGeral': {
+      if (ind.liqGeral === null) return null
+      const v = dec(ind.liqGeral)
+      return ind.liqGeral >= 1.0
+        ? `Em se tratando da capacidade de liquidar suas dívidas de curto e longo prazo, observa-se conformidade, com o índice apresentando-se acima da unidade (${v}).`
+        : `Em se tratando da capacidade de liquidar suas dívidas de curto e longo prazo, o índice (${v}) apresenta-se abaixo da unidade. Caso a liquidez corrente seja adequada, isso pode indicar que o endividamento está alocado majoritariamente no longo prazo — o que é positivo para o negócio.`
+    }
+    case 'endGeral': {
+      if (ind.endGeral === null) return null
+      return `Quanto à análise de estrutura de capital, a empresa opera com ${pct(ind.endGeral)} de dependência de capital de terceiros no financiamento do ativo. Operar alavancado não é problema desde que haja prazo — quanto mais alongado o perfil, mais barato o capital.`
+    }
+    case 'compDivida': {
+      if (ind.compDivida === null) return null
+      const v = pct(ind.compDivida)
+      return ind.compDivida < 0.50
+        ? `A maior parte do endividamento tem viés de longo prazo (${v}), contribuindo para reduzir o custo do capital financiado e ampliar o fôlego financeiro das operações.`
+        : `A maior parte do endividamento tem viés de curto prazo (${v}), o que contribui para onerar o custo do capital financiado e reduzir o fôlego financeiro das operações.`
+    }
+    case 'imobCP': {
+      if (ind.imobCP === null) return null
+      const v = dec(ind.imobCP)
+      return ind.imobCP < 1.0
+        ? `Quanto ao grau de imobilização do patrimônio líquido, nota-se que o capital próprio foi suficiente para cobrir as aplicações efetuadas no ativo permanente (${v}), evidenciando adequada alocação de recursos.`
+        : `Quanto ao grau de imobilização do patrimônio líquido, o capital próprio não foi suficiente para cobrir as aplicações efetuadas no ativo permanente (${v}), evidenciando dependência de capital de terceiros para financiar ativos fixos.`
+    }
+    case 'imobRNC': {
+      if (ind.imobRNC === null) return null
+      const v = dec(ind.imobRNC)
+      return ind.imobRNC < 1.0
+        ? `Considerando os recursos não correntes (PL + PNC), a cobertura do ativo permanente (${v}) mostra-se adequada, sem necessidade de recorrer ao capital de curto prazo.`
+        : `Considerando os recursos não correntes (PL + PNC), a cobertura do ativo permanente (${v}) é insuficiente, indicando que a empresa recorreu ao capital de curto prazo para financiar ativos de longo prazo.`
+    }
+    case 'dlEbitda': {
+      if (ind.dlEbitda === null) return null
+      const v = dec(ind.dlEbitda)
+      if (ind.dlEbitda <= 2.0) return `Consolidando a análise financeira mediante o ratio Dívida Líquida/EBITDA de ${v}, a empresa apresenta baixo fator de risco e elevada capacidade de solvência.`
+      if (ind.dlEbitda <= 3.0) return `O ratio Dívida Líquida/EBITDA de ${v} indica risco moderado, demandando atenção ao ritmo de geração de caixa frente ao endividamento.`
+      return `O ratio Dívida Líquida/EBITDA de ${v} sinaliza elevado fator de risco e possível insolvência, indicando que a geração de caixa é insuficiente frente ao endividamento total.`
+    }
+    case 'margBruta': {
+      if (ind.margBruta === null && ind.margOp === null && ind.margLiq === null) return null
+      return `No que concerne à avaliação econômica, a empresa apresenta margem bruta de ${pct(ind.margBruta)}, margem operacional de ${pct(ind.margOp)} e margem líquida de ${pct(ind.margLiq)}.`
+    }
+    case 'margOp':
+    case 'margLiq':
+      return null
+    case 'roi': {
+      if (ind.roi === null) return null
+      if (ind.roi < 0) return `A empresa apresenta prejuízo líquido no período, inviabilizando o cálculo do payback sobre os ativos totais.`
+      const anos = ind.payback !== null ? dec(ind.payback, 1) + ' anos' : '—'
+      return `Avaliando conjuntamente DRE e BP, o retorno sobre os investimentos totais (ROI) é de ${pct(ind.roi)}, com tempo de recuperação (payback) de ${anos}.`
+    }
+    case 'roe': {
+      if (ind.roe === null) return null
+      const v = pct(ind.roe)
+      if (ind.roe > 0.1434) return `Podemos concluir sobre a total cobertura do custo de oportunidade do capital — o rendimento líquido gerado aos investidores (${v}) supera o rendimento real dos Títulos do Tesouro Nacional (14,34%), evidenciando geração de valor econômico.`
+      if (ind.roe > 0) return `A empresa aufere lucro, porém o retorno sobre o capital próprio (${v}) não supera o rendimento real dos Títulos do Tesouro Nacional (14,34%), sinalizando destruição de valor econômico para os acionistas.`
+      return `A empresa apresenta prejuízo no período, com ROE negativo (${v}). De nada adianta auferir receita se não há geração de valor — o capital estaria melhor alocado em renda fixa.`
+    }
+    default: return null
+  }
+}
+```
+
+- [ ] **Step 4: Run tests**
+
+```bash
+npm test
+```
+
+Expected: all tests pass.
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add docs/calculadora-indicadores/calc.js test.js
+git commit -m "feat: add diagnoseBadge and diagnoseText to calc.js"
+```
+
+---
+
+## Task 4: calc.js — `trendArrow()`
+
+**Files:**
+- Modify: `docs/calculadora-indicadores/calc.js`
+- Modify: `test.js`
+
+- [ ] **Step 1: Write failing tests**
+
+Add to `test.js`:
+
+```js
+// ── calc.js: trendArrow ───────────────────────────────────────────────────────
+test('trendArrow returns correct symbol and favorability', async () => {
+  const { trendArrow } = await import('./docs/calculadora-indicadores/calc.js')
+
+  // liqImediata: lower is better — going up is bad
+  const t1 = trendArrow('liqImediata', 0.05, 0.10)
+  assert.equal(t1.symbol, '↑')
+  assert.equal(t1.favorable, false, 'liqImediata rising is unfavorable')
+
+  // liqCorrente: higher is better — going up is good
+  const t2 = trendArrow('liqCorrente', 1.30, 1.41)
+  assert.equal(t2.symbol, '↑')
+  assert.equal(t2.favorable, true)
+
+  // margLiq: higher is better — going down is bad
+  const t3 = trendArrow('margLiq', 0.20, 0.16)
+  assert.equal(t3.symbol, '↓')
+  assert.equal(t3.favorable, false)
+
+  // endGeral: neutral
+  const t4 = trendArrow('endGeral', 0.65, 0.70)
+  assert.equal(t4.symbol, '↑')
+  assert.equal(t4.favorable, null)
+
+  // stable (< 1% change): arrow →
+  const t5 = trendArrow('liqCorrente', 1.400, 1.401)
+  assert.equal(t5.symbol, '→')
+
+  // null inputs return null
+  assert.equal(trendArrow('liqCorrente', null, 1.41), null)
+  assert.equal(trendArrow('liqCorrente', 1.30, null), null)
+})
+```
+
+- [ ] **Step 2: Run to confirm failure**
+
+```bash
+npm test 2>&1 | grep "trendArrow\|AssertionError" | head -6
+```
+
+Expected: assertion failures.
+
+- [ ] **Step 3: Implement `trendArrow` in `calc.js`**
+
+Replace the `trendArrow` stub:
+
+```js
+const HIGHER_IS_BETTER = {
+  liqImediata: false,
+  liqCorrente: true,
+  liqSeca:     true,
+  gde:         false,
+  liqGeral:    true,
+  endGeral:    null,
+  compDivida:  false,
+  imobCP:      false,
+  imobRNC:     false,
+  dlEbitda:    false,
+  margBruta:   true,
+  margOp:      true,
+  margLiq:     true,
+  roi:         true,
+  roe:         true,
+}
+
+export function trendArrow(indicator, prev, curr) {
+  if (prev === null || prev === undefined || curr === null || curr === undefined) return null
+  const diff = curr - prev
+  const threshold = Math.abs(prev) * 0.01
+  if (Math.abs(diff) <= threshold) return { symbol: '→', favorable: null }
+  const up = diff > 0
+  const dir = HIGHER_IS_BETTER[indicator] ?? null
+  const favorable = dir === null ? null : (dir === up)
+  return { symbol: up ? '↑' : '↓', favorable }
+}
+```
+
+- [ ] **Step 4: Run all tests**
+
+```bash
+npm test
+```
+
+Expected: all tests pass.
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add docs/calculadora-indicadores/calc.js test.js
+git commit -m "feat: add trendArrow to calc.js"
+```
+
+---
+
+## Task 5: Calculator HTML/CSS scaffold and form structure
+
+**Files:**
+- Create: `docs/calculadora-indicadores/index.html`
+- Modify: `test.js` (add file existence test)
+
+- [ ] **Step 1: Add existence test**
+
+Add to `test.js`:
+
+```js
+// ── calculadora-indicadores ───────────────────────────────────────────────────
+test('docs/calculadora-indicadores/index.html exists', () => {
+  assert.ok(
+    existsSync(join(DOCS_DIR, 'calculadora-indicadores', 'index.html')),
+    'calculator page must exist at docs/calculadora-indicadores/index.html'
+  )
+})
+```
+
+- [ ] **Step 2: Run to confirm failure**
+
+```bash
+npm test 2>&1 | grep "calculadora-indicadores"
+```
+
+Expected: `AssertionError — calculator page must exist`
+
+- [ ] **Step 3: Create the calculator HTML file**
+
+Create `docs/calculadora-indicadores/index.html`:
+
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora de Indicadores — FGV MBA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:opsz,wght@9..40,300..700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FAF9F6;--bg-card:#FFFFFF;--bg-surface:#F3F1EC;--bg-accent:#E8E4DB;
+  --text-primary:#1A1A18;--text-secondary:#5C5B56;--text-tertiary:#8A8985;
+  --border:#DDD9D0;--border-light:#ECEAE4;
+  --teal-50:#E6F4F1;--teal-400:#1D9E75;--teal-600:#0F6E56;--teal-800:#085041;
+  --amber-50:#FAEEDA;--amber-400:#BA7517;--amber-600:#854F0B;--amber-800:#633806;
+  --rose-50:#FDE8EC;--rose-400:#E5566D;--rose-600:#C81E3A;
+  --purple-50:#EEEDFE;--purple-600:#534AB7;--purple-800:#3C3489;
+  --blue-50:#E6F1FB;--blue-600:#185FA5;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text-primary);font-family:'DM Sans',-apple-system,sans-serif;line-height:1.6;font-size:16px;}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px 80px;}
+a{color:var(--teal-600);}
+.backlink{font-family:'JetBrains Mono',monospace;color:var(--text-tertiary);font-size:13px;text-decoration:none;display:inline-block;margin:24px 0 8px;}
+.backlink:hover{color:var(--teal-600);}
+header.page{padding:8px 0 28px;border-bottom:1px solid var(--border);margin-bottom:32px;}
+header.page h1{font-family:'DM Serif Display',Georgia,serif;font-size:38px;font-weight:400;line-height:1.1;margin-bottom:10px;}
+.page-badge{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.06em;background:var(--teal-50);color:var(--teal-600);padding:4px 12px;border-radius:20px;display:inline-block;margin-bottom:12px;}
+.page-desc{color:var(--text-secondary);font-size:15px;max-width:640px;}
+
+/* Period manager */
+.period-manager{display:flex;align-items:center;gap:12px;margin-bottom:28px;flex-wrap:wrap;}
+.period-manager .label{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-tertiary);}
+.period-tabs{display:flex;gap:8px;flex-wrap:wrap;}
+.period-tab{display:flex;align-items:center;gap:6px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:4px 8px 4px 12px;}
+.period-tab input{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;border:none;background:transparent;width:56px;color:var(--text-primary);outline:none;}
+.period-tab .rm-btn{background:none;border:none;cursor:pointer;color:var(--text-tertiary);font-size:16px;line-height:1;padding:0 2px;}
+.period-tab .rm-btn:hover{color:var(--rose-600);}
+.add-btn{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--bg-surface);border:1px dashed var(--border);border-radius:8px;padding:6px 14px;cursor:pointer;color:var(--text-secondary);white-space:nowrap;}
+.add-btn:hover{border-color:var(--teal-400);color:var(--teal-600);}
+
+/* Input form */
+.form-section{background:var(--bg-card);border:1px solid var(--border-light);border-radius:12px;margin-bottom:16px;overflow:hidden;}
+.form-section-header{padding:16px 20px;border-bottom:1px solid var(--border-light);background:var(--bg-surface);}
+.form-section-header h2{font-family:'DM Serif Display',serif;font-size:20px;font-weight:400;color:var(--text-primary);}
+.form-section-header .subtitle{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.04em;margin-top:2px;}
+.field-table{width:100%;border-collapse:collapse;}
+.field-table thead tr{background:var(--bg-surface);}
+.field-table th{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--text-tertiary);padding:10px 16px;text-align:right;border-bottom:1px solid var(--border-light);font-weight:500;}
+.field-table th.field-name-col{text-align:left;min-width:260px;}
+.field-table td{padding:4px 8px;border-bottom:1px solid var(--border-light);vertical-align:middle;}
+.field-table td.field-name{font-size:14px;color:var(--text-primary);padding:8px 16px;font-weight:500;}
+.field-table td.field-name .formula{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-tertiary);font-weight:400;margin-top:1px;}
+.field-table td.field-name.indent{padding-left:32px;}
+.field-table td.field-name.indent2{padding-left:48px;}
+.field-table td.derived{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-secondary);text-align:right;padding:8px 16px;background:var(--bg-surface);}
+.field-table tr:last-child td{border-bottom:none;}
+.num-input{width:100%;min-width:110px;font-family:'JetBrains Mono',monospace;font-size:13px;text-align:right;border:1px solid var(--border-light);border-radius:6px;padding:6px 10px;background:var(--bg);color:var(--text-primary);outline:none;transition:border-color .15s;}
+.num-input:focus{border-color:var(--teal-400);}
+.num-input::placeholder{color:var(--text-tertiary);}
+
+/* Results */
+.results{margin-top:40px;}
+.results-title{font-family:'DM Serif Display',serif;font-size:28px;font-weight:400;margin-bottom:24px;padding-bottom:12px;border-bottom:2px solid var(--border);}
+.results-group{margin-bottom:32px;}
+.results-group-title{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-tertiary);margin-bottom:12px;}
+.results-table{width:100%;border-collapse:collapse;background:var(--bg-card);border:1px solid var(--border-light);border-radius:12px;overflow:hidden;}
+.results-table thead tr{background:var(--bg-surface);}
+.results-table th{font-family:'JetBrains Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--text-tertiary);padding:12px 16px;text-align:right;font-weight:500;}
+.results-table th.ind-col{text-align:left;min-width:200px;}
+.results-table td{padding:10px 16px;border-top:1px solid var(--border-light);vertical-align:middle;}
+.results-table td.ind-name{font-size:14px;font-weight:600;color:var(--text-primary);}
+.results-table td.ind-name .formula-hint{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-tertiary);font-weight:400;margin-top:2px;}
+.results-table td.value-cell{text-align:right;}
+.result-val{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:var(--text-primary);display:block;}
+.result-val.empty{color:var(--text-tertiary);font-weight:400;}
+.badge{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.05em;padding:2px 8px;border-radius:4px;display:inline-block;margin-top:3px;}
+.badge.ok{background:var(--teal-50);color:var(--teal-600);}
+.badge.warn{background:var(--amber-50);color:var(--amber-600);}
+.badge.crit{background:var(--rose-50);color:var(--rose-600);}
+.badge.neutral{background:var(--bg-surface);color:var(--text-tertiary);}
+.trend{font-family:'JetBrains Mono',monospace;font-size:13px;margin-left:6px;}
+.trend.good{color:var(--teal-600);}
+.trend.bad{color:var(--rose-600);}
+.trend.neutral{color:var(--text-tertiary);}
+.diag-row td{background:var(--bg-surface);padding:10px 16px 14px;border-top:none;}
+.diag-text{font-size:13px;color:var(--text-secondary);line-height:1.55;font-style:italic;}
+.gde-benchmarks{font-family:'JetBrains Mono',monospace;font-size:11px;margin-top:4px;}
+.gde-benchmarks span{padding:2px 7px;border-radius:4px;margin-right:6px;}
+.roi-benchmarks{font-family:'JetBrains Mono',monospace;font-size:11px;margin-top:4px;color:var(--text-tertiary);}
+
+/* empty state */
+.empty-state{text-align:center;padding:48px 24px;color:var(--text-tertiary);}
+.empty-state p{font-size:15px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="../" class="backlink">← Hub</a>
+  <header class="page">
+    <span class="page-badge">Ferramenta · Análise Fundamentalista</span>
+    <h1>Calculadora de Indicadores</h1>
+    <p class="page-desc">Insira os dados do BP e DRE para calcular e diagnosticar os indicadores ensinados em aula. Adicione múltiplos períodos para análise de tendência.</p>
+  </header>
+
+  <!-- Period Manager -->
+  <div class="period-manager">
+    <span class="label">Períodos:</span>
+    <div class="period-tabs" id="period-tabs"></div>
+    <button class="add-btn" id="add-period-btn">+ Adicionar Período</button>
+  </div>
+
+  <!-- Input Form -->
+  <form id="calc-form" autocomplete="off">
+    <!-- Section 1: DRE -->
+    <div class="form-section">
+      <div class="form-section-header">
+        <h2>DRE — Demonstração do Resultado do Exercício</h2>
+        <p class="subtitle">Documento econômico · Lido de cima para baixo</p>
+      </div>
+      <table class="field-table" id="dre-table">
+        <thead><tr id="dre-header-row">
+          <th class="field-name-col">Campo</th>
+        </tr></thead>
+        <tbody>
+          <tr data-field="recLiq">
+            <td class="field-name">Receita de Vendas<div class="formula">Receita Líquida</div></td>
+          </tr>
+          <tr data-field="lucBruto">
+            <td class="field-name">Lucro Bruto<div class="formula">Receita Líquida − Custo dos Bens Vendidos</div></td>
+          </tr>
+          <tr data-field="lair">
+            <td class="field-name">LAIR<div class="formula">Lucro Antes do IR e CSLL</div></td>
+          </tr>
+          <tr data-field="ll">
+            <td class="field-name">Lucro Líquido<div class="formula">LAIR − IR e CSLL</div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Section 2: BP Ativo -->
+    <div class="form-section">
+      <div class="form-section-header">
+        <h2>BP — Ativo (Aplicação dos Recursos)</h2>
+        <p class="subtitle">Balanço Patrimonial · IFRS</p>
+      </div>
+      <table class="field-table" id="bpativo-table">
+        <thead><tr id="bpativo-header-row">
+          <th class="field-name-col">Campo</th>
+        </tr></thead>
+        <tbody>
+          <tr data-field="at">
+            <td class="field-name">Ativo Total<div class="formula">Total do ativo</div></td>
+          </tr>
+          <tr data-field="ac">
+            <td class="field-name indent">Ativo Circulante<div class="formula">CG — Capital de Giro</div></td>
+          </tr>
+          <tr data-field="caixa">
+            <td class="field-name indent2">Caixa e Equivalentes<div class="formula">Disponível imediato</div></td>
+          </tr>
+          <tr data-field="estoque">
+            <td class="field-name indent2">Estoque<div class="formula">EMP + EPP + EPA</div></td>
+          </tr>
+          <tr data-field="rlp">
+            <td class="field-name indent">Realizável a Longo Prazo<div class="formula">ANC — realiza-se após 12 meses</div></td>
+          </tr>
+          <tr data-field="inv">
+            <td class="field-name indent">Investimentos<div class="formula">M&amp;As e participações</div></td>
+          </tr>
+          <tr data-field="imob">
+            <td class="field-name indent">Imobilizado<div class="formula">Bens físicos de longo prazo</div></td>
+          </tr>
+          <tr data-field="intang">
+            <td class="field-name indent">Intangível<div class="formula">Marcas, patentes, goodwill</div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Section 3: BP Passivo + PL -->
+    <div class="form-section">
+      <div class="form-section-header">
+        <h2>BP — Passivo + Patrimônio Líquido (Captação dos Recursos)</h2>
+        <p class="subtitle">Balanço Patrimonial · IFRS</p>
+      </div>
+      <table class="field-table" id="bppassivo-table">
+        <thead><tr id="bppassivo-header-row">
+          <th class="field-name-col">Campo</th>
+        </tr></thead>
+        <tbody>
+          <tr data-field="pc">
+            <td class="field-name">Passivo Circulante<div class="formula">Dívidas de curto prazo (até 12 meses)</div></td>
+          </tr>
+          <tr data-field="pnc">
+            <td class="field-name">Passivo Não Circulante<div class="formula">Dívidas de longo prazo (após 12 meses)</div></td>
+          </tr>
+          <tr data-field="pl">
+            <td class="field-name">Patrimônio Líquido<div class="formula">Capital Social + Reservas</div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Section 4: Ratio Direto -->
+    <div class="form-section">
+      <div class="form-section-header">
+        <h2>Ratio Direto — Dívida Líquida / EBITDA</h2>
+        <p class="subtitle">Extraído do Relatório da Administração (não calculado)</p>
+      </div>
+      <table class="field-table" id="ratio-table">
+        <thead><tr id="ratio-header-row">
+          <th class="field-name-col">Campo</th>
+        </tr></thead>
+        <tbody>
+          <tr data-field="dlEbitda">
+            <td class="field-name">DL / EBITDA<div class="formula">Dívida Líquida ÷ EBITDA — inserir o valor do Relatório da Administração</div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </form>
+
+  <!-- Results -->
+  <div id="results" class="results">
+    <div class="empty-state">
+      <p>Preencha os campos acima para ver os indicadores calculados.</p>
+    </div>
+  </div>
+</div>
+<script type="module" src="./calc-ui.js"></script>
+</body>
+</html>
+```
+
+- [ ] **Step 4: Run tests**
+
+```bash
+npm test
+```
+
+Expected: all tests pass including the new file existence test.
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add docs/calculadora-indicadores/index.html test.js
+git commit -m "feat: add calculator HTML scaffold with design system CSS"
+```
+
+---
+
+## Task 6: calc-ui.js — state, form rendering, period manager
+
+**Files:**
+- Create: `docs/calculadora-indicadores/calc-ui.js`
+
+The HTML references `calc-ui.js` via `<script type="module" src="./calc-ui.js">`. This file handles all UI logic.
+
+- [ ] **Step 1: Create `docs/calculadora-indicadores/calc-ui.js`**
+
+```js
+import { calcIndicators, diagnoseBadge, diagnoseText, trendArrow } from './calc.js'
+
+const FIELDS = {
+  dre:       ['recLiq','lucBruto','lair','ll'],
+  bpativo:   ['at','ac','caixa','estoque','rlp','inv','imob','intang'],
+  bppassivo: ['pc','pnc','pl'],
+  ratio:     ['dlEbitda'],
+}
+const ALL_FIELDS = [...FIELDS.dre, ...FIELDS.bpativo, ...FIELDS.bppassivo, ...FIELDS.ratio]
+const MAX_PERIODS = 5
+
+// State
+let state = {
+  periods: [
+    { label: String(new Date().getFullYear()), inputs: emptyInputs() }
+  ]
+}
+
+function emptyInputs() {
+  return Object.fromEntries(ALL_FIELDS.map(f => [f, null]))
+}
+
+function parseNum(s) {
+  if (!s || !s.trim()) return null
+  const n = parseFloat(s.replace(',', '.'))
+  return isNaN(n) ? null : n
+}
+
+// ── Period tabs ───────────────────────────────────────────────────────────────
+
+function renderPeriodTabs() {
+  const container = document.getElementById('period-tabs')
+  container.innerHTML = state.periods.map((p, i) => `
+    <div class="period-tab" data-period="${i}">
+      <input type="text" value="${p.label}" aria-label="Rótulo do período ${i+1}"
+             data-period-label="${i}" maxlength="6">
+      ${state.periods.length > 1
+        ? `<button class="rm-btn" data-remove-period="${i}" title="Remover período">✕</button>`
+        : ''}
+    </div>
+  `).join('')
+}
+
+function renderFormHeaders() {
+  ['dre','bpativo','bppassivo','ratio'].forEach(section => {
+    const row = document.getElementById(`${section}-header-row`)
+    const extras = state.periods.map((p, i) =>
+      `<th style="min-width:120px">${p.label}</th>`
+    ).join('')
+    const existing = row.querySelector('th')
+    row.innerHTML = existing.outerHTML + extras
+  })
+}
+
+function renderFormInputs() {
+  state.periods.forEach((period, pi) => {
+    ['dre','bpativo','bppassivo','ratio'].forEach(section => {
+      const table = document.getElementById(`${section}-table`)
+      const rows = table.querySelectorAll('tbody tr[data-field]')
+      rows.forEach(tr => {
+        const field = tr.getAttribute('data-field')
+        let td = tr.querySelector(`td[data-period-input="${pi}"]`)
+        if (!td) {
+          td = document.createElement('td')
+          td.setAttribute('data-period-input', pi)
+          td.style.textAlign = 'right'
+          tr.appendChild(td)
+        }
+        const val = period.inputs[field]
+        td.innerHTML = `<input class="num-input" type="number" step="any"
+          data-field="${field}" data-period="${pi}"
+          value="${val !== null ? val : ''}" placeholder="—">`
+      })
+    })
+  })
+}
+
+function renderForm() {
+  renderPeriodTabs()
+  renderFormHeaders()
+  renderFormInputs()
+  renderResults()
+}
+
+// ── Add / remove periods ──────────────────────────────────────────────────────
+
+document.getElementById('add-period-btn').addEventListener('click', () => {
+  if (state.periods.length >= MAX_PERIODS) return
+  const lastLabel = state.periods[state.periods.length - 1].label
+  const newLabel = String(parseInt(lastLabel, 10) - 1) || ''
+  state.periods.push({ label: newLabel, inputs: emptyInputs() })
+  rebuildFormStructure()
+  renderForm()
+})
+
+document.getElementById('period-tabs').addEventListener('click', e => {
+  const btn = e.target.closest('[data-remove-period]')
+  if (!btn) return
+  const i = parseInt(btn.getAttribute('data-remove-period'), 10)
+  state.periods.splice(i, 1)
+  rebuildFormStructure()
+  renderForm()
+})
+
+document.getElementById('period-tabs').addEventListener('input', e => {
+  const inp = e.target.closest('[data-period-label]')
+  if (!inp) return
+  const i = parseInt(inp.getAttribute('data-period-label'), 10)
+  state.periods[i].label = inp.value
+  renderFormHeaders()
+  renderResults()
+})
+
+function rebuildFormStructure() {
+  ['dre','bpativo','bppassivo','ratio'].forEach(section => {
+    const table = document.getElementById(`${section}-table`)
+    table.querySelectorAll('tbody tr[data-field]').forEach(tr => {
+      tr.querySelectorAll('td[data-period-input]').forEach(td => td.remove())
+    })
+    const headerRow = document.getElementById(`${section}-header-row`)
+    const first = headerRow.querySelector('th')
+    headerRow.innerHTML = first.outerHTML
+  })
+}
+
+// ── Input events ──────────────────────────────────────────────────────────────
+
+document.getElementById('calc-form').addEventListener('input', e => {
+  const inp = e.target.closest('[data-field][data-period]')
+  if (!inp) return
+  const field = inp.getAttribute('data-field')
+  const pi = parseInt(inp.getAttribute('data-period'), 10)
+  state.periods[pi].inputs[field] = parseNum(inp.value)
+  renderResults()
+})
+
+// ── Results rendering ─────────────────────────────────────────────────────────
+
+function fmtPct(v) { return v === null ? '—' : (v * 100).toFixed(2) + '%' }
+function fmtDec(v, d = 2) { return v === null ? '—' : v.toFixed(d) }
+function fmtYears(v) { return v === null ? '—' : v.toFixed(1) + ' anos' }
+
+function badgeHtml(b) {
+  if (!b || b === 'neutral') return ''
+  const labels = { ok: '✓ Adequado', warn: '⚠ Atenção', crit: '✗ Crítico' }
+  return `<span class="badge ${b}">${labels[b] || ''}</span>`
+}
+
+function trendHtml(indicator, prev, curr) {
+  if (prev === null || curr === null) return ''
+  const t = trendArrow(indicator, prev, curr)
+  if (!t) return ''
+  const cls = t.favorable === true ? 'good' : t.favorable === false ? 'bad' : 'neutral'
+  return `<span class="trend ${cls}">${t.symbol}</span>`
+}
+
+function valueCell(indicator, allResults, periodIdx) {
+  const ind = allResults[periodIdx]
+  const prev = periodIdx < allResults.length - 1 ? allResults[periodIdx + 1] : null
+
+  const raw = ind[indicator]
+  let display = '—'
+
+  if (indicator === 'liqImediata' || indicator === 'liqCorrente' || indicator === 'liqSeca' ||
+      indicator === 'liqGeral' || indicator === 'endGeral' || indicator === 'compDivida' ||
+      indicator === 'imobCP' || indicator === 'imobRNC') {
+    display = fmtDec(raw)
+  } else if (indicator === 'gde' || indicator === 'margBruta' || indicator === 'margOp' ||
+             indicator === 'margLiq' || indicator === 'roi' || indicator === 'roe') {
+    display = fmtPct(raw)
+  } else if (indicator === 'dlEbitda') {
+    display = fmtDec(raw)
+  }
+
+  const badge = diagnoseBadge(indicator, raw)
+  const trend = prev ? trendHtml(indicator, prev[indicator], raw) : ''
+
+  return `<td class="value-cell">
+    <span class="result-val${raw === null ? ' empty' : ''}">${display}${trend}</span>
+    ${badgeHtml(badge)}
+  </td>`
+}
+
+function diagRow(indicator, allResults, colCount) {
+  const ind = allResults[0]
+  const text = diagnoseText(indicator, ind)
+  if (!text) return ''
+  return `<tr class="diag-row">
+    <td colspan="${colCount + 1}"><p class="diag-text">${text}</p></td>
+  </tr>`
+}
+
+function gdeRow(allResults, colCount) {
+  return allResults.map((ind, i) => {
+    const v = ind.gde
+    if (v === null) return '<td class="value-cell"><span class="result-val empty">—</span></td>'
+    const pv = fmtPct(v)
+    const prev = i < allResults.length - 1 ? allResults[i + 1] : null
+    const trend = prev ? trendHtml('gde', prev.gde, v) : ''
+    const okCS = v <= 0.40 ? 'ok' : 'crit'
+    const okInd = v <= 0.50 ? 'ok' : 'crit'
+    return `<td class="value-cell">
+      <span class="result-val">${pv}${trend}</span>
+      <div class="gde-benchmarks">
+        <span class="badge ${okCS}">Comércio/Serv ≤40%</span>
+        <span class="badge ${okInd}">Indústria ≤50%</span>
+      </div>
+    </td>`
+  }).join('')
+}
+
+function roiRow(allResults, colCount) {
+  return allResults.map((ind, i) => {
+    const v = ind.roi
+    const prev = i < allResults.length - 1 ? allResults[i + 1] : null
+    const trend = prev ? trendHtml('roi', prev.roi, v) : ''
+    if (v === null) return '<td class="value-cell"><span class="result-val empty">—</span></td>'
+    const pv = fmtPct(v)
+    const py = ind.payback !== null ? fmtYears(ind.payback) : '—'
+    return `<td class="value-cell">
+      <span class="result-val">${pv}${trend}</span>
+      <div class="roi-benchmarks">Payback: ${py}</div>
+      <div class="roi-benchmarks">Serviço 10–15a · Comércio 15–20a · Indústria 20–25a</div>
+    </td>`
+  }).join('')
+}
+
+const GROUPS = [
+  {
+    title: 'Liquidez / Solvência',
+    rows: [
+      { key: 'liqImediata', label: 'Liquidez Imediata', hint: 'Caixa / PC', diag: true },
+      { key: 'liqCorrente', label: 'Liquidez Corrente', hint: 'AC / PC', diag: true },
+      { key: 'liqSeca',     label: 'Liquidez Seca',     hint: '(AC − Estoque) / PC', diag: false },
+      { key: 'gde',         label: 'GDE',               hint: '(LC − LS) / LC', diag: true, custom: 'gde' },
+      { key: 'liqGeral',    label: 'Liquidez Geral',    hint: '(AC + RLP) / (PC + PNC)', diag: true },
+    ]
+  },
+  {
+    title: 'Alavancagem / Risco',
+    rows: [
+      { key: 'endGeral',    label: 'Endividamento Geral',           hint: 'CT / Ativo Total', diag: true },
+      { key: 'compDivida',  label: 'Composição da Dívida',          hint: 'PC / CT', diag: true },
+      { key: 'imobCP',      label: 'Grau de Imobilização CP',       hint: 'AP / PL', diag: true },
+      { key: 'imobRNC',     label: 'Grau de Imobilização RNC',      hint: 'AP / (PL + PNC)', diag: true },
+    ]
+  },
+  {
+    title: 'Dívida Líquida / EBITDA',
+    rows: [
+      { key: 'dlEbitda', label: 'DL / EBITDA', hint: 'Input direto do Relatório da Administração', diag: true },
+    ]
+  },
+  {
+    title: 'Lucratividade (DRE)',
+    rows: [
+      { key: 'margBruta', label: 'Margem Bruta (Markup)',   hint: 'Lucro Bruto / Receita de Vendas', diag: true },
+      { key: 'margOp',    label: 'Margem Operacional',      hint: 'LAIR / Receita de Vendas', diag: false },
+      { key: 'margLiq',   label: 'Margem Líquida',          hint: 'Lucro Líquido / Receita de Vendas', diag: false },
+    ]
+  },
+  {
+    title: 'Rentabilidade',
+    rows: [
+      { key: 'roi', label: 'ROI — Return on Investments', hint: 'Lucro Líquido / Ativo Total', diag: true, custom: 'roi' },
+      { key: 'roe', label: 'ROE — Return on Equity',      hint: 'Lucro Líquido / PL', diag: true },
+    ]
+  },
+]
+
+function renderResults() {
+  const allResults = state.periods.map(p => calcIndicators(p.inputs))
+  const hasAnyValue = allResults.some(r =>
+    Object.values(r).some(v => v !== null && typeof v === 'number')
+  )
+
+  const container = document.getElementById('results')
+
+  if (!hasAnyValue) {
+    container.innerHTML = `<div class="empty-state"><p>Preencha os campos acima para ver os indicadores calculados.</p></div>`
+    return
+  }
+
+  const colCount = state.periods.length
+  const headerCols = state.periods.map((p, i) => `<th>${p.label}</th>`).join('')
+
+  const groupsHtml = GROUPS.map(group => {
+    const rowsHtml = group.rows.map(row => {
+      let valueCells
+      if (row.custom === 'gde') {
+        valueCells = gdeRow(allResults, colCount)
+      } else if (row.custom === 'roi') {
+        valueCells = roiRow(allResults, colCount)
+      } else {
+        valueCells = allResults.map((_, i) => valueCell(row.key, allResults, i)).join('')
+      }
+
+      const diagHtml = row.diag ? diagRow(row.key, allResults, colCount) : ''
+
+      return `<tr>
+        <td class="ind-name">${row.label}<div class="formula-hint">${row.hint}</div></td>
+        ${valueCells}
+      </tr>${diagHtml}`
+    }).join('')
+
+    return `<div class="results-group">
+      <p class="results-group-title">${group.title}</p>
+      <table class="results-table">
+        <thead><tr><th class="ind-col">Indicador</th>${headerCols}</tr></thead>
+        <tbody>${rowsHtml}</tbody>
+      </table>
+    </div>`
+  }).join('')
+
+  container.innerHTML = `<h2 class="results-title">Resultados</h2>${groupsHtml}`
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+renderForm()
+```
+
+- [ ] **Step 2: Run tests**
+
+```bash
+npm test
+```
+
+Expected: all tests still pass (calc-ui.js is not imported by test.js).
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add docs/calculadora-indicadores/calc-ui.js
+git commit -m "feat: add calc-ui.js with period manager, form rendering, and results display"
+```
+
+---
+
+## Task 7: Browser verification and final commit
+
+- [ ] **Step 1: Open the calculator locally**
+
+```bash
+open docs/calculadora-indicadores/index.html
+```
+
+- [ ] **Step 2: Test with Raia Drogasil 2025 + 2024 data**
+
+Add two periods (2025 and 2024) and enter this data:
+
+| Campo | 2025 | 2024 |
+|---|---|---|
+| Ativo Total | 24393381 | 21210726 |
+| Ativo Circulante | 13519926 | 11382718 |
+| Caixa e Equivalentes | 296965 | 460292 |
+| Estoque | 9127427 | 7973862 |
+| Realizável a LP | 500417 | 448619 |
+| Investimentos | 1390158 | 1129043 |
+| Imobilizado | 7220602 | 6521022 |
+| Intangível | 1762278 | 1729324 |
+| Passivo Circulante | 9589193 | 8487948 |
+| Passivo Não Circulante | 7482059 | 6289318 |
+| Patrimônio Líquido | 7322129 | 6433460 |
+
+Verify these values appear in results:
+
+| Indicador | 2025 esperado | 2024 esperado |
+|---|---|---|
+| Liquidez Imediata | 0,03 ✓ Adequado | 0,05 ✓ Adequado |
+| Liquidez Corrente | 1,41 ✓ Adequado | 1,34 ✓ Adequado |
+| GDE | 67,51% ✗ Comércio / ✗ Indústria | 70,05% ✗ / ✗ |
+| Endividamento Geral | 69,98% neutral | 69,67% neutral |
+| Composição da Dívida | 56,17% ✗ Crítico | 57,44% ✗ Crítico |
+| Grau de Imobilização CP | 1,42 ✗ Crítico | 1,46 ✗ Crítico |
+| Grau de Imobilização RNC | 0,70 ✓ Adequado | 0,74 ✓ Adequado |
+
+- [ ] **Step 3: Test period add/remove**
+
+- Add a third period (2023) and confirm a new column appears
+- Remove the 2023 period and confirm the column disappears
+- Edit a period label and confirm the header updates
+
+- [ ] **Step 4: Test with MRV 2025 data (ROI/ROE with prejuízo)**
+
+Enter ROI: Lucro Líquido = -1042256, Ativo Total = 16142630, PL = 5327812.
+Verify ROI ≈ −6,46% with "A empresa apresenta prejuízo" diagnostic, ROE ≈ −19,56% com badge ✗ Crítico.
+
+- [ ] **Step 5: Test empty state**
+
+Clear all inputs and confirm the empty state message appears.
+
+- [ ] **Step 6: Run full test suite**
+
+```bash
+npm test
+```
+
+Expected output: all tests pass, no failures.
+
+- [ ] **Step 7: Final commit**
+
+```bash
+git add docs/calculadora-indicadores/
+git commit -m "feat: add calculadora de indicadores fundamentalistas standalone page"
+git push
+```
+
+---
+
+## Done
+
+After pushing, the calculator is live at:
+`https://acantidio.github.io/fgv-summary-platform/calculadora-indicadores/`
+
+And linked from the hub at:
+`https://acantidio.github.io/fgv-summary-platform/`
