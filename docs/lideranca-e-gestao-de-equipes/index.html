@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liderança e Gestão de Equipes — FGV MBA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF9F6; --bg-card:#FFFFFF; --bg-surface:#F3F1EC; --bg-accent:#E8E4DB;
+    --text-primary:#1A1A18; --text-secondary:#5C5B56; --text-tertiary:#8A8985;
+    --border:#DDD9D0; --border-light:#ECEAE4;
+    --purple-50:#EEEDFE; --purple-400:#7F77DD; --purple-600:#534AB7; --purple-800:#3C3489;
+    --amber-50:#FAEEDA; --amber-400:#BA7517; --amber-600:#854F0B; --amber-800:#633806;
+    --teal-50:#E6F4F1; --teal-400:#1D9E75; --teal-600:#0F6E56; --teal-800:#085041;
+    --blue-50:#E6F1FB; --blue-400:#378ADD; --blue-600:#185FA5; --blue-800:#0C447C;
+    --rose-50:#FDE8EC; --rose-600:#C81E3A;
+    --accent:#C81E3A; --accent-light:#FDE8EC;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:80px}
+  body{background:var(--bg);color:var(--text-primary);font-family:'DM Sans',-apple-system,sans-serif;line-height:1.65;font-size:17px}
+  .wrap{max-width:960px;margin:0 auto;padding:0 24px}
+  a{color:var(--accent)}
+  .backlink{font-family:'JetBrains Mono',monospace;color:var(--text-tertiary);font-size:13px;text-decoration:none;display:inline-block;margin:28px 0 0}
+  .backlink:hover{color:var(--accent)}
+  header.page{padding:24px 0 30px;border-bottom:1px solid var(--border)}
+  header.page h1{font-family:'DM Serif Display',Georgia,serif;font-size:44px;line-height:1.1;font-weight:400;margin-bottom:16px}
+  .badge{font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.08em;background:var(--accent-light);color:var(--accent);padding:5px 12px;border-radius:20px;display:inline-block;font-weight:500}
+  .subtitle{color:var(--text-secondary);margin-top:16px;font-size:17px;max-width:720px}
+  nav.sticky{position:sticky;top:0;z-index:50;background:rgba(250,249,246,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);margin-bottom:8px}
+  nav.sticky .navinner{max-width:960px;margin:0 auto;padding:10px 24px;display:flex;gap:6px;overflow-x:auto;flex-wrap:nowrap}
+  nav.sticky a{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--text-secondary);text-decoration:none;white-space:nowrap;padding:5px 10px;border-radius:6px;letter-spacing:.02em}
+  nav.sticky a:hover{background:var(--accent-light);color:var(--accent)}
+  section{padding:40px 0;border-bottom:1px solid var(--border-light)}
+  h2{font-family:'DM Serif Display',Georgia,serif;font-size:31px;font-weight:400;margin-bottom:20px;line-height:1.15}
+  h3{font-family:'DM Sans',sans-serif;font-size:20px;font-weight:700;margin:28px 0 12px}
+  h4{font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;margin:20px 0 8px;color:var(--text-secondary)}
+  p{margin-bottom:14px;color:var(--text-secondary)}
+  section p strong,h4 strong{color:var(--text-primary)}
+  ul,ol{margin:0 0 14px 22px;color:var(--text-secondary)}
+  li{margin-bottom:6px}
+  strong{font-weight:700}
+  em{font-style:italic}
+  /* Hero summary */
+  .hero{background:var(--bg-card);border-top:4px solid var(--accent);border-radius:12px;padding:34px 36px;box-shadow:0 1px 3px rgba(0,0,0,.04);margin-bottom:8px}
+  .hero .lbl{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+  .hero p{font-size:19px;line-height:1.6;color:var(--text-primary);margin:0}
+  /* Callouts */
+  .key{background:var(--purple-50);border-left:4px solid var(--purple-600);border-radius:0 10px 10px 0;padding:20px 24px;margin:22px 0}
+  .key .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--purple-800);margin-bottom:8px}
+  .key p{color:var(--purple-800);margin:0}
+  .key p strong{color:var(--purple-800)}
+  .exam{background:var(--amber-50);border:1px solid var(--amber-400);border-radius:10px;padding:18px 22px 18px 52px;margin:22px 0;position:relative}
+  .exam::before{content:"⚠";position:absolute;left:20px;top:16px;font-size:20px}
+  .exam .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber-800);margin-bottom:6px;font-weight:600}
+  .exam p{color:var(--amber-800);margin:0}
+  .exam p strong{color:var(--amber-800)}
+  .recall{background:var(--teal-50);border-left:4px solid var(--teal-600);border-radius:0 10px 10px 0;padding:16px 20px 16px 46px;margin:14px 0;position:relative}
+  .recall::before{content:"?";position:absolute;left:18px;top:14px;font-family:'DM Serif Display',serif;font-size:22px;color:var(--teal-600)}
+  .recall p{color:var(--teal-800);margin:0}
+  /* Tables */
+  table{width:100%;border-collapse:collapse;margin:18px 0;font-size:15px;background:var(--bg-card);border-radius:10px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+  th{background:var(--accent);color:#fff;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.04em;text-align:left;padding:11px 14px}
+  td{padding:10px 14px;border-top:1px solid var(--border-light);color:var(--text-secondary);vertical-align:top}
+  tr:nth-child(even) td{background:var(--bg-surface)}
+  /* Card grid */
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:20px 0}
+  .card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:20px 22px}
+  .card h4{margin:0 0 8px;color:var(--accent);font-size:16px}
+  .card p{font-size:14.5px;margin:0}
+  /* stepper */
+  .stepper{margin:22px 0;position:relative}
+  .step{display:flex;gap:18px;padding-bottom:22px;position:relative}
+  .step:not(:last-child)::before{content:"";position:absolute;left:17px;top:38px;bottom:0;width:2px;background:var(--border)}
+  .stepnum{flex:0 0 36px;width:36px;height:36px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:600;font-size:15px;z-index:1}
+  .stepbody{flex:1}
+  .stepbody h4{margin:6px 0 4px;color:var(--text-primary);font-size:16px}
+  .stepbody p{font-size:14.5px;margin:0}
+  /* 2x2 grid */
+  .quad{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0}
+  .quad .cell{border-radius:12px;padding:18px 20px}
+  .quad h4{margin:0 0 8px;font-size:15px}
+  .quad p,.quad ul{font-size:14px;margin:0}
+  .qp{background:var(--teal-50)}.qp h4{color:var(--teal-800)}
+  .qn{background:var(--rose-50)}.qn h4{color:var(--rose-600)}
+  .qa{background:var(--blue-50)}.qa h4{color:var(--blue-800)}
+  .qb{background:var(--amber-50)}.qb h4{color:var(--amber-800)}
+  /* hub */
+  .hub{background:var(--bg-surface);border:1px solid var(--border);border-radius:14px;padding:24px;margin:20px 0}
+  .hubcenter{background:var(--accent);color:#fff;text-align:center;padding:16px;border-radius:10px;font-weight:700;margin-bottom:16px;font-family:'JetBrains Mono',monospace;letter-spacing:.04em}
+  /* flow chain */
+  .chain{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:20px 0;justify-content:center}
+  .chain .node{background:var(--bg-card);border:2px solid var(--accent);color:var(--accent);border-radius:8px;padding:10px 16px;font-family:'JetBrains Mono',monospace;font-weight:600;font-size:14px}
+  .chain .arr{color:var(--accent);font-weight:700;font-size:18px}
+  /* timeline horizontal */
+  .tl{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0}
+  .tl .tlitem{background:var(--bg-card);border:1px solid var(--border);border-top:3px solid var(--accent);border-radius:10px;padding:16px}
+  .tl .yr{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:600;color:var(--accent)}
+  .tl h4{margin:6px 0 0;color:var(--text-primary);font-size:15px}
+  blockquote{background:var(--bg-surface);border-left:3px solid var(--accent);padding:16px 20px;margin:18px 0;border-radius:0 8px 8px 0;font-style:italic;color:var(--text-secondary)}
+  blockquote cite{display:block;font-style:normal;font-size:13px;color:var(--text-tertiary);margin-top:8px;font-family:'JetBrains Mono',monospace}
+  .statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:18px 0}
+  .stat{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:14px 16px;text-align:center}
+  .stat .num{font-family:'DM Serif Display',serif;font-size:26px;color:var(--accent);line-height:1}
+  .stat .cap{font-size:13px;color:var(--text-secondary);margin-top:6px}
+  .metabox{background:var(--bg-surface);border-radius:10px;padding:16px 20px;margin:16px 0}
+  .metabox strong{color:var(--text-primary)}
+  @media(max-width:640px){
+    header.page h1{font-size:33px}
+    h2{font-size:25px}
+    .hero{padding:24px}
+    .quad,.tl{grid-template-columns:1fr}
+    .cards{grid-template-columns:1fr}
+    body{font-size:16px}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sticky">
+  <div class="navinner">
+    <a href="#apresentacao">Estrutura</a>
+    <a href="#colaborativa">Int. Colaborativa</a>
+    <a href="#planejamento">Planejamento</a>
+    <a href="#mbti">MBTI</a>
+    <a href="#perfis">Perfis Ferraz</a>
+    <a href="#swot">SWOT</a>
+    <a href="#toxico">Gestor Tóxico</a>
+    <a href="#roda">Roda da Vida</a>
+    <a href="#intro-lideranca">Intro Liderança</a>
+    <a href="#evolucao">Teorias</a>
+    <a href="#estilos-gr">Estilos GR</a>
+    <a href="#competencias">Competências</a>
+    <a href="#pipeline">Pipeline</a>
+    <a href="#ie">Int. Emocional</a>
+    <a href="#mindset">Mindset</a>
+    <a href="#poder">Poder</a>
+    <a href="#ferramentas">Ferramentas</a>
+    <a href="#equipes">Equipes</a>
+    <a href="#alta-performance">Alta Performance</a>
+    <a href="#recall">Recall</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <a class="backlink" href="../index.html">← FGV MBA</a>
+  <header class="page">
+    <h1>Liderança e Gestão de Equipes</h1>
+    <span class="badge">Concluído</span>
+    <p class="subtitle">Teorias e estilos de liderança, inteligência emocional, ferramentas de gestão de pessoas (delegação, motivação, feedback) e formação de equipes de alto desempenho.</p>
+  </header>
+
+  <div class="hero">
+    <div class="lbl">Síntese da Disciplina</div>
+    <p>Esta disciplina de Liderança e Gestão de Equipes percorre três blocos: autoconhecimento e perfis de liderança (MBTI, perfis profissionais, SWOT pessoal), ferramentas de gestão de pessoas (delegação, motivação, empowerment e feedback) e construção de equipes de alto desempenho. O aluno deve dominar a evolução das teorias de liderança (traços, comportamentais, contingenciais e contemporâneas), o modelo situacional de Hersey e Blanchard, o pipeline de liderança de Ram Charan e os pilares/disfunções de equipes de Lencioni e Covey. A inteligência emocional, a comunicação não violenta e o mindset de crescimento perpassam todo o conteúdo como competências essenciais do líder eficaz.</p>
+  </div>
+
+  <section id="apresentacao">
+    <h2>Apresentação e Estrutura da Disciplina</h2>
+    <p>Docente: <strong>Francianne Baroni Zandonadi</strong>.</p>
+
+    <h3>Perguntas norteadoras de autoconhecimento</h3>
+    <ul>
+      <li>Qual o seu estilo de liderança?</li>
+      <li>Qual o <strong>seu</strong> perfil profissional, personalidade e o de seus liderados/pares/colegas?</li>
+      <li>Qual o seu nível de maturidade e o de seus liderados em cada função e setor que atualmente ocupam?</li>
+      <li>Quais e quantas são as competências de seu atual cargo? (Matriz de competências)</li>
+      <li>Quantas funções diferentes você gerencia?</li>
+      <li>Quais e quantas são as competências das funções sob sua gestão?</li>
+      <li>Qual a forma de organizar e mensurar suas entregas e as da equipe?</li>
+    </ul>
+    <p>Dinâmica de quebra-gelo de apresentação: <strong>2 verdades e 1 mentira</strong>.</p>
+
+    <h3>Ementa</h3>
+    <p>Liderança no contexto de mudanças ambientais e organizacionais. Desenvolvimento de competências para a liderança na era da transformação digital. Teorias e abordagens para a liderança. Feedback para o desenvolvimento de equipes. Gestão das emoções, relacionamento interpessoal e desempenho. Formação e estratégias de desenvolvimento de equipes. Características e tipos de equipe. Fases do desenvolvimento de equipes. Diversidade nas equipes. Motivação e engajamento de equipes. Teorias motivacionais e prática da liderança. Delegação, autonomia e empowerment nas equipes.</p>
+
+    <h3>Critérios de avaliação</h3>
+    <div class="statgrid">
+      <div class="stat"><div class="num">30%</div><div class="cap">Participação e desempenho nas atividades dinâmicas</div></div>
+      <div class="stat"><div class="num">70%</div><div class="cap">Avaliação individual</div></div>
+    </div>
+
+    <h3>Blocos da disciplina</h3>
+    <div class="cards">
+      <div class="card"><h4>Bloco 1</h4><p>Autoconhecimento/autodesenvolvimento – estilos e perfis profissionais e de liderança.</p></div>
+      <div class="card"><h4>Bloco 2</h4><p>Ferramentas de gestão de pessoas – delegação, motivação, empowerment, feedback.</p></div>
+      <div class="card"><h4>Bloco 3</h4><p>Gestão de equipes de alta performance (EAD).</p></div>
+    </div>
+  </section>
+
+  <section id="colaborativa">
+    <h2>Inteligência Colaborativa ou Social</h2>
+    <div class="key">
+      <div class="lbl">Conceito-chave</div>
+      <p><strong>Inteligência colaborativa (ou social)</strong> é a capacidade humana, desenvolvida a partir da Revolução Cognitiva, de criar códigos de comunicação complexos e cooperar em grandes grupos. Segundo Harari (Sapiens, 2015), foi justamente essa cooperação em larga escala que permitiu ao Homo sapiens prevalecer sobre outras espécies. Fundamenta-se na psicologia social e na biologia evolutiva, e é a base para o trabalho em equipe nas organizações.</p>
+    </div>
+    <p>Fonte: Harari, Y. (2015). <em>Sapiens</em>. Relaciona-se com o <strong>Design Thinking</strong> (metodologia ágil), cujas etapas são:</p>
+    <div class="chain">
+      <span class="node">Empatia (Observar)</span><span class="arr">→</span>
+      <span class="node">Definir (Foco)</span><span class="arr">→</span>
+      <span class="node">Idear (Alternativas)</span><span class="arr">→</span>
+      <span class="node">Prototipar (Construir)</span><span class="arr">→</span>
+      <span class="node">Testar (Aprender)</span><span class="arr">→</span>
+      <span class="node">Implementar (Aprender)</span>
+    </div>
+
+    <h3>Savana africana e Revolução Cognitiva</h3>
+    <p>Nossa origem remonta a cerca de 6.000 ancestrais, há aproximadamente 70 mil anos.</p>
+    <blockquote>"Antes da revolução cognitiva, o Homo sapiens não era muito diferente dos outros animais. Mas, há 70 mil anos, começamos a pensar de forma diferente e a criar códigos de comunicação complexos. Isto permitiu ao homem se organizar em grandes grupos, o que foi um dos motivos para ele prevalecer enquanto centenas de animais, inclusive outras espécies humanas, eram extintas. As características impressas no nosso código genético continuam lá: nossos hábitos alimentares, conflitos e sexualidade são resultado de como as mentes de caçadores-coletores interagem com celulares, metrópoles e tudo mais. <strong>Nosso DNA ainda acha que estamos na savana africana.</strong>"<cite>— Sapiens — Uma breve história da humanidade (Editora L&PM)</cite></blockquote>
+
+    <h3>Economia metabólica evolutiva</h3>
+    <ul>
+      <li>Energia = ATP;</li>
+      <li>Gasto justificável: escape, alimentação, reprodução;</li>
+      <li>Todo o resto: descartar a hipótese para maior chance de sobreviver → <strong>economia de energia</strong>;</li>
+      <li>Desenvolvimento do sistema S1/S2 para análises de hipóteses.</li>
+    </ul>
+
+    <h3>Córtex pré-frontal</h3>
+    <p>Na evolução humana, o córtex pré-frontal é a parte mais recente do cérebro e a que demora mais para amadurecer. Funções: atenção, julgamento, controle de impulsos, resolução de problemas, pensamento crítico, organização, automonitorização, antecipação, aprender com a experiência, sentir e expressar emoções e empatia (Fonte: IBN).</p>
+
+    <h3>Inteligência individual X inteligência colaborativa</h3>
+    <p>Enquanto um QI individual pode chegar a 160, foi a inteligência colaborativa que "nos trouxe até aqui" (dos 6.000 ancestrais de 70 mil anos atrás até hoje). Contexto e introdução com base em FUTUYMA, Douglas J. <em>Biologia Evolutiva</em> (1993). Palavras-chave: alimentação, evolução, comunicação, inteligência colaborativa.</p>
+  </section>
+
+  <section id="planejamento">
+    <h2>Ferramentas de Planejamento</h2>
+    <div class="key">
+      <div class="lbl">Conceito-chave · 5W2H</div>
+      <p><strong>5W2H</strong> é uma ferramenta de plano de ação que estrutura tarefas respondendo a sete perguntas: What (o quê – objetivo/meta), Why (porquê – motivo/benefício), Where (onde – local/departamento), When (quando – data/cronograma), Who (quem – responsável/equipe), How (como – atividades/processo) e How much (quanto – custo ou quantidade). Garante clareza e responsabilização em qualquer ação planejada.</p>
+    </div>
+    <div class="cards">
+      <div class="card"><h4>What</h4><p>O quê — objetivo / meta.</p></div>
+      <div class="card"><h4>Why</h4><p>Porquê — motivo / benefício.</p></div>
+      <div class="card"><h4>Where</h4><p>Onde — local / departamento.</p></div>
+      <div class="card"><h4>When</h4><p>Quando — data / cronograma.</p></div>
+      <div class="card"><h4>Who</h4><p>Quem — responsável / equipe.</p></div>
+      <div class="card"><h4>How</h4><p>Como — atividades / processo.</p></div>
+      <div class="card"><h4>How much</h4><p>Quanto — custo ou quantidade.</p></div>
+    </div>
+    <p>Exemplos de plano de ação: criação de website (aumentar geração de oportunidades comerciais, R$ 4.500,00); capacitação da equipe de atendimento (reduzir reclamações, R$ 9.000,00); implantação de sistema de gestão orçamentária (melhorar previsibilidade de resultados, R$ 399,00/mês).</p>
+  </section>
+
+  <section id="mbti">
+    <h2>Composição dos Times: MBTI</h2>
+    <div class="key">
+      <div class="lbl">Conceito-chave · MBTI®</div>
+      <p><strong>MBTI® (Myers-Briggs Type Indicator)</strong> é o instrumento de avaliação de preferências comportamentais/estilos cognitivos mais usado no mundo. Combina quatro dimensões dicotômicas — Extroversão/Introversão, Sensação/Intuição, Pensamento/Sentimento, Julgamento/Percepção — gerando 16 tipos de personalidade. Aplica-se em orientação de carreira, formação de equipes e desenvolvimento de lideranças. Versão online: 16personalities.com.</p>
+    </div>
+
+    <h3>As quatro dimensões</h3>
+    <table>
+      <thead><tr><th>Dimensão</th><th>Pólos</th></tr></thead>
+      <tbody>
+        <tr><td>Como ganha energia / se relaciona</td><td>Extroversão (E) / Introversão (I)</td></tr>
+        <tr><td>Como capta informação</td><td>Sensação (S) / Intuição (N)</td></tr>
+        <tr><td>Como toma decisões</td><td>Pensamento (T) / Sentimento (F)</td></tr>
+        <tr><td>Estilo de vida / relação com o mundo</td><td>Julgamento (J) / Percepção (P)</td></tr>
+      </tbody>
+    </table>
+    <div class="cards">
+      <div class="card"><h4>Extroversão (E)</h4><p>Ganha energia na interação; expansiva e sociável; age primeiro, pensa depois.</p></div>
+      <div class="card"><h4>Introversão (I)</h4><p>Ganha energia no mundo interior das ideias; quieta e introspectiva; pensa primeiro, age depois.</p></div>
+      <div class="card"><h4>Sensação (S)</h4><p>Detalhista; vive o presente; senso comum e soluções práticas.</p></div>
+      <div class="card"><h4>Intuição (N)</h4><p>Visão abrangente; vive o futuro; imaginação e criatividade.</p></div>
+      <div class="card"><h4>Pensamento (T)</h4><p>Valoriza lógica e verdade; tende a ser crítica; decide por critérios objetivos e impessoais.</p></div>
+      <div class="card"><h4>Sentimento (F)</h4><p>Valoriza harmonia; tende a ser complacente; decide por valores e sentimentos pessoais.</p></div>
+      <div class="card"><h4>Julgamento (J)</h4><p>Vida organizada e planejada; ambiente estruturado e previsível.</p></div>
+      <div class="card"><h4>Percepção (P)</h4><p>Vida espontânea e flexível; mantém opções em aberto.</p></div>
+    </div>
+
+    <h3>Os 16 tipos (16Personalities)</h3>
+    <div class="cards">
+      <div class="card"><h4>Analistas</h4><p>Arquiteto (INTJ), Lógico (INTP), Comandante (ENTJ), Inovador (ENTP).</p></div>
+      <div class="card"><h4>Diplomatas</h4><p>Advogado (INFJ), Mediador (INFP), Protagonista (ENFJ), Ativista (ENFP).</p></div>
+      <div class="card"><h4>Sentinelas</h4><p>Logístico (ISTJ), Defensor (ISFJ), Executivo (ESTJ), Cônsul (ESFJ).</p></div>
+      <div class="card"><h4>Exploradores</h4><p>Virtuoso (ISTP), Aventureiro (ISFP), Empreendedor (ESTP), Animador (ESFP).</p></div>
+    </div>
+    <p>Apelidos: ISTJ "o inspetor" (organizadores naturais); ISFJ "o cuidador"; INTJ "o estrategista"; INFJ "o profeta"; ISTP "o especialista" ("just do it"); ISFP "o talentoso"; INTP "o lógico"; INFP "o sonhador"; ESTP "o corajoso"; ESFP "o divertido"; ENTP "o sagaz"; ENFP "o ativista"; ESTJ "o coordenador"; ESFJ "o provedor"; ENTJ "o empreendedor"; ENFJ "o mentor".</p>
+  </section>
+
+  <section id="perfis">
+    <h2>Perfis Profissionais (Eduardo Ferraz)</h2>
+    <p>Fonte: <em>Gente de resultados</em> – Eduardo Ferraz. Perfis: <strong>Técnico, Acelerado, Sociável e Misto</strong>.</p>
+
+    <h3>Técnico</h3>
+    <p>Introvertido, organizado, fala pouco, ouve mais; performa melhor com processos, números e análises. Tímido, prefere regras claras e remuneração fixa, disciplinado, não gosta de mudanças, gosta de rotina, faz uma coisa de cada vez, previsível.</p>
+    <table><thead><tr><th>Pontos fortes</th><th>Pontos fracos</th></tr></thead><tbody>
+      <tr><td>Cumpridor de ordens</td><td>Pode ter pouca iniciativa</td></tr>
+      <tr><td>Organizado</td><td>Pode ser inflexível</td></tr>
+      <tr><td>Cuidadoso</td><td>Pode demonstrar insegurança</td></tr>
+      <tr><td>Estável</td><td>Pode ser lento</td></tr>
+    </tbody></table>
+
+    <h3>Acelerado</h3>
+    <p>Impaciente, agitado, direto e determinado, trabalha bem sob pressão, tem dificuldade com pessoas lentas, dinâmico e enérgico. Gosta de autonomia e salários variáveis (comissionados), ansioso, ambicioso, trabalha bem por empreitada, aguerrido, impulsivo, franco.</p>
+    <table><thead><tr><th>Pontos fortes</th><th>Pontos fracos</th></tr></thead><tbody>
+      <tr><td>Competitivo</td><td>Pode intimidar os colegas</td></tr>
+      <tr><td>Prático</td><td>Pode ser precipitado</td></tr>
+      <tr><td>Foco no resultado</td><td>Pode gerar conflitos</td></tr>
+      <tr><td>Multitarefas</td><td>Pode ser instável</td></tr>
+    </tbody></table>
+
+    <h3>Sociável</h3>
+    <p>Extrovertido, caloroso, animado, trabalha bem com público e em equipes. Bem-humorado, intuitivo, bem relacionado, simpático, flexível, vaidoso, mediador e bom de papo.</p>
+    <table><thead><tr><th>Pontos fortes</th><th>Pontos fracos</th></tr></thead><tbody>
+      <tr><td>Animado</td><td>Pode falar demais</td></tr>
+      <tr><td>Agregador</td><td>Pode ser superficial</td></tr>
+      <tr><td>Energiza o ambiente</td><td>Pode desconcentrar os colegas</td></tr>
+      <tr><td>Caloroso</td><td>Pode ter dificuldade de dizer não</td></tr>
+    </tbody></table>
+
+    <h3>Misto</h3>
+    <p>Cerca de 70% dos indivíduos têm 1 dos 3 perfis predominante; 30% apresentam equilíbrio entre os três. A recomendação é aproveitar os pontos fortes e corrigir os fracos.</p>
+    <div class="exam">
+      <div class="lbl">Atenção — Prova</div>
+      <p>Guarde a proporção: <strong>70% das pessoas têm um perfil predominante e 30% são mistas</strong> (equilíbrio entre os três perfis). Esse dado se repete tanto nos perfis de Ferraz quanto nos estilos de liderança do "Gente de Resultado".</p>
+    </div>
+  </section>
+
+  <section id="swot">
+    <h2>SWOT Pessoal/Empresarial e Plano de Ação</h2>
+    <div class="key">
+      <div class="lbl">Conceito-chave</div>
+      <p>A <strong>análise SWOT</strong> (Forças, Fraquezas, Oportunidades e Ameaças) aplicada em nível pessoal ou empresarial mapeia fatores internos (forças/fraquezas) e externos (oportunidades/ameaças). Deve ser convertida em plano de ação respondendo: o que será feito para potencializar as forças, neutralizar/atenuar as fraquezas, aproveitar as oportunidades e lidar com as ameaças — além de definir quando e como fará.</p>
+    </div>
+    <div class="quad">
+      <div class="cell qp"><h4>Forças (interno)</h4><p>O que será feito para potencializar.</p></div>
+      <div class="cell qn"><h4>Fraquezas (interno)</h4><p>O que será feito para neutralizar/atenuar.</p></div>
+      <div class="cell qa"><h4>Oportunidades (externo)</h4><p>O que será feito para aproveitar.</p></div>
+      <div class="cell qb"><h4>Ameaças (externo)</h4><p>O que será feito para lidar com elas.</p></div>
+    </div>
+  </section>
+
+  <section id="toxico">
+    <h2>Storytelling e Tipos de Gestor Tóxico</h2>
+    <p>Histórias e narrativas ilustram estilos de gestão a evitar:</p>
+    <div class="cards">
+      <div class="card"><h4>Gestor Pitbull</h4><p>Usa intimidação e pressão; expõe publicamente o mau desempenho ou colaboradores de quem não gosta; a equipe sente medo, não respeito; age por impulsividade.</p></div>
+      <div class="card"><h4>Gestor Binóculo</h4><p>Foco excessivo em detalhes; quer tudo do jeito dele, ignorando o talento da equipe; microgestão desmotivadora.</p></div>
+      <div class="card"><h4>Gestor Numerólogo</h4><p>Refugia-se em relatórios numéricos/financeiros enquanto o time fica à deriva; inseguro em suas habilidades de liderança.</p></div>
+      <div class="card"><h4>Gestor Workaholic</h4><p>Envia e-mail às 3h esperando resposta imediata; distribui tarefas de última hora; foca só no próximo trimestre, ignorando o presente.</p></div>
+      <div class="card"><h4>Gestor Divisão</h4><p>Lema "dividir e conquistar"; promove por afinidade, não por desempenho; usa relações de confiança para fofoca.</p></div>
+    </div>
+  </section>
+
+  <section id="roda">
+    <h2>Roda da Vida, O Plano e Virada de Chave</h2>
+    <p>Ferramentas de autodesenvolvimento aplicadas ao longo da disciplina: <strong>Roda da Vida</strong>, "O Plano" e "Virada de Chave".</p>
+  </section>
+
+  <section id="intro-lideranca">
+    <h2>Introdução à Liderança</h2>
+    <div class="exam">
+      <div class="lbl">Atenção — Prova</div>
+      <p><strong>NÃO INVERTA A ORDEM!</strong> Processos não funcionam sem pessoas motivadas, pessoas não se motivarão em uma cultura ruim, e não há cultura boa sem liderança forte. A ordem das ações é: <strong>LIDERANÇA → CULTURA → PESSOAS → PROCESSOS.</strong></p>
+    </div>
+    <div class="chain">
+      <span class="node">Liderança</span><span class="arr">→</span>
+      <span class="node">Cultura</span><span class="arr">→</span>
+      <span class="node">Pessoas</span><span class="arr">→</span>
+      <span class="node">Processos</span>
+    </div>
+    <p>A liderança é estudada há muito tempo, por isso existem diversas definições e teorias. Há liderança em diversos contextos: empresas, instituições, política, religião, esportes, comunidades e grupos, ainda que pequenos.</p>
+    <div class="exam">
+      <div class="lbl">Atenção — Prova</div>
+      <p>Antes da <strong>EXCELÊNCIA</strong>, vem a <strong>REPETIÇÃO</strong> — Princípio da <strong>VIRTUDE de Aristóteles</strong>.</p>
+    </div>
+
+    <h3>Caso: Márcio Henrique Fernandes (Elektro)</h3>
+    <p>O líder mais admirado do Brasil, presidente da Elektro aos 36 anos em 2011, fez das pessoas sua principal bandeira. Frases-síntese: "Felicidade dá lucro" (provocação: CHO – Chief Happiness Officer) e "Deixei meu ego de lado e abracei as pessoas. Quando há confiança, o profissional veste a camisa." Implantou a "gestão do nós": "Quando colocamos as pessoas nas funções que elas querem, elas se comprometem." Comandou a fusão com a Iberdrola em 100 dias.</p>
+    <div class="statgrid">
+      <div class="stat"><div class="num">R$ 93 mi</div><div class="cap">Economia</div></div>
+      <div class="stat"><div class="num">-22%</div><div class="cap">Redução de custos</div></div>
+      <div class="stat"><div class="num">+8%</div><div class="cap">Qualidade do serviço</div></div>
+      <div class="stat"><div class="num">+10%</div><div class="cap">Rede de cobertura</div></div>
+    </div>
+
+    <h3>Conceito de liderança</h3>
+    <div class="key">
+      <div class="lbl">Conceito-chave</div>
+      <p><strong>Liderança</strong> é um fenômeno observável em grupos sociais que trata da influência interpessoal, exercida por meio da comunicação, presente em situações nas quais há busca por objetivos específicos. Distingue-se da gerência: gerenciar é alcançar resultados obtendo, distribuindo, utilizando e controlando recursos (pessoas, informações, equipamentos, conhecimento); liderar tem visão mais ampla, com foco nas pessoas e no estímulo à motivação para conquistar comprometimento e alto desempenho.</p>
+    </div>
+    <p>Ressalta-se a importância da <strong>CNV (Comunicação Não Violenta)</strong>. Liderar e gerenciar são competências exigidas a todos os gestores, independentemente da posição. O desafio é saber quanto, como e quando cada posição e situação exigem de cada competência.</p>
+  </section>
+
+  <section id="evolucao">
+    <h2>Evolução das Teorias de Liderança</h2>
+    <div class="tl">
+      <div class="tlitem"><div class="yr">1920</div><h4>Teoria dos traços</h4></div>
+      <div class="tlitem"><div class="yr">1940</div><h4>Teorias comportamentais</h4></div>
+      <div class="tlitem"><div class="yr">1970</div><h4>Teorias contingenciais</h4></div>
+      <div class="tlitem"><div class="yr">1990</div><h4>Teorias contemporâneas</h4></div>
+    </div>
+
+    <h3>Teoria dos traços (1920)</h3>
+    <div class="key">
+      <div class="lbl">Conceito-chave</div>
+      <p>A <strong>Teoria dos traços</strong> parte do pressuposto de que a liderança é fruto de características pessoais inatas, buscando identificar traços que diferenciam líderes de não líderes (físicos, intelectuais, sociais e de personalidade). Dos traços analisados, seis grupos centrais se destacam: impulso, motivação para liderança, honestidade e integridade, autoconfiança, capacidade cognitiva e conhecimento sobre o negócio.</p>
+    </div>
+
+    <h3>Teorias comportamentais (1940)</h3>
+    <div class="key">
+      <div class="lbl">Conceito-chave</div>
+      <p>As <strong>Teorias comportamentais</strong> diferem da Teoria dos traços por defenderem que a liderança pode ser aprendida e desenvolvida. Identificam duas dimensões de atuação: o líder orientado para pessoas (foco nas relações pessoais) e o líder orientado para tarefa (foco na execução do trabalho).</p>
+    </div>
+    <p>Nos anos 1960, pesquisadores escandinavos acrescentaram um terceiro olhar: o líder eficaz também deve ser orientado ao <strong>desenvolvimento</strong>, valorizando a experimentação, a busca por novas ideias e a capacidade de criar e implementar mudanças.</p>
+
+    <h3>Teoria dos estilos (Engstrom e Mackenzie)</h3>
+    <div class="key">
+      <div class="lbl">Conceito-chave</div>
+      <p>A <strong>Teoria dos estilos (Engstrom e Mackenzie)</strong> classifica a liderança em três estilos básicos: <strong>autocrática</strong> (centrada na tarefa/no líder), <strong>democrática</strong> (participativa, centrada nas pessoas) e <strong>liberal/laissez-faire</strong> (autonomia total). Desses derivam estilos como carismático, participativo, transformacional, servidor, pelo exemplo e situacional.</p>
+    </div>
+
+    <h4>Liderança autocrática</h4>
+    <p>Origem: <em>autos</em> ("por si próprio") + <em>kratos</em> ("poder/governo"). Autoritarismo com controle absoluto; estilo mais tradicional; o líder decide tudo sozinho, sem espaço para opiniões divergentes.</p>
+    <div class="quad">
+      <div class="cell qp"><h4>Vantagens</h4><ul><li>Mais controle sobre tarefas</li><li>Responsabilidades bem definidas</li><li>Facilidade na avaliação de desempenho</li><li>Agilidade na tomada de decisões</li><li>Não exige capacidade de decisão dos liderados</li><li>Melhor opção para equipes com pouca experiência</li></ul></div>
+      <div class="cell qn"><h4>Desvantagens</h4><ul><li>Centralização excessiva no líder</li><li>Decisões sujeitas a vieses</li><li>Processos travam sem o líder</li><li>Cada vez menos aceito pelas novas gerações</li><li>Equipe se sente desvalorizada</li><li>Dificulta inovação; gera desmotivação</li></ul></div>
+    </div>
+    <p>O líder é dominador e temido, oprimindo os liderados e gerando ambiente de cobrança excessiva.</p>
+
+    <h4>Liderança democrática</h4>
+    <p>Origem: <em>demos</em> ("do povo") + <em>kratos</em>. Estilo participativo; os liderados expressam opiniões, as decisões ocorrem em conjunto, com respeito mútuo e trocas.</p>
+    <div class="quad">
+      <div class="cell qp"><h4>Vantagens</h4><ul><li>Liderados mais valorizados</li><li>Mais motivação e engajamento</li><li>Melhor interação líder-liderado</li><li>Ambiente acolhedor</li><li>Maior empatia, produtividade, riqueza nas decisões e inovação</li></ul></div>
+      <div class="cell qn"><h4>Desvantagens</h4><ul><li>Processo decisório mais lento</li><li>Pontos de vista conflitantes</li><li>Liderados questionam mais</li><li>Redução de sigilo</li><li>Risco de desarmonia se vozes forem preteridas</li></ul></div>
+    </div>
+    <p>A responsabilidade final pela orientação do time ainda é da liderança.</p>
+
+    <h4>Liderança liberal</h4>
+    <p>Também chamada de <em>laissez-faire</em> ("deixe estar, deixar fazer"). O líder concede autonomia total, com liberdade plena para decisões individuais, grande delegação e ausência marcante de influência direta.</p>
+    <div class="quad">
+      <div class="cell qp"><h4>Vantagens</h4><ul><li>Maior autonomia</li><li>Menos pressão</li><li>Transmite confiança</li><li>Ambiente leve</li><li>Desenvolve iniciativa e proatividade</li><li>Permite que cada um foque no que domina</li></ul></div>
+      <div class="cell qn"><h4>Desvantagens</h4><ul><li>Problemática quando a equipe não é capacitada</li><li>Exige organização individual</li><li>Pode gerar sensação de abandono</li><li>Pode enfraquecer a imagem do líder</li><li>Descentralização pode gerar conflitos estratégicos</li></ul></div>
+    </div>
+
+    <h3>Teorias contingenciais (1970)</h3>
+    <p>Em vez de focar apenas na figura do líder, baseiam-se em três pilares: <strong>líder, liderados e situação</strong>.</p>
+    <div class="hub">
+      <div class="hubcenter">Contingência</div>
+      <div class="cards" style="margin:0">
+        <div class="card"><h4>Líder</h4><p>Comportamento e estilo do líder.</p></div>
+        <div class="card"><h4>Liderados</h4><p>Perfil, maturidade e capacidade da equipe.</p></div>
+        <div class="card"><h4>Situação</h4><p>Contexto em que a liderança é exercida.</p></div>
+      </div>
+    </div>
+
+    <h4>Modelo de Fiedler</h4>
+    <div class="key">
+      <div class="lbl">Conceito-chave</div>
+      <p>O <strong>Modelo de Fiedler</strong> sustenta que líderes têm diferentes tipos de comportamento e que a confiança, credibilidade e respeito dependem da relação entre líder e liderados. O desempenho da equipe é definido pelo "fit" (encaixe/ajuste) entre o estilo do líder e o dos liderados; os procedimentos de tarefa devem ser definidos por sua estrutura. O "fit" pode ser cultural (adaptação a valores e cultura da empresa) ou técnico (competência profissional).</p>
+    </div>
+
+    <h4>Modelo de Hersey e Blanchard (Teoria situacional)</h4>
+    <div class="key">
+      <div class="lbl">Conceito-chave</div>
+      <p>A <strong>Teoria situacional de Hersey e Blanchard</strong> propõe que a forma de liderar deve ser escolhida em função do contexto, considerando duas variáveis: como o líder orienta as tarefas/qual relação mantém com os liderados; e o grau de maturidade dos subordinados no desempenho das tarefas. Não existe estilo universalmente superior — o líder ajusta seu estilo à maturidade profissional de cada liderado.</p>
+    </div>
+    <div class="exam">
+      <div class="lbl">Atenção — Prova</div>
+      <p>O <strong>"grau de maturidade" NÃO se relaciona com a idade</strong>, apenas com o domínio do liderado sobre suas tarefas. Maturidade profissional = capacidade de realizar tarefas com maior ou menor autonomia, exigindo conhecimento, responsabilidade e engajamento.</p>
+    </div>
+
+    <h4>Níveis de maturidade (vontade × capacidade)</h4>
+    <table>
+      <thead><tr><th>Nível</th><th>Vontade × Capacidade</th><th>Descrição</th></tr></thead>
+      <tbody>
+        <tr><td><strong>M1</strong></td><td>Baixa vontade / baixa capacidade</td><td>Não têm conhecimento/habilidades suficientes para a tarefa autônoma; podem ser novos na função e não se sentir aptos nem motivados.</td></tr>
+        <tr><td><strong>M2</strong></td><td>Alta vontade / baixa capacidade</td><td>Têm certa experiência, habilidade e motivação, mas ainda requerem suporte.</td></tr>
+        <tr><td><strong>M3</strong></td><td>Baixa vontade / alta capacidade</td><td>Têm habilidades para a autonomia, mas não estão motivados a assumir responsabilidade.</td></tr>
+        <tr><td><strong>M4</strong></td><td>Alta vontade / alta capacidade</td><td>Habilitados e motivados para atuar de forma autônoma.</td></tr>
+      </tbody>
+    </table>
+
+    <h4>Estilos de liderança situacional (E1–E4)</h4>
+    <div class="stepper">
+      <div class="step"><div class="stepnum">E1</div><div class="stepbody"><h4>Direção (determinar) — M1</h4><p>Adequado à maturidade baixa; estilo diretivo, com orientação e supervisão clara, definindo o quê, como, quando e onde fazer.</p></div></div>
+      <div class="step"><div class="stepnum">E2</div><div class="stepbody"><h4>Orientação / Treinamento / Persuadir — M2</h4><p>Adequado à maturidade baixa e moderada; comportamento diretivo, mas com apoio e motivação.</p></div></div>
+      <div class="step"><div class="stepnum">E3</div><div class="stepbody"><h4>Apoio / Compartilhar — M3</h4><p>Adequado à maturidade moderada e alta; dá apoio, escuta, dialoga e envolve nas decisões.</p></div></div>
+      <div class="step"><div class="stepnum">E4</div><div class="stepbody"><h4>Autonomia / Delegação — M4</h4><p>Adequado à maturidade alta; pouca direção e apoio; a liderança identifica o problema, mas a execução fica com os indivíduos.</p></div></div>
+    </div>
+
+    <h3>Teorias contemporâneas (1990)</h3>
+    <h4>Perfis de liderança segundo Goleman (2000)</h4>
+    <p>Coercitivo/autoritário, orientador, afiliado, democrático, exemplar e formativo.</p>
+
+    <h4>Novos modelos de liderança</h4>
+    <div class="key">
+      <div class="lbl">Liderança carismática</div>
+      <p>A <strong>liderança carismática</strong> é exercida por um líder admirado que engaja, inspira e motiva pares e subordinados. Caracteriza-se por comunicação assertiva, escuta ativa, facilidade de influência e persuasão, transmissão de confiança, foco e dedicação às pessoas, e postura que cativa a equipe e gera conexão.</p>
+    </div>
+    <div class="quad">
+      <div class="cell qp"><h4>Benefícios</h4><ul><li>Conquista fidelidade e pertencimento</li><li>Maior engajamento</li><li>Menos conflitos ou resolução mais rápida</li><li>Facilita identificar pontos de melhoria</li></ul></div>
+      <div class="cell qn"><h4>Riscos</h4><ul><li>Pode desencadear narcisismo</li><li>Solapar competências técnicas</li><li>Dificuldade em feedbacks corretivos</li><li>Imagem amistosa pode gerar acomodação</li></ul></div>
+    </div>
+    <p><strong>Exemplo:</strong> Steve Jobs (Apple).</p>
+
+    <div class="key">
+      <div class="lbl">Liderança transformacional</div>
+      <p>A <strong>liderança transformacional</strong> inspira mudanças nos liderados a partir de uma visão clara e compartilhada, liderança pelo exemplo, incentivo à inovação e alinhamento das necessidades individuais ao propósito maior da equipe.</p>
+    </div>
+    <div class="quad">
+      <div class="cell qp"><h4>Benefícios</h4><ul><li>Facilita mudanças e adaptações</li><li>Equilibra curto e longo prazo</li><li>Desenvolve senso de equipe</li><li>Motiva cada liderado a buscar seus objetivos</li></ul></div>
+      <div class="cell qn"><h4>Riscos</h4><ul><li>Foco em transformações não positivas</li><li>Desconexão da realidade pelo excesso de energia na mudança</li><li>Otimismo excessivo levando a metas inatingíveis</li><li>Liderar pelo exemplo pode virar autopromoção</li></ul></div>
+    </div>
+    <p><strong>Exemplos:</strong> Jeff Bezos (Amazon) e Mark Zuckerberg (Facebook).</p>
+
+    <div class="key">
+      <div class="lbl">Liderança transacional</div>
+      <p>A <strong>liderança transacional</strong> (ou gerencial) parte do princípio de que as pessoas precisam de incentivo e supervisão. Baseia-se em transações cujo resultado são recompensas ou penalidades, exigindo estruturas, funções e tarefas bem delimitadas.</p>
+    </div>
+    <div class="quad">
+      <div class="cell qp"><h4>Benefícios</h4><ul><li>Manutenção de estrutura e regras</li><li>Clareza sobre objetivos, expectativas, responsabilidades, recompensas e consequências</li><li>Ideal para resultados de curto prazo</li></ul></div>
+      <div class="cell qn"><h4>Riscos</h4><ul><li>Falta de flexibilidade</li><li>Pouco espaço para inovação</li><li>Relação distante baseada só em metas</li><li>Rigidez pode virar tirania</li><li>Risco de alta rotatividade e baixo engajamento</li></ul></div>
+    </div>
+    <p>Não costuma ser a melhor alternativa para empresas voltadas à inovação.</p>
+  </section>
+
+  <section id="estilos-gr">
+    <h2>Estilos de Liderança (Gente de Resultado)</h2>
+    <p>Fonte: gentederesultado.com. Estilos: <strong>Protetor, Trator, Centralizador, Empreendedor e Misto</strong>.</p>
+
+    <h3>Protetor</h3>
+    <p>Vocação para ensinar, gentil, acolhedor, bom ouvinte, evita conflitos e críticas, paternalista, tolerante, anseia por aprovação. Pensamentos: "preciso fazer as pessoas se sentirem bem"; "melhor ceder para evitar discussões"; "custa-me dizer não". <strong>Ajustes:</strong> ser mais exigente com os menos comprometidos, não passar a mensagem de que não se importa com resultados, retirar quem abusa do estilo, ser mais decidido.</p>
+    <table><thead><tr><th>Pontos fortes</th><th>Pontos fracos</th></tr></thead><tbody>
+      <tr><td>Cria ambiente acolhedor</td><td>Pode parecer conformado</td></tr>
+      <tr><td>É respeitoso</td><td>Pode ser muito complacente</td></tr>
+      <tr><td>Gera pouca rotatividade</td><td>Pode gerar acomodação</td></tr>
+      <tr><td>É participativo</td><td>Pode parecer indeciso</td></tr>
+    </tbody></table>
+
+    <h3>Trator</h3>
+    <p>Prefere pessoas independentes, franco, dá pouca importância à opinião alheia, crítico, decidido, impaciente, focado em resultados, pressionador, exigente, temperamento instável. Pensamentos: "as pessoas precisam cumprir suas obrigações"; "é melhor ser temido do que amado"; "a pressão gera bons resultados". <strong>Ajustes:</strong> elogiar quem merece, não parecer indiferente às pessoas, usar erros como treinamento sem exposição, ser mais gentil.</p>
+    <table><thead><tr><th>Pontos fortes</th><th>Pontos fracos</th></tr></thead><tbody>
+      <tr><td>Cria ambiente competitivo</td><td>Pode gerar instabilidade</td></tr>
+      <tr><td>Gosta de comandar</td><td>Pode gerar alta rotatividade</td></tr>
+      <tr><td>Incansável na busca de resultados</td><td>Pode ser grosseiro</td></tr>
+      <tr><td>É transparente</td><td>Pode gerar medo</td></tr>
+    </tbody></table>
+
+    <h3>Centralizador</h3>
+    <p>Organizado, sistemático e conservador. Dá bons resultados se a equipe se adaptar, porém o microgerenciamento pode solapar o desenvolvimento de competências. Acumula funções, reservado, desconfiado, não delega, gosta de ambientes sóbrios, temperamento estável. Pensamentos: "se quer bem feito, faça você"; "demoro para confiar"; "quero as coisas do meu jeito". <strong>Ajustes:</strong> delegar e confiar mais.</p>
+    <table><thead><tr><th>Pontos fortes</th><th>Pontos fracos</th></tr></thead><tbody>
+      <tr><td>Cria ambiente previsível</td><td>Pode ser muito desconfiado</td></tr>
+      <tr><td>Mão na massa</td><td>Pode travar o dia a dia</td></tr>
+      <tr><td>Regras claras</td><td>Pode criar burocracia em excesso</td></tr>
+      <tr><td>É estável</td><td>Pode gerar acomodação na equipe</td></tr>
+    </tbody></table>
+
+    <h3>Empreendedor</h3>
+    <p>Procura oportunidades e parceiros dedicados, criativo, delega bem, ótimo network, ousado, percepção apurada, evita rotina, convincente, antenado. Pensamentos: "quem não arrisca..."; "o mundo é dos ousados"; "rotina é coisa de gente acomodada". <strong>Ajustes:</strong> interagir mais, evitar decisões por impulso (S1), evitar riscos desnecessários, ser mais participativo.</p>
+    <table><thead><tr><th>Pontos fortes</th><th>Pontos fracos</th></tr></thead><tbody>
+      <tr><td>Dinâmico</td><td>Pode parecer superficial</td></tr>
+      <tr><td>Informado</td><td>Pode ser precipitado</td></tr>
+      <tr><td>Estrategista</td><td>Pode correr riscos exagerados</td></tr>
+      <tr><td>Ousado</td><td>Pode ser muito ausente</td></tr>
+    </tbody></table>
+
+    <h3>Misto</h3>
+    <p>30% das pessoas possuem mescla de 2 ou 3 estilos, apresentando características positivas e negativas de cada. É vantajoso pelo equilíbrio (evita extremos). Reflexão: quais são as 5 características mais marcantes do seu estilo misto de liderança?</p>
+    <p>Conclusão: diferentes pessoas e situações requerem diferentes abordagens — é sábio fazer uso das possibilidades.</p>
+  </section>
+
+  <section id="competencias">
+    <h2>Competências e o Desafio Diário da Liderança</h2>
+    <div class="key">
+      <div class="lbl">Conceito-chave · CHA/CHAV/CHAMA</div>
+      <p><strong>Competência (CHA/CHAV)</strong> é um ativo intangível formado pelo somatório de Conhecimento (saber) + Habilidade (saber fazer) + Atitude (saber fazer acontecer) + Valores. Somando Motivação + Amor, forma-se a sigla <strong>CHAMA</strong>. É esse conjunto que diferencia as pessoas.</p>
+    </div>
+    <div class="exam">
+      <div class="lbl">Atenção — Prova</div>
+      <p><strong>LIDERANÇA É UMA COMPETÊNCIA QUE PODE E DEVE SER DESENVOLVIDA.</strong> Qualquer pessoa pode liderar pessoas perfeitas, mas essa realidade não existe — daí o desafio diário de desenvolver competências.</p>
+    </div>
+
+    <h3>Soft skills (competências socioemocionais) — mais buscadas</h3>
+    <div class="statgrid">
+      <div class="stat"><div class="num">65%</div><div class="cap">Proatividade</div></div>
+      <div class="stat"><div class="num">64%</div><div class="cap">Resolução de Problemas</div></div>
+      <div class="stat"><div class="num">59%</div><div class="cap">Relacionamento Interpessoal</div></div>
+      <div class="stat"><div class="num">57%</div><div class="cap">Resiliência</div></div>
+      <div class="stat"><div class="num">57%</div><div class="cap">Flexibilidade</div></div>
+      <div class="stat"><div class="num">56%</div><div class="cap">Trabalho em Equipe</div></div>
+      <div class="stat"><div class="num">56%</div><div class="cap">Empatia</div></div>
+    </div>
+    <p style="font-size:14px;color:var(--text-tertiary)">Guia de Tendências de RH – Catho.</p>
+
+    <h3>Hard skills (competências técnicas) — mais buscadas</h3>
+    <div class="statgrid">
+      <div class="stat"><div class="num">65%</div><div class="cap">Raciocínio Lógico</div></div>
+      <div class="stat"><div class="num">50%</div><div class="cap">Noções de TI</div></div>
+      <div class="stat"><div class="num">48%</div><div class="cap">Gestão de Projetos</div></div>
+      <div class="stat"><div class="num">40%</div><div class="cap">Idioma Estrangeiro</div></div>
+    </div>
+
+    <h3>Tendências de RH/liderança</h3>
+    <div class="statgrid">
+      <div class="stat"><div class="num">57,98%</div><div class="cap">Segurança e Bem-estar</div></div>
+      <div class="stat"><div class="num">55,87%</div><div class="cap">Avaliação de Desempenho</div></div>
+      <div class="stat"><div class="num">55,75%</div><div class="cap">Formação de Líderes</div></div>
+      <div class="stat"><div class="num">54,11%</div><div class="cap">Cultura Organizacional</div></div>
+      <div class="stat"><div class="num">54,11%</div><div class="cap">Experiência do Colaborador</div></div>
+      <div class="stat"><div class="num">51,41%</div><div class="cap">Retenção de Talentos</div></div>
+      <div class="stat"><div class="num">49,77%</div><div class="cap">Experiência do Candidato</div></div>
+    </div>
+  </section>
+
+  <section id="pipeline">
+    <h2>Pipeline de Liderança (Ram Charan)</h2>
+    <div class="key">
+      <div class="lbl">Conceito-chave</div>
+      <p>O <strong>Pipeline de Liderança</strong> é um modelo baseado em etapas/transições, desenvolvido por Ram Charan, para orientar o desenvolvimento de líderes. Cada transição exige mudança de habilidades, gestão do tempo e valores. Ram Charan: "Todo mundo tem algum talento – apenas é preciso descobri-lo, aplicá-lo na tarefa certa e amplificá-lo."</p>
+    </div>
+    <p>Alerta sobre liderança humanizada: não confundir ser "bonzinho" (ser legal, deixar correr solto, passar a mão na cabeça) com liderança humanizada real (empatia, acessibilidade e inclusão, confiança, comunicação assertiva, bem-estar, foco em resultados, liderança pelo exemplo, autenticidade).</p>
+
+    <h3>As 6 transições</h3>
+    <div class="stepper">
+      <div class="step"><div class="stepnum">1</div><div class="stepbody"><h4>Gerenciar a si mesmo → gerenciar outros</h4><p>Ex.: Coordenador de curso.</p></div></div>
+      <div class="step"><div class="stepnum">2</div><div class="stepbody"><h4>Gerenciar outros → gerenciar gerentes</h4><p>Coordenador acadêmico.</p></div></div>
+      <div class="step"><div class="stepnum">3</div><div class="stepbody"><h4>Gerenciar gerentes → gerenciar uma função</h4><p>Diretor acadêmico.</p></div></div>
+      <div class="step"><div class="stepnum">4</div><div class="stepbody"><h4>Gerente operacional → gerente de negócios</h4><p>Diretor de unidade.</p></div></div>
+      <div class="step"><div class="stepnum">5</div><div class="stepbody"><h4>Gerente de negócios → gerente de grupo</h4><p>Diretor regional.</p></div></div>
+      <div class="step"><div class="stepnum">6</div><div class="stepbody"><h4>Gerente de grupo → administrador de empresa</h4><p>CEO.</p></div></div>
+    </div>
+
+    <h4>1ª passagem – Gerenciar a si mesmo para gerenciar outros</h4>
+    <p>Primeira transição: o colaborador assume seu primeiro cargo de gestão. É a mudança da execução para a gestão — de "fazer o trabalho" para "fazer o trabalho ser feito por outros". Exige aprender a planejar, delegar, motivar, treinar, monitorar e mensurar. Costuma haver resistência, sobretudo de profissionais que se julgam mais capacitados. <strong>Desafios:</strong> autoconfiança; ser percebido/aceito como líder; contornar o medo de errar; comunicar-se com diferentes pessoas; dar feedbacks eficazes; desenvolver pessoas; hierarquizar prioridades; saber quando e como delegar; cobrar e responder a cobranças; gerir expectativas.</p>
+    <div class="exam">
+      <div class="lbl">Atenção — Prova</div>
+      <p>Um dos <strong>maiores problemas da primeira transição</strong> é não vir acompanhada da necessária <strong>mudança de comportamentos e valores</strong>. Empresas que promovem só pelo conhecimento técnico, sem habilidades de liderança, prejudicam todo o pipeline.</p>
+    </div>
+
+    <h4>2ª passagem – Gerenciar outros para gerenciar gerentes</h4>
+    <p>Papel exclusivo de gestão: abandonam-se as funções individuais, restando apenas atribuições de liderança. O líder desenvolve capacidade de gerenciar outros líderes (que estão na 1ª transição): seleciona candidatos com perfil, apoia a transição de novos líderes, atribui trabalho gerencial, orienta, acompanha o progresso e capacita. Demanda habilidades de coaching e foco em questões estratégicas. Empresas que promovem sem a transição 1 arriscam ter pessoas que não valorizem o trabalho de gestão.</p>
+
+    <h4>3ª passagem – Gerenciar gerentes para gerenciar uma função</h4>
+    <p>Requer maturidade elevada: desenvolvimento do líder "funcional", em que a gestão de pessoas dá lugar à responsabilidade por uma função. Exige conhecimento aprofundado da área, visão estratégica, decisões voltadas aos macro-objetivos, alinhamento com líderes de outras áreas, soft skills (boa comunicação) e capacidade de análises preditivas. O líder pode se tornar responsável por grandes áreas (comercial, finanças, RH).</p>
+
+    <h4>4ª passagem – Gerente operacional a gerente de negócios</h4>
+    <p>Provavelmente a mais complexa, mas também a mais recompensadora. Dá autonomia para gerenciar negócios, integrar áreas e coordenar gestores; requer conhecimento de funções diversas. Passa-se de KPIs de uma área para métricas de negócio mais abrangentes; os resultados financeiros assumem prioridade; muda-se da execução para análises e planejamento, com mais autonomia e responsabilidade. Exige escuta ativa junto aos gerentes operacionais e soft skills bem desenvolvidas, além de abertura à diversidade.</p>
+
+    <h4>5ª passagem – Gerente de negócios a gerente de grupo</h4>
+    <p>Gestão de mais de uma empresa simultaneamente: coordenar o "grupo", satisfazendo às necessidades dos gestores de negócios sem usurpar-lhes a autoridade. Foco em resultados/lucros, habilidades interpessoais para integrar gerentes, gestão de portfólios, domínio de análise de dados e visão apurada sobre mercado e condições econômicas — perspectiva mais global. Precisa inspirar e apoiar quem se reporta a ele, pois seus objetivos dependem do sucesso dos negócios dos outros.</p>
+
+    <h4>6ª passagem – Gerente de grupo a administrador de empresa</h4>
+    <p>Sexta e última transição, topo da hierarquia: o CEO. O ideal é ter passado por todas as etapas anteriores. As habilidades anteriores importam, mas não bastam — os valores pessoais são decisivos. Requer visão estratégica de longo prazo, foco em inovação, perspectiva global, análise de variáveis de macroambiente (sociais, políticas, legais e tecnológicas), atualização permanente e visão da organização como um todo. Muitas vezes exige mudanças no estilo de vida, pois o líder personifica a marca.</p>
+  </section>
+
+  <section id="ie">
+    <h2>Inteligência Emocional e Competências do Líder Eficaz</h2>
+    <div class="key">
+      <div class="lbl">Conceito-chave</div>
+      <p><strong>Inteligência emocional</strong> é a capacidade de identificar as próprias emoções e as das outras pessoas e, a partir desse reconhecimento, gerenciar a resposta comportamental a elas. Contrapõe a <strong>mente racional</strong> (pensamento, ponderação, reflexão) à <strong>mente emocional</strong> (impulsividade). É mensurada pelo <strong>QE (Quociente Emocional)</strong>, distinto e complementar ao QI. Uma pessoa pode ser brilhante intelectualmente e não ter aptidão emocional.</p>
+    </div>
+
+    <h3>Componentes da inteligência emocional</h3>
+    <div class="cards">
+      <div class="card"><h4>Conhecimento das próprias emoções</h4><p>O autoconhecimento leva a interpretações mais assertivas das próprias emoções.</p></div>
+      <div class="card"><h4>Controle das emoções</h4><p>Reduz o risco de comportamentos indesejáveis geradores de arrependimento.</p></div>
+      <div class="card"><h4>Automotivação</h4><p>Motor interno de direcionamento à ação.</p></div>
+      <div class="card"><h4>Empatia</h4><p>Reconhecimento das emoções das outras pessoas.</p></div>
+      <div class="card"><h4>Gestão de relacionamentos</h4><p>Capacidade de gerir relacionamentos interpessoais.</p></div>
+    </div>
+
+    <h3>Competências de um líder eficaz</h3>
+    <p>Sem consenso entre pesquisadores, mas mínimo: ética e moral; clareza e assertividade na comunicação; gestão de expectativas; capacidade de criar ambiente producente; boa exposição das expectativas de atuação; transmissão de confiança e de segurança.</p>
+    <div class="exam">
+      <div class="lbl">Atenção — Prova</div>
+      <p>A <strong>neurociência</strong> explica que criar ambientes seguros é essencial: a percepção de ameaças gera respostas imediatas de fuga ou luta, dificultando o funcionamento cerebral racional e inibindo a criatividade. Estudo de Boyatzis et al. (2012) mostra que em <strong>líderes ressonantes</strong> ativam-se empatia/conexão social e pensamento lógico, enquanto em <strong>líderes dissonantes</strong> esses circuitos (e os de emoções positivas) são inibidos — a liderança dissonante gera resultado só no curto prazo e dificulta a retenção de talentos e a cultura de criatividade.</p>
+    </div>
+  </section>
+
+  <section id="mindset">
+    <h2>Mindset</h2>
+    <div class="key">
+      <div class="lbl">Conceito-chave · Dweck (2017)</div>
+      <p>Segundo Dweck (2017), o <strong>mindset fixo</strong> considera a inteligência estática, levando ao desejo de parecer inteligente: evita desafios, desiste diante de obstáculos, vê o esforço como inútil, ignora críticas e se sente ameaçado pelo sucesso dos outros. O <strong>mindset de crescimento</strong> considera que a inteligência pode ser desenvolvida, levando ao desejo de aprender: abraça desafios, persiste, vê o esforço como caminho para a excelência, aprende com as críticas e se inspira no sucesso alheio.</p>
+    </div>
+    <div class="quad">
+      <div class="cell qn"><h4>Mindset fixo</h4><ul><li>Inteligência estática</li><li>Evita desafios</li><li>Desiste diante de obstáculos</li><li>Vê o esforço como inútil</li><li>Ignora críticas</li><li>Sente-se ameaçado pelo sucesso alheio</li></ul></div>
+      <div class="cell qp"><h4>Mindset de crescimento</h4><ul><li>Inteligência desenvolvível</li><li>Abraça desafios</li><li>Persiste</li><li>Vê o esforço como caminho para a excelência</li><li>Aprende com as críticas</li><li>Inspira-se no sucesso alheio</li></ul></div>
+    </div>
+  </section>
+
+  <section id="poder">
+    <h2>Poder e Influência</h2>
+    <div class="key">
+      <div class="lbl">Conceito-chave</div>
+      <p>No contexto da liderança, <strong>poder</strong> é a capacidade de forçar/coagir alguém a realizar uma tarefa, enquanto <strong>influência</strong> é a capacidade de motivar alguém a realizar a tarefa por vontade própria/inspiração. A influência tende a produzir engajamento mais sustentável que o poder coercitivo.</p>
+    </div>
+  </section>
+
+  <section id="ferramentas">
+    <h2>Ferramentas de Gestão de Pessoas</h2>
+
+    <h3>Delegação</h3>
+    <div class="key">
+      <div class="lbl">Conceito-chave</div>
+      <p>A <strong>delegação</strong> é uma ferramenta de gestão que consiste em um processo (adequado a liderados de maturidade M3 e M4) que exige preparação. Diferencia-se do empowerment: delegar é atribuir tarefas; empoderar é descentralizar poder.</p>
+    </div>
+    <p>Papel do líder (estratégia): identificar maturidade; direcionar prioridades; definir metas; esclarecer dúvidas; orientar sobre autoridade; fazer acompanhamento; acompanhar cronograma; estabelecer comunicação; promover celebração; propor plano de ajuste.</p>
+    <p><strong>Resultados/benefícios da delegação:</strong> libera tempo do delegante para outras atividades; desenvolve capacidades dos delegados; reforça aprendizados e treinamentos; auxilia na motivação; fomenta a proatividade. Benefícios associados: tempo, foco, capacitação, criatividade, acompanhamento, resultados, iniciativa e avaliação.</p>
+
+    <h3>Empowerment</h3>
+    <div class="key">
+      <div class="lbl">Conceito-chave</div>
+      <p><strong>Empowerment (empoderamento)</strong> é o ato de descentralizar poderes, fornecendo-os a outros níveis hierárquicos. Como estratégia de gestão, consiste em delegar poder e autonomia, dar liberdade e condições para a tomada de decisões e fomentar confiança que fortalece laços. Bem aplicado, aumenta a produtividade e a qualidade das entregas. Seus quatro pilares são: poder, motivação, desenvolvimento e liderança.</p>
+    </div>
+    <div class="cards">
+      <div class="card"><h4>Poder</h4><p>Descentralização e autonomia decisória.</p></div>
+      <div class="card"><h4>Motivação</h4><p>Estímulo interno e engajamento.</p></div>
+      <div class="card"><h4>Desenvolvimento</h4><p>Crescimento de competências.</p></div>
+      <div class="card"><h4>Liderança</h4><p>Confiança e fortalecimento de laços.</p></div>
+    </div>
+    <div class="exam">
+      <div class="lbl">Atenção — Prova</div>
+      <p><strong>Delegar NÃO é sinônimo de empowerment.</strong> Delegar transfere tarefas; empoderar descentraliza poder e autonomia decisória.</p>
+    </div>
+
+    <h3>Motivação</h3>
+    <div class="key">
+      <div class="lbl">Conceito-chave</div>
+      <p>A <strong>motivação</strong> como ferramenta de liderança pode ser lida pela <strong>Pirâmide de Maslow</strong> (necessidades fisiológicas → segurança → sociais → estima → autorrealização). A <strong>motivação intrínseca</strong> (Geisler, 2013) é o motor interno que nos impulsiona rumo aos objetivos, sustentada por três elementos: competência (prazer no que se faz bem), autonomia (voz ativa e ideia colocada em prática) e propósito (orgulho de fazer a diferença). Nas equipes, aliam-se a proximidade, conexão e confiança.</p>
+    </div>
+    <div class="chain">
+      <span class="node">Fisiológicas</span><span class="arr">→</span>
+      <span class="node">Segurança</span><span class="arr">→</span>
+      <span class="node">Sociais</span><span class="arr">→</span>
+      <span class="node">Estima</span><span class="arr">→</span>
+      <span class="node">Autorrealização</span>
+    </div>
+    <p>Como motivar no dia a dia (analogia do ponto da carne): cada pessoa tem uma preferência — dinheiro, reconhecimento, segurança, status, poder, liberdade, desafio. O segredo é <strong>perguntar (comunicação) antes de desenvolver o incentivo</strong>, para não servir "a carne bem passada para quem pediu ao ponto".</p>
+    <blockquote>"Apenas quando obtenho o reconhecimento da utilidade e da qualidade do meu trabalho é que tenho a satisfação intensa da minha relação com o trabalho."<cite>— Dejours (2009, p. 53)</cite></blockquote>
+    <div class="key">
+      <div class="lbl">Conceito-chave · Estado de Flow</div>
+      <p>O <strong>estado de flow (fluxo)</strong>, de Mihály Csíkszentmihályi, é o estado de prazer que surge no equilíbrio entre o nível de desafio e a capacidade da pessoa de agir. Desafio alto com habilidade baixa gera ansiedade; desafio baixo com habilidade alta gera tédio; o equilíbrio crescente entre ambos leva ao fluxo total. "Se você fizer uma atividade bem-feita, ela se tornará prazerosa. Para continuar gostando de algo, é preciso aumentar sua complexidade."</p>
+    </div>
+
+    <h3>Feedback</h3>
+    <div class="key">
+      <div class="lbl">Conceito-chave</div>
+      <p><strong>Feedback</strong> é uma atitude afetiva, um processo natural e sistemático de retorno sobre como o comportamento ou desempenho de uma pessoa está impactando relacionamentos e resultados. Distingue-se do <strong>feedforward</strong>: o feedback reorienta/corrige/sugere melhoria sobre algo que já aconteceu; o feedforward é estímulo voltado ao futuro visando aperfeiçoamentos.</p>
+    </div>
+    <blockquote>"Compreender que há outros pontos de vista é o início da sabedoria" (analogia do 6 e do 9).<cite>— Thomas Campbell</cite></blockquote>
+
+    <h4>Por que dar feedback?</h4>
+    <div class="quad">
+      <div class="cell qp"><h4>Apontar competências (efeito)</h4><p>Firmar, reconhecer, aumentar autoestima e confiança, reforçar para continuar.</p></div>
+      <div class="cell qa"><h4>Apontar necessidades (impacto)</h4><p>Auxiliar crescimento, fazer melhorias, ajudar a enxergar, mostrar caminho, corrigir a rota, buscar resultados, melhorar relacionamentos.</p></div>
+    </div>
+
+    <h4>Processo e curva da mudança (Fischer, 2012)</h4>
+    <div class="chain">
+      <span class="node">Ansiedade</span><span class="arr">→</span>
+      <span class="node">Motivação</span><span class="arr">→</span>
+      <span class="node">Dúvidas</span><span class="arr">→</span>
+      <span class="node">Medo</span><span class="arr">→</span>
+      <span class="node">Culpa</span><span class="arr">→</span>
+      <span class="node">Aceitação</span><span class="arr">→</span>
+      <span class="node">Vamos em frente!</span>
+    </div>
+    <p>Com possíveis desvios de negação ou fuga na etapa da culpa. Tudo isso pode gerar conflitos na equipe. Papéis do líder: olhar o processo de mudança; garantir reforço e reconhecimento; dar apoio; criar nova estratégia se necessário.</p>
+
+    <div class="key">
+      <div class="lbl">Conceito-chave · Modelo SBI</div>
+      <p>O <strong>modelo SBI (Center for Creative Leadership)</strong> estrutura o feedback em três passos: <strong>S – Situation</strong> (descrever a situação com data e local específicos), <strong>B – Behavior</strong> (descrever o comportamento observável, sem presumir intenção) e <strong>I – Impact</strong> (descrever o impacto/sentimento causado). Um modelo complementar acrescenta o resultado esperado (pedido futuro claro).</p>
+    </div>
+    <div class="stepper">
+      <div class="step"><div class="stepnum">S</div><div class="stepbody"><h4>Situation</h4><p>Descrever a situação com data e local específicos.</p></div></div>
+      <div class="step"><div class="stepnum">B</div><div class="stepbody"><h4>Behavior</h4><p>Descrever o comportamento observável, sem presumir intenção.</p></div></div>
+      <div class="step"><div class="stepnum">I</div><div class="stepbody"><h4>Impact</h4><p>Descrever o impacto/sentimento causado (+ resultado esperado no modelo complementar).</p></div></div>
+    </div>
+
+    <div class="quad">
+      <div class="cell qp"><h4>Como dar um bom feedback</h4><ol><li>Reservar espaço individual na agenda</li><li>Preparar-se com anotações e dados concretos</li><li>Ser franco, sem florear</li><li>Dar sua própria opinião, não a de terceiros</li><li>Evitar julgamentos pessoais, manter foco profissional</li><li>Lembrar que o feedback é "fotografia do momento"</li><li>Reforçar o que está bom, não só o que precisa melhorar</li><li>Sugerir alternativas concretas</li></ol></div>
+      <div class="cell qa"><h4>Como receber bem um feedback</h4><ol><li>Preparar-se e controlar a ansiedade</li><li>Ouvir com atenção, sem ficar na defensiva</li><li>Ser receptivo a novas ideias</li><li>Tomar nota dos pontos importantes</li><li>Estabelecer pontos de melhoria com metas e prazos e buscar novos feedbacks periodicamente</li></ol></div>
+    </div>
+    <p>Diante da dúvida "peço ou espero?", o melhor é <strong>assumir o comando e pedir feedback</strong> — se você se desenvolve, todos ganham. Você é o responsável pelo desenvolvimento da própria carreira. Impacto do feedback positivo: temos necessidade dele; cria conexões de longo prazo; dominar o reconhecimento transforma o desempenho; na prática, as pessoas recebem alguns minutos de feedback positivo contra muitas horas de feedback corretivo.</p>
+  </section>
+
+  <section id="equipes">
+    <h2>Trabalho em Equipe e Equipes de Alto Desempenho</h2>
+    <div class="key">
+      <div class="lbl">Conceito-chave · Grupo × Equipe</div>
+      <p>Um <strong>grupo</strong> é formado por indivíduos unidos por atividades/interesses comuns com o mesmo objetivo, mas de forma individualizada; uma <strong>equipe</strong> é formada por indivíduos que compartilham objetivos cujo alcance requer esforço coletivo. O conceito de grupo engloba o de equipe: toda equipe é um grupo, mas nem todo grupo é uma equipe.</p>
+    </div>
+
+    <h3>Pesquisa sobre equipes (Harris Interactive / Covey)</h3>
+    <p>Com 23 mil empregados:</p>
+    <div class="statgrid">
+      <div class="stat"><div class="num">37%</div><div class="cap">Entendiam claramente o que a organização tentava atingir e por quê</div></div>
+      <div class="stat"><div class="num">1 em 5</div><div class="cap">Estava entusiasmado com as metas</div></div>
+      <div class="stat"><div class="num">15%</div><div class="cap">Sentiam ter os meios necessários</div></div>
+      <div class="stat"><div class="num">15%</div><div class="cap">Percebiam ambiente de segurança</div></div>
+      <div class="stat"><div class="num">17%</div><div class="cap">Consideravam que a organização promovia comunicação franca</div></div>
+    </div>
+    <p>Analogia do time de futebol: só 4 dos 11 saberiam onde está seu gol; só 2 se preocupariam com isso; só 2 saberiam sua posição; e 9 estariam competindo contra a própria equipe.</p>
+    <p>Quando as tarefas são mais complexas, exigindo diversas competências, o trabalho em equipe responde melhor que a atuação individual.</p>
+
+    <h3>Equipe autogerenciada</h3>
+    <p>Segundo Tonet (2009), equipes autogerenciadas são aquelas cujos integrantes gerenciam tanto o trabalho quanto a si próprios; a liderança estimula, acompanha e não controla. Características: maturidade pessoal e profissional; ações individuais para metas comuns; forte espírito de cooperação; competência para gerenciar conflitos.</p>
+
+    <h3>Componentes para o trabalho em equipe (Robbins, 2011)</h3>
+    <div class="cards">
+      <div class="card"><h4>Contexto</h4><p>Recursos adequados; liderança e estrutura; clima de confiança; avaliação de desempenho e sistemas de recompensas.</p></div>
+      <div class="card"><h4>Composição</h4><p>Habilidade dos membros; personalidade; alocação de papéis; diversidade; tamanho; flexibilidade e preferências dos membros.</p></div>
+      <div class="card"><h4>Projeto de trabalho</h4><p>Liberdade e autonomia; variedade de habilidades; identidade e importância das tarefas.</p></div>
+      <div class="card"><h4>Processo</h4><p>Propósito comum; metas específicas; efetividade da equipe; níveis de conflito; "folga" social.</p></div>
+    </div>
+
+    <h3>Estratégias de desenvolvimento</h3>
+    <p>Comunicação eficaz; CNV; delegação; feedback; acordos de convivência; reuniões produtivas; indicadores de desempenho.</p>
+    <blockquote>"Nenhum de nós é tão inteligente quanto todos nós juntos."<cite>— Warren Bennis</cite></blockquote>
+    <blockquote>"O talento vence jogos, mas só o trabalho em equipe ganha campeonatos."<cite>— Michael Jordan</cite></blockquote>
+
+    <h3>Estágios de evolução de grupo para equipe (Tuckman, 1977)</h3>
+    <div class="key">
+      <div class="lbl">Conceito-chave · Modelo de Tuckman</div>
+      <p>O <strong>modelo de Tuckman</strong> descreve cinco estágios de evolução de grupo para equipe: <strong>Formação</strong> (orientar; pouco consenso, dependência de direção, membros polidos e reservados), <strong>Confronto/tempestade</strong> (treinar; conflitos, lutas de poder, maior clareza de propósito), <strong>Normatização</strong> (facilitar; acordo, consenso, estabelecer normas, feedback), <strong>Identificação/encerramento</strong> (reconhecer; conclusão de tarefas, colaboração, generosidade) e <strong>Performance</strong> (delegar; desempenho, visão clara, foco no objetivo, flexibilidade). As etapas não são estanques — o perfil e as competências dos membros influenciam.</p>
+    </div>
+    <div class="stepper">
+      <div class="step"><div class="stepnum">1</div><div class="stepbody"><h4>Formação (orientar)</h4><p>Pouco consenso, dependência de direção, membros polidos e reservados.</p></div></div>
+      <div class="step"><div class="stepnum">2</div><div class="stepbody"><h4>Confronto/tempestade (treinar)</h4><p>Conflitos, lutas de poder, maior clareza de propósito.</p></div></div>
+      <div class="step"><div class="stepnum">3</div><div class="stepbody"><h4>Normatização (facilitar)</h4><p>Acordo, consenso, estabelecer normas, feedback.</p></div></div>
+      <div class="step"><div class="stepnum">4</div><div class="stepbody"><h4>Identificação/encerramento (reconhecer)</h4><p>Conclusão de tarefas, colaboração, generosidade.</p></div></div>
+      <div class="step"><div class="stepnum">5</div><div class="stepbody"><h4>Performance (delegar)</h4><p>Desempenho, visão clara, foco no objetivo, flexibilidade.</p></div></div>
+    </div>
+    <p>O grupo passa a ser equipe quando define claramente: objetivos e metas adequados ao desempenho; divisão de papéis e responsabilidades; sinergia positiva (alto grau de conformidade na atuação); liderança que propicia apoio e coesão; disciplina; corresponsabilidade dos membros pelo projeto e pelos colegas.</p>
+
+    <h3>Evolução da relação líder-equipe</h3>
+    <div class="stepper">
+      <div class="step"><div class="stepnum">1</div><div class="stepbody"><h4>Equipe inicial</h4><p>Membros supervisionados no dia a dia pelo líder.</p></div></div>
+      <div class="step"><div class="stepnum">2</div><div class="stepbody"><h4>Equipe de transição</h4><p>O líder passa a coordenar mais do que supervisionar; não monitora as atividades diárias.</p></div></div>
+      <div class="step"><div class="stepnum">3</div><div class="stepbody"><h4>Equipe experiente</h4><p>O líder se afasta e apenas coordena, com menos proximidade.</p></div></div>
+      <div class="step"><div class="stepnum">4</div><div class="stepbody"><h4>Equipe madura</h4><p>O líder praticamente não precisa coordenar; a equipe assume total responsabilidade pelo próprio trabalho.</p></div></div>
+    </div>
+  </section>
+
+  <section id="alta-performance">
+    <h2>Times de Alta Performance</h2>
+
+    <h3>5 pilares (Covey – "O 8º Hábito")</h3>
+    <div class="cards">
+      <div class="card"><h4>Estratégia</h4><p>Visão, planejamento, processo, foco, execução.</p></div>
+      <div class="card"><h4>Conhecimentos e habilidades</h4><p>Preparação, informações, treinamento.</p></div>
+      <div class="card"><h4>Liderança</h4><p>Conhecer, inspirar, orientar, empowerment, reconhecer.</p></div>
+      <div class="card"><h4>Comprometimento</h4><p>Propósito, motivação, paixão, esforço, orgulho.</p></div>
+      <div class="card"><h4>Dinâmica dos grupos</h4><p>Composição, espírito de equipe, feedback, relacionamento, confiança.</p></div>
+    </div>
+
+    <h3>Características de equipes de alto desempenho (Crescimentum – Líder do Futuro)</h3>
+    <div class="cards">
+      <div class="card"><h4>Senso de propósito</h4><p></p></div>
+      <div class="card"><h4>Engajamento total</h4><p></p></div>
+      <div class="card"><h4>Estruturas simples</h4><p></p></div>
+      <div class="card"><h4>Liderança compartilhada</h4><p></p></div>
+      <div class="card"><h4>Criação a partir das diferenças</h4><p></p></div>
+      <div class="card"><h4>Aprendizados em equipe</h4><p></p></div>
+      <div class="card"><h4>Relações fortalecidas</h4><p></p></div>
+      <div class="card"><h4>Ótimos resultados</h4><p></p></div>
+    </div>
+
+    <h3>Fortalecimento da cultura e disfunções (Lencioni)</h3>
+    <div class="key">
+      <div class="lbl">Conceito-chave · Lencioni</div>
+      <p>Segundo <strong>Lencioni</strong>, uma cultura forte se ergue sobre uma base de <strong>confiança</strong> (vulnerabilidade/abertura), sobre a qual se constroem nutrir discussões (harmonia verdadeira), empenho/engajamento (metas claras), responsabilização (padrões elevados) e foco nos resultados. Invertendo-se essa lógica, surgem as <strong>cinco disfunções de um time</strong>: ausência de confiança, medo de conflito, falta de compromisso, evitar responsabilização e desatenção com os resultados.</p>
+    </div>
+    <table>
+      <thead><tr><th>Base da cultura forte</th><th>Disfunção correspondente</th></tr></thead>
+      <tbody>
+        <tr><td>Confiança (vulnerabilidade/abertura)</td><td>Ausência de confiança</td></tr>
+        <tr><td>Nutrir discussões (harmonia verdadeira)</td><td>Medo de conflito</td></tr>
+        <tr><td>Empenho/engajamento (metas claras)</td><td>Falta de compromisso</td></tr>
+        <tr><td>Responsabilização (padrões elevados)</td><td>Evitar responsabilização</td></tr>
+        <tr><td>Foco nos resultados</td><td>Desatenção com os resultados</td></tr>
+      </tbody>
+    </table>
+    <div class="quad">
+      <div class="cell qn"><h4>Sem confiança (Lencioni, 2015)</h4><ul><li>Fogem de reuniões</li><li>Moral baixo</li><li>Alta rotatividade</li><li>Escondem erros</li><li>Não pedem ajuda</li><li>Guardam ressentimentos</li></ul></div>
+      <div class="cell qp"><h4>Com confiança</h4><ul><li>Admitem erros</li><li>Arriscam oferecer feedback</li><li>Pedem e oferecem ajuda</li><li>Aproveitam as habilidades de todos</li><li>Promovem reuniões produtivas</li></ul></div>
+    </div>
+    <blockquote>"Eu sou parte de uma equipe. Então, quando venço, não sou eu apenas quem vence."<cite>— Ayrton Senna</cite></blockquote>
+
+    <h3>Papel da liderança na construção de equipes (Carlos Legal)</h3>
+    <ul>
+      <li>Compartilhar missão, visão e valores da organização e construir a MVV da própria área;</li>
+      <li>Servir, atendendo necessidades individuais e da equipe;</li>
+      <li>Ajudar a materializar resultados;</li>
+      <li>Colocar as pessoas nos lugares certos;</li>
+      <li>Ouvir e corrigir;</li>
+      <li>Comunicar, comunicar e comunicar;</li>
+      <li>Matar as "historinhas" de corredor;</li>
+      <li>Celebrar com a equipe.</li>
+    </ul>
+    <div class="exam">
+      <div class="lbl">Atenção — Prova</div>
+      <p>"<strong>Fofoca, má vontade e atendimento ruim</strong> — essas 3 coisas dentro de uma mesma empresa são piores e mais nocivas do que um concorrente desleal." (Carlos Legal)</p>
+    </div>
+
+    <h3>Encerramento</h3>
+    <p>Analogia de liderança humanizada/servidora com 1 Coríntios 13 (Passagem do amor): humildade, respeito, honestidade/caráter, dedicação/resiliência. Reflexão final: <strong>MEMENTO MORI</strong>.</p>
+  </section>
+
+  <section id="recall">
+    <h2>Perguntas de Recall</h2>
+    <div class="recall"><p>Qual é a ordem correta das ações defendida na disciplina — e por que não se deve invertê-la?</p></div>
+    <div class="recall"><p>No modelo situacional de Hersey e Blanchard, o que significa "grau de maturidade" e como cada nível (M1 a M4) se associa aos estilos E1 (direção), E2 (orientação), E3 (apoio) e E4 (delegação)?</p></div>
+    <div class="recall"><p>Quais são as seis transições do Pipeline de Liderança de Ram Charan e o que caracteriza a primeira passagem?</p></div>
+    <div class="recall"><p>Qual a diferença entre delegação e empowerment, e quais são os quatro pilares do empowerment?</p></div>
+    <div class="recall"><p>Descreva os três passos do modelo de feedback SBI e explique a diferença entre feedback e feedforward.</p></div>
+    <div class="recall"><p>Segundo Lencioni, qual disfunção está na base da pirâmide de um time e quais são as cinco disfunções na sequência?</p></div>
+    <div class="recall"><p>O que distingue um grupo de uma equipe, e por que "todo grupo é uma equipe" é uma afirmação incorreta?</p></div>
+  </section>
+
+  <a class="backlink" href="../index.html" style="margin-bottom:40px">← FGV MBA</a>
+</div>
+
+</body>
+</html>

@@ -67,12 +67,13 @@ export async function enrichSubject(slug) {
   const client = new Anthropic()
   console.log(`Enriching "${slug}" with Claude Opus 4.7...`)
 
-  const response = await client.messages.create({
+  const stream = client.messages.stream({
     model: 'claude-opus-4-8',
-    max_tokens: 8192,
+    max_tokens: 48000,
     system: SYSTEM_PROMPT,
     messages: [{ role: 'user', content: content.trim() }],
   })
+  const response = await stream.finalMessage()
 
   const enrichedBody = response.content[0].text
   const enrichedFile = matter.stringify(enrichedBody, data)

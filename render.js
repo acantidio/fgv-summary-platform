@@ -96,7 +96,7 @@ Timeline / chronological list          Horizontal or vertical timeline component
 Every page MUST include ALL of the following:
 1. Google Fonts <link> for DM Serif Display, DM Sans, JetBrains Mono
 2. All CSS in a single <style> block — no external stylesheets
-3. Back link "← FGV MBA" pointing to "../" — JetBrains Mono, text-tertiary color
+3. Back link "← FGV MBA" pointing to "../index.html" — JetBrains Mono, text-tertiary color
 4. Page header: subject title in DM Serif Display + status badge in accent colors
 5. Sticky top navigation bar with anchor links to each major H2 section
 6. Content sections — each H2 is a <section> with an id for the nav anchor
@@ -215,12 +215,13 @@ ${content.trim()}`
   if (!client) client = new Anthropic()
   console.log(`Rendering "${slug}" with Claude Opus...`)
 
-  const response = await client.messages.create({
+  const stream = client.messages.stream({
     model: 'claude-opus-4-8',
-    max_tokens: 16000,
+    max_tokens: 48000,
     system: SYSTEM_PROMPT,
     messages: [{ role: 'user', content: userMessage }],
   })
+  const response = await stream.finalMessage()
 
   const html = response.content[0].text
   const dir = join(outDir, slug)

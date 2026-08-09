@@ -254,7 +254,7 @@ test('renderSubject writes Anthropic response HTML to [slug]/index.html', async 
   const mockHtml = '<!DOCTYPE html><html lang="pt-BR"><head><title>Test — FGV MBA</title></head><body><p>mock content</p></body></html>'
   const mockClient = {
     messages: {
-      create: async () => ({ content: [{ type: 'text', text: mockHtml }] })
+      stream: () => ({ finalMessage: async () => ({ content: [{ type: 'text', text: mockHtml }] }) })
     }
   }
 
@@ -273,7 +273,7 @@ test('renderSubject writes Anthropic response HTML to [slug]/index.html', async 
 
 test('renderSubject throws a clear error when enriched file is missing', async () => {
   const { renderSubject } = await import('./render.js')
-  const mockClient = { messages: { create: async () => ({}) } }
+  const mockClient = { messages: { stream: () => ({ finalMessage: async () => ({}) }) } }
 
   await assert.rejects(
     () => renderSubject('__nonexistent_slug__', mockClient),
@@ -289,16 +289,18 @@ test('renderSite renders all enriched slugs and rebuilds hub', async () => {
   const renderedSlugs = []
   const mockClient = {
     messages: {
-      create: async (params) => {
-        const slugLine = params.messages[0].content.match(/Subject: (.+)/)
-        if (slugLine) renderedSlugs.push(slugLine[1])
-        return {
-          content: [{
-            type: 'text',
-            text: '<!DOCTYPE html><html lang="pt-BR"><head><title>T — FGV MBA</title></head><body><p>mock</p></body></html>'
-          }]
+      stream: (params) => ({
+        finalMessage: async () => {
+          const slugLine = params.messages[0].content.match(/Subject: (.+)/)
+          if (slugLine) renderedSlugs.push(slugLine[1])
+          return {
+            content: [{
+              type: 'text',
+              text: '<!DOCTYPE html><html lang="pt-BR"><head><title>T — FGV MBA</title></head><body><p>mock</p></body></html>'
+            }]
+          }
         }
-      }
+      })
     }
   }
 
