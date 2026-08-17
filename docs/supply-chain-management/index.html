@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Supply Chain Management — FGV MBA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+--bg:#FAF9F6;--bg-card:#FFFFFF;--bg-surface:#F3F1EC;--bg-accent:#E8E4DB;
+--text-primary:#1A1A18;--text-secondary:#5C5B56;--text-tertiary:#8A8985;
+--border:#DDD9D0;--border-light:#ECEAE4;
+--purple-50:#EEEDFE;--purple-400:#7F77DD;--purple-600:#534AB7;--purple-800:#3C3489;
+--amber-50:#FAEEDA;--amber-400:#BA7517;--amber-600:#854F0B;--amber-800:#633806;
+--teal-50:#E6F4F1;--teal-400:#1D9E75;--teal-600:#0F6E56;--teal-800:#085041;
+--blue-50:#E6F1FB;--blue-400:#378ADD;--blue-600:#185FA5;--blue-800:#0C447C;
+--rose-50:#FDE8EC;--rose-600:#C81E3A;
+--accent:#534AB7;--accent-light:#EEEDFE;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text-primary);font-family:'DM Sans',-apple-system,sans-serif;line-height:1.65;font-size:17px;}
+a{color:inherit;}
+.wrap{max-width:920px;margin:0 auto;padding:0 24px;}
+.backlink{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-tertiary);text-decoration:none;display:inline-block;margin:28px 0 0;}
+.backlink:hover{color:var(--accent);}
+header.page{padding:24px 0 28px;border-bottom:1px solid var(--border);}
+header.page h1{font-family:'DM Serif Display',Georgia,serif;font-size:46px;line-height:1.1;font-weight:400;margin-bottom:14px;}
+.badge{font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.5px;background:var(--accent-light);color:var(--purple-800);padding:5px 12px;border-radius:20px;font-weight:500;}
+.subtitle{color:var(--text-secondary);margin-top:14px;max-width:680px;}
+nav.sticky{position:sticky;top:0;z-index:50;background:rgba(250,249,246,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);margin-bottom:8px;}
+nav.sticky .wrap{display:flex;gap:6px;overflow-x:auto;padding:12px 24px;scrollbar-width:thin;}
+nav.sticky a{font-family:'JetBrains Mono',monospace;font-size:12px;text-decoration:none;color:var(--text-secondary);white-space:nowrap;padding:5px 11px;border-radius:6px;}
+nav.sticky a:hover{background:var(--accent-light);color:var(--purple-800);}
+section{padding:38px 0;border-bottom:1px solid var(--border-light);}
+h2{font-family:'DM Serif Display',Georgia,serif;font-size:31px;font-weight:400;margin-bottom:20px;}
+h3{font-family:'DM Sans';font-size:20px;font-weight:600;margin:30px 0 14px;color:var(--text-primary);}
+p{margin-bottom:14px;}
+strong{font-weight:600;color:var(--text-primary);}
+code{font-family:'JetBrains Mono',monospace;font-size:14px;background:var(--bg-surface);padding:2px 6px;border-radius:4px;}
+/* hero summary */
+.hero{background:var(--bg-card);border-top:4px solid var(--accent);border-radius:8px;padding:34px 34px;margin:34px 0 8px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+.hero .lbl{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--accent);font-weight:600;}
+.hero p{font-size:19px;line-height:1.6;margin:14px 0 0;color:var(--text-secondary);}
+/* callouts */
+.key{background:var(--purple-50);border-left:4px solid var(--purple-600);border-radius:0 8px 8px 0;padding:18px 22px;margin:22px 0;}
+.key .lbl{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--purple-800);font-weight:600;display:block;margin-bottom:6px;}
+.key p{margin:0;color:var(--text-secondary);}
+.key p strong{color:var(--purple-800);}
+.key ul{margin:8px 0 0 18px;color:var(--text-secondary);}
+.key ol{margin:8px 0 0 18px;color:var(--text-secondary);}
+.exam{background:var(--amber-50);border:1px solid var(--amber-400);border-radius:8px;padding:18px 22px 18px 48px;margin:22px 0;position:relative;}
+.exam::before{content:"⚠";position:absolute;left:18px;top:16px;font-size:20px;}
+.exam .lbl{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--amber-800);font-weight:600;display:block;margin-bottom:6px;}
+.exam p{margin:0 0 8px;color:var(--amber-800);}
+.exam p:last-child{margin-bottom:0;}
+.exam ul,.exam ol{margin:6px 0 0 18px;color:var(--amber-800);}
+.exam strong{color:var(--amber-800);}
+.exam code{background:rgba(255,255,255,.5);}
+/* cards grid */
+.cards{display:grid;gap:16px;margin:20px 0;}
+.cards.c2{grid-template-columns:repeat(2,1fr);}
+.cards.c3{grid-template-columns:repeat(3,1fr);}
+.cards.c5{grid-template-columns:repeat(5,1fr);}
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:20px;}
+.card h4{font-family:'DM Sans';font-size:17px;font-weight:600;margin-bottom:8px;color:var(--accent);}
+.card p{font-size:15px;color:var(--text-secondary);margin:0;}
+.card p+p{margin-top:8px;}
+.card ul{margin:8px 0 0 16px;font-size:15px;color:var(--text-secondary);}
+/* pillars 3col */
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:20px 0;}
+.pillar{background:var(--accent-light);border-radius:8px;padding:22px;}
+.pillar .n{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);font-weight:600;}
+.pillar h4{font-family:'DM Serif Display',Georgia,serif;font-size:21px;font-weight:400;margin:6px 0 8px;}
+.pillar p{font-size:15px;color:var(--text-secondary);margin:0;}
+.pillar ul{margin:8px 0 0 16px;font-size:14px;color:var(--text-secondary);}
+/* stepper */
+.stepper{margin:24px 0;}
+.step{display:flex;gap:18px;padding-bottom:22px;position:relative;}
+.step:not(:last-child)::before{content:"";position:absolute;left:17px;top:38px;bottom:0;width:2px;background:var(--border);}
+.step .num{flex:none;width:36px;height:36px;border-radius:50%;background:var(--accent);color:#fff;font-family:'JetBrains Mono',monospace;font-weight:600;display:flex;align-items:center;justify-content:center;font-size:15px;}
+.step .body h4{margin:5px 0 4px;font-size:17px;}
+.step .body p{margin:0;font-size:15px;color:var(--text-secondary);}
+/* table */
+table{width:100%;border-collapse:collapse;margin:20px 0;background:var(--bg-card);border-radius:8px;overflow:hidden;border:1px solid var(--border);font-size:15px;}
+th{background:var(--accent);color:#fff;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.5px;text-align:left;padding:12px 16px;font-weight:600;}
+td{padding:12px 16px;border-top:1px solid var(--border-light);color:var(--text-secondary);vertical-align:top;}
+td strong{color:var(--text-primary);}
+.table-scroll{overflow-x:auto;}
+/* generic detail list as cards */
+.deflist{display:grid;gap:12px;margin:18px 0;}
+.defitem{background:var(--bg-card);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:6px;padding:14px 18px;}
+.defitem .t{font-weight:600;color:var(--accent);}
+.defitem .d{font-size:15px;color:var(--text-secondary);}
+.defitem ul{margin:6px 0 0 18px;font-size:14px;color:var(--text-secondary);}
+/* note box */
+.note{background:var(--bg-surface);border-radius:8px;padding:18px 22px;margin:20px 0;font-size:15px;color:var(--text-secondary);}
+.note strong{color:var(--text-primary);}
+/* formula box */
+.formula{background:var(--bg-surface);border:1px dashed var(--border);border-radius:8px;padding:16px 20px;margin:16px 0;font-family:'JetBrains Mono',monospace;font-size:14.5px;color:var(--text-primary);overflow-x:auto;white-space:pre-wrap;}
+/* recall */
+.recall{background:var(--teal-50);border-left:4px solid var(--teal-600);border-radius:0 8px 8px 0;padding:16px 20px 16px 46px;margin:14px 0;position:relative;}
+.recall::before{content:"?";position:absolute;left:16px;top:14px;font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:600;color:var(--teal-600);}
+.recall p{margin:0;color:var(--teal-800);}
+.fullw{margin:8px 0;}
+@media(max-width:640px){
+header.page h1{font-size:34px;}
+.cards.c2,.cards.c3,.cards.c5,.pillars{grid-template-columns:1fr;}
+body{font-size:16px;}
+h2{font-size:26px;}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<a class="backlink" href="../index.html">← FGV MBA</a>
+</div>
+
+<header class="page">
+<div class="wrap">
+<h1>Supply Chain Management</h1>
+<span class="badge">✓ Concluído</span>
+<p class="subtitle">Evolução da logística ao gerenciamento da cadeia de suprimentos, processos de negócio integrados, outsourcing, parcerias estratégicas e ferramentas de gestão de suprimentos.</p>
+</div>
+</header>
+
+<nav class="sticky">
+<div class="wrap">
+<a href="#origens">Origens Militares</a>
+<a href="#definicao">Definição de Logística</a>
+<a href="#evolucao">Evolução até o SCM</a>
+<a href="#outsourcing">Trade Marketing e Outsourcing</a>
+<a href="#atividades">Atividades e Funções</a>
+<a href="#arranjos">Arranjos de Distribuição</a>
+<a href="#reversa">Reversa, Missão e SCM</a>
+<a href="#globalizacao">Globalização e Riscos</a>
+<a href="#incoterms">Incoterms</a>
+<a href="#infraestrutura">Infraestrutura BR</a>
+<a href="#modais">Modais de Transporte</a>
+<a href="#canais">Canais de Distribuição</a>
+<a href="#tradeoffs">Trade-offs</a>
+<a href="#clt">Custo Logístico Total</a>
+<a href="#custos">Custos e Ponto de Equilíbrio</a>
+<a href="#risco">Risco e Valor Esperado</a>
+<a href="#tecnologia">ERP, MRP, S&OP, SCOR</a>
+<a href="#ecommerce">B2B e B2C</a>
+<a href="#procurement">Procurement</a>
+<a href="#ti-operacao">TI na Operação</a>
+<a href="#kpis">KPIs de Desempenho</a>
+<a href="#esg">ESG e GSCM</a>
+<a href="#verde">Logística Verde</a>
+<a href="#sustentabilidade">Capacidade Dinâmica</a>
+<a href="#recall">Recall</a>
+</div>
+</nav>
+
+<div class="wrap">
+
+<div class="hero">
+<span class="lbl">Resumo da Disciplina</span>
+<p>Supply Chain Management é a gestão integrada dos fluxos de materiais, informações e finanças entre fornecedores, indústria e clientes, com o objetivo de criar valor ao cliente e reduzir o custo logístico total. O aluno precisa dominar: a evolução da logística até o SCM (4 fases), os trade-offs de custo (transporte x estoque x nível de serviço), a fórmula do Custo Logístico Total (CLT), os modais de transporte e Incoterms, os arranjos de distribuição física (milk run, cross-docking, transit point, condomínio industrial), os sistemas de TI (ERP, MRP, S&amp;OP, SCOR, WMS, TMS), os modelos de produção (MTO, MTS, ETO) e os princípios de ESG/Green Supply Chain Management (GSCM).</p>
+</div>
+
+<section id="origens">
+<h2>Origens Militares da Logística</h2>
+<p>Até o final da década de 40, "logística" era um termo predominantemente militar. Antoine-Henri Jomini, oficial do exército de Napoleão Bonaparte, citou o termo em sua obra <em>Précis de l'art de la guerre</em> (1837-8), estruturando cinco elementos fundamentais para deslocamento de tropas, invasões e manutenção de territórios conquistados.</p>
+<div class="pillars">
+<div class="pillar"><span class="n">01</span><h4>Estratégia</h4></div>
+<div class="pillar"><span class="n">02</span><h4>Grandes táticas</h4></div>
+<div class="pillar"><span class="n">03</span><h4>Logística</h4></div>
+</div>
+<div class="cards c2" style="margin-top:-8px">
+<div class="card"><h4>04. Engenharia</h4></div>
+<div class="card"><h4>05. Táticas menores</h4></div>
+</div>
+
+<div class="key">
+<span class="lbl">Conceito-chave</span>
+<p><strong>Frase-símbolo da disciplina:</strong> "Guerreiros amadores discutem estratégia, guerreiros profissionais estudam logística." — Tom Clancy, escritor e historiador norte-americano especializado em temas militares.</p>
+</div>
+
+<p>A invasão da Normandia (Dia D) aplicou princípios logísticos descritos por Jomini. O Plano Marshall, que reconstruiu a Europa após a 2ª Guerra, foi uma notável aplicação da logística. A partir dos anos 50, a corrida espacial (URSS x EUA) trouxe novas técnicas, como o método <strong>PERT</strong> (Program Evaluation and Review Technique), desenvolvido para viabilizar o Projeto Polaris — um foguete com milhares de componentes produzidos por centenas de fabricantes em diferentes estados americanos.</p>
+<p>Durante a Segunda Guerra, dos cerca de 18.000.000 de militares americanos mobilizados, apenas ~3.000.000 estavam na linha de frente; os 15.000.000 restantes atuavam em suprimento e apoio.</p>
+
+<div class="exam">
+<span class="lbl">Atenção — Prova</span>
+<p>As <strong>5 classes de suprimento militar</strong> (exército americano), em ordem de prioridade:</p>
+<ol>
+<li><strong>Classe 1</strong> — subsistência (água, comida, medicamentos básicos, itens de conforto) — a mais importante.</li>
+<li><strong>Classe 2</strong> — roupas e materiais de higiene/limpeza, adequados ao clima de operação.</li>
+<li><strong>Classe 3</strong> — combustíveis, óleos e lubrificantes para máquinas e veículos.</li>
+<li><strong>Classe 4</strong> — carvão, gás natural, combustíveis de aquecimento, materiais de construção e fortificação.</li>
+<li><strong>Classe 5</strong> — munições, explosivos, bombas, detonadores, foguetes, mísseis.</li>
+</ol>
+</div>
+</section>
+
+<section id="definicao">
+<h2>Definição Contemporânea de Logística</h2>
+<p>O <strong>CSCMP</strong> (Council of Supply Chain Management Professionals, ex-CLM), maior referência mundial em cadeia de suprimento, define logística como:</p>
+<div class="key">
+<span class="lbl">Conceito-chave</span>
+<p><strong>Logística (CSCMP):</strong> "a parte da administração da cadeia de suprimento que planeja, implementa e controla, de forma eficiente e eficaz, o fluxo direto e reverso e a armazenagem de bens, serviços e informações relacionadas, entre um ponto de origem e um ponto de consumo, com o objetivo de atender aos requisitos do cliente."</p>
+</div>
+<p>São atribuições da área de logística: (1) gerenciar informações sobre necessidades e demandas de clientes, (2) controlar o atendimento de pedidos e (3) manter o rastreamento das entregas e pagamentos correspondentes.</p>
+<p>A logística também pode ser vista como quatro pilares interdependentes:</p>
+<div class="cards c2">
+<div class="card"><h4>Infraestrutura</h4></div>
+<div class="card"><h4>Cadeia de suprimentos</h4></div>
+<div class="card"><h4>Tecnologia</h4></div>
+<div class="card"><h4>Pessoas</h4></div>
+</div>
+
+<h3>Os quatro subprocessos logísticos</h3>
+<div class="key">
+<span class="lbl">Conceito-chave</span>
+<ol>
+<li><strong>Logística de entrada / inbound</strong> — interações e fluxos entre a organização e seus fornecedores.</li>
+<li><strong>Logística interna / operações internas</strong> — fluxos de materiais, dados e estoques em processo nas linhas produtivas.</li>
+<li><strong>Logística de distribuição / outbound</strong> — fluxo de produtos acabados do armazém até a entrega ao cliente, incluindo processamento de pedidos.</li>
+<li><strong>Logística reversa</strong> — fluxos inversos de produtos ou subprodutos entre clientes e organização (recolhas, reciclagem, "logística verde").</li>
+</ol>
+</div>
+<p>A distribuição física costuma receber maior atenção porque, na percepção do cliente final, é a etapa que mais impacta o nível de serviço percebido.</p>
+</section>
+
+<section id="evolucao">
+<h2>Da Logística ao Gerenciamento da Cadeia de Suprimentos</h2>
+<p>Antes dos anos 90, a logística nas empresas brasileiras era vista como atividade operacional de menor importância — um "mal necessário" sem grande reflexo nas métricas de negócio, favorecida pela baixa competitividade (proteção contra importações, cartéis que preferiam subir preços a investir em produtividade).</p>
+
+<div class="exam">
+<span class="lbl">Atenção — Prova</span>
+<p>A abertura de capital na década de 1990 trouxe <strong>três condições fundamentais</strong> que forçaram as empresas brasileiras a se confrontar com padrões mundiais de preço e qualidade:</p>
+<ol>
+<li>Efetivo controle inflacionário</li>
+<li>Estabilização da moeda</li>
+<li>Início do processo de globalização</li>
+</ol>
+</div>
+
+<h3>Evolução da logística — 4 fases (adaptado de Wood, 1998)</h3>
+<div class="stepper">
+<div class="step"><div class="num">1</div><div class="body"><h4>Sem integração</h4><p>Produtos padronizados, alta escala, estoques e tempos de entrega elevados, mão de obra pouco qualificada (pós-2ª Guerra).</p></div></div>
+<div class="step"><div class="num">2</div><div class="body"><h4>Custo total / TCO</h4><p>Incorporação do <strong>custo total</strong> (e depois <strong>Custo Total de Propriedade — TCO</strong>): aceita-se aumento em um custo individual se houver redução compensatória no custo total (ex.: embalagem mais cara para reduzir custo de transporte via melhor cubagem).</p></div></div>
+<div class="step"><div class="num">3</div><div class="body"><h4>Flexibilidade</h4><p>Incorporação da <strong>flexibilidade</strong> para melhor atender ao cliente, com maior investimento em TI.</p></div></div>
+<div class="step"><div class="num">4</div><div class="body"><h4>SCM</h4><p><strong>Gerenciamento da cadeia de suprimento (SCM)</strong> — a partir dos anos 90, integração física e estratégica dos processos, gerando menores custos, menos desperdício e mais valor percebido.</p></div></div>
+</div>
+<p>A logística agrega quatro tipos de valor ao cliente: <strong>lugar, tempo, qualidade e conhecimento</strong> sobre a cadeia produtiva — além de eliminar processos que não agregam valor percebido.</p>
+
+<h3>Características de cadeias de suprimento eficientes</h3>
+<div class="cards c2">
+<div class="card"><h4>Menos fornecedores</h4><p>Redução do número de prestadores e fornecedores.</p></div>
+<div class="card"><h4>Menos estoque</h4><p>Redução de estoques, sem aumentar o risco de ruptura (stockout).</p></div>
+<div class="card"><h4>Desenvolvimento de fornecedores</h4><p>Mais agilidade nas mudanças e resultados compartilhados.</p></div>
+<div class="card"><h4>Proliferação de parcerias</h4><p>Novos produtos/serviços em parceria entre clientes e fornecedores (integração externa).</p></div>
+</div>
+<p>O estabelecimento de <strong>acordos de nível de serviço (SLA — Service Level Agreement)</strong>, com penalidades e bonificações contratuais, tornou-se necessário.</p>
+</section>
+
+<section id="outsourcing">
+<h2>Trade Marketing, Outsourcing e Parcerias</h2>
+<h3>Trade marketing</h3>
+<p>Desenvolve a interface entre canais de vendas e produtores, adaptando produtos, logística, marketing e políticas comerciais para encantar o cliente no ponto de venda. A distribuição física somada ao trade marketing dá corpo ao processo comercial.</p>
+
+<h3>Outsourcing (terceirização)</h3>
+<p>Decisões <em>make or buy</em> (produzir ou comprar) devem avaliar: capacidade técnica própria e do fornecedor, requisitos de qualidade, prazo, custos, segurança, compliance e questões políticas.</p>
+<div class="key">
+<span class="lbl">Conceito-chave</span>
+<p><strong>Principais motivos para terceirizar:</strong></p>
+</div>
+<div class="cards c3">
+<div class="card"><h4>Redução de custos</h4><p>Contratar especialistas com maior produtividade em atividades de menor valor agregado (vigilância, limpeza, manutenção).</p></div>
+<div class="card"><h4>Core business</h4><p>Concentrar esforços nas competências centrais.</p></div>
+<div class="card"><h4>Conhecimento</h4><p>Acessar áreas de alta especialização (marketing digital, inovação, marketplace, last mile, picking automático) sem desenvolvê-las internamente.</p></div>
+<div class="card"><h4>Escalabilidade</h4><p>Expandir capacidade sem crescer custos fixos.</p></div>
+<div class="card"><h4>Agilidade nas respostas ao mercado</h4><p>Entrar rápido em mercados favoráveis sem comprometer capex.</p></div>
+</div>
+
+<h3>Aquisição pelo menor custo total</h3>
+<p>A análise de custo total identifica os custos mais relevantes de contratação/aquisição, manuseio e disposição de um bem/serviço (padronização, especificações, transporte, descarte, reciclagem, vida útil, substitutos, revenda). Benefícios: identificar custos elimináveis/transferíveis, comparar fornecedores além do preço, identificar custos reais de negociação e oportunidades de melhoria contínua.</p>
+
+<h3>Parcerias e alianças estratégicas</h3>
+<div class="key">
+<span class="lbl">Conceito-chave</span>
+<p><strong>Parceria x Aliança:</strong> parceria é uma interação <strong>vertical</strong> (fornecedor/cliente); aliança é uma interação <strong>horizontal</strong> (fornecedor/fornecedor), buscando eliminar redundâncias na cadeia de valor. Relações ganha-perde vêm sendo substituídas por modelos baseados em confiança mútua, risco compartilhado e recompensas geradoras de vantagem competitiva.</p>
+</div>
+</section>
+
+<section id="atividades">
+<h2>Atividades e Funções Logísticas</h2>
+<h3>As três atividades primárias da logística</h3>
+<div class="cards c3">
+<div class="card"><h4>Transporte</h4><p>Características principais: custo, velocidade e segurança. Absorve, em média, de 1/3 a 2/3 dos custos logísticos da empresa.</p></div>
+<div class="card"><h4>Manutenção de estoque</h4><p>Reduz o hiato entre oferta e demanda; deve manter níveis baixos sem comprometer o abastecimento.</p></div>
+<div class="card"><h4>Processamento de pedidos</h4><p>Ocupa cerca de <strong>50% do ciclo do pedido</strong>. Custo relativamente baixo, mas é atividade-chave por impactar o nível de serviço e o capital de giro.</p></div>
+</div>
+
+<h3>Funções logísticas</h3>
+<div class="deflist">
+<div class="defitem"><span class="t">Compras, aquisição e suprimentos (suprimento físico)</span> — <span class="d">Abrange o fluxo de materiais <em>para</em> a empresa (o inverso da distribuição física; a distribuição física de uma empresa é o suprimento físico de outra). Atividades-chave: emissão de ordens de compra, transporte até a empresa, manutenção de estoques.</span></div>
+<div class="defitem"><span class="t">Administração de materiais, estoques e armazenagem</span> — <span class="d">Tarefas operacionais: recebimento, inspeção/conferência, separação, alocação em prateleiras, consolidação de pedidos. Vantagens: eficiência nas entregas, melhor uso de equipamentos, redução de custos (menos desperdício, obsolescência, retrabalho).</span></div>
+<div class="defitem"><span class="t">Distribuição física</span> — <span class="d">Normalmente a atividade mais impactante em custo. Envolve gestão de estoque de produtos acabados, previsão de demanda (com marketing), empacotamento, garantias, atendimento ao cliente, transporte, abastecimento de CDs.</span></div>
+</div>
+
+<div class="key">
+<span class="lbl">Conceito-chave</span>
+<p><strong>PCP (Programação, Planejamento e Controle da Produção)</strong> — define quando, quanto e onde produzir, além de acompanhar a aderência ao planejado. O PCP responde a 4 perguntas: Quando produzir? Quanto e onde produzir? Em que ordem produzir? A execução está de acordo com o planejamento?</p>
+</div>
+</section>
+
+<section id="arranjos">
+<h2>Arranjos Organizacionais de Distribuição Física</h2>
+<div class="cards c2">
+<div class="card">
+<h4>Milk run</h4>
+<p>Coletas programadas usando um único veículo (normalmente de um operador logístico) em um ou mais fornecedores, em horários preestabelecidos. O estoque é transferido para o fornecedor. Não é usado para longas distâncias. Origem: leiterias. Muito usado por montadoras automotivas no Brasil.</p>
+<p>Vantagens: redução de custo de transporte, monitoramento do fluxo, menos veículos na planta, agilidade no recebimento, redução de atrasos, menor ocupação de docas, menos pessoal de movimentação, melhor qualidade no manuseio, maior ocupação volumétrica.</p>
+</div>
+<div class="card">
+<h4>Cross-docking (docagem cruzada)</h4>
+<p>Rápida movimentação de produtos entre fornecedores e clientes: transbordo <strong>sem estocagem</strong>, chegada e saída no mesmo dia. Reduz custos de distribuição e mantém alto nível de serviço. Não há picking nem armazenagem. Exemplo: encomendas urgentes dos Correios (ECT).</p>
+</div>
+<div class="card">
+<h4>Transit point</h4>
+<p>Sistemática semelhante a centros avançados de distribuição, mas <strong>sem existência de estoques</strong>. Baixo investimento, baixa manutenção, gerenciamento simplificado (sem picking nem estocagem).</p>
+</div>
+<div class="card">
+<h4>Condomínio industrial</h4>
+<p>Fornecedores se instalam nas proximidades da indústria principal (geralmente uma montadora), abastecendo a linha de produção em tempo e sequência predeterminados. Exemplo clássico: fábrica de caminhões MAN em Resende (RJ).</p>
+</div>
+</div>
+</section>
+
+<section id="reversa">
+<h2>Logística Reversa, Missão e Definição de SCM</h2>
+<p>A logística reversa diz respeito às operações de retorno de materiais, sobras, produtos com defeito, embalagens, ou produtos regulados pela Política Nacional de Resíduos Sólidos (PNRS) — pilhas, baterias, lâmpadas, pneus, defensivos agrícolas. O processo logístico só termina quando embalagens/produtos são recolhidos, tratados, reaproveitados ou descartados.</p>
+<div class="note"><strong>Canais reversos de revalorização:</strong> retornar ao fornecedor, revender, recondicionar, reciclar, descartar (coletar → embalar → expedir).</div>
+
+<div class="key">
+<span class="lbl">Conceito-chave</span>
+<p><strong>Missão da logística:</strong> disponibilizar o produto <strong>certo</strong>, na quantidade <strong>certa</strong>, no lugar <strong>certo</strong>, no tempo <strong>certo</strong>, ao mínimo custo possível.</p>
+</div>
+
+<div class="key">
+<span class="lbl">Conceito-chave</span>
+<p><strong>SCM</strong> é o conjunto de atividades e processos de gerenciamento de fluxos de bens, serviços, dados financeiros e operacionais entre os agentes da cadeia produtiva e os consumidores finais, para obter vantagens competitivas e agregar valor. Sua finalidade é unir os objetivos de todas as empresas de uma cadeia e sincronizar suas atividades na busca por resultados.</p>
+</div>
+<p>O fluxo de SCM envolve, simultaneamente: <strong>fluxo de materiais</strong> (sub-fornecedor → fornecedor → fábrica → distribuidor → varejista → consumidor), <strong>fluxo financeiro</strong> (sentido inverso) e <strong>fluxo de informações/decisões</strong> (sentido da demanda, sentido da decisão sistêmica, ligando suprimentos, produção, distribuição e consumo).</p>
+</section>
+
+<section id="globalizacao">
+<h2>Globalização e Internacionalização da Produção</h2>
+<p>A globalização amplia oportunidades de produção de bens/serviços e escoamento (ex.: acordo Mercosul–União Europeia, 2020). Multinacionais fragmentam a produção geograficamente, aproveitando custo de mão de obra, economia em deslocamento, facilidades culturais/burocráticas e barreiras tarifárias/alfandegárias, ao mesmo tempo em que ajudam os países afiliados em desenvolvimento tecnológico, infraestrutura, empregos e intercâmbio cultural.</p>
+
+<div class="exam">
+<span class="lbl">Atenção — Prova</span>
+<p>Os <strong>4 riscos da internacionalização</strong> são um ponto clássico de prova:</p>
+</div>
+<div class="cards c2">
+<div class="card"><h4>Risco Intercultural</h4><p>Diferenças de idioma, religião, costumes, comportamento no trabalho e padrões de consumo.</p></div>
+<div class="card"><h4>Risco Cambial</h4><p>Flutuações adversas nas taxas de câmbio, reduzindo o valor dos ativos.</p></div>
+<div class="card"><h4>Risco País</h4><p>Instabilidade política, jurídica e econômica que afeta o mercado e a lucratividade.</p></div>
+<div class="card"><h4>Risco Comercial</h4><p>Prejuízo/fracasso por estratégias mal planejadas (mais grave em mercado estrangeiro).</p></div>
+</div>
+</section>
+
+<section id="incoterms">
+<h2>Incoterms 2020</h2>
+<div class="key">
+<span class="lbl">Conceito-chave</span>
+<p><strong>Incoterms</strong> são as 11 regras internacionais de comércio que definem responsabilidades de vendedor e comprador quanto a transporte, seguro e riscos.</p>
+</div>
+<div class="table-scroll">
+<table>
+<thead><tr><th>Sigla</th><th>Nome</th><th>Responsabilidade</th><th>Modal</th></tr></thead>
+<tbody>
+<tr><td><strong>EXW</strong></td><td>Ex Works — Na Origem</td><td>Vendedor disponibiliza no local; comprador contrata transporte e seguro.</td><td>Todos</td></tr>
+<tr><td><strong>FCA</strong></td><td>Free Carrier — Livre no Transportador</td><td>Vendedor entrega ao transportador indicado; risco passa ao comprador na entrega.</td><td>Todos</td></tr>
+<tr><td><strong>FAS</strong></td><td>Free Alongside Ship — Livre ao Lado do Navio</td><td>Vendedor entrega ao lado do navio no porto.</td><td>Marítimo</td></tr>
+<tr><td><strong>FOB</strong></td><td>Free On Board — Livre a Bordo</td><td>Vendedor carrega a bordo; risco passa ao comprador a partir daí.</td><td>Marítimo</td></tr>
+<tr><td><strong>CPT</strong></td><td>Carriage Paid To — Transporte Pago Até</td><td>Exportador paga o transporte até o destino; riscos do comprador a partir do transporte.</td><td>Todos</td></tr>
+<tr><td><strong>CIP</strong></td><td>Carriage and Insurance Paid To</td><td>Vendedor cobre custos e riscos até o destino.</td><td>Todos</td></tr>
+<tr><td><strong>CFR</strong></td><td>Cost and Freight — Custo e Frete</td><td>Vendedor paga frete marítimo até o porto de destino; risco passa ao cruzar a amurada do navio.</td><td>Marítimo</td></tr>
+<tr><td><strong>CIF</strong></td><td>Cost, Insurance and Freight</td><td>Como o CFR, mas o vendedor também paga o seguro.</td><td>Marítimo</td></tr>
+<tr><td><strong>DAP</strong></td><td>Delivered At Place — Entregue no Local</td><td>Vendedor entrega pronta para descarga, sem obrigação de seguro.</td><td>Todos</td></tr>
+<tr><td><strong>DPU</strong></td><td>Delivered At Place Unloaded</td><td>Vendedor entrega e descarrega no destino.</td><td>Todos</td></tr>
+<tr><td><strong>DDP</strong></td><td>Delivered Duty Paid — Entregue com Direitos Pagos</td><td>Vendedor assume todos os custos e riscos, incluindo tributos.</td><td>Todos</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="infraestrutura">
+<h2>Infraestrutura Logística Brasileira e Custos</h2>
+<div class="exam">
+<span class="lbl">Atenção — Prova</span>
+<p>Números centrais sobre custo logístico no Brasil, muito cobrados:</p>
+<ul>
+<li>Custo de transporte representa cerca de <strong>60% dos custos logísticos totais</strong> no Brasil (e até <strong>70%</strong> em alguns segmentos).</li>
+<li>Os custos logísticos totais superam <strong>12,0% do PIB brasileiro</strong>, contra <strong>7,6% nos EUA</strong> — a operação brasileira é <strong>58% mais onerosa</strong> (ILOS, 2021).</li>
+<li>Comparação CEL-COPPEAD: o estoque no Brasil chega a ser <strong>86% mais caro</strong> que nos EUA.</li>
+<li>No Brasil existem mais de <strong>70 tipos de tributos</strong> (municipais, estaduais, federais). O que mais impacta a cadeia de suprimentos é o <strong>ICMS</strong>, com <strong>27 legislações estaduais diferentes</strong> e acordos bilaterais entre elas.</li>
+</ul>
+</div>
+<p>Fatores que encarecem a logística brasileira: infraestrutura de transporte/portuária/alfandegária deficiente, impostos em cascata, condições macroeconômicas desfavoráveis (alto custo tributário e de capital, inflação elevada), e a tentativa de otimizar modais aumentando a necessidade de estoque para transportar em lotes maiores. Nos EUA, por comparação: o modal rodoviário é usado majoritariamente para integração entre modais, há foco em bens elaborados, e cresce a participação de bens intangíveis na balança comercial.</p>
+<p>Programas de concessão de portos, ferrovias, hidrovias e rodovias vêm melhorando a eficiência, especialmente para commodities de menor valor agregado.</p>
+</section>
+
+<section id="modais">
+<h2>Modais de Transporte</h2>
+<div class="key">
+<span class="lbl">Conceito-chave</span>
+<p>A escolha do modal considera capacidade, custo, velocidade, disponibilidade, frequência, confiabilidade e regularidade, cruzados com os atributos do produto (valor agregado, forma, volume/peso, perecibilidade, segurança, temperatura, periculosidade).</p>
+</div>
+<div class="deflist">
+<div class="defitem"><span class="t">Rodoviário</span> — <span class="d">~60% das cargas transportadas no Brasil; um dos mais usados no mundo. Compete com o aéreo em cargas pequenas/curtas distâncias (&lt; 300 km) e com o ferroviário em grandes distâncias/cargas médias (&lt; 25 toneladas). Mais adequado para <em>last mile</em>. Em 1950: ferrovias 29%, rodovias 38%, cabotagem 32%. A partir de 1957 (indústria automobilística no Brasil), o governo priorizou investimento rodoviário.</span></div>
+<div class="defitem"><span class="t">Ferroviário</span> — <span class="d">Adequado a grandes distâncias e boa otimização de custos, útil para baratear exportação de commodities. Gargalo histórico: carga/descarga. Recuperação a partir da privatização (anos 2000), com investimentos recentes relevantes.</span></div>
+<div class="defitem"><span class="t">Aquaviário</span> — <span class="d">Subdividido em marítimo (navegação de longo curso, entre países; e cabotagem, ao longo da costa) e hidroviário/interior (rios, lagos — baixo valor agregado, predominante no Norte e extremo Sul/Lagoa dos Patos). Brasil tem ~7.500 km de costa navegável. Baixo custo, grande capacidade, menor poluição — maior potencial de crescimento no Brasil. Classificação portuária (Antaq): granel sólido (minério, grãos), granel líquido (combustíveis, óleos) e carga geral (siderúrgicos). <strong>TEU</strong> (twenty-foot equivalent unit) é a unidade padrão de contêiner de 20 pés.</span></div>
+<div class="defitem"><span class="t">Dutoviário</span> — <span class="d">Transporta petróleo/derivados (oleodutos), gás natural (gasodutos), grãos e minério (mineirodutos), água (aquedutos). Maior oleoduto do mundo: <strong>Druzhba</strong> (Rússia–Bielorrússia, ~8.900 km). Maior gasoduto da América Latina: <strong>Gasbol</strong> (3.150 km total, 2.593 km em território brasileiro).</span></div>
+<div class="defitem"><span class="t">Aéreo</span> — <span class="d">Menor tempo em trânsito em longas distâncias, mas custo elevado (última posição em volume transportado). Mais adequado para mercadorias de alto valor, perecíveis ou entregas emergenciais.</span></div>
+</div>
+<div class="note"><strong>Intermodalidade / multimodalidade</strong> — uso combinado de mais de um modal, aproveitando as melhores características de cada um. No transporte multimodal, um único operador é responsável, frente ao embarcador, da origem ao destino final.</div>
+</section>
+
+<section id="canais">
+<h2>Canais de Distribuição</h2>
+<p>Canal de distribuição é o caminho que os produtos percorrem das empresas aos consumidores.</p>
+<h3>Intermediários</h3>
+<div class="cards c2">
+<div class="card"><h4>Distribuidores (agentes)</h4><p>Compram do fabricante e revendem, com processamento de pedidos, armazenagem, crédito e treinamento.</p></div>
+<div class="card"><h4>Varejistas</h4><p>Vendem em pequenas quantidades ao consumidor final.</p></div>
+<div class="card"><h4>Atacadistas</h4><p>Compram em grande volume, ganham em escala.</p></div>
+<div class="card"><h4>Brokers (corretores)</h4><p>Remunerados por comissão, não manuseiam nem têm posse da mercadoria.</p></div>
+</div>
+<h3>Propriedades dos canais</h3>
+<div class="key">
+<span class="lbl">Conceito-chave</span>
+<p><strong>Extensão</strong> (nº de intermediários entre fabricante e consumidor — canal nível 0 = venda direta; nível 1 = com um varejista) e <strong>Amplitude</strong>:</p>
+</div>
+<div class="cards c3">
+<div class="card"><h4>Exclusiva</h4><p>Uma única empresa credenciada por região — produtos de alto valor/grifes.</p></div>
+<div class="card"><h4>Seletiva</h4><p>Mais de uma empresa por região, produtos que exigem treinamento de venda.</p></div>
+<div class="card"><h4>Intensiva</h4><p>Máxima penetração de mercado — commodities e produtos de baixo valor agregado.</p></div>
+</div>
+</section>
+
+<section id="tradeoffs">
+<h2>Trade-offs na Cadeia de Suprimentos</h2>
+<div class="key">
+<span class="lbl">Conceito-chave</span>
+<p><strong>Trade-off logístico</strong> é a troca compensatória entre custos logísticos conflitantes: o aumento de um custo pode ser compensado pela redução de outro. O estudo dos trade-offs busca o ponto ótimo entre custo total mínimo e nível de serviço ótimo.</p>
+</div>
+<div class="cards c3">
+<div class="card"><h4>Nível de serviço</h4><p>Depende de transporte, armazenagem, gestão de estoques, processamento de pedidos e informação/produção. Quanto maior o nível de serviço, menor o custo de perda de vendas (mas maior o custo com transporte/estoque).</p></div>
+<div class="card"><h4>Custo total</h4><p>Analisa transporte, estoque, processamento de pedidos e armazenagem de forma <strong>integrada</strong>, não isoladamente. Estoque insuficiente gera perda de vendas, reduz nível de serviço e aumenta o custo logístico total.</p></div>
+<div class="card"><h4>Estoque</h4><p>Custo de transporte cai quando pontos de estoque ficam mais próximos/numerosos (lotes maiores), mas exige estocar mais ou por mais tempo. Mais pontos de estoque bem distribuídos aumentam o nível de serviço.</p></div>
+</div>
+<p>Os efeitos do trade-off são avaliados por impacto no <strong>custo total</strong> ou na <strong>receita de vendas</strong> — a melhora de eficiência ocorre quando a diferença entre receita e custo aumenta após a decisão.</p>
+
+<div class="key">
+<span class="lbl">Conceito-chave</span>
+<p><strong>Custo de oportunidade logístico</strong> — custo associado à renúncia de rentabilidade por ter investido recursos em uma alternativa (ex.: estoque elevado) em vez de outra. Percebido sobretudo em operações com estoques altos (OPEX) ou ativos logísticos caros (CAPEX).</p>
+</div>
+<p><strong>Custo do excesso x custo da falta:</strong> quanto maior o custo do excesso de um item (vs. custo da falta), menor deve ser o estoque de segurança; quanto menor o custo do excesso (vs. custo da falta), maior deve ser o estoque de segurança para evitar stockout. Indústrias tendem a produzir mais para estoque (cobrir incertezas de demanda); o varejo opera com estoques de segurança menores.</p>
+
+<div class="exam">
+<span class="lbl">Exemplo de Prova — Custo Total e Trade-off (Fornaciari et al., 2003)</span>
+<p>A empresa Fabrica S.A. compara duas transportadoras para 10 lotes de 100 unidades do produto X (custo unitário R$ 100,00). Empresa "A" cobra R$ 4,00/lote, mas avaria 3 unidades por lote (perda de 3% do custo total, ou 30 unidades em 10 lotes). Empresa "B" cobra R$ 5,00/lote, sem avarias.</p>
+<ul>
+<li>Diferença de custo de transporte: R$ 5,00 − R$ 4,00 = <strong>R$ 1,00</strong> por lote (1% do custo do produto).</li>
+<li>Perda sistemática por lote da empresa "A": R$ 3,00 − R$ 1,00 = <strong>R$ 2,00</strong> de desvantagem líquida.</li>
+<li>Conclusão: trocar para a empresa "B" é vantajoso — essa é uma <strong>análise de custos incrementais (ou marginais)</strong>.</li>
+</ul>
+</div>
+</section>
+
+<section id="clt">
+<h2>Custo Logístico Total (CLT)</h2>
+<div class="key">
+<span class="lbl">Fórmula</span>
+<p><strong>Custo Logístico Total, por elemento de custo:</strong></p>
+<div class="formula">CLT = CAM + CTRA + CE + CMI + CTI + CTRI + CDL + CDNS + CAD</div>
+<p>CAM = armazenagem e movimentação · CTRA = transporte (todos os modais) · CE = embalagens · CMI = manutenção de inventários · CTI = tecnologia da informação · CTRI = tributos não recuperáveis · CDL = decorrentes de lotes · CDNS = decorrentes do nível de serviço · CAD = administração logística.</p>
+<p><strong>Forma alternativa (por processo):</strong></p>
+<div class="formula">CLT = CLOGAba + CLOGGPla + CLOGDis</div>
+<p>(Custos logísticos do Abastecimento + da Planta + da Distribuição). O CLT <strong>não</strong> é a simples soma de custos individuais — é o resultado líquido dos trade-offs entre eles, e deve ser minimizado respeitando o nível de serviço definido.</p>
+</div>
+
+<h3>Elementos de custos logísticos</h3>
+<div class="cards c3">
+<div class="card"><h4>1–3. Armazenagem, inventário, transporte</h4><p>Armazenagem e movimentação; manutenção de inventário; transporte.</p></div>
+<div class="card"><h4>4–6. Embalagens, TI, tributos</h4><p>Embalagens; tecnologia da informação; custos tributários.</p></div>
+<div class="card"><h4>7–9. Lotes, nível de serviço, processos</h4><p>Decorrentes de lotes; decorrentes do nível de serviço; associados aos processos logísticos.</p></div>
+</div>
+
+<p><strong>Custos de manutenção de inventário</strong> incluem: custo de oportunidade (remuneração do capital), custo do serviço de inventário (seguros e impostos), custo de risco (deterioração, obsolescência, quebra, extravio, furto/roubo). Motivos para manter estoque: incerteza de demanda e de fornecimento, economia de escala. Motivos para reduzir estoque: diversidade crescente de produtos, redução de ciclos de vida, elevado custo do capital.</p>
+
+<p><strong>Custos de transporte</strong> dividem-se em: <strong>fixos</strong> (depreciação, remuneração do capital, pessoal, seguro, IPVA, custos administrativos — em função do tempo) e <strong>variáveis</strong> (pneus, combustível, lubrificantes, manutenção, lavagem — em função da distância percorrida).</p>
+
+<div class="key">
+<span class="lbl">Conceito-chave</span>
+<p><strong>TCO (Total Cost of Ownership)</strong> — ferramenta para entender os custos totais de aquisição de um bem/serviço de um fornecedor específico.</p>
+<div class="formula">IDF (Índice de Desempenho de Fornecedores) = (Custos de não conformidade + Preço de Compra) / Preço de Compra
+TCO = Preço de Proposta × IDF</div>
+</div>
+</section>
+
+<section id="custos">
+<h2>Fundamentos de Custos e Ponto de Equilíbrio</h2>
+<h3>Terminologia de custos</h3>
+<div class="deflist">
+<div class="defitem"><span class="t">Custo</span> — <span class="d">Valor de bens/serviços consumidos na produção de outros bens/serviços.</span></div>
+<div class="defitem"><span class="t">Despesa</span> — <span class="d">Valor de bens/serviços <strong>não</strong> relacionados diretamente à produção, consumidos em um período (ex.: frete em uma indústria).</span></div>
+<div class="defitem"><span class="t">Gasto</span> — <span class="d">Valor de bens/serviços adquiridos pela empresa, direta ou indiretamente relacionados à produção.</span></div>
+<div class="defitem"><span class="t">Perda</span> — <span class="d">Valor de bens/serviços consumidos de forma anormal e involuntária (ex.: danos por sinistro).</span></div>
+<div class="defitem"><span class="t">Custo fixo</span> — <span class="d">Não varia com o volume de produção/transporte/armazenagem (ex.: aluguel do galpão, seguro do veículo, salário do almoxarife).</span></div>
+<div class="defitem"><span class="t">Custo variável</span> — <span class="d">Proporcional ao volume produzido/transportado/armazenado (ex.: embalagem, combustível, pneu, óleo lubrificante).</span></div>
+</div>
+
+<h3>Ponto de Equilíbrio (break-even)</h3>
+<div class="key">
+<span class="lbl">Fórmula</span>
+<p>Ponto em que a receita operacional se iguala ao total de custos e despesas (Receita = Custo Total; Lucro = 0).</p>
+<div class="formula">Ponto de Equilíbrio Físico:    PEF = CF / (P − CVU)
+Ponto de Equilíbrio Monetário: PEM = PEF × P
+                          ou:  PEM = CF / (1 − (CV total / Vendas totais))
+Margem de Contribuição:        MC = (P − CVU) × Q
+Margem de Contribuição Unit.:  MCU = MC / Q = P − CVU</div>
+<p>Onde CF = custo fixo, P = preço de venda unitário, CVU = custo variável unitário, Q = quantidade.</p>
+</div>
+
+<div class="exam">
+<span class="lbl">Exercícios Resolvidos — Ponto de Equilíbrio</span>
+<p>P = R$ 12, CVU = R$ 9, CF = R$ 300.000 → <code>PEF = 300.000 / (12−9) = 100.000 unidades</code></p>
+<p>P = R$ 7,5, CVU = R$ 5, CF = R$ 1.500 → <code>PEF = 1.500 / (7,5−5) = 600 unidades</code></p>
+<p>Vendas totais R$ 1.000.000, custos variáveis totais R$ 550.000, custos fixos R$ 292.500 → <code>PEM = 292.500 / (1 − 0,55) = 292.500 / 0,45 = R$ 650.000</code></p>
+</div>
+</section>
+
+<section id="risco">
+<h2>Risco, Incerteza e Valor Esperado</h2>
+<div class="key">
+<span class="lbl">Conceito-chave</span>
+<p><strong>Risco x Incerteza:</strong> em uma situação de <strong>risco</strong>, a distribuição de probabilidades dos eventos é <strong>conhecida</strong>; em situação de <strong>incerteza</strong>, essa distribuição <strong>não é conhecida</strong>.</p>
+<p>Institute of Risk Management: risco é "a combinação da probabilidade de um evento e sua consequência, positiva ou negativa". Guia PMBOK: "evento ou condição incerta que, se ocorrer, tem efeito positivo ou negativo em escopo, prazo, custo ou qualidade".</p>
+</div>
+
+<div class="key">
+<span class="lbl">Fórmula</span>
+<p><strong>Valor Esperado E(x):</strong></p>
+<div class="formula">E(x) = P(sucesso) × Impacto do sucesso + P(insucesso) × Impacto do insucesso
+P(x) = nº de sucessos / nº de tentativas</div>
+</div>
+
+<div class="exam">
+<span class="lbl">Exercícios Resolvidos — Valor Esperado</span>
+<p><strong>Aposta em dado</strong> (prêmio R$ 4 se acertar, custo R$ 1 da aposta): <code>E(x) = 1/6 × (+R$4) + 5/6 × (−R$1) = −R$0,17</code> (perda média por aposta).</p>
+<p><strong>Multa de estacionamento</strong> (10% de chance de multa de R$ 200): <code>E(x) = 10% × (−R$200) + 90% × (R$0) = −R$20</code> (perda média por parada).</p>
+</div>
+
+<p>O <strong>coeficiente de correlação de Pearson (r)</strong> mede a relação entre duas variáveis quantitativas, entre -1 e 1: próximo de 1 = correlação linear positiva forte; próximo de -1 = correlação negativa/inversa forte; próximo de 0 = sem relação.</p>
+</section>
+
+<section id="tecnologia">
+<h2>ERP, MRP, S&amp;OP, SCOR, MTO/MTS/ETO</h2>
+<p>As empresas vêm substituindo modelos tradicionais por processos redesenhados com <strong>IoT, Big Data, Inteligência Artificial e Blockchain</strong>, buscando negócios centrados no cliente.</p>
+
+<div class="key">
+<span class="lbl">Conceito-chave</span>
+<p><strong>ERP (Enterprise Resource Planning)</strong> — sistema central integrado que conecta todas as áreas da empresa (financeiro, contabilidade, contas a pagar/receber, folha, produção, estoques, distribuição, fornecedores, notas fiscais). Principais fornecedores: <strong>Totvs, Oracle, SAP</strong>.</p>
+</div>
+<div class="stepper">
+<div class="step"><div class="num">1</div><div class="body"><h4>Identificação das necessidades</h4></div></div>
+<div class="step"><div class="num">2</div><div class="body"><h4>Definição do escopo</h4></div></div>
+<div class="step"><div class="num">3</div><div class="body"><h4>Avaliação de opções de mercado e infraestrutura</h4></div></div>
+<div class="step"><div class="num">4</div><div class="body"><h4>Migração de dados e transferência de tecnologia</h4></div></div>
+<div class="step"><div class="num">5</div><div class="body"><h4>Testes, treinamento, suporte e atualizações</h4></div></div>
+</div>
+
+<div class="cards c2">
+<div class="card"><h4>MRP (Manufacturing/Material Resource Planning)</h4><p>Módulo do ERP que calcula a quantidade de materiais necessários à manufatura, com base em demanda, lista de componentes e saldos de estoque, definindo o momento de reposição. <strong>MRP II</strong> amplia essa lógica para os impactos futuros da produção em engenharia e finanças.</p></div>
+<div class="card"><h4>S&amp;OP (Sales and Operations Planning)</h4><p>Processo de planejamento integrado, liderado pela alta administração, com reuniões periódicas (mensais) entre marketing, comercial, finanças, produção, logística e diretoria.</p></div>
+</div>
+<h4 style="font-size:15px;color:var(--accent);margin:18px 0 6px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.5px;">Fases do S&amp;OP</h4>
+<div class="stepper">
+<div class="step"><div class="num">1</div><div class="body"><p>Coleta de dados</p></div></div>
+<div class="step"><div class="num">2</div><div class="body"><p>Planejamento de demandas</p></div></div>
+<div class="step"><div class="num">3</div><div class="body"><p>Planejamento das operações de produção e logística</p></div></div>
+<div class="step"><div class="num">4</div><div class="body"><p>Análise de cenários e tendências</p></div></div>
+<div class="step"><div class="num">5</div><div class="body"><p>Reunião executiva</p></div></div>
+</div>
+
+<div class="key">
+<span class="lbl">Conceito-chave</span>
+<p><strong>Modelo SCOR (Supply Chain Operations Reference)</strong> — desenvolvido em 1996 pela PRTM, endossado pelo Supply Chain Council. Diagnostica e compara o desempenho operacional da cadeia, baseado em 4 pilares: modelagem de processos, medições de desempenho, melhores práticas e habilidades.</p>
+</div>
+<div class="stepper">
+<div class="step"><div class="num">P</div><div class="body"><h4>Plan (Planejamento)</h4><p>Avaliar insumos, riscos, lacunas de abastecimento.</p></div></div>
+<div class="step"><div class="num">S</div><div class="body"><h4>Source (Abastecimento)</h4><p>Avaliação de fornecedores, negociação, pedidos, recebimento.</p></div></div>
+<div class="step"><div class="num">M</div><div class="body"><h4>Make (Fabricação)</h4><p>Transformação de insumos em produtos/serviços.</p></div></div>
+<div class="step"><div class="num">D</div><div class="body"><h4>Deliver (Entrega)</h4><p>Cumprimento de cronogramas; pontualidade é um KPI central.</p></div></div>
+<div class="step"><div class="num">R</div><div class="body"><h4>Return (Retorno)</h4><p>Fluxo reverso — recolha de defeitos/embalagens/resíduos.</p></div></div>
+</div>
+
+<h3>Estratégias de produção — MTO, MTS, ETO</h3>
+<div class="cards c3">
+<div class="card"><h4>MTO — Make to Order</h4><p>Produto confeccionado após o pedido do cliente. Também chamado "gestão de suprimentos Pull" (sistema puxado).</p><ul><li>Vantagens: menos desperdício, mais eficiência, maior customização.</li><li>Desvantagens: vendas irregulares, prazos longos, dependência de matéria-prima.</li></ul><p>Uso típico: peças aeronáuticas, navegação, petróleo, equipamentos pesados.</p></div>
+<div class="card"><h4>MTS — Make to Stock</h4><p>Grandes volumes produzidos para estoque, com base em previsão de vendas; exige padronização de processos, boa previsão e baixo custo operacional. Risco: erro de previsão gera encalhe ou ruptura.</p></div>
+<div class="card"><h4>ETO — Engineer to Order</h4><p>O projeto do produto é criado no momento do pedido, com envolvimento total da engenharia do fabricante; típico de bens de capital.</p></div>
+</div>
+</section>
+
+<section id="ecommerce">
+<h2>Negócios Eletrônicos B2B e B2C</h2>
+<div class="cards c2">
+<div class="card">
+<h4>B2B (Business to Business)</h4>
+<p>Transações entre empresas (ex.: fornecedor de insumo químico para indústria de fertilizantes). O e-commerce B2B centraliza fornecedores cadastrados em plataformas fechadas (acesso por senha), agilizando cotação e identificação de fornecedores.</p>
+<p>Movimentou ~<strong>R$ 2,4 trilhões no Brasil em 2019</strong>; 93% dos consumidores B2B preferem comprar online (Forrester Research).</p>
+</div>
+<div class="card">
+<h4>B2C (Business to Consumer)</h4>
+<p>Atendimento direto ao consumidor final (ex.: Americanas, Submarino, Shoptime). O modelo <strong>Omnichannel</strong> permite comprar pelo e-commerce e retirar na loja física.</p>
+<p>Vantagens: menor investimento inicial que loja física, alta escalabilidade, ferramentas de gestão como <strong>CRM</strong>. Riscos: confiança do consumidor (fraude, segurança), concorrência com grandes players (Amazon, Alibaba), necessidade de logística eficiente.</p>
+</div>
+</div>
+
+<h3>E-procurement e e-sourcing</h3>
+<div class="key">
+<span class="lbl">Conceito-chave</span>
+<p><strong>E-procurement</strong> — aquisição de bens/serviços por meio eletrônico, com fornecedores cadastrados cumprindo requisitos técnicos/administrativos. Facilita planejamento de produção e programação logística.</p>
+</div>
+<div class="cards c2">
+<div class="card"><h4>E-sourcing</h4><p>Plataforma para identificar simultaneamente grupos de fornecedores por categoria de suprimento, unificando o processo com mais assertividade. Pode incluir <strong>e-leilão</strong> (leilão reverso).</p></div>
+<div class="card"><h4>E-informing</h4><p>Troca de informações entre vendedores e compradores, gerando banco de dados, sem necessariamente fechar negócio.</p></div>
+</div>
+</section>
+
+<section id="procurement">
+<h2>Procurement — Estratégias de Contratação</h2>
+<div class="key">
+<span class="lbl">Conceito-chave</span>
+<p><strong>Spend Analysis</strong> — conjunto organizado de informações que responde: O que eu compro? De quem eu compro? Quando eu compro? Quanto eu gasto? — base para definir toda a estratégia de compras.</p>
+</div>
+<h3>Instrumentos de negociação (abordagem estruturada do mercado)</h3>
+<div class="cards c3">
+<div class="card"><h4>RFI</h4><p><strong>Request for Information</strong> — mapear o mercado, identificar fornecedores/produtos/processo de fabricação em diferentes geografias.</p></div>
+<div class="card"><h4>RFQ</h4><p><strong>Request for Quotation</strong> — coletar preços/ofertas válidas com intenção de contratação.</p></div>
+<div class="card"><h4>RFP</h4><p><strong>Request for Proposal</strong> — similar ao RFQ, mas o fornecedor dá informações relevantes do processo/utilização/características do produto ou serviço.</p></div>
+</div>
+</section>
+
+<section id="ti-operacao">
+<h2>Tecnologia da Informação Aplicada à Operação</h2>
+<div class="deflist">
+<div class="defitem"><span class="t">Código de barras</span> — <span class="d">Associa o produto a atributos (descrição, preço), permite remarcação dinâmica, baixa automática de estoque na venda, e reduz tempo de espera no checkout.</span></div>
+<div class="defitem"><span class="t">RFID (Radio Frequency Identification)</span> — <span class="d">Etiqueta inteligente baseada em <em>transponders</em> (transmissor/receptor de microchip com antena), comunicando-se por radiofrequência.</span></div>
+<div class="defitem"><span class="t">WMS (Warehouse Management System)</span> — <span class="d">Gerencia o endereçamento do armazém (rua, coluna, andar/apartamento).</span></div>
+<div class="defitem"><span class="t">TMS (Transportation Management System)</span> — <span class="d">Dimensiona equipes de entrega, controla manutenção/custos de frota, otimiza roteirização, apoia auditoria de fretes e dá rastreabilidade/segurança à frota.</span></div>
+</div>
+</section>
+
+<section id="kpis">
+<h2>Avaliação do Desempenho — KPIs</h2>
+<div class="key">
+<span class="lbl">Conceito-chave</span>
+<p><strong>KPIs (Key Performance Indicators)</strong> medem o nível de serviço acordado em um SLA. Exemplos: custo dos suprimentos, saving em compras, prazo médio de pagamento, lead time de entregas, evolução de preços, pontualidade de entregas.</p>
+</div>
+<div class="cards c2">
+<div class="card"><h4>OFCT — Order Fulfillment Cycle Time</h4><p>Tempo do ciclo de atendimento do pedido, da emissão à entrega; especialmente relevante em e-commerce, mede a satisfação/experiência de compra.</p></div>
+<div class="card"><h4>OTIF / DIFOT</h4><p>On Time In Full / Delivery In Full On Time — indicador mais abrangente que o nível de serviço de entrega simples; considera posicionamento/gestão de estoques, tempo de entrega, monitoramento de transportadora, tempo de manufatura, fornecimento de matéria-prima e a cadeia de varejo/distribuidores/atacadistas.</p></div>
+</div>
+</section>
+
+<section id="esg">
+<h2>ESG e a Cadeia de Suprimentos Verde (GSCM)</h2>
+<div class="key">
+<span class="lbl">Conceito-chave</span>
+<p><strong>GSCM (Green Supply Chain Management)</strong> integra desenvolvimento industrial e proteção ambiental, aplicando as melhores práticas de <strong>ESG (Environmental, Social and Governance)</strong>. A gestão sustentável começa pelo <strong>ambiente interno</strong> (conscientização, legislação ambiental, tratamento de resíduos, uso de insumos e energia) e se propaga ao <strong>ambiente externo</strong>: a <strong>empresa focal</strong> (que define as regras) exige que sua cadeia de fornecedores adote a mesma política ambiental — inclusive fornecedores secundários.</p>
+</div>
+<p>Exemplos: Samsung e Whirlpool realizam auditorias anuais em fornecedores, com possibilidade de eliminação em caso de não conformidade.</p>
+<p>Ações típicas de GSCM: gestão ambiental interna, desenvolvimento de fornecedores verdes, certificações ambientais, ecodesign, redesenho de embalagens, criação de indicadores, logística reversa e reciclagem.</p>
+
+<div class="exam">
+<span class="lbl">Citação de Prova</span>
+<p>Larry Fink (CEO da BlackRock), carta de 2022: "A maioria dos stakeholders (...) agora espera que as empresas desempenhem um papel na descarbonização da economia global. Poucas coisas afetarão as decisões de alocação de capital (...) mais do que a eficiência com que você navegará na transição energética global."</p>
+</div>
+</section>
+
+<section id="verde">
+<h2>Logística Verde e Ecodesign</h2>
+<div class="key">
+<span class="lbl">Conceito-chave</span>
+<p><strong>Logística verde</strong> redesenha os processos logísticos (transporte, armazenamento, distribuição) para reduzir o impacto ambiental.</p>
+</div>
+<p><strong>Logística reversa x Logística verde</strong> — não são sinônimos: a logística <strong>reversa</strong> trata de devolução de produtos, remanufatura e retorno comercial/vendas; a logística <strong>verde</strong> trata de redução de embalagens, poluição sonora/do ar e impactos ambientais, com reciclagem e embalagens reutilizáveis como pontes entre as duas.</p>
+<h3>Etapas da logística verde</h3>
+<div class="cards c3">
+<div class="card"><h4>Compras</h4><p>Materiais ecológicos, seleção de fornecedores limpos.</p></div>
+<div class="card"><h4>Armazenagem / embalagens</h4><p>Recipientes recicláveis/reutilizáveis.</p></div>
+<div class="card"><h4>Transporte / distribuição</h4><p>Métodos mais limpos, consolidação de embarques.</p></div>
+</div>
+<p>Mais logística reversa e gestão de resíduos: descarte responsável, separação e preparação.</p>
+
+<h3>Ecodesign</h3>
+<div class="key">
+<span class="lbl">Conceito-chave</span>
+<p><strong>Ecodesign</strong> — estratégia de gestão para ações sustentáveis na concepção, produção, distribuição e uso de produtos, reduzindo o uso de recursos naturais não renováveis.</p>
+</div>
+<div class="cards c2">
+<div class="card"><h4>Materiais de baixo impacto</h4><p>Menos poluentes, de produção sustentável ou recicláveis, com menos energia para fabricação.</p></div>
+<div class="card"><h4>Eficiência energética</h4><p>Modernização de matrizes energéticas e uso de softwares de gestão de consumo.</p></div>
+<div class="card"><h4>Qualidade e durabilidade</h4><p>Favorece a <strong>economia circular</strong> (materiais em circuito fechado) em vez da economia linear "adquirir–consumir–descartar".</p></div>
+<div class="card"><h4>Modularidade e reaproveitamento</h4><p>Peças substituíveis (reparo em vez de descarte) e produtos projetados para reutilização.</p></div>
+</div>
+</section>
+
+<section id="sustentabilidade">
+<h2>Capacidade Dinâmica e Crises</h2>
+<p>Pontos centrais da capacidade dinâmica da cadeia de suprimentos sustentável: gestão de relacionamento com clientes, gestão de serviço ao cliente, gestão de pedidos, gestão de demanda (sentido da informação, da ação interna e da resposta), gestão do fluxo de fabricação (processos mais limpos), desenvolvimento de produtos sustentáveis (reutilizáveis/recicláveis) e gestão de compras/fornecedores alinhada aos princípios de GSC.</p>
+
+<h3>Impacto de crises pandêmicas e humanitárias</h3>
+<p>A pandemia de Covid-19 evidenciou os riscos de fechamento de fronteiras, portos e aeroportos, com forte impacto em fretes, combustíveis e armazenamento, e desequilíbrio entre demanda reprimida e disponibilidade de equipamentos na retomada.</p>
+<div class="note">Outras crises que afetam cadeias globais: instabilidade política Rússia–Ucrânia, barreiras tarifárias EUA–China, e crises humanitárias no Oriente Médio e na África (governos ditatoriais, guerras civis).</div>
+</section>
+
+<section id="recall">
+<h2>Perguntas de Recall</h2>
+<div class="recall fullw"><p>Quais são as 4 fases da evolução da logística até o SCM, segundo Wood (1998), e o que caracteriza cada uma?</p></div>
+<div class="recall fullw"><p>Escreva a fórmula do Custo Logístico Total (CLT) por elementos de custo e explique o que significa dizer que ele "não é apenas um simples somatório".</p></div>
+<div class="recall fullw"><p>Diferencie cross-docking, transit point e milk run quanto à existência de estoque e ao número de veículos envolvidos.</p></div>
+<div class="recall fullw"><p>Um produto é vendido a R$ 20, tem custo variável unitário de R$ 14 e custo fixo total de R$ 90.000. Calcule o Ponto de Equilíbrio Físico (PEF).</p></div>
+<div class="recall fullw"><p>Explique a diferença entre MTO, MTS e ETO, e dê um exemplo de produto adequado a cada estratégia.</p></div>
+<div class="recall fullw"><p>O que diferencia logística reversa de logística verde? Dê um exemplo de atividade específica de cada uma.</p></div>
+<div class="recall fullw"><p>Segundo o CSCMP, qual é a definição de logística? Cite as três atividades primárias e explique por que o processamento de pedidos é considerado atividade-chave mesmo tendo custo relativamente baixo.</p></div>
+</section>
+
+</div>
+</body>
+</html>
