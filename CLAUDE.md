@@ -78,10 +78,7 @@ This reads `content/[slug].md`, calls Claude Opus 4.7, and writes `content/enric
 - `> [!KEY]` — callouts for key concepts and frameworks with clean definitions
 - `> [!RECALL]` — self-test questions at the end
 
-The API key is read from `.env` in the project root (never committed). To set it up:
-```bash
-echo "ANTHROPIC_API_KEY=sk-ant-..." > .env
-```
+The API key is managed via 1Password CLI, never as a plaintext `.env`. `.env.tpl` (committed) references `op://Dev/fgv-summary-platform/anthropic_api_key`. `npm run enrich`/`npm run render` already wrap the underlying command with `op run --env-file=.env.tpl --`. See `1PASSWORD-ENV-GUIDE.md` in the Projetos root for the full setup.
 
 Runs once per subject. Re-run only if the raw notes change significantly:
 ```bash
@@ -143,7 +140,7 @@ complementary-study-docs/[slug]/         ← PDFs, slides, books per subject (du
 enrich.js                                ← AI enrichment: reads content/ → writes content/enriched/
 render.js                                ← AI renderer: reads content/enriched/ → writes docs/ (run once per subject)
 test.js                                  ← Tests covering content frontmatter, enrich import, and render functions
-.env                                     ← ANTHROPIC_API_KEY (local only, gitignored)
+.env.tpl                                 ← ANTHROPIC_API_KEY via op:// reference (committed, no real secret)
 docs/index.html                          ← Generated hub page (never edit directly)
 docs/[slug]/index.html                   ← AI-generated subject page (never edit directly)
 .github/workflows/deploy.yml             ← CI: runs tests on push to main, deploys committed docs/
@@ -210,7 +207,7 @@ A future automated engine will process these files and enrich the subject pages.
 - Never edit the `SYSTEM_PROMPT` in `render.js` unless the design needs to change globally
 - Do not add JavaScript to the output pages — the design is intentionally JS-free
 - Never use a model weaker than Claude Opus for enrichment or rendering — learning quality depends on it (check `enrich.js` and `render.js` for current model ID)
-- Never commit `.env` — it contains the API key and is gitignored
+- Never commit a plaintext `.env` — secrets live in 1Password, referenced via `.env.tpl`
 
 ## ⚠️ Gotcha: `npm test` clobbers `docs/`
 

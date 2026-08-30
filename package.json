@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "render": "node render.js",
+    "render": "op run --env-file=.env.tpl -- node render.js",
     "test": "node --test test.js",
-    "enrich": "node enrich.js"
+    "enrich": "op run --env-file=.env.tpl -- node enrich.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.100.1",
