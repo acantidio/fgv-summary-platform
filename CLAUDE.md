@@ -6,18 +6,22 @@ A personal learning platform for André's FGV MBA in Management (Gestão Empresa
 
 **Live site:** `https://acantidio.github.io/fgv-summary-platform/`
 **GitHub repo:** `https://github.com/acantidio/fgv-summary-platform`
-**Obsidian vault:** `/Users/andrecantidio/Documents/Obsidian/main/MBA GE80/`
+**Obsidian vault:** `/Users/acantidio/Library/Mobile Documents/com~apple~CloudDocs/Documents/Obsidian/main/MBA GE80/` (iCloud)
 
 ---
 
 ## The Primary Recurring Task: Adding a New Subject
 
-This will happen every month. When André says something like "I finished class X, add it to the platform", follow this exact flow:
+This will happen every month. When André says something like "I finished class X, add it to the platform", follow this exact flow.
+
+There are two possible sources — check both before asking:
+- **Obsidian note** (Path A, below) — André's own class notes.
+- **Teacher materials** in `complementary-study-docs/[slug]/` (Path B, see "Subjects built from teacher materials") — slides, apostila, dinâmicas, plus any class board (Mural/Miro). Recent subjects (Supply Chain, Gestão de Projetos) were built this way, with no Obsidian note.
 
 ### 1. Find the Obsidian note
 
 ```bash
-ls "/Users/andrecantidio/Documents/Obsidian/main/MBA GE80/"
+ls "/Users/acantidio/Library/Mobile Documents/com~apple~CloudDocs/Documents/Obsidian/main/MBA GE80/"
 ```
 
 Read the relevant `.md` file. The content starts immediately — no frontmatter in Obsidian files.
@@ -46,13 +50,15 @@ color: purple           # purple | amber | teal | blue | rose — pick one not o
 - Do NOT add a frontmatter section to the Obsidian content — paste it verbatim below the `---` closing.
 
 **Current color assignments:**
-| Color | Subject |
+| Color | Subjects |
 |---|---|
-| purple | Estratégia Corporativa |
-| teal | Gestão de Serviços |
-| blue | Transformação Digital |
+| purple | Estratégia Corporativa · Supply Chain Management |
+| blue | Transformação Digital · Gestão de Projetos e Criação de Valor |
 | amber | Análise de Demonstrativos Contábeis |
-| rose | (available) |
+| teal | Gestão de Serviços |
+| rose | Liderança e Gestão de Equipes |
+
+Next subject: pick amber, teal or rose (one subject each).
 
 Rotate through colors; each new subject gets the next available or least-used color.
 
@@ -66,13 +72,13 @@ Obsidian notes may contain:
 
 ### 4. Enrich with AI
 
-Transform the raw notes into a structured learning document using Claude Opus 4.7:
+Transform the raw notes into a structured learning document using Claude Opus (model ID in `enrich.js`, currently `claude-opus-4-8`):
 
 ```bash
 npm run enrich -- [slug]
 ```
 
-This reads `content/[slug].md`, calls Claude Opus 4.7, and writes `content/enriched/[slug].md`. The enriched file contains:
+This reads `content/[slug].md`, calls Claude Opus, and writes `content/enriched/[slug].md`. The enriched file contains:
 - `> [!SUMMARY]` — a 2–3 sentence cheat-sheet at the top
 - `> [!EXAM]` — callouts for exam-critical content
 - `> [!KEY]` — callouts for key concepts and frameworks with clean definitions
@@ -114,7 +120,52 @@ git commit -m "feat: add [Subject Name]"
 git push
 ```
 
-GitHub Actions will run tests and deploy the committed `docs/` files. The live site updates within ~2 minutes.
+GitHub Actions runs the tests; GitHub Pages (legacy build from `main:/docs`) deploys the committed `docs/` files. The site updates within ~2 minutes, but the Pages CDN caches pages for up to 10 minutes (`max-age=600`) — a new page can 404 or the hub can look stale in that window. Verify with a cache-buster: `curl -s "https://acantidio.github.io/fgv-summary-platform/?x=$RANDOM" | grep [slug]`.
+
+---
+
+## Subjects Built from Teacher Materials (Path B)
+
+When there is no Obsidian note, the subject is built from the files in `complementary-study-docs/[slug]/`. This replaces steps 1–5 above; the commit/push step is the same.
+
+### 1. Extract the materials to Markdown
+
+Outputs go in `complementary-study-docs/[slug]/extracted/` (the `.md` files are committed; the original PDFs/DOCX/PPTX and extracted images are gitignored). The scripts need PyMuPDF and python-docx, which are not installed system-wide — use a throwaway venv:
+
+```bash
+python3 -m venv /tmp/fgv-venv && /tmp/fgv-venv/bin/pip install pymupdf python-docx
+D=complementary-study-docs/[slug]
+/tmp/fgv-venv/bin/python scripts/extract_pdf_slides.py "$D/<slides>.pdf" $D/extracted      # → extracted.md + images/
+/tmp/fgv-venv/bin/python scripts/extract_pdf_text.py  "$D/<apostila>.pdf" $D/extracted/apostila.md
+/tmp/fgv-venv/bin/python scripts/extract_docx.py      "$D/<dinamica>.docx" "$D/extracted/<dinamica>.md"
+```
+
+Many slides are **image-only** (diagrams, canvases, matrices) and extract as empty text. Render those pages to PNG (`page.get_pixmap(dpi=70)` in PyMuPDF) and read them visually — key frameworks often live only there.
+
+### 2. Class boards (Mural / Miro)
+
+Classes may be run on an online board with the group's work. A plain fetch returns an empty JS shell; boards need a real browser. For Mural, a public link allows **"Enter as a visitor"** (asks for a display name — use a neutral one like "Visitante"; other participants may see it). The board content is in the JSON response of `GET /api/v0/content/murals/<workspace>.<id>/widgets` — capture it with Playwright (`playwright-core` + the Chromium in `~/Library/Caches/ms-playwright/`) instead of screenshotting. Child widgets have coordinates **relative to their parent frame** (`properties.parentId`); template images (`PhotoWidget.photoURL`) resolve to signed URLs in the `/assets` response (they expire in ~15 min). Save a clean Markdown extract as `extracted/mural-<group>.md`. The Gestão de Projetos subject is the reference example.
+
+### 3. Assemble the raw content file
+
+`content/[slug].md` = frontmatter + the extracted Markdown concatenated under `# Slides — …`, `# Apostila — …`, `# Dinâmica — …`, `# Mural — …` headings (image markers stripped).
+
+### 4. Enrich and render
+
+Either run `npm run enrich` / `npm run render` (API, via 1Password), or — as done for Supply Chain and Gestão de Projetos — write `content/enriched/[slug].md` and `docs/[slug]/index.html` in-session, reusing the CSS system of an existing subject page (e.g. `docs/gestao-de-projetos/index.html`). Rules for in-session enrichment:
+- Mark anything not in the teacher's material as **"Complemento"** (e.g. a standard formula the slides omit).
+- When sources contradict each other (e.g. a dinâmica table vs. the slide), follow the slide/board, and call out the contradiction in a `[!EXAM]` callout.
+- Analyses of exercises are labeled "não é gabarito oficial".
+
+Then rebuild the hub without any API call:
+
+```bash
+node -e "import('./render.js').then(m => m.buildHub())"
+```
+
+### 5. Verify
+
+`npm test`, then screenshot the page at 1200px and 390px with headless Chromium and check for horizontal overflow on mobile (`document.documentElement.scrollWidth > innerWidth`). Inline `grid-template-columns` styles bypass the mobile breakpoint — use the `.cards.cN` classes instead.
 
 ---
 
@@ -122,9 +173,11 @@ GitHub Actions will run tests and deploy the committed `docs/` files. The live s
 
 | Command | Purpose |
 |---|---|
-| `npm test` | Run all tests ⚠️ **destructive** — overwrites real `docs/*/index.html` with mock HTML; run `git restore docs/` afterward |
+| `npm ci` | Install dependencies (needed once per clone — `render.js` imports `@anthropic-ai/sdk` even for `buildHub`) |
+| `npm test` | Run all tests (render tests write to a temp dir; `docs/` is not touched) |
+| `node -e "import('./render.js').then(m => m.buildHub())"` | Rebuild only the hub (`docs/index.html`) — no API call |
 | `npm run render -- [slug]` | AI-render one subject page (run once per subject) |
-| `npm run render -- --all` | AI-render all subjects that have enriched files |
+| `npm run render -- --all` | AI-render all subjects that have enriched files ⚠️ also overwrites the in-session (Path B) pages — prefer rendering one slug at a time |
 | `npm run enrich -- [slug]` | AI-enrich one subject (run once per subject) |
 | `npm run enrich -- --all` | AI-enrich all subjects missing an enriched file |
 | `open docs/index.html` | Preview locally |
@@ -136,7 +189,9 @@ GitHub Actions will run tests and deploy the committed `docs/` files. The live s
 ```
 content/[slug].md                        ← Raw Obsidian note + frontmatter (source of truth, never modified)
 content/enriched/[slug].md               ← AI-enriched learning content (generated by enrich.js)
-complementary-study-docs/[slug]/         ← PDFs, slides, books per subject (dump files here)
+complementary-study-docs/[slug]/         ← PDFs, slides, books per subject (dump files here; originals gitignored)
+complementary-study-docs/[slug]/extracted/ ← Markdown extracted from those files (committed)
+scripts/extract_*.py                     ← PDF slides / PDF text / DOCX → Markdown extractors (PyMuPDF, python-docx)
 enrich.js                                ← AI enrichment: reads content/ → writes content/enriched/
 render.js                                ← AI renderer: reads content/enriched/ → writes docs/ (run once per subject)
 test.js                                  ← Tests covering content frontmatter, enrich import, and render functions
@@ -186,7 +241,7 @@ Each subject has a dedicated folder at `complementary-study-docs/[slug]/` for te
 mkdir complementary-study-docs/[slug]
 ```
 
-A future automated engine will process these files and enrich the subject pages. See [`docs/guides/complementary-materials-engine.md`](docs/guides/complementary-materials-engine.md) for the full roadmap. To trigger that work: start a session and say **"Let's build the complementary materials engine."**
+Today these files are processed by hand (see "Subjects Built from Teacher Materials" above). A future automated engine would do it with one command. See [`docs/guides/complementary-materials-engine.md`](docs/guides/complementary-materials-engine.md) for the full roadmap. To trigger that work: start a session and say **"Let's build the complementary materials engine."**
 
 ---
 
@@ -201,16 +256,9 @@ A future automated engine will process these files and enrich the subject pages.
 
 ## What NOT to Do
 
-- Never edit `docs/*.html` directly — they are always regenerated by `render.js`
-- Never edit `content/enriched/*.md` directly — they are always regenerated by `enrich.js`
+- Never edit `docs/*.html` or `content/enriched/*.md` of an API-generated subject by hand — regenerate them with `render.js` / `enrich.js`. Exception: subjects authored in-session (Path B: Supply Chain, Gestão de Projetos) have no API-generated version, so their files are edited directly — re-running `npm run render`/`enrich` on them would replace the hand-built version.
 - Never commit with failing tests
 - Never edit the `SYSTEM_PROMPT` in `render.js` unless the design needs to change globally
 - Do not add JavaScript to the output pages — the design is intentionally JS-free
 - Never use a model weaker than Claude Opus for enrichment or rendering — learning quality depends on it (check `enrich.js` and `render.js` for current model ID)
 - Never commit a plaintext `.env` — secrets live in 1Password, referenced via `.env.tpl`
-
-## ⚠️ Gotcha: `npm test` clobbers `docs/`
-
-`npm test` has a **destructive side effect**: the `renderSite` test in `test.js` runs `renderSite(mockClient)` against the real `DOCS_DIR` (`./docs`, not a temp dir), overwriting every `docs/[slug]/index.html` and `docs/index.html` with tiny mock HTML (`<p>mock</p>`). After running tests, the local rendered pages look gutted (≈1 line each).
-
-**Always run `git restore docs/` after `npm test`** to recover the real committed pages. Never commit the post-test mock state. If you need to inspect or hand-edit the real HTML, restore first.

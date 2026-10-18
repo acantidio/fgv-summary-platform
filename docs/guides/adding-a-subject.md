@@ -1,19 +1,21 @@
 # Adding a New Subject — Complete Guide
 
-This is the step-by-step for adding a new FGV MBA subject to the platform. Follows the same process every time.
+This is the step-by-step for adding a new FGV MBA subject to the platform from an **Obsidian note**.
+
+> **No Obsidian note?** If the subject's source is the teacher's material in `complementary-study-docs/[slug]/` (slides, apostila, dinâmicas, a Mural/Miro class board), follow **"Subjects Built from Teacher Materials (Path B)"** in [`CLAUDE.md`](../../CLAUDE.md) instead of steps 1–5. Supply Chain Management and Gestão de Projetos were built that way.
 
 ---
 
 ## Step 1: Find the Obsidian Note
 
 ```bash
-ls "/Users/andrecantidio/Documents/Obsidian/main/MBA GE80/"
+ls "/Users/acantidio/Library/Mobile Documents/com~apple~CloudDocs/Documents/Obsidian/main/MBA GE80/"
 ```
 
 Read the relevant file:
 
 ```bash
-cat "/Users/andrecantidio/Documents/Obsidian/main/MBA GE80/[Subject Name].md"
+cat "/Users/acantidio/Library/Mobile Documents/com~apple~CloudDocs/Documents/Obsidian/main/MBA GE80/[Subject Name].md"
 ```
 
 Obsidian notes have no frontmatter — the content starts directly with Markdown.
@@ -39,7 +41,7 @@ Examples:
 grep "^color:" content/*.md
 ```
 
-Pick the color used least often. Available: `purple`, `amber`, `teal`, `blue`, `rose`.
+Pick the color used least often. Available: `purple`, `amber`, `teal`, `blue`, `rose`. (As of Oct 2026: purple ×2, blue ×2, amber/teal/rose ×1.)
 
 ---
 
@@ -87,24 +89,19 @@ If the class is still ongoing or notes are sparse, set `status: in-progress` and
 
 ## Step 4: Enrich with AI
 
-Transform the raw notes into a structured learning document using Claude Opus 4.7:
+Transform the raw notes into a structured learning document using Claude Opus (model ID in `enrich.js`, currently `claude-opus-4-8`):
 
 ```bash
 npm run enrich -- [slug]
 ```
 
-This reads `content/[slug].md`, calls Claude Opus 4.7, and writes `content/enriched/[slug].md`.
+This reads `content/[slug].md`, calls Claude Opus, and writes `content/enriched/[slug].md`.
 
-**First-time setup** — make sure `.env` exists in the project root with your API key:
-```bash
-echo "ANTHROPIC_API_KEY=sk-ant-..." > .env
-```
-
-The `.env` file is gitignored and never committed.
+**First-time setup** — install dependencies with `npm ci`. The API key comes from 1Password: `npm run enrich` / `npm run render` wrap the command in `op run --env-file=.env.tpl --`, which resolves `op://Dev/fgv-summary-platform/anthropic_api_key`. Make sure the 1Password CLI is signed in (`op signin`). Never create a plaintext `.env`.
 
 Expected output:
 ```
-Enriching "[slug]" with Claude Opus 4.7...
+Enriching "[slug]" with Claude Opus...
 ✓ Enriched [slug] (NNN in / NNN out)
 ```
 
@@ -180,7 +177,7 @@ git commit -m "feat: add [Subject Name]"
 git push
 ```
 
-GitHub Actions runs `npm test` and deploys the committed `docs/` files. Site is live within ~2 minutes.
+GitHub Actions runs `npm test`; GitHub Pages (legacy build from `main:/docs`) publishes the committed `docs/` files. Site is live within ~2 minutes, but the Pages CDN caches for up to 10 minutes — if the new page 404s or the hub looks stale, check with a cache-buster (`?x=123`) before debugging.
 
 Check the run:
 ```bash
@@ -201,7 +198,7 @@ Drop any teacher slides, PDFs, or books there whenever you have them.
 
 ## Step 9: Update Obsidian Index
 
-Open `/Users/andrecantidio/Documents/Obsidian/main/MBA GE80/Índice.md` and add the new subject to the list if it isn't there already.
+Open `/Users/acantidio/Library/Mobile Documents/com~apple~CloudDocs/Documents/Obsidian/main/MBA GE80/Índice.md` and add the new subject to the list if it isn't there already.
 
 ---
 

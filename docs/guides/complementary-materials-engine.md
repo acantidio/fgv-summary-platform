@@ -1,7 +1,7 @@
 # Complementary Materials Engine — Roadmap
 
-> **Status: Planned — not yet implemented**
-> This document captures the architectural intent for a future feature. Nothing described here exists in code yet.
+> **Status: Planned — partially manual today**
+> The single-command engine described here does not exist yet. What exists: `scripts/extract_pdf_slides.py`, `scripts/extract_pdf_text.py` and `scripts/extract_docx.py` (PDF/DOCX → Markdown in `complementary-study-docs/[slug]/extracted/`), used together with in-session enrichment for Supply Chain Management and Gestão de Projetos. See "Subjects Built from Teacher Materials (Path B)" in `CLAUDE.md`.
 
 ---
 
@@ -12,7 +12,7 @@ Each FGV MBA subject has two layers of knowledge:
 1. **In-class notes** — André's Obsidian notes, already powering the platform via `content/*.md`
 2. **Complementary materials** — teacher slides, recommended books, PDFs, case studies, stored in `complementary-study-docs/[slug]/`
 
-The second layer is currently unused. It contains dense, authoritative content that could significantly enrich each subject page — but reading and manually summarizing 100+ pages per subject is not practical.
+The second layer used to be unused; it is now processed by hand for subjects that have no Obsidian note. It contains dense, authoritative content that could significantly enrich each subject page — but reading and manually summarizing 100+ pages per subject is not practical.
 
 ---
 

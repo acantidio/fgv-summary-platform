@@ -8,10 +8,14 @@ Each subfolder maps 1:1 to a subject slug in `content/`:
 
 ```
 complementary-study-docs/
-├── estrategia-corporativa/      ← books, slides, PDFs for this subject
-├── gestao-de-servicos/
-├── transformacao-digital/
 ├── analise-demonstrativos/
+├── estrategia-corporativa/
+├── gestao-de-projetos/          ← apostila, slides, 6 dinâmicas (.docx)
+│   └── extracted/               ← Markdown extracted from the files above + Mural board (committed)
+├── gestao-de-servicos/
+├── supply-chain-management/
+│   └── extracted/
+├── transformacao-digital/
 └── [new-subject-slug]/          ← created when a new subject is added
 ```
 
@@ -27,6 +31,8 @@ Drop any of the following into the relevant subject folder:
 
 No specific naming convention required — dump files as-is.
 
+Original binaries (`.pdf`, `.pptx`, `.docx`, `.xlsx`, images…) are **gitignored** — they stay local. What gets committed is the Markdown in `[slug]/extracted/`, produced by the scripts in `scripts/` (see "Subjects Built from Teacher Materials" in `CLAUDE.md`). Class boards (Mural/Miro) are extracted to `extracted/mural-<group>.md`.
+
 ## Adding a New Subject Folder
 
 When adding a new subject to the platform, create its folder here at the same time:
@@ -41,7 +47,7 @@ Keep it in sync with `content/` — every subject should have a corresponding fo
 
 ## Future: Complementary Materials Engine
 
-> **Status: Planned — not yet implemented**
+> **Status: Planned — not yet automated.** Today the extraction is semi-manual: `scripts/extract_*.py` turn the files into Markdown, and the enrichment is written in-session (done for Supply Chain Management and Gestão de Projetos).
 
 See [`docs/guides/complementary-materials-engine.md`](../docs/guides/complementary-materials-engine.md) for the full roadmap.
 
