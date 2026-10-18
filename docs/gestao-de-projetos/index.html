@@ -73,6 +73,7 @@ ul.plain li,ol.plain li{margin-bottom:4px;}
 .cards.c2{grid-template-columns:repeat(2,1fr);}
 .cards.c3{grid-template-columns:repeat(3,1fr);}
 .cards.c4{grid-template-columns:repeat(4,1fr);}
+.cards.c5{grid-template-columns:repeat(5,1fr);}
 .card{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:20px;}
 .card h4{font-family:'DM Sans';font-size:17px;font-weight:600;margin-bottom:8px;color:var(--accent);}
 .card .tag{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:4px;}
@@ -232,7 +233,7 @@ header.page h1{font-size:34px;}
 body{font-size:16px;}
 h2{font-size:26px;}
 .hero{padding:24px 20px;}
-.hero .blocks,.cards.c2,.cards.c3,.cards.c4,.pillars,.pillars.p5,.phases,.versus,.s353,.letters,.tree > ul,.tree.t6 > ul{grid-template-columns:1fr;}
+.hero .blocks,.cards.c2,.cards.c3,.cards.c4,.cards.c5,.pillars,.pillars.p5,.phases,.versus,.s353,.letters,.tree > ul,.tree.t6 > ul{grid-template-columns:1fr;}
 .phase{border-right:none;border-bottom:1px solid var(--border-light);}
 .canvas{grid-template-columns:1fr 1fr;}
 .canvas .top{grid-template-columns:1fr;}
@@ -279,6 +280,7 @@ h2{font-size:26px;}
 <a href="#scrum">Ágil e Scrum</a>
 <a href="#esg">ESG</a>
 <a href="#ia">TD e IA</a>
+<a href="#g1">Projeto G1 · CRM</a>
 <a href="#programa">Programa</a>
 <a href="#recall">Recall</a>
 </div>
@@ -288,7 +290,7 @@ h2{font-size:26px;}
 
 <div class="hero">
 <span class="lbl">◎ Resumo da Disciplina</span>
-<p>Projeto é um esforço <strong>temporário</strong> para criar um produto, serviço ou resultado <strong>único</strong>, elaborado de forma <strong>progressiva</strong>. É o meio pelo qual a estratégia vira resultado. A disciplina percorre quatro blocos, e o GP precisa dominar desde a seleção de projetos (VPL, TIR, Payback, Scoring, WSJF) até os artefatos do plano, o Scrum e o uso de IA, que amplia o gerente de projetos mas não o substitui.</p>
+<p>Projeto é um esforço <strong>temporário</strong> para criar um produto, serviço ou resultado <strong>único</strong>, elaborado de forma <strong>progressiva</strong>. É o meio pelo qual a estratégia vira resultado. A disciplina percorre quatro blocos, e o GP precisa dominar desde a seleção de projetos (VPL, TIR, Payback, Scoring, WSJF) até os artefatos do plano, o Scrum e o uso de IA, que amplia o gerente de projetos mas não o substitui. Todos os artefatos foram aplicados pelo grupo G1 num caso real, a <a href="#g1"><strong>Implantação de CRM</strong></a>, documentada no fim da página como exemplo resolvido.</p>
 <div class="blocks">
 <div class="blk"><span class="n">01</span><div class="t">Fundamentos</div></div>
 <div class="blk"><span class="n">02</span><div class="t">Planejando projetos preditivos</div></div>
@@ -356,7 +358,7 @@ h2{font-size:26px;}
 <p>A governança garante o <strong>alinhamento estratégico</strong> do portfólio (referência: PMI, <em>Standard for Portfolio Management</em>, 4ª ed., 2017).</p>
 
 <h3>Mundo VUCAH e agilidade no negócio</h3>
-<div class="cards c4" style="grid-template-columns:repeat(5,1fr)">
+<div class="cards c5">
 <div class="card"><h4>V</h4><p>Volatility · Volatilidade</p></div>
 <div class="card"><h4>U</h4><p>Uncertainty · Incerteza</p></div>
 <div class="card"><h4>C</h4><p>Complexity · Complexidade</p></div>
@@ -477,17 +479,23 @@ h2{font-size:26px;}
 </div>
 
 <h3>Quadrante WSJF</h3>
+<p>Layout do slide 32 e do quadro Mural: eixo <strong>Valor</strong> na horizontal (− à esquerda, + à direita) e eixo <strong>Esforço</strong> na vertical (− no topo, + embaixo).</p>
 <div class="quadwrap">
-<div class="quad-ylab">Valor ↑</div>
+<div class="quad-ylab">Esforço − (topo) → + (base)</div>
 <div class="quad">
-<div class="q q-amber"><span class="qn">Q3 · Valor alto · Esforço alto</span><h4>Faça mais tarde</h4></div>
-<div class="q q-teal"><span class="qn">Q1 · Valor alto · Esforço baixo</span><h4>Faça agora</h4></div>
-<div class="q q-rose"><span class="qn">Q4 · Valor baixo · Esforço alto</span><h4>Não faça (agora)</h4></div>
-<div class="q q-blue"><span class="qn">Q2 · Valor baixo · Esforço baixo</span><h4>Faça a seguir</h4></div>
+<div class="q q-amber"><span class="qn">3 · Valor − · Esforço −</span><h4>Faça mais tarde</h4></div>
+<div class="q q-teal"><span class="qn">1 · Valor + · Esforço −</span><h4>Faça agora</h4></div>
+<div class="q q-rose"><span class="qn">4 · Valor − · Esforço +</span><h4>Não faça</h4></div>
+<div class="q q-blue"><span class="qn">2 · Valor + · Esforço +</span><h4>Faça a seguir</h4></div>
 </div>
-<div class="quad-xlab"><span>← Esforço alto</span><span>Esforço baixo →</span></div>
+<div class="quad-xlab"><span>← Valor −</span><span>Valor + →</span></div>
 </div>
 <div class="formula"><span class="compl">Complemento · SAFe</span> WSJF = Custo do Atraso ÷ Tamanho do Trabalho (duração/esforço)</div>
+<div class="exam">
+<span class="lbl">Cai na prova · Contradição no material</span>
+<p>O texto da dinâmica (docx) traz uma tabela que <strong>inverte</strong> os quadrantes 2 e 3: "Faça a seguir = valor baixo/esforço baixo" e "Faça mais tarde = valor alto/esforço alto". O <strong>slide 32</strong> e o <strong>quadro Mural</strong> usado em aula mostram o contrário: Faça a seguir = valor alto/esforço alto; Faça mais tarde = valor baixo/esforço baixo.</p>
+<p>Como o slide e o quadro concordam, use a versão do slide. Se cair, justifique pela lógica: <strong>valor manda primeiro</strong> (o que gera valor vem antes, mesmo custando mais), e o esforço desempata.</p>
+</div>
 
 <h3>Dinâmica: Priorizando com WSJF na Clínica Saúde Plena</h3>
 <p><strong>Cenário:</strong> rede de clínicas de saúde ocupacional com 3 unidades e 120 colaboradores, que atende empresas com exames admissionais, periódicos e demissionais. Orçamento aprovado: <strong>R$ 800 mil</strong>. Capacidade: <strong>no máximo 2 projetos simultâneos</strong>.</p>
@@ -520,9 +528,23 @@ h2{font-size:26px;}
 </ul>
 <p style="margin-top:8px">Leitura: Scaled Agile, SAFe: Weighted Shortest Job First.</p>
 </div>
+<p><strong>Resposta do nosso grupo (G1) no quadro Mural:</strong></p>
+<div class="quad" style="margin:14px 0">
+<div class="q q-amber"><span class="qn">3 · Faça mais tarde</span><h4>05 Painel de Indicadores</h4></div>
+<div class="q q-teal"><span class="qn">1 · Faça agora</span><h4>01 Prontuário · 02 Agendamento</h4></div>
+<div class="q q-rose"><span class="qn">4 · Não faça</span><h4>04 Laudo Digital com IA</h4></div>
+<div class="q q-blue"><span class="qn">2 · Faça a seguir</span><h4>06 Bem-Estar · 03 Nova Unidade</h4></div>
+</div>
+<p>O ciclo do grupo ficou com <strong>01 + 02</strong>: R$ 245 mil, dentro dos R$ 800 mil e do limite de 2 projetos simultâneos.</p>
 <div class="note">
-<span class="lbl">Uma leitura possível · não é gabarito oficial</span>
-<p><strong>02</strong> e <strong>05</strong> são candidatos naturais ao Q1: baixo custo, 2 meses e dor clara. <strong>01</strong> tende ao Q1 pelo alto valor e pelo fornecedor homologado, apesar do custo maior. <strong>04</strong> divide opiniões: alto valor potencial, mas alto esforço e risco (tecnologia sem cases), o que o aproxima do Q3 ou de uma <strong>PoC</strong> antes do investimento pleno. <strong>03</strong> consome 77% do orçamento com mercado não validado e prazo de 18 meses (Q3/Q4). <strong>06</strong> é barato, mas tem valor difícil de quantificar (Q2). A restrição de <strong>2 projetos simultâneos</strong> obriga a sequenciar, não só a selecionar.</p>
+<span class="lbl">Pontos para o debate · não é gabarito oficial</span>
+<ul>
+<li><strong>01 + 02</strong> é uma escolha sólida: dor clara, prazos curtos e fornecedor homologado.</li>
+<li><strong>03 em "Faça a seguir"</strong> merece defesa: consome 77% do orçamento com mercado <strong>não validado</strong>, o que o torna candidato a <strong>PoC ou piloto</strong> antes do compromisso pleno.</li>
+<li><strong>06</strong> custa só R$ 40 mil/ano e leva 1 mês (esforço baixo). Se o grupo vê valor alto, ele caberia em "Faça agora"; se vê valor baixo, em "Faça mais tarde".</li>
+<li><strong>05</strong> (R$ 55 mil, 2 meses, dados já existentes) tem esforço baixo; a dúvida é só o valor.</li>
+<li><strong>04 em "Não faça"</strong> responde à pergunta provocativa do professor: alto potencial (12 → 4 min por laudo), mas tecnologia sem cases e 8 meses. O grupo julgou o valor incerto demais para o esforço.</li>
+</ul>
 </div>
 
 <h3>PoC, piloto e faseamento</h3>
@@ -869,6 +891,7 @@ h2{font-size:26px;}
 
 <div class="exam">
 <span class="lbl">Cai na prova · Matriz de comunicação: técnica 6W1H</span>
+<div class="table-scroll" style="margin:10px 0">
 <table>
 <thead><tr><th>Campo</th><th>Pergunta</th><th>Exemplos</th></tr></thead>
 <tbody>
@@ -881,6 +904,7 @@ h2{font-size:26px;}
 <tr><td><strong>Destinatários</strong></td><td>Whom</td><td>Equipe, clientes, patrocinadores</td></tr>
 </tbody>
 </table>
+</div>
 </div>
 
 <h3>Dinâmica: PBL aplicado à comunicação</h3>
@@ -923,7 +947,8 @@ h2{font-size:26px;}
 </div>
 <div class="exam">
 <span class="lbl">Cai na prova</span>
-<p><strong>Severidade (exposição) = Probabilidade × Impacto.</strong> Na matriz P x I da aula, a probabilidade usa a escala 0,1/0,3/0,5/0,7/0,9 e o impacto usa uma escala não linear: 0,05/0,1/0,2/0,4/0,8.</p>
+<p><strong>Severidade (exposição) = Probabilidade × Impacto.</strong> Na matriz P x I do slide, a probabilidade usa a escala 0,1/0,3/0,5/0,7/0,9 e o impacto usa uma escala não linear: 0,05/0,1/0,2/0,4/0,8.</p>
+<p>Já o template de matriz de riscos do quadro Mural usa <strong>a mesma escala para probabilidade e impacto</strong> (0,9 muito alto · 0,7 alto · 0,5 médio · 0,3 baixo · 0,1 muito baixo) e chama P×I de <strong>Valor Esperado</strong>.</p>
 </div>
 
 <h3>Respostas aos riscos</h3>
@@ -1128,6 +1153,40 @@ h2{font-size:26px;}
 <div class="card"><span class="tag">SM</span><h4>Scrum Master</h4><p>Lidera o time na adoção do Scrum. <strong>Não é gerente nem coordenador:</strong> é um <strong>líder-servidor</strong> que remove impedimentos e protege o processo.</p><ul><li>Facilitar as cerimônias com eficácia</li><li>Remover impedimentos</li><li>Treinar o time em princípios e práticas ágeis</li><li>Proteger a equipe de interrupções externas durante a Sprint</li><li>Apoiar o PO na gestão e no refinamento do backlog</li></ul><p style="margin-top:10px;color:var(--amber-800)"><strong style="color:var(--amber-800)">Armadilha:</strong> o SM <strong style="color:var(--amber-800)">não atribui tarefas</strong> nem define como o trabalho será feito, um erro comum em times iniciantes.</p></div>
 <div class="card"><span class="tag">DEV</span><h4>Developers</h4><p>Transformam itens do backlog em incrementos "prontos" a cada Sprint. São <strong>auto-organizados e multifuncionais</strong> por definição.</p><ul><li>Criar o plano da Sprint (Sprint Backlog)</li><li>Manter a qualidade seguindo a Definição de Pronto (DoD)</li><li>Adaptar o plano diariamente na Daily</li><li>Responsabilizar-se coletivamente pelo resultado da Sprint</li><li>Colaborar com o PO no refinamento</li></ul><p style="margin-top:10px;color:var(--amber-800)"><strong style="color:var(--amber-800)">Armadilha:</strong> "Developers" <strong style="color:var(--amber-800)">não são só programadores</strong>. Incluem designers, analistas, testers e qualquer perfil necessário.</p></div>
 </div>
+
+<h3>Exercício: priorizar o Backlog do Produto</h3>
+<p>No quadro Mural da aula, cada item do backlog de um <strong>restaurante</strong> recebe duas notas: <strong>Valor do Negócio (1 a 10)</strong> e <strong>Esforço</strong> na escala de Fibonacci. O "?" indica que o item ainda não dá para estimar e precisa de refinamento.</p>
+<div class="chips" style="display:flex;flex-wrap:wrap;gap:8px;margin:14px 0"><span class="chip">1</span><span class="chip">2</span><span class="chip">3</span><span class="chip">5</span><span class="chip">8</span><span class="chip">13</span><span class="chip">21</span><span class="chip">?</span></div>
+<div class="table-scroll">
+<table class="compact">
+<thead><tr><th>Item do backlog do produto</th><th class="c">Valor (1–10)</th><th class="c">Esforço</th></tr></thead>
+<tbody>
+<tr><td>Criar marca e/ou logotipo</td><td></td><td></td></tr>
+<tr><td>Criar slogan para o restaurante</td><td></td><td></td></tr>
+<tr><td>Definir o tamanho da área e os brinquedos da área reservada para as crianças</td><td></td><td></td></tr>
+<tr><td>Definir os eventos em que o restaurante terá promoções e quais promoções</td><td></td><td></td></tr>
+<tr><td>Definir quais produtos serão vendidos via aplicativos (iFood, Uber Eats etc.)</td><td></td><td></td></tr>
+<tr><td>Definir quais treinamentos os colaboradores terão e quando</td><td></td><td></td></tr>
+<tr><td>Elaborar uma pesquisa de satisfação dos clientes e a recompensa por responder</td><td></td><td></td></tr>
+<tr><td>Definir a estratégia de marketing, incluindo marketing digital, o que será enviado via redes sociais e a periodicidade</td><td></td><td></td></tr>
+<tr><td>Definir os requisitos do software para a fila virtual do restaurante</td><td></td><td></td></tr>
+<tr><td>Definir os requisitos do software para pedido e pagamento via dispositivos móveis</td><td></td><td></td></tr>
+</tbody>
+</table>
+</div>
+<div class="key">
+<span class="lbl">◆ Conceito-chave · Por que Fibonacci?</span>
+<p>A sequência cresce em saltos cada vez maiores, refletindo que <strong>quanto maior o item, maior a incerteza</strong> da estimativa: não faz sentido discutir se algo vale 14 ou 15. Itens com esforço alto (13, 21) ou "?" são candidatos a serem <strong>quebrados</strong> no refinamento.</p>
+<p>Cruzar valor x esforço é o mesmo raciocínio do WSJF, agora no nível dos itens do backlog: o PO ordena o backlog colocando no topo o que entrega <strong>mais valor por unidade de esforço</strong>. <span class="compl">Complemento</span> O quadro traz só o template.</p>
+</div>
+
+<h3>Retrospectiva de lições aprendidas</h3>
+<div class="cards c3">
+<div class="card" style="border-top:3px solid var(--teal-600)"><h4>No que fomos bem</h4><p>O que repetir.</p></div>
+<div class="card" style="border-top:3px solid var(--rose-600)"><h4>No que não fomos bem</h4><p>O que mudar.</p></div>
+<div class="card" style="border-top:3px solid var(--accent)"><h4>Ações</h4><p>O que faremos de concreto.</p></div>
+</div>
+<p>É o formato da <strong>Sprint Retrospective</strong> do Scrum e, no preditivo, alimenta o <strong>registro de lições aprendidas</strong> do encerramento. O ponto é sempre transformar a reflexão em <strong>ações</strong> concretas.</p>
 </section>
 
 <!-- ============ ESG ============ -->
@@ -1244,6 +1303,96 @@ h2{font-size:26px;}
 </div>
 </section>
 
+<!-- ============ PROJETO G1 ============ -->
+<section id="g1">
+<h2>Projeto do Grupo G1: Implantação de CRM</h2>
+<p>Ao longo da aula, o grupo (<strong>Ana Carla Dias, André Cantidio, Daniel Andrade, Tatiana Casimiro e Walquíria Casagrande</strong>) aplicou cada artefato num projeto real no quadro Mural: a <strong>implantação de um CRM comercial</strong>. É o exemplo resolvido da disciplina.</p>
+
+<h3>Canvas do projeto</h3>
+<div class="note" style="background:var(--accent-light)">
+<span class="lbl" style="color:var(--blue-800)">Pitch · GP: Ana Carla</span>
+<p style="color:var(--text-primary)">Para o time comercial e a diretoria de receitas, que sofrem com perda de leads, falta de visibilidade do funil e previsão orçamentária imprecisa, o Projeto CRM Comercial é a implantação de uma plataforma moderna de CRM integrada a processos comerciais padronizados. Ela centraliza o histórico de interações, automatiza follow-ups e monitora métricas de conversão em tempo real. Diferente de controles dispersos em planilhas e anotações individuais, garante governança do pipeline, previsibilidade de receita e acelera o ciclo médio de fechamento.</p>
+</div>
+<div class="cards c3">
+<div class="card"><span class="tag">Por quê? · passado</span><h4>Justificativas</h4><ul><li>Baixas taxas de satisfação e fidelização (baixo NPS)</li><li>Inconsistência e falha crítica nos follow-ups</li><li>Vulnerabilidade estratégica por concentração de carteira (risco de pessoal)</li></ul></div>
+<div class="card"><span class="tag">Por quê?</span><h4>Objetivo SMART</h4><p>Implantar e colocar em operação a nova plataforma de CRM para <strong>100% da equipe comercial</strong> em <strong>até 3 meses</strong>, com investimento máximo de <strong>R$ 30 mil</strong>, alcançando <strong>adoção diária de 95%</strong> e reduzindo o <strong>ciclo de vendas em 20%</strong> no primeiro trimestre pós-go-live.</p></div>
+<div class="card"><span class="tag">Por quê? · futuro</span><h4>Benefícios</h4><ul><li>Maximização da taxa de conversão</li><li>Institucionalização e democratização da base de clientes</li><li>Aumento do Lifetime Value (LTV)</li></ul></div>
+<div class="card"><span class="tag">O quê?</span><h4>Produto</h4><p>CRM para equipes comerciais B2C que centraliza a gestão de clientes e oportunidades, permitindo que vendedores acompanhem o ciclo de vendas de ponta a ponta e que gestores tenham visibilidade do desempenho e do pipeline.</p></div>
+<div class="card"><span class="tag">O quê?</span><h4>Requisitos da solução</h4><ul><li>Levantamento de funcionalidades necessárias</li><li>Conformidade com LGPD</li><li>Desenho do programa de capacitação dos usuários</li><li>Infraestrutura tecnológica compatível com o sistema contratado</li><li>Migração prévia de dados dos sistemas existentes</li></ul></div>
+<div class="card"><span class="tag">Quem?</span><h4>Stakeholders externos e equipe</h4><p><strong>Externos:</strong> empresa fornecedora do CRM · ANPD</p><p><strong>Equipe:</strong> Diretoria Comercial · Gerência de TI · Equipe de Vendas · Pré-Vendas · Operações · Jurídico · RH</p></div>
+<div class="card"><span class="tag">Como?</span><h4>Premissas</h4><ul><li>Equipe de vendas disponível para capacitação</li><li>Cumprimento do cronograma do fornecedor</li></ul></div>
+<div class="card"><span class="tag">Como?</span><h4>Grupo de entregas</h4><ul><li>Gerenciamento do projeto</li><li>Contratação</li><li>Parâmetros</li><li>Dados e integrações</li><li>Treinamentos e testes</li><li>Encerramento do projeto</li></ul></div>
+<div class="card"><span class="tag">Como?</span><h4>Restrições</h4><ul><li>Orçamento máximo de R$ 30 mil sem ajuste de verba</li><li>Plataforma obrigatoriamente 100% SaaS/cloud</li></ul><p style="margin-top:8px;font-size:13px;color:var(--text-tertiary)">Riscos, linha do tempo e custos não foram preenchidos no quadro.</p></div>
+</div>
+<div class="key">
+<span class="lbl">◆ Conceito-chave · O que o exemplo ensina</span>
+<p>O objetivo SMART do grupo tem todos os elementos: <strong>específico</strong> (nova plataforma para a equipe comercial), <strong>mensurável</strong> (100%, 95% de adoção, −20% no ciclo), <strong>atingível</strong> (R$ 30 mil, SaaS), <strong>relevante</strong> (liga-se às justificativas de follow-up e NPS) e <strong>temporal</strong> (3 meses + 1º trimestre pós-go-live).</p>
+<p>Note também que <strong>orçamento e SaaS são restrições</strong> (impostas), enquanto <strong>a disponibilidade da equipe e o prazo do fornecedor são premissas</strong> (supostas, e que viram riscos se falharem).</p>
+</div>
+
+<h3>Stakeholders</h3>
+<div class="quadwrap">
+<div class="quad-ylab">Poder ↑</div>
+<div class="quad">
+<div class="q q-rose"><span class="qn">Bloqueadores · poder alto, contra</span><h4>Equipe de Vendas · Jurídico</h4></div>
+<div class="q q-teal"><span class="qn">Aliados · poder alto, a favor</span><h4>Diretor comercial · RH · Gerente de TI</h4></div>
+<div class="q q-amber"><span class="qn">Desaceleradores · poder baixo, contra</span><h4>—</h4></div>
+<div class="q q-blue"><span class="qn">Membros de rede · poder baixo, a favor</span><h4>Pré-vendas · Time de CS</h4></div>
+</div>
+<div class="quad-xlab"><span>← Contra</span><span>A favor →</span></div>
+</div>
+<div class="exam">
+<span class="lbl">Cai na prova · Leitura do caso</span>
+<p>A <strong>equipe de vendas</strong> é ao mesmo tempo <strong>usuária principal e bloqueadora</strong>. Por isso o maior risco do projeto (ameaça nº 1) é a <strong>dificuldade de adoção</strong>, e por isso as respostas envolvem o <strong>RH</strong> (aliado) com bonificação e treinamento. É exatamente a lógica do professor: usar <strong>aliados</strong> para neutralizar <strong>bloqueadores</strong>.</p>
+</div>
+
+<h3>EAP</h3>
+<p><strong>Implantação de CRM</strong> → 6 entregas → 12 subentregas → 24 pacotes de trabalho.</p>
+<div class="tree t6">
+<div class="root">Implantação de CRM</div>
+<ul>
+<li><span>Gerenciamento do projeto</span><ul><li><span>Planejamento</span><ul><li>TAP</li><li>Plano de Gerenciamento</li></ul></li><li><span>Acompanhamento</span><ul><li>Relatório de Status</li><li>Riscos</li></ul></li></ul></li>
+<li><span>Contratação</span><ul><li><span>Fornecedor</span><ul><li>Requisitos</li><li>Relatório de fornecedores</li></ul></li><li><span>Formalização</span><ul><li>Contrato</li><li>Ambientes de utilização</li></ul></li></ul></li>
+<li><span>Parâmetros</span><ul><li><span>Arquitetura do Funil</span><ul><li>Etapas do Pipeline</li><li>Perfis de Acesso e Matriz LGPD</li></ul></li><li><span>Inteligência de Gestão</span><ul><li>Dashboards Gerenciais</li><li>Painel de Metas Individuais</li></ul></li></ul></li>
+<li><span>Dados e Integrações</span><ul><li><span>Migração de dados</span><ul><li>Base Legada Higienizada</li><li>Carga de Dados no CRM</li></ul></li><li><span>Integrações</span><ul><li>Integração com ERP</li><li>Integração com mensageira</li></ul></li></ul></li>
+<li><span>Treinamentos e testes</span><ul><li><span>Habilitação da Força de Vendas</span><ul><li>Manual</li><li>Treinamentos Práticos</li></ul></li><li><span>Testes</span><ul><li>Homologação</li><li>Estabilização</li></ul></li></ul></li>
+<li><span>Encerramento do Projeto</span><ul><li><span>Transição operacional</span><ul><li>TEP</li><li>Fechamento de Contratos</li></ul></li><li><span>Lições aprendidas</span><ul><li>Registro</li><li>Conclusão</li></ul></li></ul></li>
+</ul>
+</div>
+<div class="key">
+<span class="lbl">◆ Conceito-chave</span>
+<p>A EAP do grupo segue as regras da aula: inclui <strong>Gerenciamento do Projeto</strong> e <strong>Encerramento</strong> como entregas, usa <strong>substantivos</strong> (entregas, não atividades) e <strong>não tem filhos únicos</strong> (cada elemento se decompõe em 2). Além disso, os <strong>grupos de entregas do Canvas</strong> são exatamente as 6 entregas de 1º nível.</p>
+</div>
+
+<h3>Matriz de comunicação (6W1H)</h3>
+<div class="table-scroll">
+<table class="compact">
+<thead><tr><th>Informação</th><th>Propósito</th><th>Frequência</th><th>Mídia</th><th>Onde</th><th>Responsável</th><th>Destinatários</th></tr></thead>
+<tbody>
+<tr><td><strong>Convocação oficial, calendário e roteiro dos treinamentos práticos</strong></td><td>Informar ao time de vendas datas e horários, garantindo 100% de presença sem conflito com as metas</td><td>10 dias úteis antes do início dos treinamentos</td><td>E-mail</td><td>Mural interno e agenda corporativa</td><td>RH</td><td>Equipe de vendas e diretoria comercial</td></tr>
+<tr><td><strong>Comunicado institucional de adoção e integração do novo CRM</strong></td><td>Dar ciência a toda a empresa sobre a transição, informando o ganho em eficiência</td><td>3 semanas antes da virada oficial</td><td>E-mail institucional assinado pela diretoria + vídeo explicativo</td><td>Intranet e canal geral de comunicados no chat</td><td>Diretor Comercial com o Gerente do Projeto</td><td>Toda a organização</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Matriz de riscos</h3>
+<div class="table-scroll">
+<table class="compact">
+<thead><tr><th>Nº</th><th>Evento</th><th>Trigger</th><th>A/O</th><th class="c">P</th><th class="c">I</th><th class="c">P×I</th><th>Tipo</th><th>Resposta</th><th>Dono</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><strong>Dificuldade de adoção do novo sistema</strong></td><td>Baixa taxa de utilização do novo CRM</td><td class="bad">Ameaça</td><td class="c">0,5</td><td class="c">0,7</td><td class="c"><strong>0,35</strong></td><td>Mitigar</td><td>Programa de bonificação por uso e requalificação no sistema</td><td>Gerente de RH</td></tr>
+<tr><td>2</td><td><strong>Aumento da taxa de satisfação do cliente</strong></td><td>Aumento de 20% no NPS</td><td class="good">Oportunidade</td><td class="c">0,9</td><td class="c">0,9</td><td class="c"><strong>0,81</strong></td><td>Explorar</td><td>Divulgar relatos de satisfação e criar política de indicação</td><td>Líder de Atendimento (CS)</td></tr>
+</tbody>
+</table>
+</div>
+<div class="key">
+<span class="lbl">◆ Conceito-chave</span>
+<p>A matriz do grupo cumpre o pedido do trabalho (incluir <strong>pelo menos uma oportunidade</strong>) e casa tipo e ação corretamente. Bonificação e requalificação <strong>reduzem</strong> a probabilidade de baixa adoção, o que é <strong>mitigar</strong>. Divulgar relatos e criar indicação <strong>amplia</strong> o benefício de um NPS maior, o que é <strong>explorar</strong> ou aumentar.</p>
+<p><em>Observação de estudo:</em> no sentido estrito do slide, "explorar" é eliminar a incerteza para garantir a oportunidade, e ações que elevam probabilidade ou impacto são "aumentar". Vale saber argumentar as duas leituras.</p>
+</div>
+<div class="note"><span class="lbl">Para treinar sozinho</span>Ficaram sem preencher no quadro: os 8 minimapas pessoais, a Matriz de Responsabilidades (ERICA), o Backlog do Produto e a Retrospectiva. São bons exercícios usando o CRM como caso.</div>
+</section>
+
 <!-- ============ PROGRAMA ============ -->
 <section id="programa">
 <h2>Programa, Avaliação e Bibliografia</h2>
@@ -1267,7 +1416,7 @@ h2{font-size:26px;}
 <div class="recall"><p><span class="rn">02</span>Qual a diferença entre programa e portfólio? Qual dos dois pode incluir operações?</p></div>
 <div class="recall"><p><span class="rn">03</span>Cite os 5 grupos de processos e os 7 domínios de desempenho do PMBOK 8. Quais domínios formam a restrição tripla?</p></div>
 <div class="recall"><p><span class="rn">04</span>Compare VPL, TIR, Payback, Scoring e WSJF. Qual é a principal limitação do Payback? Qual método permite comparar projetos de naturezas distintas?</p></div>
-<div class="recall"><p><span class="rn">05</span>Desenhe o Quadrante WSJF. Em qual quadrante fica um projeto de alto valor e alto esforço? Como uma PoC poderia mudar essa decisão?</p></div>
+<div class="recall"><p><span class="rn">05</span>Desenhe o Quadrante WSJF (eixos e posição dos 4 quadrantes). Em qual quadrante fica um projeto de alto valor e alto esforço? E um de baixo valor e baixo esforço? Como uma PoC poderia mudar a decisão?</p></div>
 <div class="recall"><p><span class="rn">06</span>Quais os 4 fatores para escolher entre abordagem preditiva e adaptativa? No triângulo invertido, o que é fixo em cada uma?</p></div>
 <div class="recall"><p><span class="rn">07</span>Quem emite o Termo de Abertura e quais são suas duas funções principais? Liste 5 itens do seu conteúdo.</p></div>
 <div class="recall"><p><span class="rn">08</span>Quais são as 5 perguntas do Project Model Canvas e quais campos pertencem a cada uma? Justificativas e benefícios se referem a qual tempo?</p></div>
@@ -1282,6 +1431,9 @@ h2{font-size:26px;}
 <div class="recall"><p><span class="rn">17</span>Explique o 3-5-3 do Scrum. Por que o Scrum Master não é gerente? O que o professor conta como a 5ª cerimônia?</p></div>
 <div class="recall"><p><span class="rn">18</span>Como o ESG afeta cada fase do ciclo de vida do projeto? Dê um risco e uma oportunidade ESG de cada dimensão.</p></div>
 <div class="recall"><p><span class="rn">19</span>Cite três coisas que a IA faz bem em projetos e três em que o GP humano é insubstituível.</p></div>
+<div class="recall"><p><span class="rn">20</span>No projeto do CRM do grupo, por que a Equipe de Vendas é bloqueadora? Como isso se conecta à ameaça nº 1 da matriz de riscos e à escolha do RH como dono da resposta?</p></div>
+<div class="recall"><p><span class="rn">21</span>Preencha a Matriz de Responsabilidades (ERICA) do CRM para 3 pacotes da EAP do grupo, por exemplo Contrato, Integração com ERP e Treinamentos Práticos.</p></div>
+<div class="recall"><p><span class="rn">22</span>No backlog do restaurante, por que o esforço é estimado em Fibonacci e o que significa o "?"?</p></div>
 </section>
 
 </div>

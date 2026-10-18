@@ -7,7 +7,7 @@ color: blue
 ---
 
 > [!SUMMARY]
-> Projeto é um esforço **temporário** para criar um produto, serviço ou resultado **único**, elaborado de forma **progressiva** — e é o meio pelo qual a estratégia vira resultado. A disciplina (Prof. Norberto Almeida, 24h) percorre quatro blocos: (1) fundamentos — projeto x programa x portfólio, grupos de processos, princípios e domínios do PMBOK 8, seleção de projetos (VPL, TIR, Payback, Scoring, WSJF) e escolha da abordagem preditiva, adaptativa ou híbrida; (2) planejamento preditivo — TAP, objetivos SMART, Project Model Canvas, stakeholders (poder x interesse), EAP, premissas e restrições, cronograma, matriz de responsabilidades, comunicação (6W1H), riscos (P x I e respostas) e custos; (3) abordagem adaptativa — Manifesto Ágil e Scrum (3 papéis, 5 cerimônias, 3 artefatos); (4) tendências — ESG, transformação digital e IA, que amplia mas não substitui o gerente de projetos.
+> Projeto é um esforço **temporário** para criar um produto, serviço ou resultado **único**, elaborado de forma **progressiva** — e é o meio pelo qual a estratégia vira resultado. A disciplina (Prof. Norberto Almeida, 24h) percorre quatro blocos: (1) fundamentos — projeto x programa x portfólio, grupos de processos, princípios e domínios do PMBOK 8, seleção de projetos (VPL, TIR, Payback, Scoring, WSJF) e escolha da abordagem preditiva, adaptativa ou híbrida; (2) planejamento preditivo — TAP, objetivos SMART, Project Model Canvas, stakeholders (poder x interesse), EAP, premissas e restrições, cronograma, matriz de responsabilidades, comunicação (6W1H), riscos (P x I e respostas) e custos; (3) abordagem adaptativa — Manifesto Ágil e Scrum (3 papéis, 5 cerimônias, 3 artefatos); (4) tendências — ESG, transformação digital e IA, que amplia mas não substitui o gerente de projetos. Todos os artefatos foram aplicados pelo grupo G1 num caso real — **Implantação de CRM** — documentado no fim da página como exemplo resolvido.
 
 ## Fundamentos: Projeto, Programa e Portfólio
 
@@ -176,13 +176,16 @@ A decisão de investir num projeto deve ser suportada por **critérios objetivos
 > - **WSJF — Weighted Shortest Job First:** os projetos de **maior valor (maior custo do atraso) com o menor esforço/duração devem ser feitos primeiro.**
 
 > [!KEY]
-> **Quadrante WSJF** — cruza **Valor** x **Esforço**:
-> - **Q1 — Faça agora:** valor alto, esforço baixo
-> - **Q2 — Faça a seguir:** valor baixo, esforço baixo
-> - **Q3 — Faça mais tarde:** valor alto, esforço alto
-> - **Q4 — Não faça (agora):** valor baixo, esforço alto
+> **Quadrante WSJF** (slide 32 e quadro Mural da aula) — eixo **Valor** (− à esquerda, + à direita) x eixo **Esforço** (− no topo, + embaixo):
+> - **1 — Faça agora:** valor alto, esforço baixo
+> - **2 — Faça a seguir:** valor alto, esforço alto
+> - **3 — Faça mais tarde:** valor baixo, esforço baixo
+> - **4 — Não faça:** valor baixo, esforço alto
 >
 > *Complemento (SAFe):* na forma numérica, WSJF = Custo do Atraso ÷ Tamanho do Trabalho (duração/esforço).
+
+> [!EXAM]
+> **Atenção à contradição no material:** o texto da dinâmica (docx) traz uma tabela que **inverte** os quadrantes 2 e 3 — "Faça a seguir = valor baixo/esforço baixo" e "Faça mais tarde = valor alto/esforço alto". O **slide 32** e o **quadro Mural** usado em aula mostram o contrário (Faça a seguir = valor alto/esforço alto; Faça mais tarde = valor baixo/esforço baixo). Como o slide e o quadro concordam, use a versão do slide — e, se cair, justifique pela lógica: **valor manda primeiro** (o que gera valor vem antes, mesmo custando mais), e o esforço desempata.
 
 ### Dinâmica: Priorizando com WSJF — Clínica Saúde Plena
 
@@ -202,7 +205,18 @@ Passos: (1) votação individual silenciosa (5 min); (2) discussão e consenso p
 > [!KEY]
 > **Aprendizados da dinâmica:** estimar valor e esforço de forma ágil e argumentada; aplicar o Quadrante WSJF; entender que **priorizar é escolher — inclusive decidir o que não fazer neste ciclo**; perceber que diferentes perfis profissionais enxergam valor de formas distintas. (Leitura: Scaled Agile, SAFe — WSJF.)
 
-*Uma leitura possível (não é gabarito oficial):* 02 e 05 são candidatos naturais ao Q1 (baixo custo, 2 meses, dor clara); 01 tende a Q1 por alto valor e fornecedor homologado, apesar do custo maior; 04 divide opiniões — alto valor potencial, mas alto esforço/risco (tecnologia sem cases), o que o aproxima do Q3 ou de uma **PoC** antes do investimento pleno; 03 consome 77% do orçamento com mercado não validado e prazo de 18 meses (Q3/Q4); 06 é barato, mas de valor difícil de quantificar (Q2). A restrição de **2 projetos simultâneos** obriga a sequenciar, não só a selecionar.
+**Resposta do nosso grupo (G1) no quadro Mural:**
+
+| Quadrante | Projetos |
+|---|---|
+| **1 — Faça agora** (valor +, esforço −) | 01 Prontuário Eletrônico · 02 Agendamento Online |
+| **2 — Faça a seguir** (valor +, esforço +) | 06 Programa de Bem-Estar · 03 Nova Unidade |
+| **3 — Faça mais tarde** (valor −, esforço −) | 05 Painel de Indicadores |
+| **4 — Não faça** (valor −, esforço +) | 04 Laudo Digital com IA |
+
+O ciclo do grupo: **01 + 02** (R$ 245 mil, dentro dos R$ 800 mil e do limite de 2 projetos simultâneos).
+
+*Pontos para o debate (não é gabarito oficial):* 01 + 02 é uma escolha sólida — dor clara, prazos curtos e fornecedor homologado. Já **03 em "Faça a seguir"** merece defesa: consome 77% do orçamento com mercado **não validado** — candidato a **PoC/piloto** antes do compromisso pleno. **06** custa só R$ 40 mil/ano e 1 mês (esforço baixo); se o grupo vê valor alto, ele caberia em "Faça agora", e se vê valor baixo, em "Faça mais tarde". **05** (R$ 55 mil, 2 meses, dados já existentes) tem esforço baixo — a dúvida é só o valor. **04 em "Não faça"** responde à pergunta provocativa do professor: alto potencial (12 → 4 min por laudo), mas tecnologia sem cases e 8 meses — o grupo julgou o valor incerto demais para o esforço.
 
 ### PoC, piloto e faseamento
 
@@ -468,7 +482,7 @@ Para cada um, o grupo propõe um plano de comunicação usando o 6W1H e apresent
 > - **Qualitativa — a mais usada:** probabilidade e impacto em escala (Muito Baixo, Baixo, Médio, Alto, Muito Alto). Recomendação: escala numérica **0,1 – 0,3 – 0,5 – 0,7 – 0,9**.
 > - **Quantitativa — a mais precisa:** probabilidade em **%** e impacto em **R$**.
 >
-> **Severidade (exposição) = Probabilidade × Impacto.** Na matriz P x I da aula, a probabilidade usa a escala 0,1/0,3/0,5/0,7/0,9 e o impacto uma escala não linear 0,05/0,1/0,2/0,4/0,8.
+> **Severidade (exposição) = Probabilidade × Impacto.** Na matriz P x I do slide, a probabilidade usa a escala 0,1/0,3/0,5/0,7/0,9 e o impacto uma escala não linear 0,05/0,1/0,2/0,4/0,8. Já o template de matriz de riscos do quadro Mural usa **a mesma escala para probabilidade e impacto**: 0,9 muito alto · 0,7 alto · 0,5 médio · 0,3 baixo · 0,1 muito baixo — e chama P×I de **Valor Esperado**.
 
 ### Respostas aos riscos
 
@@ -610,6 +624,19 @@ A estimativa de custos parte do **planejamento de recursos**: para cada atividad
 | **Responsabilidades** | Definir e comunicar a meta do produto (Product Goal) · criar e ordenar o Product Backlog por valor · garantir backlog claro, visível e compreendido · decidir quando um incremento está "pronto" para lançamento · interagir continuamente com stakeholders | Facilitar as cerimônias · remover impedimentos · treinar o time em princípios e práticas ágeis · proteger a equipe de interrupções externas durante a Sprint · apoiar o PO na gestão e refinamento do backlog | Criar o plano da Sprint (Sprint Backlog) · manter a qualidade seguindo a **Definição de Pronto (DoD)** · adaptar o plano diariamente na Daily · responsabilizar-se coletivamente pelo resultado da Sprint · colaborar com o PO no refinamento |
 | **Armadilha comum** | O PO não é intermediário passivo: toma decisões de negócio com frequência e precisa de **autoridade** para isso | O SM **não atribui tarefas** nem define como o trabalho será feito — erro comum em times iniciantes | "Developers" **não são só programadores**: incluem designers, analistas, testers e qualquer perfil necessário |
 
+### Exercício: priorizar o Backlog do Produto (quadro Mural)
+
+No quadro da aula, cada item do backlog de um **restaurante** recebe duas notas: **Valor do Negócio (1 a 10)** e **Esforço** na escala de Fibonacci **(1, 2, 3, 5, 8, 13, 21, ?)** — o "?" indica que o item ainda não dá para estimar (precisa de refinamento).
+
+Itens do backlog: criar marca e/ou logotipo · criar slogan · definir tamanho da área e brinquedos da área infantil · definir eventos e promoções · definir produtos vendidos via apps (iFood, Uber Eats etc.) · definir treinamentos dos colaboradores e quando · elaborar pesquisa de satisfação e a recompensa por responder · definir a estratégia de marketing (incluindo digital, conteúdo e periodicidade nas redes) · definir requisitos do software de fila virtual · definir requisitos do software de pedido e pagamento via dispositivos móveis.
+
+> [!KEY]
+> **Por que Fibonacci?** A sequência cresce em saltos cada vez maiores, refletindo que **quanto maior o item, maior a incerteza** da estimativa — não faz sentido discutir se algo vale 14 ou 15. Itens com esforço alto (13, 21) ou "?" são candidatos a serem **quebrados** no refinamento. Cruzar valor x esforço é o mesmo raciocínio do WSJF, agora no nível dos itens do backlog: o PO ordena o backlog colocando no topo o que entrega **mais valor por unidade de esforço**. *(Explicação complementar; o quadro traz só o template.)*
+
+### Retrospectiva de lições aprendidas
+
+O quadro fecha com uma retrospectiva em três colunas: **No que fomos bem · No que não fomos bem · Ações**. É o formato da **Sprint Retrospective** do Scrum e, no preditivo, alimenta o **registro de lições aprendidas** do encerramento — o ponto é sempre transformar a reflexão em **ações** concretas.
+
 ## Tendências: ESG
 
 **Por que as tendências importam?** Projetos bem gerenciados tecnicamente ainda podem fracassar se ignorarem o contexto:
@@ -688,6 +715,82 @@ A estimativa de custos parte do **planejamento de recursos**: para cada atividad
 > [!KEY]
 > **Saber onde a IA ajuda e onde ela tem limites é parte da competência do GP moderno.** A IA amplia capacidades, mas não substitui julgamento, liderança, negociação e a gestão de relações humanas. (Fontes: McKinsey Global Institute 2023; WEF Future of Jobs 2023; PMI AI in PM 2024.)
 
+## Projeto do Grupo G1: Implantação de CRM
+
+Ao longo da aula, o grupo (**Ana Carla Dias, André Cantidio, Daniel Andrade, Tatiana Casimiro e Walquíria Casagrande**) aplicou cada artefato num projeto real no quadro Mural: a **implantação de um CRM comercial**. É o exemplo resolvido da disciplina.
+
+### Canvas do projeto
+
+| Campo | Conteúdo do grupo |
+|---|---|
+| **GP** | Ana Carla |
+| **Pitch** | Para o time comercial e a diretoria de receitas, que sofrem com perda de leads, falta de visibilidade do funil e previsão orçamentária imprecisa, o Projeto CRM Comercial é a implantação de uma plataforma moderna de CRM integrada a processos comerciais padronizados, que centraliza o histórico de interações, automatiza follow-ups e monitora métricas de conversão em tempo real; diferente de controles dispersos em planilhas e anotações individuais, garante governança do pipeline, previsibilidade de receita e acelera o ciclo médio de fechamento. |
+| **Justificativas (passado)** | Baixas taxas de satisfação e fidelização (baixo NPS) · Inconsistência e falha crítica nos follow-ups · Vulnerabilidade estratégica por concentração de carteira (risco de pessoal) |
+| **Objetivo SMART** | Implantar e colocar em operação a nova plataforma de CRM para **100% da equipe comercial** em **até 3 meses**, com investimento máximo de **R$ 30 mil**, alcançando **adoção diária de 95%** e reduzindo o **ciclo de vendas em 20%** no primeiro trimestre pós-go-live. |
+| **Benefícios (futuro)** | Maximização da taxa de conversão · Institucionalização e democratização da base de clientes · Aumento do Lifetime Value (LTV) |
+| **Produto** | CRM para equipes comerciais B2C que centraliza a gestão de clientes e oportunidades, permitindo que vendedores acompanhem o ciclo de vendas de ponta a ponta e que gestores tenham visibilidade do desempenho e do pipeline. |
+| **Requisitos da solução** | Levantamento de funcionalidades necessárias · Conformidade com LGPD · Desenho do programa de capacitação dos usuários · Infraestrutura tecnológica compatível com o sistema contratado · Migração prévia de dados dos sistemas existentes |
+| **Stakeholders externos** | Empresa fornecedora do CRM · ANPD |
+| **Equipe** | Diretoria Comercial · Gerência de TI · Equipe de Vendas · Pré-Vendas · Operações · Jurídico · RH |
+| **Premissas** | Equipe de vendas disponível para capacitação · Cumprimento do cronograma do fornecedor |
+| **Grupo de entregas** | Gerenciamento do projeto · Contratação · Parâmetros · Dados e integrações · Treinamentos e testes · Encerramento do projeto |
+| **Restrições** | Orçamento máximo de R$ 30 mil sem ajuste de verba · Plataforma obrigatoriamente 100% SaaS/cloud |
+| **Riscos · Linha do tempo · Custos** | (não preenchidos no quadro) |
+
+> [!KEY]
+> **O que o exemplo ensina:** o objetivo SMART do grupo tem todos os elementos — **específico** (nova plataforma para a equipe comercial), **mensurável** (100%, 95% de adoção, −20% no ciclo), **atingível** (R$ 30 mil, SaaS), **relevante** (liga-se às justificativas de follow-up e NPS) e **temporal** (3 meses + 1º trimestre pós-go-live). Note também que **orçamento e SaaS são restrições** (impostas), enquanto **disponibilidade da equipe e prazo do fornecedor são premissas** (supostas — e, se falharem, viram riscos).
+
+### Stakeholders (qualificação poder x posicionamento)
+
+| | **Contra** | **A favor** |
+|---|---|---|
+| **Poder alto** | **Bloqueadores:** Equipe de Vendas · Jurídico | **Aliados:** Diretor comercial · RH · Gerente de TI |
+| **Poder baixo** | **Desaceleradores:** — | **Membros de rede:** Equipe de Pré-vendas · Time de CS |
+
+> [!EXAM]
+> Leitura do caso: a **equipe de vendas** é ao mesmo tempo **usuária principal e bloqueadora** — é por isso que o maior risco do projeto (ameaça nº 1) é a **dificuldade de adoção**, e por isso as respostas envolvem **RH** (aliado) com bonificação e treinamento. É exatamente a lógica do professor: usar **aliados** para neutralizar **bloqueadores**.
+
+### EAP
+
+**Implantação de CRM** → 6 entregas → 12 subentregas → 24 pacotes de trabalho:
+
+| Entrega | Subentrega | Pacotes de trabalho |
+|---|---|---|
+| **Gerenciamento do projeto** | Planejamento | TAP · Plano de Gerenciamento |
+| | Acompanhamento | Relatório de Status · Riscos |
+| **Contratação** | Fornecedor | Requisitos · Relatório de fornecedores |
+| | Formalização | Contrato · Ambientes de utilização |
+| **Parâmetros** | Arquitetura do Funil | Etapas do Pipeline · Perfis de Acesso e Matriz LGPD |
+| | Inteligência de Gestão | Dashboards Gerenciais · Painel de Metas Individuais |
+| **Dados e Integrações** | Migração de dados | Base Legada Higienizada · Carga de Dados no CRM |
+| | Integrações | Integração com ERP · Integração com mensageira |
+| **Treinamentos e testes** | Habilitação da Força de Vendas | Manual · Treinamentos Práticos |
+| | Testes | Homologação · Estabilização |
+| **Encerramento do Projeto** | Transição operacional | TEP · Fechamento de Contratos |
+| | Lições aprendidas | Registro · Conclusão |
+
+> [!KEY]
+> A EAP do grupo segue as regras da aula: inclui **Gerenciamento do Projeto** e **Encerramento** como entregas; usa **substantivos** (entregas, não atividades); **não há filhos únicos** (cada elemento se decompõe em 2); e os **grupos de entregas do Canvas** são exatamente as 6 entregas de 1º nível.
+
+### Matriz de comunicação (6W1H)
+
+| Informação (What) | Propósito (Why) | Frequência (When) | Mídia (How) | Onde (Where) | Responsável (Who) | Destinatários (Whom) |
+|---|---|---|---|---|---|---|
+| Convocação oficial, calendário e roteiro dos treinamentos práticos | Informar ao time de vendas datas e horários, garantindo 100% de presença sem conflito com as metas | 10 dias úteis antes do início dos treinamentos | E-mail | Mural interno e agenda corporativa | RH | Equipe de vendas e diretoria comercial |
+| Comunicado institucional de adoção e integração do novo CRM | Dar ciência a toda a empresa sobre a transição, informando o ganho em eficiência | 3 semanas antes da virada oficial | E-mail institucional assinado pela diretoria + vídeo explicativo | Intranet e canal geral de comunicados no chat | Diretor Comercial com o Gerente do Projeto | Toda a organização |
+
+### Matriz de riscos
+
+| Nº | Evento de risco | Trigger | A/O | P | I | P×I | Resposta | Ação | Dono |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | Dificuldade de adoção do novo sistema | Baixa taxa de utilização do novo CRM | **Ameaça** | 0,5 (média) | 0,7 (alto) | **0,35** | **Mitigar** | Programa de bonificação por uso e requalificação no sistema | Gerente de RH |
+| 2 | Aumento da taxa de satisfação do cliente | Aumento de 20% no NPS | **Oportunidade** | 0,9 (muito alto) | 0,9 (muito alto) | **0,81** | **Explorar** | Divulgar relatos de satisfação e criar política de indicação | Líder de Atendimento (CS) |
+
+> [!KEY]
+> A matriz do grupo cumpre o pedido do trabalho (incluir **pelo menos uma oportunidade**) e casa tipo e ação corretamente: bonificação + requalificação **reduzem** a probabilidade de baixa adoção → **mitigar**; divulgar relatos e criar indicação **amplia** o benefício de um NPS maior → **explorar**/aumentar. *(Observação de estudo: "explorar", no sentido estrito do slide, é eliminar a incerteza para garantir a oportunidade; ações que elevam probabilidade/impacto são "aumentar". Vale saber argumentar as duas leituras.)*
+
+**Artefatos do quadro não preenchidos:** os 8 minimapas pessoais, a Matriz de Responsabilidades (ERICA), o Backlog do Produto e a Retrospectiva — bons para treinar sozinho usando o CRM como caso.
+
 ## Programa, Avaliação e Bibliografia
 
 - **Carga horária:** 24 horas-aula.
@@ -716,7 +819,7 @@ A estimativa de custos parte do **planejamento de recursos**: para cada atividad
 > Compare VPL, TIR, Payback, Scoring e WSJF. Qual é a principal limitação do Payback? Qual método permite comparar projetos de naturezas distintas?
 
 > [!RECALL]
-> Desenhe o Quadrante WSJF. Em qual quadrante fica um projeto de alto valor e alto esforço? E como uma PoC poderia mudar essa decisão?
+> Desenhe o Quadrante WSJF (eixos e posição dos 4 quadrantes). Em qual quadrante fica um projeto de alto valor e alto esforço? E um de baixo valor e baixo esforço? Como uma PoC poderia mudar a decisão?
 
 > [!RECALL]
 > Quais os 4 fatores para escolher entre abordagem preditiva e adaptativa? No triângulo invertido, o que é fixo em cada uma?
@@ -759,3 +862,12 @@ A estimativa de custos parte do **planejamento de recursos**: para cada atividad
 
 > [!RECALL]
 > Cite três coisas que a IA faz bem em projetos e três em que o GP humano é insubstituível.
+
+> [!RECALL]
+> No projeto do CRM do grupo, por que a Equipe de Vendas é bloqueadora e como isso se conecta à ameaça nº 1 da matriz de riscos e à escolha do RH como dono da resposta?
+
+> [!RECALL]
+> Preencha a Matriz de Responsabilidades (ERICA) do CRM para 3 pacotes da EAP do grupo — por exemplo, Contrato, Integração com ERP e Treinamentos Práticos.
+
+> [!RECALL]
+> No backlog do restaurante, por que o esforço é estimado em Fibonacci e o que significa o "?"?
