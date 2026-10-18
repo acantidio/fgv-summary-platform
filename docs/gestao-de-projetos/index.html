@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gestão de Projetos e Criação de Valor — FGV MBA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300..700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+--bg:#FAF9F6;--bg-card:#FFFFFF;--bg-surface:#F3F1EC;--bg-accent:#E8E4DB;
+--text-primary:#1A1A18;--text-secondary:#5C5B56;--text-tertiary:#8A8985;
+--border:#DDD9D0;--border-light:#ECEAE4;
+--purple-50:#EEEDFE;--purple-400:#7F77DD;--purple-600:#534AB7;--purple-800:#3C3489;
+--amber-50:#FAEEDA;--amber-400:#BA7517;--amber-600:#854F0B;--amber-800:#633806;
+--teal-50:#E6F4F1;--teal-400:#1D9E75;--teal-600:#0F6E56;--teal-800:#085041;
+--blue-50:#E6F1FB;--blue-400:#378ADD;--blue-600:#185FA5;--blue-800:#0C447C;
+--rose-50:#FDE8EC;--rose-600:#C81E3A;
+--accent:#185FA5;--accent-light:#E6F1FB;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text-primary);font-family:'DM Sans',-apple-system,sans-serif;line-height:1.65;font-size:17px;}
+a{color:inherit;}
+.wrap{max-width:920px;margin:0 auto;padding:0 24px;}
+.backlink{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-tertiary);text-decoration:none;display:inline-block;margin:28px 0 0;}
+.backlink:hover{color:var(--accent);}
+header.page{padding:24px 0 28px;border-bottom:1px solid var(--border);}
+header.page h1{font-family:'DM Serif Display',Georgia,serif;font-size:46px;line-height:1.1;font-weight:400;margin-bottom:14px;}
+.badge{font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.5px;background:var(--accent-light);color:var(--blue-800);padding:5px 12px;border-radius:20px;font-weight:500;}
+.subtitle{color:var(--text-secondary);margin-top:14px;max-width:680px;}
+.meta{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-tertiary);margin-top:10px;}
+nav.sticky{position:sticky;top:0;z-index:50;background:rgba(250,249,246,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);margin-bottom:8px;}
+nav.sticky .wrap{display:flex;gap:6px;overflow-x:auto;padding:12px 24px;scrollbar-width:thin;}
+nav.sticky a{font-family:'JetBrains Mono',monospace;font-size:12px;text-decoration:none;color:var(--text-secondary);white-space:nowrap;padding:5px 11px;border-radius:6px;}
+nav.sticky a:hover{background:var(--accent-light);color:var(--blue-800);}
+section{padding:38px 0;border-bottom:1px solid var(--border-light);}
+h2{font-family:'DM Serif Display',Georgia,serif;font-size:31px;font-weight:400;margin-bottom:20px;}
+h3{font-family:'DM Sans';font-size:20px;font-weight:600;margin:30px 0 14px;color:var(--text-primary);}
+p{margin-bottom:14px;}
+strong{font-weight:600;color:var(--text-primary);}
+em{color:inherit;}
+ul.plain,ol.plain{margin:0 0 14px 22px;color:var(--text-secondary);}
+ul.plain li,ol.plain li{margin-bottom:4px;}
+/* hero summary */
+.hero{background:var(--bg-card);border-top:4px solid var(--accent);border-radius:8px;padding:34px;margin:34px 0 8px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+.hero .lbl{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--accent);font-weight:600;}
+.hero p{font-size:19px;line-height:1.6;margin:14px 0 0;color:var(--text-secondary);}
+.hero .blocks{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:22px;}
+.hero .blk{background:var(--accent-light);border-radius:6px;padding:12px 14px;}
+.hero .blk .n{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);font-weight:600;}
+.hero .blk .t{font-weight:600;font-size:15px;color:var(--blue-800);}
+/* callouts */
+.key{background:var(--purple-50);border-left:4px solid var(--purple-600);border-radius:0 8px 8px 0;padding:18px 22px;margin:22px 0;}
+.key .lbl{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--purple-800);font-weight:600;display:block;margin-bottom:6px;}
+.key p{margin:0 0 8px;color:var(--text-secondary);}
+.key p:last-child{margin-bottom:0;}
+.key p strong,.key li strong{color:var(--purple-800);}
+.key ul,.key ol{margin:8px 0 0 18px;color:var(--text-secondary);}
+.key li{margin-bottom:3px;}
+.exam{background:var(--amber-50);border:1px solid var(--amber-400);border-radius:8px;padding:18px 22px 18px 48px;margin:22px 0;position:relative;}
+.exam::before{content:"⚠";position:absolute;left:18px;top:16px;font-size:20px;}
+.exam .lbl{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--amber-800);font-weight:600;display:block;margin-bottom:6px;}
+.exam p{margin:0 0 8px;color:var(--amber-800);}
+.exam p:last-child{margin-bottom:0;}
+.exam ul,.exam ol{margin:6px 0 8px 18px;color:var(--amber-800);}
+.exam li{margin-bottom:3px;}
+.exam strong{color:var(--amber-800);}
+.exam table{margin:10px 0;}
+.exam th{background:var(--amber-600);}
+/* cards grid */
+.cards{display:grid;gap:16px;margin:20px 0;}
+.cards.c2{grid-template-columns:repeat(2,1fr);}
+.cards.c3{grid-template-columns:repeat(3,1fr);}
+.cards.c4{grid-template-columns:repeat(4,1fr);}
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:20px;}
+.card h4{font-family:'DM Sans';font-size:17px;font-weight:600;margin-bottom:8px;color:var(--accent);}
+.card .tag{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:4px;}
+.card p{font-size:15px;color:var(--text-secondary);margin:0;}
+.card p+p{margin-top:8px;}
+.card ul{margin:8px 0 0 16px;font-size:15px;color:var(--text-secondary);}
+/* pillars */
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:20px 0;}
+.pillars.p5{grid-template-columns:repeat(5,1fr);gap:12px;}
+.pillar{background:var(--accent-light);border-radius:8px;padding:20px;}
+.pillar .n{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);font-weight:600;}
+.pillar h4{font-family:'DM Serif Display',Georgia,serif;font-size:21px;font-weight:400;margin:6px 0 8px;line-height:1.2;}
+.pillars.p5 .pillar h4{font-size:18px;}
+.pillar p{font-size:15px;color:var(--text-secondary);margin:0;}
+/* stepper */
+.stepper{margin:24px 0;}
+.step{display:flex;gap:18px;padding-bottom:22px;position:relative;}
+.step:not(:last-child)::before{content:"";position:absolute;left:17px;top:38px;bottom:0;width:2px;background:var(--border);}
+.step .num{flex:none;width:36px;height:36px;border-radius:50%;background:var(--accent);color:#fff;font-family:'JetBrains Mono',monospace;font-weight:600;display:flex;align-items:center;justify-content:center;font-size:15px;}
+.step .body h4{margin:5px 0 4px;font-size:17px;}
+.step .body p{margin:0;font-size:15px;color:var(--text-secondary);}
+/* horizontal phases */
+.phases{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:22px 0;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:var(--bg-card);}
+.phase{padding:18px;border-right:1px solid var(--border-light);position:relative;}
+.phase:last-child{border-right:none;}
+.phase .risk{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.5px;text-transform:uppercase;font-weight:600;padding:3px 8px;border-radius:4px;display:inline-block;margin-bottom:10px;}
+.phase h4{font-size:16px;font-weight:600;margin-bottom:4px;color:var(--blue-800);}
+.phase .motto{font-family:'DM Serif Display',Georgia,serif;font-size:17px;font-style:italic;color:var(--accent);margin-bottom:8px;}
+.phase p{font-size:14px;color:var(--text-secondary);margin:0 0 6px;}
+.phase ul{margin:6px 0 0 16px;font-size:13.5px;color:var(--text-secondary);}
+.r-hi{background:var(--rose-50);color:var(--rose-600);}
+.r-mh{background:var(--amber-50);color:var(--amber-800);}
+.r-md{background:var(--blue-50);color:var(--blue-800);}
+.r-lo{background:var(--teal-50);color:var(--teal-800);}
+.phases-axis{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--text-tertiary);text-align:center;margin-top:-12px;margin-bottom:20px;}
+/* 2x2 quadrant */
+.quadwrap{display:grid;grid-template-columns:28px 1fr;grid-template-rows:auto auto;gap:8px;margin:22px 0;}
+.quad-ylab{writing-mode:vertical-rl;transform:rotate(180deg);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--text-tertiary);text-align:center;}
+.quad{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.quad .q{border-radius:8px;padding:18px 20px;min-height:110px;}
+.quad .q .qn{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;}
+.quad .q h4{font-family:'DM Serif Display',Georgia,serif;font-size:22px;font-weight:400;margin:4px 0 6px;}
+.quad .q p{font-size:14px;margin:0;color:var(--text-secondary);}
+.q-teal{background:var(--teal-50);} .q-teal .qn,.q-teal h4{color:var(--teal-800);}
+.q-blue{background:var(--blue-50);} .q-blue .qn,.q-blue h4{color:var(--blue-800);}
+.q-amber{background:var(--amber-50);} .q-amber .qn,.q-amber h4{color:var(--amber-800);}
+.q-rose{background:var(--rose-50);} .q-rose .qn,.q-rose h4{color:var(--rose-600);}
+.q-purple{background:var(--purple-50);} .q-purple .qn,.q-purple h4{color:var(--purple-800);}
+.quad-xlab{grid-column:2;display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--text-tertiary);}
+/* canvas */
+.canvas{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:22px 0;}
+.canvas .top{grid-column:1 / -1;display:grid;grid-template-columns:1fr 4fr;gap:8px;}
+.cv{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:12px 14px;}
+.cv .f{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--blue-800);display:block;}
+.cv .s{font-size:12px;color:var(--text-tertiary);}
+.cvcol{display:flex;flex-direction:column;gap:8px;}
+.cvcol .qq{font-family:'DM Serif Display',Georgia,serif;font-size:20px;color:var(--accent);text-align:center;background:var(--accent-light);border-radius:8px;padding:8px;}
+/* concentric layers */
+.layers{display:grid;gap:10px;margin:22px 0;}
+.layer{border-radius:8px;padding:16px 20px;}
+.layer .ll{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:8px;}
+.layer .chips{display:flex;flex-wrap:wrap;gap:8px;}
+.chip{background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:5px 13px;font-size:14.5px;color:var(--text-primary);}
+.l1{background:var(--blue-50);} .l1 .ll{color:var(--blue-800);}
+.l2{background:var(--rose-50);} .l2 .ll{color:var(--rose-600);}
+.l3{background:var(--purple-50);} .l3 .ll{color:var(--purple-800);}
+/* wbs tree */
+.tree{margin:20px 0;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:20px 22px;font-size:15px;}
+.tree .root{font-weight:600;color:var(--blue-800);margin-bottom:10px;font-family:'DM Serif Display',Georgia,serif;font-size:19px;}
+.tree ul{list-style:none;margin:0;padding-left:18px;border-left:2px solid var(--border-light);}
+.tree > ul{padding-left:0;border-left:none;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.tree > ul > li{background:var(--accent-light);border-radius:6px;padding:10px 12px;}
+.tree > ul > li > span{font-weight:600;color:var(--blue-800);display:block;margin-bottom:4px;}
+.tree li li{color:var(--text-secondary);font-size:14px;padding:1px 0;}
+.tree li li > span{color:var(--text-primary);font-weight:500;}
+.tree.t6 > ul{grid-template-columns:repeat(3,1fr);}
+/* levels */
+.levels{display:grid;gap:6px;margin:20px 0;}
+.lvl{display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:14px;background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:10px 14px;}
+.lvl .n{font-family:'JetBrains Mono',monospace;font-weight:600;color:#fff;background:var(--accent);border-radius:4px;text-align:center;padding:3px 0;font-size:13px;}
+.lvl .t{font-weight:600;}
+.lvl .g{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-tertiary);text-transform:uppercase;}
+.lvl.act{border-style:dashed;background:var(--bg-surface);}
+.lvl.act .n{background:var(--text-tertiary);}
+/* table */
+table{width:100%;border-collapse:collapse;margin:20px 0;background:var(--bg-card);border-radius:8px;overflow:hidden;border:1px solid var(--border);font-size:15px;}
+th{background:var(--accent);color:#fff;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.5px;text-align:left;padding:12px 16px;font-weight:600;vertical-align:bottom;}
+td{padding:12px 16px;border-top:1px solid var(--border-light);color:var(--text-secondary);vertical-align:top;}
+td strong{color:var(--text-primary);}
+td.c,th.c{text-align:center;}
+tr.total td{background:var(--accent-light);color:var(--blue-800);font-weight:600;}
+.table-scroll{overflow-x:auto;margin:20px 0;}
+.table-scroll table{margin:0;}
+table.compact{font-size:14px;}
+table.compact td,table.compact th{padding:9px 11px;}
+td.good{color:var(--teal-800);font-weight:600;}
+td.bad{color:var(--rose-600);font-weight:600;}
+/* bars */
+.bars{display:grid;gap:14px;margin:20px 0;}
+.bar .bl{font-size:14px;font-weight:600;margin-bottom:5px;}
+.bar .track{display:flex;height:26px;border-radius:5px;overflow:hidden;font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:600;}
+.bar .track span{display:flex;align-items:center;justify-content:center;white-space:nowrap;overflow:hidden;}
+.b-ok{background:var(--blue-600);color:#fff;}
+.b-part{background:var(--amber-50);color:var(--amber-800);}
+.b-fail{background:var(--rose-600);color:#fff;}
+.legend{display:flex;gap:16px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--text-secondary);flex-wrap:wrap;}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:5px;vertical-align:-1px;}
+/* deflist */
+.deflist{display:grid;gap:12px;margin:18px 0;}
+.defitem{background:var(--bg-card);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:6px;padding:14px 18px;}
+.defitem .t{font-weight:600;color:var(--accent);}
+.defitem .d{font-size:15px;color:var(--text-secondary);}
+/* note */
+.note{background:var(--bg-surface);border-radius:8px;padding:18px 22px;margin:20px 0;font-size:15px;color:var(--text-secondary);}
+.note .lbl{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--text-tertiary);font-weight:600;display:block;margin-bottom:6px;}
+.note strong{color:var(--text-primary);}
+.note p{margin:0 0 8px;} .note p:last-child{margin:0;}
+.note ul{margin:6px 0 0 18px;}
+.note li{margin-bottom:5px;}
+.formula{background:var(--bg-surface);border:1px dashed var(--border);border-radius:8px;padding:16px 20px;margin:16px 0;font-family:'JetBrains Mono',monospace;font-size:14.5px;color:var(--text-primary);overflow-x:auto;}
+/* letters (SMART / ERICA) */
+.letters{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:14px 0 4px;}
+.letter{background:var(--bg-card);border-radius:8px;padding:14px;text-align:center;border:1px solid var(--border-light);}
+.letter .L{font-family:'DM Serif Display',Georgia,serif;font-size:34px;line-height:1;color:var(--purple-600);}
+.letter .w{font-weight:600;font-size:14px;margin:6px 0 4px;color:var(--purple-800);}
+.letter .x{font-size:13px;color:var(--text-secondary);}
+/* versus */
+.versus{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0;}
+.vs{border-radius:8px;padding:20px;}
+.vs h4{font-family:'DM Serif Display',Georgia,serif;font-size:22px;font-weight:400;margin-bottom:8px;}
+.vs .fixed{font-family:'JetBrains Mono',monospace;font-size:12px;margin:8px 0;}
+.vs .fixed b{display:inline-block;padding:2px 8px;border-radius:4px;margin-right:6px;font-weight:600;}
+.vs p{font-size:15px;color:var(--text-secondary);margin:0 0 6px;}
+.vs-a{background:var(--blue-50);} .vs-a h4{color:var(--blue-800);}
+.vs-b{background:var(--teal-50);} .vs-b h4{color:var(--teal-800);}
+.fx{background:var(--bg-card);color:var(--text-primary);border:1px solid var(--border);}
+.vr{background:transparent;color:var(--text-tertiary);border:1px dashed var(--border);}
+/* 353 */
+.s353{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:20px 0;}
+.s353 .col{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.s353 .hd{background:var(--accent);color:#fff;padding:14px 18px;}
+.s353 .hd .big{font-family:'DM Serif Display',Georgia,serif;font-size:40px;line-height:1;}
+.s353 .hd .nm{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:1px;text-transform:uppercase;}
+.s353 .hd .sub{font-size:13px;opacity:.85;}
+.s353 ul{list-style:none;padding:12px 18px;}
+.s353 li{padding:7px 0;border-bottom:1px solid var(--border-light);font-size:15px;}
+.s353 li:last-child{border-bottom:none;}
+.s353 li.alt{color:var(--amber-800);}
+/* recall */
+.recall{background:var(--teal-50);border-left:4px solid var(--teal-600);border-radius:0 8px 8px 0;padding:16px 20px 16px 46px;margin:14px 0;position:relative;}
+.recall::before{content:"?";position:absolute;left:16px;top:14px;font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:600;color:var(--teal-600);}
+.recall p{margin:0;color:var(--teal-800);}
+.recall .rn{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--teal-600);font-weight:600;margin-right:6px;}
+.compl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.5px;text-transform:uppercase;background:var(--bg-accent);color:var(--text-secondary);padding:2px 7px;border-radius:4px;margin-right:4px;}
+@media(max-width:640px){
+header.page h1{font-size:34px;}
+body{font-size:16px;}
+h2{font-size:26px;}
+.hero{padding:24px 20px;}
+.hero .blocks,.cards.c2,.cards.c3,.cards.c4,.pillars,.pillars.p5,.phases,.versus,.s353,.letters,.tree > ul,.tree.t6 > ul{grid-template-columns:1fr;}
+.phase{border-right:none;border-bottom:1px solid var(--border-light);}
+.canvas{grid-template-columns:1fr 1fr;}
+.canvas .top{grid-template-columns:1fr;}
+.quad .q h4{font-size:18px;}
+.quad .q{padding:14px;}
+.lvl{grid-template-columns:40px 1fr;}
+.lvl .g{grid-column:2;}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<a class="backlink" href="../index.html">← FGV MBA</a>
+</div>
+
+<header class="page">
+<div class="wrap">
+<h1>Gestão de Projetos e Criação de Valor</h1>
+<span class="badge">✓ Concluído</span>
+<p class="subtitle">Fundamentos de projetos, programas e portfólio, seleção e priorização, planejamento preditivo (TAP, Canvas, EAP, cronograma, riscos, custos), Scrum e tendências de ESG, transformação digital e IA em projetos.</p>
+<p class="meta">Prof. Norberto de Oliveira Almeida, PhD, PMP · 24 h-aula · Individual 7 pts + Grupo 3 pts</p>
+</div>
+</header>
+
+<nav class="sticky">
+<div class="wrap">
+<a href="#fundamentos">Projeto, Programa, Portfólio</a>
+<a href="#maturidade">Governança e Maturidade</a>
+<a href="#pmbok">PMI e Processos</a>
+<a href="#principios">Princípios e Domínios</a>
+<a href="#selecao">Seleção e WSJF</a>
+<a href="#abordagens">Abordagens</a>
+<a href="#tap">TAP e SMART</a>
+<a href="#canvas">Project Canvas</a>
+<a href="#stakeholders">Stakeholders</a>
+<a href="#eap">EAP</a>
+<a href="#cronograma">Cronograma</a>
+<a href="#responsabilidades">Responsabilidades</a>
+<a href="#comunicacao">Comunicação</a>
+<a href="#riscos">Riscos</a>
+<a href="#custos">Custos</a>
+<a href="#pgp">PGP e Controle</a>
+<a href="#scrum">Ágil e Scrum</a>
+<a href="#esg">ESG</a>
+<a href="#ia">TD e IA</a>
+<a href="#programa">Programa</a>
+<a href="#recall">Recall</a>
+</div>
+</nav>
+
+<div class="wrap">
+
+<div class="hero">
+<span class="lbl">◎ Resumo da Disciplina</span>
+<p>Projeto é um esforço <strong>temporário</strong> para criar um produto, serviço ou resultado <strong>único</strong>, elaborado de forma <strong>progressiva</strong>. É o meio pelo qual a estratégia vira resultado. A disciplina percorre quatro blocos, e o GP precisa dominar desde a seleção de projetos (VPL, TIR, Payback, Scoring, WSJF) até os artefatos do plano, o Scrum e o uso de IA, que amplia o gerente de projetos mas não o substitui.</p>
+<div class="blocks">
+<div class="blk"><span class="n">01</span><div class="t">Fundamentos</div></div>
+<div class="blk"><span class="n">02</span><div class="t">Planejando projetos preditivos</div></div>
+<div class="blk"><span class="n">03</span><div class="t">Planejando projetos adaptativos</div></div>
+<div class="blk"><span class="n">04</span><div class="t">Tendências: ESG, TD e IA</div></div>
+</div>
+</div>
+
+<!-- ============ FUNDAMENTOS ============ -->
+<section id="fundamentos">
+<h2>Fundamentos: Projeto, Programa e Portfólio</h2>
+<p>As necessidades de negócio (visão, missão, objetivos, estratégias) só viram <strong>resultados</strong> por meio de soluções, produtos e serviços, e o caminho entre umas e outras são os <strong>projetos</strong>. A mensagem central da disciplina é que <strong>gestão profissional de projetos é diferencial competitivo</strong>.</p>
+
+<div class="key">
+<span class="lbl">◆ Conceito-chave</span>
+<p><strong>Projeto:</strong> "Um esforço temporário empreendido para criar um produto, serviço ou resultado único." (PMBOK 8ª edição)</p>
+<p>Outra definição usada em aula: "É o meio pelo qual novas ideias são transformadas em resultados tangíveis e onde a visão se torna realidade." (Shenhar et al., 2007)</p>
+</div>
+
+<div class="exam">
+<span class="lbl">Cai na prova · As 3 características de um projeto</span>
+</div>
+<div class="pillars">
+<div class="pillar"><span class="n">01</span><h4>Temporário</h4><p>Início e fim definidos. O fim ocorre quando os objetivos são atingidos, ficam inatingíveis ou a necessidade deixa de existir. <strong>Temporário não significa curto</strong>: pode durar anos.</p></div>
+<div class="pillar"><span class="n">02</span><h4>Único</h4><p>O produto ou serviço é diferente de outros similares. Mesmo projetos repetitivos têm variações de contexto, equipe e expectativas. Exclusividade e ineditismo são marcas do projeto.</p></div>
+<div class="pillar"><span class="n">03</span><h4>Elaboração progressiva</h4><p>Desenvolvido em passos e de forma iterativa. Os detalhes aumentam conforme o entendimento do escopo evolui, com planejamento contínuo ao longo do ciclo de vida.</p></div>
+</div>
+
+<h3>Projeto x Programa x Portfólio</h3>
+<div class="cards c3">
+<div class="card"><span class="tag">Entrega um resultado</span><h4>Projeto</h4><p>Esforço temporário para criar um produto, serviço ou resultado único.</p></div>
+<div class="card"><span class="tag">Entrega benefícios</span><h4>Programa</h4><p>Grupo de projetos, subprogramas e atividades de programa gerenciados de forma coordenada para obter <strong>benefícios que não estariam disponíveis</strong> se gerenciados individualmente.</p><p><em>Ex.: Programa "Novo Automóvel 20XX" = Projeto de Desenvolvimento + Projeto Linha de Montagem + Projeto Marketing.</em></p></div>
+<div class="card"><span class="tag">Atinge objetivos estratégicos</span><h4>Portfólio</h4><p>Conjunto de projetos, programas, subportfólios e <strong>operações</strong> gerenciados em grupo para alcançar os <strong>objetivos estratégicos</strong>.</p><p><em>Ex.: Portfólio da Organização → Portfólios das Diretorias 1, 2 e 3 → programas e projetos.</em></p></div>
+</div>
+
+<div class="exam">
+<span class="lbl">Cai na prova</span>
+<p>O <strong>projeto</strong> entrega um resultado único. O <strong>programa</strong> coordena projetos relacionados para obter <strong>benefícios</strong> combinados. O <strong>portfólio</strong> agrupa projetos, programas e operações, que não precisam ser relacionados entre si, para atingir <strong>objetivos estratégicos</strong>. Só o portfólio inclui <strong>operações</strong>.</p>
+</div>
+
+<h3>Operações (rotinas) x Projetos</h3>
+<div class="versus">
+<div class="vs vs-a"><h4>Operações (rotinas)</h4><p><strong>Contínuas e repetitivas.</strong></p></div>
+<div class="vs vs-b"><h4>Projetos</h4><p><strong>Temporários e únicos.</strong></p></div>
+</div>
+<div class="note"><span class="lbl">Semelhanças</span>Ambos são realizados por pessoas, limitados aos recursos disponíveis e planejados, executados e controlados.</div>
+
+<div class="key">
+<span class="lbl">◆ Conceito-chave</span>
+<p><strong>PMO (Project Management Office):</strong> corpo ou entidade organizacional à qual são atribuídas várias responsabilidades relacionadas ao <strong>gerenciamento centralizado e coordenado</strong> dos projetos sob seu domínio. As responsabilidades podem variar desde o <strong>fornecimento de funções de suporte</strong> ao gerenciamento de projetos até o <strong>gerenciamento direto</strong> de um projeto.</p>
+</div>
+</section>
+
+<!-- ============ MATURIDADE ============ -->
+<section id="maturidade">
+<h2>Governança, Maturidade e Contexto</h2>
+<h3>Pilares do GP profissional do portfólio <span style="font-weight:400;color:var(--text-tertiary);font-size:15px">(Almeida, 2011)</span></h3>
+<div class="pillars p5">
+<div class="pillar"><span class="n">01</span><h4>Governança</h4><p>de projetos, programas e portfólio</p></div>
+<div class="pillar"><span class="n">02</span><h4>Metodologia</h4><p>de gestão profissional</p></div>
+<div class="pillar"><span class="n">03</span><h4>Tecnologia</h4><p>SIGP: Sistema de Informações de Gerenciamento do Portfólio</p></div>
+<div class="pillar"><span class="n">04</span><h4>Fluxo de valor</h4></div>
+<div class="pillar"><span class="n">05</span><h4>Pessoas capacitadas</h4></div>
+</div>
+<p>A governança garante o <strong>alinhamento estratégico</strong> do portfólio (referência: PMI, <em>Standard for Portfolio Management</em>, 4ª ed., 2017).</p>
+
+<h3>Mundo VUCAH e agilidade no negócio</h3>
+<div class="cards c4" style="grid-template-columns:repeat(5,1fr)">
+<div class="card"><h4>V</h4><p>Volatility · Volatilidade</p></div>
+<div class="card"><h4>U</h4><p>Uncertainty · Incerteza</p></div>
+<div class="card"><h4>C</h4><p>Complexity · Complexidade</p></div>
+<div class="card"><h4>A</h4><p>Ambiguity · Ambiguidade</p></div>
+<div class="card"><h4>H</h4><p>Hyperconnected · Hiperconectado</p></div>
+</div>
+<div class="key">
+<span class="lbl">◆ Conceito-chave</span>
+<p><strong>Agilidade no negócio:</strong> "É a capacidade de uma organização se adaptar rapidamente às mudanças do mercado e do ambiente de maneira produtiva e econômica." (Ambler &amp; Lines, <em>Choose Your WoW</em>, PMI DA)</p>
+<p>O professor é criador do 1º framework brasileiro de agilidade no negócio, o <strong>BAM (Business Agility Management)</strong>, em bamagility.com.br.</p>
+</div>
+
+<h3>Maturidade em gerenciamento de projetos</h3>
+<p>O <strong>MMGP</strong> (Modelo de Maturidade em Gerenciamento de Projetos, de Darci Prado, em maturityresearch.com) mede a maturidade das organizações brasileiras numa escala de 1 a 5. A média nacional tem oscilado entre ~2,4 e ~2,9 desde 2005, e a pesquisa de 2024 é a mais recente. Ou seja, <strong>a maturidade média no Brasil ainda é baixa</strong>.</p>
+
+<p style="margin-top:20px"><strong>Maturidade x Sucesso</strong> (MMGP, resultados de 2021)</p>
+<div class="bars">
+<div class="bar"><div class="bl">Baixo desempenho</div><div class="track"><span class="b-ok" style="width:40.3%">40,3%</span><span class="b-part" style="width:41.3%">41,3%</span><span class="b-fail" style="width:18.4%">18,3%</span></div></div>
+<div class="bar"><div class="bl">Médio desempenho</div><div class="track"><span class="b-ok" style="width:60.1%">60,1%</span><span class="b-part" style="width:33%">33,0%</span><span class="b-fail" style="width:6.9%">6,9%</span></div></div>
+<div class="bar"><div class="bl">Alto desempenho</div><div class="track"><span class="b-ok" style="width:78.1%">78,1%</span><span class="b-part" style="width:17%">17,0%</span><span class="b-fail" style="width:4.9%">4,8%</span></div></div>
+<div class="legend"><span><i class="b-ok"></i>Sucesso total</span><span><i class="b-part" style="border:1px solid var(--amber-400)"></i>Sucesso parcial</span><span><i class="b-fail"></i>Fracasso</span></div>
+</div>
+
+<p style="margin-top:24px"><strong>PMI Pulse of the Profession 2020</strong> (empresas de alta x baixa maturidade)</p>
+<table>
+<thead><tr><th>Indicador</th><th class="c">Alta maturidade</th><th class="c">Baixa maturidade</th></tr></thead>
+<tbody>
+<tr><td>Projetos concluídos no prazo</td><td class="c good">63%</td><td class="c bad">39%</td></tr>
+<tr><td>Projetos concluídos no orçamento</td><td class="c good">67%</td><td class="c bad">46%</td></tr>
+<tr><td>Projetos que alcançaram os objetivos de negócio</td><td class="c good">77%</td><td class="c bad">56%</td></tr>
+<tr><td>Projetos com problemas de escopo</td><td class="c good">30%</td><td class="c bad">47%</td></tr>
+<tr><td>Projetos que falharam</td><td class="c good">11%</td><td class="c bad">21%</td></tr>
+</tbody>
+</table>
+
+<div class="exam">
+<span class="lbl">Cai na prova</span>
+<p>Os dados resumem a tese da disciplina: <strong>maior maturidade em gestão de projetos significa mais projetos no prazo, no orçamento e entregando objetivos de negócio, e menos fracassos.</strong> No MMGP, o fracasso cai de 18,3% (baixo desempenho) para 4,8% (alto desempenho). No Pulse, a taxa de falha cai de 21% para 11%.</p>
+</div>
+
+<h3>PPM Ready</h3>
+<p>Ferramenta gratuita de avaliação de prontidão em gestão de portfólio (ppmready.portfolioexpert.com.br):</p>
+<div class="stepper">
+<div class="step"><div class="num">1</div><div class="body"><h4>Categorização</h4><p>Da organização e do respondente.</p></div></div>
+<div class="step"><div class="num">2</div><div class="body"><h4>Avaliação de prontidão</h4><p>Ex. (pilar governança): existe planejamento estratégico? Há processo para alinhar projetos às estratégias? Ele é seguido amplamente? Há classificação de projetos estratégicos e não estratégicos?</p></div></div>
+<div class="step"><div class="num">3</div><div class="body"><h4>Diagnóstico e plano de ação</h4><p>Executar o plano melhora a prontidão e, consequentemente, os resultados dos projetos.</p></div></div>
+</div>
+</section>
+
+<!-- ============ PMBOK ============ -->
+<section id="pmbok">
+<h2>PMI, PMBOK e Grupos de Processos</h2>
+<p>O <strong>PMI (Project Management Institute)</strong> é uma instituição sem fins lucrativos, criada em <strong>1969</strong> e dedicada ao desenvolvimento do gerenciamento de projetos, com diversos capítulos no Brasil. Seu foco é definir e divulgar as melhores práticas, principalmente por meio do <strong>PMBOK</strong> (<em>A Guide to the Project Management Body of Knowledge</em>) e da certificação <strong>PMP</strong> (Project Management Professional). Outras certificações: CAPM, PgMP, PMI-RP, PMI-SP e Agile.</p>
+
+<div class="exam">
+<span class="lbl">Cai na prova</span>
+<p><strong>O PMBOK não é uma metodologia. É um conjunto de boas práticas.</strong> Ele identifica o subconjunto do corpo de conhecimentos em gerenciamento de projetos que é geralmente reconhecido como boa prática.</p>
+</div>
+
+<h3>Os 5 grupos de processos</h3>
+<div class="stepper">
+<div class="step"><div class="num">1</div><div class="body"><h4>Iniciação</h4><p>Define e autoriza o projeto ou uma fase do projeto.</p></div></div>
+<div class="step"><div class="num">2</div><div class="body"><h4>Planejamento</h4><p>Define e refina os objetivos e planeja as ações necessárias para alcançar os objetivos e o escopo para os quais o projeto foi idealizado.</p></div></div>
+<div class="step"><div class="num">3</div><div class="body"><h4>Execução</h4><p>Integra pessoas e outros recursos para realizar o Plano do Projeto.</p></div></div>
+<div class="step"><div class="num">4</div><div class="body"><h4>Monitoramento e Controle</h4><p>Mede e monitora regularmente o progresso para identificar variações em relação ao plano, permitindo ações corretivas e/ou preventivas quando necessário.</p></div></div>
+<div class="step"><div class="num">5</div><div class="body"><h4>Encerramento</h4><p>Formaliza a aceitação do produto, serviço ou resultado e conduz o projeto ou fase a um final ordenado.</p></div></div>
+</div>
+</section>
+
+<!-- ============ PRINCIPIOS ============ -->
+<section id="principios">
+<h2>Princípios e Domínios de Desempenho (PMBOK 8)</h2>
+<p>O PMBOK 8 organiza a gestão de projetos em três camadas concêntricas: no centro, a <strong>mentalidade e comportamentos</strong>; ao redor, os <strong>princípios</strong>; na camada externa, os <strong>domínios de desempenho</strong>.</p>
+
+<div class="layers">
+<div class="layer l1"><span class="ll">Centro · Mentalidade e comportamentos</span><div class="chips"><span class="chip">Proativo</span><span class="chip">Propriedade (senso de dono)</span><span class="chip">Orientado por valor</span></div></div>
+<div class="layer l2"><span class="ll">Meio · 6 Princípios</span><div class="chips"><span class="chip">Adote uma visão holística</span><span class="chip">Foco no valor</span><span class="chip">Incorporar a qualidade nos processos e entregáveis</span><span class="chip">Seja um líder responsável</span><span class="chip">Integrar a sustentabilidade em todas as áreas do projeto</span><span class="chip">Construir uma cultura empoderada</span></div></div>
+<div class="layer l3"><span class="ll">Externo · 7 Domínios de desempenho</span><div class="chips"><span class="chip">1. Governança</span><span class="chip">2. Escopo</span><span class="chip">3. Cronograma</span><span class="chip">4. Finanças</span><span class="chip">5. Partes interessadas</span><span class="chip">6. Recursos</span><span class="chip">7. Riscos</span></div></div>
+</div>
+
+<div class="key">
+<span class="lbl">◆ Conceito-chave</span>
+<p><strong>Princípios</strong> são diretrizes fundamentais para desenvolvimento de estratégias, tomada de decisão e resolução de problemas. Seu objetivo é <strong>guiar o comportamento</strong> dos envolvidos com o projeto.</p>
+</div>
+
+<div class="exam">
+<span class="lbl">Cai na prova · Os 7 domínios de desempenho</span>
+<p>Um domínio de desempenho é um conjunto de processos relacionados que são críticos para a entrega eficaz de <strong>valor</strong> do projeto: <strong>Governança, Escopo, Cronograma, Finanças, Partes Interessadas, Recursos e Riscos.</strong></p>
+<p>Escopo, cronograma e finanças (custo) formam a <strong>restrição tripla</strong> do projeto.</p>
+</div>
+</section>
+
+<!-- ============ SELECAO ============ -->
+<section id="selecao">
+<h2>Alinhamento Estratégico e Seleção de Projetos</h2>
+<div class="key">
+<span class="lbl">◆ Conceito-chave</span>
+<p><strong>Por que alinhar projetos à estratégia?</strong> Projetos sem alinhamento estratégico <strong>consomem recursos escassos sem gerar valor</strong> para a organização. A seleção de projetos deve partir dos objetivos organizacionais.</p>
+</div>
+
+<div class="cards c3">
+<div class="card"><span class="tag">Etapa 1</span><h4>Visão e Estratégia</h4><ul><li>Missão e valores</li><li>Objetivos de longo prazo</li><li>Vantagem competitiva</li><li>Metas anuais</li></ul></div>
+<div class="card"><span class="tag">Etapa 2</span><h4>Portfólio de Projetos</h4><ul><li>Programas e projetos selecionados</li><li>Critérios de priorização</li><li>Balanceamento de risco/retorno</li><li>Capacidade organizacional</li></ul></div>
+<div class="card"><span class="tag">Etapa 3</span><h4>Entrega de Valor</h4><ul><li>Benefícios realizados</li><li>ROI dos projetos</li><li>Resultados para stakeholders</li><li>Melhoria de performance</li></ul></div>
+</div>
+
+<h3>Métodos de avaliação e seleção</h3>
+<p>A decisão de investir num projeto deve ser suportada por <strong>critérios objetivos</strong>.</p>
+<div class="exam">
+<span class="lbl">Cai na prova · Métodos de seleção</span>
+</div>
+<div class="deflist">
+<div class="defitem"><div class="t">VPL: Valor Presente Líquido</div><div class="d">Valor atual dos fluxos futuros de caixa, descontados a uma taxa de atratividade. <strong>VPL &gt; 0 indica viabilidade financeira.</strong></div></div>
+<div class="defitem"><div class="t">TIR: Taxa Interna de Retorno</div><div class="d">Taxa que iguala os fluxos descontados ao investimento inicial. É comparada com a <strong>TMA</strong> (taxa mínima de atratividade) da organização: TIR &gt; TMA favorece o projeto.</div></div>
+<div class="defitem"><div class="t">Payback: Período de Retorno</div><div class="d">Tempo necessário para recuperar o investimento. Simples e intuitivo, mas <strong>ignora os fluxos além do ponto de retorno</strong>.</div></div>
+<div class="defitem"><div class="t">Scoring: Modelo de Pontuação</div><div class="d">Critérios múltiplos ponderados e pontuados (ex.: alinhamento estratégico, viabilidade técnica, risco). <strong>Permite comparar projetos de naturezas distintas.</strong></div></div>
+<div class="defitem"><div class="t">WSJF: Weighted Shortest Job First</div><div class="d">Os projetos de <strong>maior valor (maior custo do atraso) com o menor esforço/duração devem ser feitos primeiro.</strong></div></div>
+</div>
+
+<h3>Quadrante WSJF</h3>
+<div class="quadwrap">
+<div class="quad-ylab">Valor ↑</div>
+<div class="quad">
+<div class="q q-amber"><span class="qn">Q3 · Valor alto · Esforço alto</span><h4>Faça mais tarde</h4></div>
+<div class="q q-teal"><span class="qn">Q1 · Valor alto · Esforço baixo</span><h4>Faça agora</h4></div>
+<div class="q q-rose"><span class="qn">Q4 · Valor baixo · Esforço alto</span><h4>Não faça (agora)</h4></div>
+<div class="q q-blue"><span class="qn">Q2 · Valor baixo · Esforço baixo</span><h4>Faça a seguir</h4></div>
+</div>
+<div class="quad-xlab"><span>← Esforço alto</span><span>Esforço baixo →</span></div>
+</div>
+<div class="formula"><span class="compl">Complemento · SAFe</span> WSJF = Custo do Atraso ÷ Tamanho do Trabalho (duração/esforço)</div>
+
+<h3>Dinâmica: Priorizando com WSJF na Clínica Saúde Plena</h3>
+<p><strong>Cenário:</strong> rede de clínicas de saúde ocupacional com 3 unidades e 120 colaboradores, que atende empresas com exames admissionais, periódicos e demissionais. Orçamento aprovado: <strong>R$ 800 mil</strong>. Capacidade: <strong>no máximo 2 projetos simultâneos</strong>.</p>
+<div class="table-scroll">
+<table class="compact">
+<thead><tr><th>Nº</th><th>Projeto</th><th>Contexto</th><th>Custo</th><th>Prazo</th></tr></thead>
+<tbody>
+<tr><td><strong>01</strong></td><td><strong>Prontuário Eletrônico</strong></td><td>Fichas em papel. Médicos perdem tempo procurando histórico e há risco de perda de dados. Fornecedor de saúde já homologado.</td><td>R$ 180 mil</td><td>4 meses</td></tr>
+<tr><td><strong>02</strong></td><td><strong>Agendamento Online</strong></td><td>200 ligações/dia na recepção e clientes com dificuldade para marcar. App simples integrado à agenda existente.</td><td>R$ 65 mil</td><td>2 meses</td></tr>
+<tr><td><strong>03</strong></td><td><strong>Nova Unidade (4ª clínica)</strong></td><td>Bairro com muitas empresas clientes. Mercado com potencial, mas <strong>não validado</strong>. Exige ponto comercial, contratações e equipamentos.</td><td>R$ 620 mil</td><td>18 meses</td></tr>
+<tr><td><strong>04</strong></td><td><strong>Laudo Digital com IA</strong></td><td>Reduz o tempo por laudo de 12 para 4 minutos. Tecnologia nova, <strong>sem cases</strong> no setor.</td><td>R$ 240 mil</td><td>8 meses</td></tr>
+<tr><td><strong>05</strong></td><td><strong>Painel de Indicadores</strong></td><td>Diretoria decide com planilhas semanais. Os dados já existem; é um projeto de visualização.</td><td>R$ 55 mil</td><td>2 meses</td></tr>
+<tr><td><strong>06</strong></td><td><strong>Programa de Bem-Estar</strong></td><td>Absenteísmo subiu 22% no ano. Voltado aos colaboradores da clínica. Benefícios difíceis de quantificar no curto prazo.</td><td>R$ 40 mil/ano</td><td>1 mês</td></tr>
+</tbody>
+</table>
+</div>
+<div class="stepper">
+<div class="step"><div class="num">1</div><div class="body"><h4>Votação individual silenciosa (5 min)</h4><p>Cada membro anota Q1/Q2/Q3/Q4 para cada projeto, sem discutir.</p></div></div>
+<div class="step"><div class="num">2</div><div class="body"><h4>Discussão e consenso (20 min)</h4><p>Projeto a projeto: valor (A/B), esforço (A/B), quadrante e argumento principal. Quem votou diferente explica o raciocínio.</p></div></div>
+<div class="step"><div class="num">3</div><div class="body"><h4>Quadrante e portfólio (10 min)</h4><p>Quais do Q1 cabem em R$ 800 mil e em 2 projetos simultâneos? Se sobrar orçamento, algum do Q3 pode ser antecipado?</p></div></div>
+<div class="step"><div class="num">4</div><div class="body"><h4>Apresentação e debate (5 min)</h4><p>Pergunta do professor: <em>"O projeto 04 (IA) ficou em qual quadrante de vocês? Por quê?"</em></p></div></div>
+</div>
+<div class="key">
+<span class="lbl">◆ Conceito-chave · Aprendizados</span>
+<ul>
+<li>Estimar valor e esforço de forma ágil e argumentada.</li>
+<li>Aplicar o Quadrante WSJF como ferramenta de priorização.</li>
+<li><strong>Priorizar é escolher, inclusive decidir o que não fazer neste ciclo.</strong></li>
+<li>Diferentes perfis profissionais enxergam valor de formas distintas.</li>
+</ul>
+<p style="margin-top:8px">Leitura: Scaled Agile, SAFe: Weighted Shortest Job First.</p>
+</div>
+<div class="note">
+<span class="lbl">Uma leitura possível · não é gabarito oficial</span>
+<p><strong>02</strong> e <strong>05</strong> são candidatos naturais ao Q1: baixo custo, 2 meses e dor clara. <strong>01</strong> tende ao Q1 pelo alto valor e pelo fornecedor homologado, apesar do custo maior. <strong>04</strong> divide opiniões: alto valor potencial, mas alto esforço e risco (tecnologia sem cases), o que o aproxima do Q3 ou de uma <strong>PoC</strong> antes do investimento pleno. <strong>03</strong> consome 77% do orçamento com mercado não validado e prazo de 18 meses (Q3/Q4). <strong>06</strong> é barato, mas tem valor difícil de quantificar (Q2). A restrição de <strong>2 projetos simultâneos</strong> obriga a sequenciar, não só a selecionar.</p>
+</div>
+
+<h3>PoC, piloto e faseamento</h3>
+<p>Uma forma de reduzir o risco de investimento é amadurecer o projeto em etapas.</p>
+<div class="phases">
+<div class="phase"><span class="risk r-hi">Risco alto</span><h4>PoC · Prova de Conceito</h4><div class="motto">Aprender barato</div><p>Valida se a ideia é tecnicamente viável.</p><ul><li>Escala mínima, baixo custo</li><li>Foco em hipótese central</li><li>Usado em inovação e tecnologia</li></ul></div>
+<div class="phase"><span class="risk r-mh">Risco médio-alto</span><h4>Projeto-Piloto</h4><div class="motto">Validar na prática</div><p>Teste em ambiente real, mas controlado.</p><ul><li>Avalia viabilidade operacional</li><li>Subsidia decisão de expansão</li><li>Aprende antes de escalar</li></ul></div>
+<div class="phase"><span class="risk r-md">Risco médio</span><h4>Fase 1 · Implantação Inicial</h4><div class="motto">Entregar valor</div><p>Primeira entrega de valor real.</p><ul><li>Escopo delimitado e gerenciável</li><li>Feedback para fases seguintes</li><li>Reduz risco financeiro</li></ul></div>
+<div class="phase"><span class="risk r-lo">Risco baixo</span><h4>Escala · Rollout Completo</h4><div class="motto">Consolidar ganhos</div><p>Expansão baseada em aprendizados.</p><ul><li>Processo validado e replicável</li><li>Pleno comprometimento de recursos</li><li>Monitoramento de benefícios</li></ul></div>
+</div>
+<div class="phases-axis">M A T U R I D A D E &nbsp; D O &nbsp; P R O J E T O &nbsp; →</div>
+</section>
+
+<!-- ============ ABORDAGENS ============ -->
+<section id="abordagens">
+<h2>Abordagens Gerenciais: Preditiva, Adaptativa e Híbrida</h2>
+<div class="table-scroll">
+<table>
+<thead><tr><th></th><th>Preditiva</th><th>Adaptativa</th><th>Híbrida</th></tr></thead>
+<tbody>
+<tr><td><strong>Também chamada</strong></td><td>Cascata / Waterfall</td><td>Ágil / Scrum / Kanban</td><td>Preditiva + Adaptativa</td></tr>
+<tr><td><strong>Quando usar</strong></td><td>Escopo bem definido, baixa incerteza, requisitos estáveis</td><td>Alta incerteza, requisitos evolutivos, entregas iterativas</td><td>Projetos complexos com partes de escopo definido e partes incertas</td></tr>
+<tr><td><strong>Ferramentas</strong></td><td>EAP, Cronograma (Gantt), PMBOK, PRINCE2</td><td>Scrum, Kanban, SAFe, XP, Product Backlog</td><td>PMI-ACP, PMBOK + Scrum, SAFe, Disciplined Agile</td></tr>
+<tr><td><strong>Pontos fortes</strong></td><td>Planejamento detalhado · Controle rigoroso · Documentação completa · Ideal para obras e contratos</td><td>Resposta rápida a mudanças · Entregas frequentes de valor · Alta colaboração com cliente</td><td>Melhor dos dois mundos · Flexível no planejamento · Aplicável a grandes programas</td></tr>
+<tr><td><strong>Pontos de atenção</strong></td><td>Pouca flexibilidade a mudanças · Entrega tardia de valor · Risco concentrado no final</td><td>Difícil prever custo/prazo final · Requer disciplina e maturidade · Escalabilidade complexa</td><td>Requer equipe experiente · Governança mais complexa · Coordenação entre abordagens</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="exam">
+<span class="lbl">Cai na prova · Como escolher a abordagem: 4 fatores</span>
+</div>
+<div class="cards c2">
+<div class="card"><h4>1. Clareza do escopo</h4><p>Os requisitos são conhecidos e estáveis?</p><p><strong>Preditiva:</strong> escopo fechado · <strong>Adaptativa:</strong> escopo evolutivo</p></div>
+<div class="card"><h4>2. Grau de incerteza</h4><p>Qual o nível de risco e novidade do projeto?</p><p><strong>Preditiva:</strong> baixa incerteza · <strong>Adaptativa:</strong> alta incerteza</p></div>
+<div class="card"><h4>3. Envolvimento do cliente</h4><p>O cliente pode participar ativamente das entregas?</p><p><strong>Preditiva:</strong> revisões formais · <strong>Adaptativa:</strong> colaboração contínua</p></div>
+<div class="card"><h4>4. Cultura organizacional</h4><p>A organização suporta autonomia e iteração?</p><p><strong>Preditiva:</strong> hierarquia e processos · <strong>Adaptativa:</strong> agilidade e aprendizado</p></div>
+</div>
+<div class="exam">
+<span class="lbl">Cai na prova</span>
+<p><strong>Não existe abordagem universalmente superior.</strong> Na prática, a maioria dos projetos combina elementos das duas, e daí nasce a abordagem <strong>híbrida</strong>. A chave é <strong>adaptar a metodologia ao contexto, não o contrário</strong>.</p>
+</div>
+
+<h3>Ciclo de vida: cascata x ágil</h3>
+<div class="versus">
+<div class="vs vs-a"><h4>Waterfall (cascata)</h4><p>Fases sequenciais únicas: Plan &amp; Analyse → Design → Build → Test → Correction → Test → Deploy.</p><p>O valor só é entregue no final.</p></div>
+<div class="vs vs-b"><h4>Agile</h4><p>Ciclos curtos repetidos: Analyse → Plan → (Design · Build · Test iterativo) → Deploy, várias vezes.</p><p>Cada ciclo entrega valor.</p></div>
+</div>
+
+<div class="key">
+<span class="lbl">◆ Conceito-chave · Triângulo invertido</span>
+</div>
+<div class="versus">
+<div class="vs vs-a"><h4>Tradicional (Preditivo)</h4><div class="fixed"><b class="fx">Fixo</b>Escopo</div><div class="fixed"><b class="vr">Variável</b>Custo (recursos) · Tempo</div><p><strong>Foco no planejamento</strong> (previsibilidade)</p></div>
+<div class="vs vs-b"><h4>Ágil (Adaptativo)</h4><div class="fixed"><b class="fx">Fixo</b>Custo (recursos) · Tempo</div><div class="fixed"><b class="vr">Variável</b>Escopo</div><p><strong>Foco no aumento de valor</strong> (falta previsibilidade)</p></div>
+</div>
+</section>
+
+<!-- ============ TAP ============ -->
+<section id="tap">
+<h2>Termo de Abertura e Objetivos SMART</h2>
+<div class="exam">
+<span class="lbl">Cai na prova · Termo de Abertura do Projeto (TAP / Project Charter)</span>
+<ul>
+<li><strong>Autoriza formalmente</strong> o projeto;</li>
+<li><strong>Concede autoridade</strong> ao gerente de projetos;</li>
+<li>É <strong>emitido por um gerente ou patrocinador externo ao projeto</strong>.</li>
+</ul>
+</div>
+<p><strong>Conteúdo básico do TAP:</strong></p>
+<div class="cards c3">
+<div class="card"><p>Justificativa de negócio</p></div>
+<div class="card"><p>Objetivos do projeto</p></div>
+<div class="card"><p>Alinhamento com os objetivos estratégicos</p></div>
+<div class="card"><p>Gerente de projeto designado e autoridade</p></div>
+<div class="card"><p>Principais partes interessadas e responsabilidades</p></div>
+<div class="card"><p>Organizações funcionais e suas participações</p></div>
+<div class="card"><p>Marcos do projeto</p></div>
+<div class="card"><p>Premissas</p></div>
+<div class="card"><p>Restrições</p></div>
+<div class="card"><p>Principais riscos</p></div>
+<div class="card" style="grid-column:span 2"><p>Caso de negócio justificando o projeto com "ROI" e orçamento estimado</p></div>
+</div>
+
+<div class="key">
+<span class="lbl">◆ Conceito-chave · Objetivos SMART (os objetivos do TAP precisam ser SMART)</span>
+<div class="letters">
+<div class="letter"><div class="L">S</div><div class="w">Specific · Específico</div><div class="x">Claro, sem ambiguidade.</div></div>
+<div class="letter"><div class="L">M</div><div class="w">Measurable · Mensurável</div><div class="x">Dá para medir com indicador (meta, número, %).</div></div>
+<div class="letter"><div class="L">A</div><div class="w">Achievable · Atingível</div><div class="x">Possível com os recursos e restrições reais.</div></div>
+<div class="letter"><div class="L">R</div><div class="w">Relevant · Relevante</div><div class="x">Importante para a estratégia/resultado que importa.</div></div>
+<div class="letter"><div class="L">T</div><div class="w">Time-bound · Temporal</div><div class="x">Tem prazo (data ou período definido).</div></div>
+</div>
+</div>
+</section>
+
+<!-- ============ CANVAS ============ -->
+<section id="canvas">
+<h2>Project Model Canvas</h2>
+<div class="key">
+<span class="lbl">◆ Conceito-chave</span>
+<p><strong>Project Model Canvas</strong> (Prof. José Finocchio Jr.): ferramenta visual que organiza os elementos essenciais de um projeto em <strong>um único quadro</strong>, facilitando o alinhamento e a comunicação da essência do projeto. Tem 15 campos agrupados em 5 perguntas.</p>
+</div>
+
+<div class="canvas">
+<div class="top"><div class="cv"><span class="f">GP</span><span class="s">Gerente do projeto</span></div><div class="cv"><span class="f">Pitch</span><span class="s">O que é, quem se beneficia, por que importa</span></div></div>
+<div class="cvcol"><div class="qq">Por quê?</div><div class="cv"><span class="f">Justificativas</span><span class="s">Passado</span></div><div class="cv"><span class="f">Obj. SMART</span></div><div class="cv"><span class="f">Benefícios</span><span class="s">Futuro</span></div></div>
+<div class="cvcol"><div class="qq">O quê?</div><div class="cv"><span class="f">Produto</span></div><div class="cv"><span class="f">Requisitos</span></div></div>
+<div class="cvcol"><div class="qq">Quem?</div><div class="cv"><span class="f">Stakeholders externos</span><span class="s">&amp; fatores externos</span></div><div class="cv"><span class="f">Equipe</span></div></div>
+<div class="cvcol"><div class="qq">Como?</div><div class="cv"><span class="f">Premissas</span></div><div class="cv"><span class="f">Grupo de entregas</span></div><div class="cv"><span class="f">Restrições</span></div></div>
+<div class="cvcol"><div class="qq">Quando e quanto?</div><div class="cv"><span class="f">Riscos</span></div><div class="cv"><span class="f">Linha do tempo</span></div><div class="cv"><span class="f">Custos</span></div></div>
+</div>
+
+<h3>Os 15 campos em detalhe</h3>
+<div class="deflist">
+<div class="defitem"><div class="t">1. Gerente do Projeto</div><div class="d">Quem é o responsável pelo sucesso e pela condução do projeto.</div></div>
+<div class="defitem"><div class="t">2. Pitch</div><div class="d">Descrição breve e clara do que é o projeto, quem se beneficia e por que importa. Deve capturar o interesse dos stakeholders.</div></div>
+<div class="defitem"><div class="t">3. Justificativas (passado)</div><div class="d">Por que o projeto é importante: problemas a resolver ou oportunidades a explorar.</div></div>
+<div class="defitem"><div class="t">4. Objetivo SMART</div><div class="d">O que o projeto pretende alcançar, em formato específico, mensurável, atingível, relevante e com prazo.</div></div>
+<div class="defitem"><div class="t">5. Benefícios (futuro)</div><div class="d">Valor tangível e intangível que o projeto trará para a organização e os stakeholders.</div></div>
+<div class="defitem"><div class="t">6. Produto</div><div class="d">O que será entregue ao final da execução: produto físico, serviço ou resultado específico.</div></div>
+<div class="defitem"><div class="t">7. Requisitos</div><div class="d">O que precisa ser atendido para o produto cumprir suas funções e satisfazer o cliente, considerando requisitos técnicos e de negócio.</div></div>
+<div class="defitem"><div class="t">8. Stakeholders externos e fatores externos</div><div class="d">Clientes, parceiros e fornecedores, além de fatores como clima, pandemia, economia e leis que podem influenciar o projeto.</div></div>
+<div class="defitem"><div class="t">9. Equipe</div><div class="d">Quem executa o projeto, com papéis e responsabilidades.</div></div>
+<div class="defitem"><div class="t">10. Grupo de entregas</div><div class="d">As principais entregas do projeto e quando ocorrem.</div></div>
+<div class="defitem"><div class="t">11. Premissas</div><div class="d">O que se considera verdadeiro para planejar, mesmo sem comprovação no momento.</div></div>
+<div class="defitem"><div class="t">12. Restrições</div><div class="d">Limitações de prazo, orçamento ou qualquer outro recurso.</div></div>
+<div class="defitem"><div class="t">13. Riscos</div><div class="d">Principais riscos a monitorar e mitigar.</div></div>
+<div class="defitem"><div class="t">14. Linha do tempo</div><div class="d">Cronologia do projeto, com os principais marcos e prazos das entregas.</div></div>
+<div class="defitem"><div class="t">15. Custos</div><div class="d">Estimativa dos principais custos, base para o orçamento.</div></div>
+</div>
+
+<div class="exam">
+<span class="lbl">Cai na prova</span>
+<p>Note a temporalidade: <strong>Justificativas = passado</strong> (o problema que já existe) e <strong>Benefícios = futuro</strong> (o valor que virá). Confundir os dois é erro comum.</p>
+</div>
+
+<div class="note">
+<span class="lbl">Trabalho em grupo · sequência da aula</span>
+<p>Escolher um projeto da área do MBA e preencher o Canvas por etapas: primeiro <strong>GP (1), Pitch (1), Justificativas (3), Objetivo SMART (1), Benefícios (3), Produto (1) e Requisitos (5)</strong>. Depois o <strong>QUEM</strong> (equipe e stakeholders externos). Em seguida o <strong>COMO</strong> (2 premissas, grupos de entregas e 2 restrições). Por fim, datas de início e término por entrega, eventos de risco e custos por grupo de entregas.</p>
+</div>
+</section>
+
+<!-- ============ STAKEHOLDERS ============ -->
+<section id="stakeholders">
+<h2>Partes Interessadas (Stakeholders)</h2>
+<div class="key">
+<span class="lbl">◆ Conceito-chave</span>
+<p><strong>Stakeholders</strong> são indivíduos ou grupos:</p>
+<ul>
+<li>cujos interesses podem ser afetados <strong>positiva ou negativamente</strong>, do ponto de vista pessoal e/ou profissional, pela condução do projeto ou pelo seu resultado;</li>
+<li>que têm prioridades e determinado comportamento, <strong>influência/poder</strong> e <strong>interesse/disponibilidade</strong> em relação ao projeto.</li>
+</ul>
+<p style="margin-top:8px">Podem ser <strong>internos</strong> (membros da equipe) ou <strong>externos</strong> (clientes, fornecedores).</p>
+</div>
+
+<h3>Análise de quadrantes: a qualificação</h3>
+<p>O professor qualifica stakeholders cruzando <strong>grau de influência (poder)</strong> com <strong>grau de interesse/posicionamento</strong> (contra · neutro · a favor).</p>
+<div class="quadwrap">
+<div class="quad-ylab">Poder ↑</div>
+<div class="quad">
+<div class="q q-rose"><span class="qn">Poder alto · Contra</span><h4>Bloqueadores</h4><p>Prioridade máxima de gestão.</p></div>
+<div class="q q-teal"><span class="qn">Poder alto · A favor</span><h4>Aliados</h4><p>Podem ajudar a negociar com bloqueadores.</p></div>
+<div class="q q-amber"><span class="qn">Poder baixo · Contra</span><h4>Desaceleradores</h4><p>Segundo foco de atenção.</p></div>
+<div class="q q-blue"><span class="qn">Poder baixo · A favor</span><h4>Membros de rede</h4><p>Apoio e capilaridade.</p></div>
+</div>
+<div class="quad-xlab"><span>← Contra</span><span>Neutro</span><span>A favor →</span></div>
+</div>
+
+<div class="exam">
+<span class="lbl">Cai na prova</span>
+<p><strong>Foco prioritário nos bloqueadores e desaceleradores.</strong> A pergunta-chave: <em>qual aliado ou membro de rede poderá ajudar a lidar/negociar com os bloqueadores e os desaceleradores, mitigando sua influência?</em></p>
+</div>
+
+<div class="key">
+<span class="lbl">◆ Conceito-chave · Matriz Poder x Interesse</span>
+<p>A versão clássica usada na dinâmica posiciona stakeholders em 4 quadrantes: alto poder e alto interesse, alto poder e baixo interesse, baixo poder e alto interesse, baixo poder e baixo interesse. Cada quadrante pede uma abordagem de engajamento diferente.</p>
+<p><span class="compl">Complemento · Mendelow</span> Alto/alto: gerenciar de perto. Alto poder/baixo interesse: manter satisfeito. Baixo poder/alto interesse: manter informado. Baixo/baixo: monitorar.</p>
+</div>
+
+<h3>Dinâmica: mapas pessoais + Poder x Interesse</h3>
+<div class="stepper">
+<div class="step"><div class="num">1</div><div class="body"><h4>Identificar 3 a 5 stakeholders-chave</h4><p>Sugestão: patrocinador, cliente final, gestor do projeto, equipe de implementação e usuários finais. Cada membro do grupo fica com um.</p></div></div>
+<div class="step"><div class="num">2</div><div class="body"><h4>Criar o minimapa pessoal</h4><p>Papel e responsabilidades · objetivos e expectativas · medos e preocupações · motivação pessoal ou interesses específicos.</p></div></div>
+<div class="step"><div class="num">3</div><div class="body"><h4>Posicionar no mapa Poder x Interesse</h4><p>Poder é a influência sobre o projeto; interesse é quanto o projeto impacta o stakeholder. Justificar cada posição.</p></div></div>
+<div class="step"><div class="num">4</div><div class="body"><h4>Discutir ações de engajamento</h4><p>Como o mapa pessoal ajudou a posicionar? Que ações específicas adotar para cada stakeholder?</p></div></div>
+</div>
+<div class="key">
+<span class="lbl">◆ Conceito-chave · Abordagem mista em duas camadas</span>
+<p>O mapa <strong>Poder x Interesse</strong> define <strong>prioridades</strong> (camada estratégica). O <strong>mapa pessoal</strong> permite uma estratégia de engajamento <strong>personalizada e humana</strong> (motivações e preocupações). Leitura: Jurgen Appelo, <em>Liderando para a Felicidade</em>.</p>
+</div>
+</section>
+
+<!-- ============ EAP ============ -->
+<section id="eap">
+<h2>EAP, Premissas e Restrições</h2>
+<div class="key">
+<span class="lbl">◆ Conceito-chave</span>
+<p><strong>EAP (Estrutura Analítica do Projeto) ou WBS (Work Breakdown Structure):</strong> decomposição <strong>hierárquica orientada às entregas</strong> do trabalho a ser executado pela equipe para atingir os objetivos e criar as entregas requisitadas. A EAP <strong>organiza e define o escopo total</strong> do projeto, e cada nível descendente representa uma definição mais detalhada do trabalho.</p>
+</div>
+
+<h3>Níveis da EAP</h3>
+<div class="levels">
+<div class="lvl"><span class="n">1</span><span class="t">Projeto</span><span class="g">Gerência de escopo · substantivos</span></div>
+<div class="lvl"><span class="n">2</span><span class="t">Entregas</span><span class="g">Gerência de escopo · substantivos</span></div>
+<div class="lvl"><span class="n">3</span><span class="t">Subentregas</span><span class="g">Gerência de escopo · substantivos</span></div>
+<div class="lvl"><span class="n">4</span><span class="t">Pacotes de trabalho (último nível da EAP)</span><span class="g">Gerência de escopo · substantivos</span></div>
+<div class="lvl act"><span class="n">↓</span><span class="t">Atividades (formarão a baseline de tempo)</span><span class="g">Gerência de tempo · verbos</span></div>
+</div>
+
+<div class="exam">
+<span class="lbl">Cai na prova · Convenção de nomenclatura</span>
+<ul>
+<li><strong>EAP (gerência de escopo):</strong> entregas, subentregas e pacotes usam <strong>substantivos</strong> (ex.: "Piso", "Pintura").</li>
+<li><strong>Atividades (gerência de tempo):</strong> começam com <strong>verbos</strong> (ex.: "Produzir bases e recheio").</li>
+<li><strong>Marcos (milestones):</strong> <strong>substantivo + verbo no particípio</strong> (ex.: "Piso concluído").</li>
+</ul>
+</div>
+
+<div class="exam">
+<span class="lbl">Cai na prova · Regras da EAP</span>
+<ol>
+<li><strong>Integridade (regra dos 100%):</strong> cada nível decompõe inteiramente o nível precedente, sem omitir nenhum produto final.</li>
+<li><strong>Não há elementos "compartilhados"</strong> entre dois ou mais ramos.</li>
+<li><strong>Não há "filhos únicos":</strong> um elemento não se decompõe em um só filho.</li>
+<li><strong>Cada elemento tem codificação única</strong> (pode ter o mesmo nome).</li>
+<li><strong>Não detalhe além do que pretende ou pode estimar, acompanhar e manter atualizado.</strong></li>
+<li><strong>Gere um dicionário da EAP.</strong></li>
+</ol>
+<p>Além disso, a EAP deve incluir o <strong>Gerenciamento do Projeto</strong> como uma entrega (planejamento, acompanhamento, encerramento).</p>
+</div>
+
+<h3>Exemplo 1: Reforma dos Auditórios</h3>
+<div class="tree">
+<div class="root">Reforma dos Auditórios</div>
+<ul>
+<li><span>Gerenciamento do Projeto</span><ul><li>Planejamento</li><li>Acompanhamento</li><li>ADM/FIN</li></ul></li>
+<li><span>2º andar</span><ul><li><span>Auditório 201</span><ul><li>Piso</li><li>Pintura</li></ul></li><li><span>Auditório 205</span><ul><li>Pintura</li><li>Quadro</li><li>Equipamentos</li></ul></li></ul></li>
+<li><span>3º andar</span><ul><li><span>Auditório 301</span><ul><li>Piso</li><li>Pintura</li></ul></li><li><span>Auditório 305</span><ul><li>Pintura</li><li>Mobília</li><li>Equipamentos</li></ul></li></ul></li>
+<li><span>Encerramento do Projeto</span><ul><li>Termo de aceite</li><li>Lições aprendidas</li><li>Fechamento</li></ul></li>
+</ul>
+</div>
+
+<h3>Exemplo 2: Aplicativo XYZ</h3>
+<div class="tree t6">
+<div class="root">Aplicativo XYZ</div>
+<ul>
+<li><span>Gerenciamento do Projeto</span><ul><li>Planejamento</li><li>Acompanhamento</li><li>ADM/FIN</li></ul></li>
+<li><span>Abertura da Empresa</span><ul><li>Local</li><li>Reforma e montagem</li><li>Legalização da empresa</li></ul></li>
+<li><span>Aplicativo</span><ul><li>Contratação empresa de TI</li><li>Desenvolvimento do App</li><li>Testes</li></ul></li>
+<li><span>Equipe</span><ul><li>Seleção</li><li>Treinamento</li></ul></li>
+<li><span>Marketing</span><ul><li>Divulgação</li><li>Parcerias</li><li>Lançamento</li></ul></li>
+<li><span>Encerramento do Projeto</span><ul><li>Termo de aceite</li><li>Lições aprendidas</li><li>Fechamento</li></ul></li>
+</ul>
+</div>
+
+<h3>Premissas x Restrições</h3>
+<div class="versus">
+<div class="vs vs-a"><h4>Premissas</h4><p>Fatores que, para fins de planejamento, são <strong>assumidos como verdadeiros</strong>, reais ou certos, sem comprovação.</p><ul class="plain" style="margin-top:8px;font-size:14.5px"><li>"Serão disponibilizados cinco analistas de RH em período integral e três de TI em part time."</li><li>"O cliente disponibilizará até 01/02/20XX toda a infraestrutura de hardware e software."</li><li>"A equipe poderá usar as dependências da manufatura 24 horas por dia, 7 dias por semana."</li></ul></div>
+<div class="vs vs-b"><h4>Restrições</h4><p>Fatores que <strong>limitam as opções</strong> da equipe de gerenciamento do projeto (condições obrigatórias).</p><ul class="plain" style="margin-top:8px;font-size:14.5px"><li>"A reforma deverá ser conduzida com o laboratório em funcionamento."</li><li>"Prazo total de 12 meses, com a construção iniciada ao final do 1º mês."</li><li>"Verba de R$ 1.500.000,00, sem ultrapassar 10% desse valor no primeiro mês."</li></ul></div>
+</div>
+<div class="exam">
+<span class="lbl">Cai na prova · Teste rápido</span>
+<p>Se é algo que <strong>supomos</strong> que vai acontecer, é <strong>premissa</strong>, e vira risco se falhar. Se é algo que <strong>nos impõem</strong>, é <strong>restrição</strong>.</p>
+</div>
+</section>
+
+<!-- ============ CRONOGRAMA ============ -->
+<section id="cronograma">
+<h2>Gerenciamento do Cronograma</h2>
+<p>Construído <strong>a partir da EAP</strong>, o cronograma transforma pacotes de trabalho em atividades sequenciadas, com estimativas de duração, dependências e responsáveis.</p>
+
+<div class="stepper">
+<div class="step"><div class="num">1</div><div class="body"><h4>Definir atividades</h4><p>Decompor os pacotes de trabalho da EAP em ações executáveis com verbo de ação.</p></div></div>
+<div class="step"><div class="num">2</div><div class="body"><h4>Sequenciar</h4><p>Identificar dependências entre atividades e montar o diagrama de rede.</p></div></div>
+<div class="step"><div class="num">3</div><div class="body"><h4>Estimar duração</h4><p>Opinião especializada, estimativa análoga, estimativa paramétrica, estimativa de 3 pontos (PERT).</p></div></div>
+<div class="step"><div class="num">4</div><div class="body"><h4>Caminho crítico</h4><p>A sequência mais longa, que determina a <strong>duração mínima</strong> do projeto. <strong>Folga = zero.</strong></p></div></div>
+<div class="step"><div class="num">5</div><div class="body"><h4>Baseline</h4><p>Linha de base aprovada do cronograma, referência para o controle de planejado x realizado.</p></div></div>
+</div>
+
+<div class="exam">
+<span class="lbl">Cai na prova · A decomposição aparece duas vezes</span>
+<p>Em <strong>Definir o Escopo</strong>, a decomposição gera <strong>produtos</strong> (pacotes de trabalho). Em <strong>Definir as Atividades</strong>, a decomposição do último nível da EAP gera <strong>atividades</strong> (ações).</p>
+</div>
+
+<h3>Técnicas de estimativa de duração</h3>
+<p>As durações são difíceis de estimar devido a fatores como o nível e a produtividade dos recursos.</p>
+<div class="cards c4">
+<div class="card"><h4>Opinião especializada</h4><p>Julgamento de quem já fez trabalho semelhante.</p></div>
+<div class="card"><h4>Análoga</h4><p>Por comparação com projetos semelhantes.</p></div>
+<div class="card"><h4>Paramétrica</h4><p>Por relação estatística entre variáveis.</p></div>
+<div class="card"><h4>Três pontos (PERT)</h4><p>Considera as durações <strong>mais provável</strong>, <strong>otimista</strong> e <strong>pessimista</strong>.</p></div>
+</div>
+<div class="formula"><span class="compl">Complemento</span> PERT (beta): Duração esperada = (Otimista + 4 × Mais provável + Pessimista) ÷ 6</div>
+<p>O <strong>Gráfico de Gantt</strong> exibe as atividades no tempo. Exemplo simplificado da aula, ao longo de semanas: levantamento de requisitos → análise e projeto técnico → desenvolvimento → testes e homologação → implantação e treinamento.</p>
+</section>
+
+<!-- ============ RESPONSABILIDADES ============ -->
+<section id="responsabilidades">
+<h2>Recursos e Matriz de Responsabilidades</h2>
+<div class="key">
+<span class="lbl">◆ Conceito-chave · Management 3.0 (Jurgen Appelo): 6 visões da gestão</span>
+</div>
+<div class="cards c3">
+<div class="card"><h4>Energizar pessoas</h4></div>
+<div class="card"><h4>Empoderar times</h4></div>
+<div class="card"><h4>Alinhar restrições</h4></div>
+<div class="card"><h4>Desenvolver competências</h4></div>
+<div class="card"><h4>Crescer a estrutura</h4></div>
+<div class="card"><h4>Melhorar tudo</h4></div>
+</div>
+
+<div class="key">
+<span class="lbl">◆ Conceito-chave · Matriz de Responsabilidades (RAM)</span>
+<p>A <strong>RAM (Responsibility Assignment Matrix)</strong> cruza <strong>itens da EAP (linhas)</strong> com <strong>partes interessadas (colunas)</strong>, indicando o papel de cada um. A técnica usada em aula é a <strong>ERICA</strong> (PARIS adaptada):</p>
+<div class="letters">
+<div class="letter"><div class="L">E</div><div class="w">Executante</div></div>
+<div class="letter"><div class="L">R</div><div class="w">Responsável</div></div>
+<div class="letter"><div class="L">I</div><div class="w">Informado</div></div>
+<div class="letter"><div class="L">C</div><div class="w">Consultado</div></div>
+<div class="letter"><div class="L">A</div><div class="w">Aprovador</div></div>
+</div>
+</div>
+
+<p><strong>Exemplo da aula:</strong></p>
+<div class="table-scroll">
+<table class="compact">
+<thead><tr><th>Item da EAP</th><th class="c">Cliente</th><th class="c">Patroc.</th><th class="c">GP</th><th class="c">Coord. Proj.</th><th class="c">Engenharia</th><th class="c">TI</th><th class="c">Compras</th><th class="c">Marketing</th><th class="c">Ger. Área</th><th class="c">Jurídico</th></tr></thead>
+<tbody>
+<tr><td><strong>Plano de Gerenciamento do Projeto</strong></td><td class="c">A</td><td class="c">A</td><td class="c">R</td><td class="c">E</td><td class="c">C</td><td class="c">C</td><td class="c">I</td><td class="c">–</td><td class="c">I</td><td class="c">–</td></tr>
+<tr><td><strong>Execução da Obra</strong></td><td class="c">A</td><td class="c">A</td><td class="c">A</td><td class="c">C</td><td class="c">E/R</td><td class="c">–</td><td class="c">I</td><td class="c">–</td><td class="c">–</td><td class="c">–</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<!-- ============ COMUNICACAO ============ -->
+<section id="comunicacao">
+<h2>Gerenciamento da Comunicação</h2>
+<div class="key">
+<span class="lbl">◆ Conceito-chave</span>
+<p><strong>Planejar a comunicação</strong> significa gerar o Plano de Gerenciamento da Comunicação a partir da <strong>análise dos stakeholders</strong> e de suas necessidades de informação: <em>Quem precisa? De qual informação? Quando será necessária? Como será disponibilizada?</em> O objetivo é que <strong>as informações certas cheguem às pessoas certas no momento certo.</strong></p>
+</div>
+
+<div class="exam">
+<span class="lbl">Cai na prova · Matriz de comunicação: técnica 6W1H</span>
+<table>
+<thead><tr><th>Campo</th><th>Pergunta</th><th>Exemplos</th></tr></thead>
+<tbody>
+<tr><td><strong>Informação</strong></td><td>What</td><td>Cronograma, convite de lançamento, ata de reunião</td></tr>
+<tr><td><strong>Propósito</strong></td><td>Why</td><td>Acompanhar progresso, informar lançamento, obter aprovação</td></tr>
+<tr><td><strong>Frequência</strong></td><td>When</td><td>Semanal, diária, até 2 dias após a reunião</td></tr>
+<tr><td><strong>Mídia</strong></td><td>How</td><td>PDF, vídeo, áudio, mensagem, e-mail</td></tr>
+<tr><td><strong>Onde</strong></td><td>Where</td><td>Intranet, redes sociais, e-mail</td></tr>
+<tr><td><strong>Responsável</strong></td><td>Who</td><td>Gerente de Projetos, Gerente de Marketing</td></tr>
+<tr><td><strong>Destinatários</strong></td><td>Whom</td><td>Equipe, clientes, patrocinadores</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Dinâmica: PBL aplicado à comunicação</h3>
+<p>Aprendizado Baseado em Problemas sobre o projeto do grupo, com três problemas hipotéticos:</p>
+<div class="cards c3">
+<div class="card"><span class="tag">Problema 1</span><h4>Mudança nas expectativas do cliente</h4><p>A mudança não foi comunicada claramente à equipe técnica, causando retrabalho e atrasos.</p></div>
+<div class="card"><span class="tag">Problema 2</span><h4>Prazos desalinhados com fornecedores</h4><p>Fornecedores sem informação clara sobre prazos, gerando atrasos e conflitos de entrega.</p></div>
+<div class="card"><span class="tag">Problema 3</span><h4>Baixo engajamento da equipe</h4><p>Parte da equipe não recebe atualizações e não entende responsabilidades e prazos.</p></div>
+</div>
+<p>Para cada problema, o grupo propõe um plano de comunicação usando o 6W1H e apresenta como o plano resolve as questões, quais stakeholders se beneficiam e como o fluxo de informação será mantido.</p>
+</section>
+
+<!-- ============ RISCOS ============ -->
+<section id="riscos">
+<h2>Gerenciamento de Riscos</h2>
+<h3>Identificação</h3>
+<div class="cards c4">
+<div class="card"><p>Análise da documentação</p></div>
+<div class="card"><p>Brainstorming</p></div>
+<div class="card"><p>Análise das premissas</p></div>
+<div class="card"><p>Entrevistas</p></div>
+<div class="card"><p>Uso de especialistas</p></div>
+<div class="card" style="grid-column:span 2"><p>Checklists para categorizar o risco: <strong>Estrutura Analítica de Riscos (RBS, Risk Breakdown Structure)</strong></p></div>
+<div class="card"><p>Diagramação: SWOT, causa e efeito, fluxos, diagramas de influência</p></div>
+</div>
+
+<div class="key">
+<span class="lbl">◆ Conceito-chave · Riscos positivos x negativos</span>
+<ul>
+<li><strong>Negativos (ameaças):</strong> eventos incertos que, se ocorrerem, têm impacto <strong>adverso</strong> nos objetivos (ex.: falha de um fornecedor crítico).</li>
+<li><strong>Positivos (oportunidades):</strong> eventos incertos que, se ocorrerem, têm impacto <strong>benéfico</strong> (ex.: nova tecnologia que acelera o desenvolvimento).</li>
+</ul>
+<p style="margin-top:8px"><strong>Trigger (sinal de aviso):</strong> indicador ou evento que sinaliza a <strong>iminência</strong> de um risco e alerta a equipe para agir antes que ele se materialize (ex.: atraso de 2 semanas nos relatórios de status sinalizando problemas de integração).</p>
+</div>
+
+<h3>Análise</h3>
+<div class="versus">
+<div class="vs vs-a"><h4>Qualitativa</h4><p><strong>A mais usada.</strong> Probabilidade e impacto em escala: Muito Baixo, Baixo, Médio, Alto, Muito Alto.</p><p>Recomenda-se escala numérica: <strong>0,1 · 0,3 · 0,5 · 0,7 · 0,9</strong>.</p></div>
+<div class="vs vs-b"><h4>Quantitativa</h4><p><strong>A mais precisa.</strong> Probabilidade em <strong>%</strong> e impacto em <strong>R$</strong>.</p></div>
+</div>
+<div class="exam">
+<span class="lbl">Cai na prova</span>
+<p><strong>Severidade (exposição) = Probabilidade × Impacto.</strong> Na matriz P x I da aula, a probabilidade usa a escala 0,1/0,3/0,5/0,7/0,9 e o impacto usa uma escala não linear: 0,05/0,1/0,2/0,4/0,8.</p>
+</div>
+
+<h3>Respostas aos riscos</h3>
+<div class="cards c2">
+<div class="card" style="border-top:3px solid var(--rose-600)"><span class="tag">Riscos negativos · ameaças</span>
+<div class="deflist" style="margin:8px 0 0">
+<div class="defitem" style="border-left-color:var(--rose-600)"><div class="t" style="color:var(--rose-600)">Evitar</div><div class="d">Ações antecipadas para eliminar a probabilidade de ocorrência ou o impacto, mudando plano, escopo, prazo, custo ou qualidade.</div></div>
+<div class="defitem" style="border-left-color:var(--rose-600)"><div class="t" style="color:var(--rose-600)">Transferir</div><div class="d">Geralmente riscos financeiros. A responsabilidade e o impacto passam a uma <strong>terceira parte</strong> (contrato, seguro).</div></div>
+<div class="defitem" style="border-left-color:var(--rose-600)"><div class="t" style="color:var(--rose-600)">Mitigar</div><div class="d">Ações antecipadas para <strong>reduzir</strong> a probabilidade ou o impacto a um nível aceitável.</div></div>
+</div></div>
+<div class="card" style="border-top:3px solid var(--teal-600)"><span class="tag">Riscos positivos · oportunidades</span>
+<div class="deflist" style="margin:8px 0 0">
+<div class="defitem" style="border-left-color:var(--teal-600)"><div class="t" style="color:var(--teal-600)">Explorar</div><div class="d">Ações antecipadas para eliminar a incerteza e garantir a oportunidade.</div></div>
+<div class="defitem" style="border-left-color:var(--teal-600)"><div class="t" style="color:var(--teal-600)">Compartilhar</div><div class="d">Dividir a oportunidade com uma terceira parte (parcerias, joint ventures).</div></div>
+<div class="defitem" style="border-left-color:var(--teal-600)"><div class="t" style="color:var(--teal-600)">Aumentar (melhorar)</div><div class="d">Ações antecipadas para aumentar a probabilidade ou o impacto.</div></div>
+</div></div>
+</div>
+<div class="exam">
+<span class="lbl">Cai na prova · Estratégias para ambos</span>
+<ul>
+<li><strong>Aceitar:</strong> não tomar ação antecipada. Pode ser <strong>passiva</strong> ou <strong>ativa</strong> (com resposta de contingência).</li>
+<li><strong>Resposta de contingência:</strong> respostas pré-definidas para executar <strong>após a ocorrência do sinal (trigger)</strong> do risco.</li>
+<li><strong>Escalar:</strong> levar o risco para níveis superiores de gestão, com mais autoridade ou recursos.</li>
+</ul>
+</div>
+
+<h3>Dinâmica: revisar uma matriz de riscos com erros</h3>
+<p><strong>Cenário:</strong> desenvolvimento de um software que integra informações de diferentes departamentos de uma empresa do mercado financeiro, com desafios técnicos, regulatórios e de segurança. A matriz entregue contém erros propositais.</p>
+<div class="table-scroll">
+<table class="compact">
+<thead><tr><th>Evento de risco</th><th>Trigger</th><th class="c">P</th><th class="c">I</th><th class="c">P×I</th><th>Tipo</th><th>Resposta</th><th>Dono</th></tr></thead>
+<tbody>
+<tr><td>Atraso na entrega de dados por falta de integração entre sistemas críticos</td><td>Relatórios de status com atraso de 2 semanas</td><td class="c">0,7</td><td class="c">0,5</td><td class="c">0,35</td><td>Transferência</td><td>Alocar recursos adicionais para auxiliar a equipe técnica e acelerar a coleta e análise de dados</td><td>Equipe Técnica</td></tr>
+<tr><td>Falha na comunicação entre sistemas, dificultando a integração entre departamentos</td><td>Sistemas não comunicam após testes iniciais</td><td class="c">0,5</td><td class="c">0,7</td><td class="c">0,35</td><td>Aceitação</td><td>Aceitar o risco e planejar uma fase extra de testes</td><td>Gerente do Projeto</td></tr>
+<tr><td>Mudanças em exigências de conformidade financeira, gerando revisões e atrasos</td><td>Mudança em regulamentações financeiras</td><td class="c">0,9</td><td class="c">0,7</td><td class="c">0,63</td><td>Evitar</td><td>Transferir o risco ao time de Compliance para monitorar e documentar mudanças e desenvolver estratégia de adaptação</td><td>Compliance</td></tr>
+<tr><td>Acesso não autorizado a dados sensíveis por vulnerabilidades de segurança</td><td>Tentativas de acesso não autorizado</td><td class="c">0,9</td><td class="c">0,9</td><td class="c">0,81</td><td>Mitigação</td><td>Autenticação multifator e monitoramento contínuo de ameaças</td><td>Equipe de Segurança</td></tr>
+<tr><td>Escopo expandido continuamente por novos requisitos dos clientes</td><td>Novos requisitos surgem constantemente</td><td class="c">0,5</td><td class="c">0,5</td><td class="c">0,25</td><td>Evitar</td><td>Critérios claros para aceitar novas solicitações e alinhar o escopo com o cliente</td><td>Gerente de Escopo</td></tr>
+</tbody>
+</table>
+</div>
+<p>Orientação: avaliar se P e I estão coerentes com o cenário, se a resposta corresponde ao tipo, se o dono é o mais adequado, e apontar inconsistências.</p>
+<div class="key">
+<span class="lbl">◆ Inconsistências a observar · análise de estudo, não gabarito oficial</span>
+<ul>
+<li><strong>Linha 1:</strong> "alocar recursos adicionais" reduz o impacto ou a probabilidade, então é <strong>mitigação</strong>, não transferência (transferir exige uma terceira parte assumindo o risco). O dono talvez deva ser o GP, que tem poder de alocar recursos.</li>
+<li><strong>Linha 2:</strong> planejar uma fase extra de testes é ação <strong>proativa</strong>. É <strong>mitigação</strong> (ou aceitação <strong>ativa</strong> com contingência), não simplesmente aceitar.</li>
+<li><strong>Linha 3:</strong> o tipo diz "Evitar", mas o texto diz "transferir", e passar o monitoramento ao Compliance (uma área interna) não é transferência. Na prática é <strong>mitigação</strong> e monitoramento; com P = 0,9, também cabe considerar <strong>escalar</strong>.</li>
+<li><strong>Linha 4:</strong> a severidade 0,81 é a mais alta da matriz e a mitigação é coerente. Vale verificar se o trigger antecede o evento o suficiente, já que uma tentativa de acesso é quase o próprio evento.</li>
+<li><strong>Linha 5:</strong> controle de mudanças com critérios é <strong>mitigação</strong> do <em>scope creep</em>. "Gerente de Escopo" não é um papel usual; o dono natural é o <strong>Gerente do Projeto</strong>.</li>
+<li><strong>Faltam oportunidades:</strong> a matriz só tem ameaças, e o trabalho em grupo pede <strong>pelo menos uma oportunidade</strong>.</li>
+<li><em>Detalhe do material:</em> o texto da dinâmica fala em "quatro tipos principais" de resposta, mas lista cinco (incluindo Escalar), e usa "Melhorar" onde o slide usa "Aumentar". São a mesma estratégia.</li>
+</ul>
+</div>
+<div class="note"><span class="lbl">Trabalho em grupo</span>Elaborar pelo menos <strong>3 itens</strong> do plano de gerenciamento de riscos, sendo <strong>pelo menos uma oportunidade</strong>, e levá-los ao Canvas (campo Riscos).</div>
+</section>
+
+<!-- ============ CUSTOS ============ -->
+<section id="custos">
+<h2>Custos e Orçamento</h2>
+<p>A estimativa de custos parte do <strong>planejamento de recursos</strong>. Para cada atividade da EAP, identificam-se as necessidades de <strong>recursos humanos, materiais, equipamentos e serviços contratados</strong>, distribuídas no tempo e por fase do projeto. Exemplos: horas de engenheiros, técnicos e GP por mês; horas de computadores e plotters; toner e papel; serviços de terceiros em R$.</p>
+
+<div class="exam">
+<span class="lbl">Cai na prova · Tipos de custos</span>
+</div>
+<div class="quad" style="margin:18px 0">
+<div class="q q-blue"><span class="qn">Atribuição</span><h4>Diretos</h4><p>Atribuídos diretamente ao trabalho do projeto e <strong>não precisam de rateio</strong>. Ex.: horas de trabalho, viagem da equipe, materiais da atividade.</p></div>
+<div class="q q-purple"><span class="qn">Atribuição</span><h4>Indiretos</h4><p>Custos gerais em benefício de <strong>mais de um projeto</strong> (ex.: manutenção do negócio). A organização define o <strong>critério de rateio</strong>. Ex.: custos administrativos, comerciais, tributários, financeiros.</p></div>
+<div class="q q-teal"><span class="qn">Comportamento</span><h4>Variáveis</h4><p>Mudam conforme a <strong>quantidade de trabalho</strong> ou de atividades. Ex.: materiais, suprimentos.</p></div>
+<div class="q q-amber"><span class="qn">Comportamento</span><h4>Fixos</h4><p><strong>Não mudam</strong> com a quantidade de trabalho. Ex.: instalações, aluguéis.</p></div>
+</div>
+
+<h3>Exemplo de orçamento por atividade</h3>
+<p>Projeto <strong>"Biscoitos Recheados Copa do Mundo 2006"</strong> (GP: Bárbara Xavier), pacote 1 "Amostras Conceito", orçado por tipo de recurso:</p>
+<div class="table-scroll">
+<table class="compact">
+<thead><tr><th>#</th><th>Atividade</th><th class="c">Humanos</th><th class="c">Materiais</th><th class="c">Serviços</th><th class="c">Total</th></tr></thead>
+<tbody>
+<tr><td>1.1</td><td>Reservar laboratório de experimentos</td><td class="c">200,00</td><td class="c"></td><td class="c"></td><td class="c">200,00</td></tr>
+<tr><td>1.2</td><td>Emitir requisição de materiais</td><td class="c">200,00</td><td class="c"></td><td class="c"></td><td class="c">200,00</td></tr>
+<tr><td>1.3</td><td>Produzir/entregar materiais</td><td class="c">–</td><td class="c">810,00</td><td class="c"></td><td class="c">810,00</td></tr>
+<tr><td>1.4</td><td>Produzir bases e recheio</td><td class="c">2.900,00</td><td class="c"></td><td class="c"></td><td class="c">2.900,00</td></tr>
+<tr><td>1.5</td><td>Produzir biscoitos recheados</td><td class="c">1.160,00</td><td class="c"></td><td class="c"></td><td class="c">1.160,00</td></tr>
+<tr><td>1.6</td><td>Separar lotes</td><td class="c">580,00</td><td class="c"></td><td class="c"></td><td class="c">580,00</td></tr>
+<tr><td>1.7</td><td>Realizar testes de degustação</td><td class="c">–</td><td class="c"></td><td class="c">1.000,00</td><td class="c">1.000,00</td></tr>
+<tr><td>1.10</td><td>Realizar testes de transporte</td><td class="c">960,00</td><td class="c">160,00</td><td class="c"></td><td class="c">1.120,00</td></tr>
+<tr><td>1.11</td><td>Aprovar amostras conceito</td><td class="c">1.200,00</td><td class="c"></td><td class="c"></td><td class="c">1.200,00</td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-size:14px;color:var(--text-tertiary)">As atividades 1.8 (enviar amostras para LABOM) e 1.9 (realizar análises) aparecem no exemplo sem valores preenchidos. Note que as atividades começam com verbo.</p>
+
+<h3>Exemplo de custo por grupo de entregas (restaurante)</h3>
+<table>
+<thead><tr><th>Grupo de entrega</th><th style="text-align:right">Custo (R$)</th></tr></thead>
+<tbody>
+<tr><td>Gerenciamento de Projetos</td><td style="text-align:right">30.000</td></tr>
+<tr><td>Local do restaurante</td><td style="text-align:right">50.000</td></tr>
+<tr><td>Obras</td><td style="text-align:right">300.000</td></tr>
+<tr><td>Abertura da empresa</td><td style="text-align:right">20.000</td></tr>
+<tr><td>Montagem do restaurante</td><td style="text-align:right">200.000</td></tr>
+<tr><td>Marketing</td><td style="text-align:right">40.000</td></tr>
+<tr><td>Encerramento do Projeto</td><td style="text-align:right">5.000</td></tr>
+<tr class="total"><td>Total do Projeto</td><td style="text-align:right">645.000</td></tr>
+</tbody>
+</table>
+</section>
+
+<!-- ============ PGP ============ -->
+<section id="pgp">
+<h2>Plano, Execução, Controle e Encerramento</h2>
+<div class="key">
+<span class="lbl">◆ Conceito-chave · Componentes do Plano de Gerenciamento do Projeto (PGP)</span>
+<ol>
+<li>Termo de abertura + sumário executivo</li>
+<li>EAP &amp; declaração de escopo (controle de mudanças)</li>
+<li>Cronograma</li>
+<li>Plano de gerência de custos</li>
+<li>Plano de qualidade</li>
+<li>Plano de recursos humanos, incluindo matriz de responsabilidades</li>
+<li>Plano de comunicação</li>
+<li>Plano de gerência de riscos</li>
+<li>Plano de aquisições</li>
+<li>Controle integrado de mudanças</li>
+<li>Avaliação para fechamento do projeto</li>
+<li>Glossário e definições</li>
+<li>Outras informações</li>
+</ol>
+</div>
+
+<div class="cards c3">
+<div class="card"><span class="tag">Executar</span><h4>Executar o projeto</h4><ul><li>Executar o plano de projeto</li><li>Desenvolver as entregas</li><li>Mobilizar, gerenciar e motivar o time</li><li>Garantir a qualidade (auditorias)</li><li>Realizar as aquisições</li><li>Distribuir as informações</li></ul></div>
+<div class="card"><span class="tag">Monitorar e controlar</span><h4>Monitoramento e Controle</h4><p>Observação sistemática da execução para identificar problemas <strong>no momento adequado</strong> e tomar ações corretivas e/ou preventivas.</p><ul><li>Aceitação das entregas</li><li>Controle do cronograma, custos, qualidade e riscos</li><li>Administração dos contratos</li></ul></div>
+<div class="card"><span class="tag">Encerrar</span><h4>Encerramento</h4><ul><li>Finalizar todas as atividades do projeto ou fase</li><li>Entregar o produto</li><li>Ou encerrar um projeto <strong>cancelado</strong></li><li>Encerrar os contratos</li><li><strong>Registrar lições aprendidas</strong></li><li>Fechamento administrativo/financeiro</li></ul></div>
+</div>
+
+<p><strong>Relatórios de desempenho:</strong> informam o desempenho do projeto, mostram se a <strong>baseline</strong> está sendo cumprida e apontam itens que podem causar problemas no futuro.</p>
+
+<div class="key">
+<span class="lbl">◆ Conceito-chave · Status Report Canvas (5 P's), por Norberto Almeida</span>
+<p>Relatório de status em uma única página, organizado em blocos:</p>
+<ul>
+<li><strong>Cabeçalho:</strong> projeto, período do reporte e status em farol.</li>
+<li><strong>Progresso:</strong> status geral e grandes entregas, com responsável, início, término, término revisado e % concluído; principais atividades do período.</li>
+<li><strong>Próximos passos:</strong> atividades do próximo período.</li>
+<li><strong>Principais riscos:</strong> evento, ameaça ou oportunidade, probabilidade, impacto, resposta e responsável.</li>
+<li><strong>Pontos de atenção e plano de ação:</strong> prioridade, ação proposta, responsável, prazo e situação.</li>
+</ul>
+<p style="margin-top:8px"><em>Exemplo da aula: Reforma Mansão em Cabo Frio, outubro de 2017, status vermelho.</em></p>
+</div>
+
+<div class="exam">
+<span class="lbl">Cai na prova · Controle integrado de mudanças</span>
+<p>As mudanças são controladas de forma <strong>integrada do início ao término</strong> do projeto. Raramente a execução segue com exatidão o PGP. O <strong>Gerente do Projeto deve influenciar os fatores que criam mudanças e controlar o impacto delas</strong>, por meio de solicitação formal de mudança.</p>
+</div>
+</section>
+
+<!-- ============ SCRUM ============ -->
+<section id="scrum">
+<h2>Abordagem Adaptativa: Ágil e Scrum</h2>
+<div class="key">
+<span class="lbl">◆ Conceito-chave · Manifesto Ágil (agilemanifesto.org)</span>
+<p><span class="compl">Complemento · os 4 valores</span> <strong>Indivíduos e interações</strong> mais que processos e ferramentas · <strong>software em funcionamento</strong> mais que documentação abrangente · <strong>colaboração com o cliente</strong> mais que negociação de contratos · <strong>responder a mudanças</strong> mais que seguir um plano. Os itens da direita têm valor, mas os da esquerda valem mais.</p>
+</div>
+
+<p><strong>Algumas abordagens ágeis:</strong> Scrum · Extreme Programming (XP) · Kanban · Disciplined Agile (DA) · Canvas (Portfolio Management Canvas, ou PfMC; Status Report Canvas, ou SRC) · diversos outros (RAD, DSDM, FDD, Crystal Clear…).</p>
+
+<div class="exam">
+<span class="lbl">Cai na prova</span>
+<p><strong>A tendência atual é usar modelos híbridos</strong>, nos quais as melhores práticas de cada metodologia são aplicadas a um processo customizado.</p>
+</div>
+
+<div class="key">
+<span class="lbl">◆ Conceito-chave</span>
+<p><strong>Scrum</strong> é um framework leve para desenvolver e entregar produtos complexos de forma <strong>iterativa e incremental</strong>. Foi criado por <strong>Ken Schwaber e Jeff Sutherland</strong> na década de 1990. Referência: <em>Scrum Guide</em> (2020).</p>
+</div>
+
+<div class="exam">
+<span class="lbl">Cai na prova · Framework 3-5-3 do Scrum</span>
+</div>
+<div class="s353">
+<div class="col"><div class="hd"><div class="big">3</div><div class="nm">Papéis</div><div class="sub">Quem faz o quê</div></div><ul><li>Product Owner</li><li>Scrum Master</li><li>Developers</li></ul></div>
+<div class="col"><div class="hd"><div class="big">5</div><div class="nm">Cerimônias</div><div class="sub">Quando e como o time se organiza</div></div><ul><li>Sprint Planning</li><li>Daily Scrum</li><li>Sprint Review</li><li>Sprint Retrospective</li><li class="alt">Refinamento ⚠</li></ul></div>
+<div class="col"><div class="hd"><div class="big">3</div><div class="nm">Artefatos</div><div class="sub">O que orienta e registra o trabalho</div></div><ul><li>Product Backlog</li><li>Sprint Backlog</li><li>Incremento</li></ul></div>
+</div>
+<div class="exam">
+<span class="lbl">Atenção à 5ª cerimônia</span>
+<p>Na aula, o <strong>Refinamento</strong> conta como a 5ª cerimônia. No <em>Scrum Guide</em> 2020 oficial, os eventos são Sprint, Planning, Daily, Review e Retrospective, e o refinamento é uma atividade contínua. <strong>Para a prova, siga a versão do professor.</strong></p>
+</div>
+
+<h3>5 valores do Scrum</h3>
+<div class="pillars p5">
+<div class="pillar"><h4>Coragem</h4><p>Fazer a coisa certa e trabalhar em problemas difíceis.</p></div>
+<div class="pillar"><h4>Foco</h4><p>Todos focam no trabalho da Sprint e nos objetivos do time.</p></div>
+<div class="pillar"><h4>Comprometimento</h4><p>As pessoas se comprometem pessoalmente a atingir os objetivos do time.</p></div>
+<div class="pillar"><h4>Respeito</h4><p>Os membros se respeitam como pessoas independentes e capazes.</p></div>
+<div class="pillar"><h4>Abertura</h4><p>Time e partes interessadas são abertos sobre todo o trabalho e seus desafios.</p></div>
+</div>
+
+<h3>Os 3 papéis em detalhe</h3>
+<div class="cards c3">
+<div class="card"><span class="tag">PO</span><h4>Product Owner</h4><p>Maximiza o valor do produto e do trabalho do Scrum Team, representando os interesses do negócio e dos usuários.</p><ul><li>Definir e comunicar a meta do produto (Product Goal)</li><li>Criar e ordenar o Product Backlog por valor</li><li>Garantir um backlog claro, visível e compreendido</li><li>Decidir quando um incremento está "pronto" para lançamento</li><li>Interagir continuamente com stakeholders</li></ul><p style="margin-top:10px;color:var(--amber-800)"><strong style="color:var(--amber-800)">Armadilha:</strong> o PO não é um intermediário passivo. Toma decisões de negócio com frequência e precisa de <strong style="color:var(--amber-800)">autoridade</strong> para isso.</p></div>
+<div class="card"><span class="tag">SM</span><h4>Scrum Master</h4><p>Lidera o time na adoção do Scrum. <strong>Não é gerente nem coordenador:</strong> é um <strong>líder-servidor</strong> que remove impedimentos e protege o processo.</p><ul><li>Facilitar as cerimônias com eficácia</li><li>Remover impedimentos</li><li>Treinar o time em princípios e práticas ágeis</li><li>Proteger a equipe de interrupções externas durante a Sprint</li><li>Apoiar o PO na gestão e no refinamento do backlog</li></ul><p style="margin-top:10px;color:var(--amber-800)"><strong style="color:var(--amber-800)">Armadilha:</strong> o SM <strong style="color:var(--amber-800)">não atribui tarefas</strong> nem define como o trabalho será feito, um erro comum em times iniciantes.</p></div>
+<div class="card"><span class="tag">DEV</span><h4>Developers</h4><p>Transformam itens do backlog em incrementos "prontos" a cada Sprint. São <strong>auto-organizados e multifuncionais</strong> por definição.</p><ul><li>Criar o plano da Sprint (Sprint Backlog)</li><li>Manter a qualidade seguindo a Definição de Pronto (DoD)</li><li>Adaptar o plano diariamente na Daily</li><li>Responsabilizar-se coletivamente pelo resultado da Sprint</li><li>Colaborar com o PO no refinamento</li></ul><p style="margin-top:10px;color:var(--amber-800)"><strong style="color:var(--amber-800)">Armadilha:</strong> "Developers" <strong style="color:var(--amber-800)">não são só programadores</strong>. Incluem designers, analistas, testers e qualquer perfil necessário.</p></div>
+</div>
+</section>
+
+<!-- ============ ESG ============ -->
+<section id="esg">
+<h2>Tendências: ESG</h2>
+<p><strong>Por que as tendências importam?</strong> Projetos bem gerenciados tecnicamente ainda podem fracassar se ignorarem o contexto em que estão inseridos.</p>
+<div class="cards c3">
+<div class="card"><h4>Pressão regulatória e de mercado</h4><p>Reguladores, investidores e clientes exigem responsabilidade ambiental e social. Projetos que ignoram isso encontram resistência, atrasos e até bloqueio de financiamento.</p><p><strong>Dado:</strong> fundos ESG movimentaram mais de <strong>US$ 2,5 trilhões em 2023</strong> (Morningstar, 2024), e empresas sem práticas ESG têm custo de capital mais alto.</p></div>
+<div class="card"><h4>Velocidade da transformação tecnológica</h4><p>Automação, nuvem e IA redefinem como projetos são planejados, monitorados e entregues. Gerentes que dominam essas ferramentas decidem mais rápido e com dados reais.</p><p><strong>Dado:</strong> <strong>82%</strong> das organizações de alta maturidade já usam IA ou automação em alguma etapa da gestão de projetos (PMI Pulse 2023).</p></div>
+<div class="card"><h4>Expectativa crescente de valor sustentável</h4><p>Stakeholders não aceitam resultado financeiro que gere dano social ou ambiental. A noção de sucesso se expandiu para incluir benefícios de longo prazo.</p><p><strong>Dado:</strong> o <strong>PMBOK 7</strong> incorporou a <strong>criação de valor</strong> como princípio central, reconhecendo que resultado é diferente de valor entregue.</p></div>
+</div>
+
+<div class="key">
+<span class="lbl">◆ Conceito-chave</span>
+<p><strong>ESG</strong> é o conjunto de critérios <strong>não financeiros</strong> usados para avaliar o desempenho e o risco de uma organização em três dimensões (fontes: ISO 26000; GRI Standards 2021).</p>
+</div>
+<div class="pillars">
+<div class="pillar"><span class="n">E · Environmental</span><h4>Ambiental</h4><p>Como a organização impacta e responde ao ambiente natural: emissões de GEE, uso eficiente de energia e água, resíduos e economia circular, biodiversidade e uso do solo, riscos climáticos físicos e de transição.</p><p style="margin-top:8px"><strong>Em projetos:</strong> avaliação de impacto ambiental, compensação de carbono, cadeia de suprimentos sustentável.</p></div>
+<div class="pillar"><span class="n">S · Social</span><h4>Social</h4><p>Como trata pessoas e comunidades afetadas: saúde e segurança, DEI, direitos humanos na cadeia produtiva, relações com comunidades locais, desenvolvimento e bem-estar dos colaboradores.</p><p style="margin-top:8px"><strong>Em projetos:</strong> consulta prévia a comunidades, matriz de partes interessadas ampliada, indicadores sociais no PGP.</p></div>
+<div class="pillar"><span class="n">G · Governance</span><h4>Governança</h4><p>Como é dirigida, controlada e responsabilizada: composição e independência do conselho, transparência, gestão de riscos e controles internos, ética, anticorrupção e compliance, remuneração executiva alinhada ao desempenho.</p><p style="margin-top:8px"><strong>Em projetos:</strong> governança alinhada ao ESG, prestação de contas, relatórios integrados.</p></div>
+</div>
+
+<div class="exam">
+<span class="lbl">Cai na prova · ESG é uma lente, não burocracia</span>
+<p><strong>ESG não é uma camada adicional de burocracia.</strong> É uma lente que muda como o gerente enxerga riscos, partes interessadas e critérios de sucesso em cada fase.</p>
+</div>
+<div class="stepper">
+<div class="step"><div class="num">1</div><div class="body"><h4>Iniciação</h4><p>Avaliar impactos ambientais e sociais no caso de negócio · mapear stakeholders com olhar ESG (comunidades, reguladores, ONGs) · incluir critérios ESG na seleção e priorização · verificar alinhamento com políticas ESG.</p></div></div>
+<div class="step"><div class="num">2</div><div class="body"><h4>Planejamento</h4><p>Metas e indicadores ESG no PGP · avaliar fornecedores com critérios socioambientais · logística com menor pegada de carbono · riscos ESG na matriz de riscos.</p></div></div>
+<div class="step"><div class="num">3</div><div class="body"><h4>Execução</h4><p>Monitorar energia, água e resíduos · garantir condições seguras e éticas para equipe e fornecedores · comunicar o progresso ESG · agir em incidentes sociais ou ambientais.</p></div></div>
+<div class="step"><div class="num">4</div><div class="body"><h4>Encerramento</h4><p>Documentar impactos realizados · medir benefícios ESG entregues x planejados · registrar lições aprendidas em sustentabilidade · contribuir para relatórios integrados.</p></div></div>
+</div>
+
+<h3>Riscos, oportunidades e indicadores ESG</h3>
+<div class="table-scroll">
+<table class="compact">
+<thead><tr><th>Dimensão</th><th>Riscos que podem comprometer projetos</th><th>Oportunidades</th><th>Indicadores</th></tr></thead>
+<tbody>
+<tr><td><strong>Ambiental</strong></td><td>Licença ambiental negada ou revogada · multas por descarte incorreto de resíduos · interdição por impacto em áreas de preservação · aumento de custos por taxação de carbono</td><td>Financiamento verde (green bonds, fundos ESG) · vantagem em licitações com critério ESG · redução de custos com eficiência energética</td><td>tCO2 emitidas · kWh · litros de água · kg de resíduos</td></tr>
+<tr><td><strong>Social</strong></td><td>Paralisação por conflito com comunidade · greve por condições inseguras · dano reputacional por trabalho análogo ao escravo na cadeia · resistência interna por falta de diversidade</td><td>Atração e retenção de talentos · acesso a novos mercados · menos conflitos e paralisações · reputação elevada</td><td>Acidentes/LTIF · % diversidade · horas de treinamento · NPS da equipe</td></tr>
+<tr><td><strong>Governança</strong></td><td>Investigações por fraude ou conflito de interesse em licitação · perda de financiamento por não conformidade · sanções por falta de transparência · turnover na liderança por práticas antiéticas</td><td>Menor custo de capital · diferenciais para certificações (LEED, ISO 14001, SA8000)</td><td>% conformidade · auditorias/ano · tempo de resposta · % fornecedores auditados</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<!-- ============ IA ============ -->
+<section id="ia">
+<h2>Tendências: Transformação Digital e IA</h2>
+<div class="key">
+<span class="lbl">◆ Conceito-chave</span>
+<p><strong>Transformação Digital</strong> é o processo pelo qual organizações integram tecnologia digital em todas as suas áreas, <strong>mudando fundamentalmente como operam e entregam valor</strong>. Vai muito além da digitalização: implica <strong>mudança cultural, de processos e de modelos de negócio</strong>.</p>
+</div>
+<div class="cards c2">
+<div class="card"><span class="tag">Jira · Asana · Monday.com · MS Project</span><h4>Plataformas de gestão de projetos</h4><p>Dashboards em tempo real, integração entre planejamento e execução, notificações automáticas de marcos e riscos.</p><p><strong>Efeito:</strong> menos reuniões de status e visibilidade imediata do progresso.</p></div>
+<div class="card"><span class="tag">Google Workspace · Microsoft 365 · Slack</span><h4>Nuvem e colaboração</h4><p>Edição simultânea, repositórios sem dependência de local, times distribuídos sincronizados.</p><p><strong>Efeito:</strong> projetos globais e híbridos com a eficiência de times co-localizados.</p></div>
+<div class="card"><span class="tag">Power Automate · UiPath · Zapier</span><h4>Automação de processos (RPA)</h4><p>Relatórios e atas automáticos, alertas e escalamentos sem intervenção humana, integração entre ERP e projetos.</p><p><strong>Efeito:</strong> GPs liberam horas semanais para foco estratégico.</p></div>
+<div class="card"><span class="tag">Power BI · Tableau · Looker</span><h4>Análise de dados e BI</h4><p>Indicadores em tempo real (EVM), análise preditiva de prazos e custos, benchmarking entre projetos.</p><p><strong>Efeito:</strong> decisões baseadas em dados históricos e projeções, não em intuição.</p></div>
+</div>
+
+<div class="exam">
+<span class="lbl">Cai na prova</span>
+<p><strong>A IA não substitui o gerente de projetos. Ela amplia sua capacidade</strong> de processar informações, antecipar problemas e tomar decisões mais fundamentadas. A IA é mais útil quando <strong>integrada ao fluxo de trabalho</strong> do GP do que quando usada de forma isolada.</p>
+</div>
+
+<h3>Tipos de IA relevantes para projetos</h3>
+<div class="cards c4">
+<div class="card"><h4>IA Preditiva</h4><p>Usa histórico de projetos para prever riscos, atrasos e estouros de custo antes que ocorram.</p></div>
+<div class="card"><h4>IA Generativa</h4><p>Gera textos, documentos, relatórios e respostas. Ex.: ChatGPT, Gemini, Claude, Copilot.</p></div>
+<div class="card"><h4>Aprendizado de Máquina</h4><p>Aprende com dados de execução para melhorar estimativas, achar padrões de falha e otimizar recursos.</p></div>
+<div class="card"><h4>Automação Inteligente</h4><p>RPA + IA: automatiza tarefas repetitivas e interpreta documentos, e-mails e dados não estruturados.</p></div>
+</div>
+
+<p><strong>O que a IA já faz em projetos reais:</strong></p>
+<div class="cards c2">
+<div class="card"><h4>Planejamento</h4><ul><li>Sugere cronogramas com base em projetos similares</li><li>Identifica dependências omitidas na EAP</li><li>Alerta sobre premissas que costumam falhar no setor</li></ul></div>
+<div class="card"><h4>Monitoramento</h4><ul><li>Compara progresso real com a baseline e emite alertas</li><li>Prediz a probabilidade de estouro de prazo</li><li>Sugere ações corretivas com base em casos anteriores</li></ul></div>
+<div class="card"><h4>Comunicação</h4><ul><li>Redige atas, status reports e apresentações</li><li>Resume documentos e contratos longos em minutos</li><li>Traduz o impacto de atrasos para linguagem executiva</li></ul></div>
+<div class="card"><h4>Gestão de riscos</h4><ul><li>Escaneia notícias e regulações em busca de riscos emergentes</li><li>Classifica e prioriza riscos na matriz P x I</li><li>Sugere respostas com base em riscos similares</li></ul></div>
+</div>
+
+<h3>IA por fase do projeto</h3>
+<div class="table-scroll">
+<table class="compact">
+<thead><tr><th>Iniciação</th><th>Planejamento</th><th>Execução e M&amp;C</th><th>Encerramento</th></tr></thead>
+<tbody>
+<tr><td>Redigir o TAP a partir de uma descrição verbal</td><td>Sugerir cronograma pelo histórico do portfólio</td><td>Prever atrasos pela velocidade atual x planejado</td><td>Consolidar lições aprendidas de atas e registros</td></tr>
+<tr><td>Pesquisar projetos similares e seus riscos</td><td>Calcular estimativas por analogia</td><td>Gerar status reports semanais automaticamente</td><td>Gerar relatório final com os dados do ciclo</td></tr>
+<tr><td>Gerar versão inicial do backlog ou da EAP por analogia</td><td>Identificar riscos não considerados</td><td>Alertar o GP sobre desvios antes que virem problemas</td><td>Comparar real x planejado e explicar desvios</td></tr>
+<tr><td>Identificar stakeholders relevantes pelo setor e tipo de projeto</td><td>Otimizar alocação de recursos</td><td>Sugerir ações corretivas com base em casos anteriores</td><td>Extrair boas práticas para a base do PMO</td></tr>
+<tr><td><em>Jira Align, Wrike, MS Project com Copilot, Planner Premium</em></td><td><em>Monday AI, Asana Intelligence, Power BI, Planner Premium</em></td><td><em>Copilot, ChatGPT</em></td><td><em>Notion AI, Confluence AI, ChatGPT</em></td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-size:13px;color:var(--text-tertiary)">Fontes: Gartner Magic Quadrant for PPM (2023); PMI AI in Project Management (2024).</p>
+
+<h3>Limites da IA e o papel insubstituível do GP</h3>
+<div class="table-scroll">
+<table>
+<thead><tr><th>Capacidade</th><th>A IA faz bem</th><th>O GP humano é insubstituível</th></tr></thead>
+<tbody>
+<tr><td><strong>Análise de dados</strong></td><td>Processa milhares de registros em segundos e identifica tendências invisíveis ao olho humano</td><td>Interpreta o contexto político e cultural que os dados não capturam</td></tr>
+<tr><td><strong>Comunicação</strong></td><td>Redige textos claros e relatórios padronizados com velocidade</td><td>Conduz conversas difíceis, negocia conflitos e constrói confiança</td></tr>
+<tr><td><strong>Gestão de riscos</strong></td><td>Classifica e prioriza riscos por probabilidades históricas</td><td>Usa intuição, experiência e senso ético para riscos sem precedente</td></tr>
+<tr><td><strong>Tomada de decisão</strong></td><td>Apresenta opções com base em dados e simula cenários</td><td>Decide com ambiguidade, sob pressão, considerando valores e relações</td></tr>
+<tr><td><strong>Liderança da equipe</strong></td><td>Identifica padrões de produtividade e sinais de burnout</td><td>Motiva, desenvolve talentos, resolve conflitos e cria propósito</td></tr>
+<tr><td><strong>Gestão de mudanças</strong></td><td>Simula impactos no cronograma e no custo</td><td>Engaja pessoas, supera resistências e cuida do lado humano</td></tr>
+</tbody>
+</table>
+</div>
+<div class="key">
+<span class="lbl">◆ Conceito-chave</span>
+<p><strong>Saber onde a IA ajuda e onde ela tem limites é parte da competência do GP moderno.</strong> A IA amplia capacidades, mas não substitui julgamento, liderança, negociação e a gestão de relações humanas. (Fontes: McKinsey Global Institute 2023; WEF Future of Jobs 2023; PMI AI in PM 2024.)</p>
+</div>
+</section>
+
+<!-- ============ PROGRAMA ============ -->
+<section id="programa">
+<h2>Programa, Avaliação e Bibliografia</h2>
+<div class="cards c3">
+<div class="card"><span class="tag">Carga horária</span><h4>24 horas-aula</h4></div>
+<div class="card"><span class="tag">Avaliação</span><h4>Individual 7 · Grupo 3</h4><p>Prova individual vale 7 pontos; trabalho em grupo, 3.</p></div>
+<div class="card"><span class="tag">Metodologia</span><h4>Teoria + vivência</h4><p>Exposição com recursos audiovisuais, dinâmicas, vivências, jogos e exercícios em grupo.</p></div>
+</div>
+<p><strong>Objetivos:</strong> implementar as abordagens gerenciais de projetos; aplicar fundamentos e conceitos; maximizar a chance de sucesso com boas práticas; aplicar gestão de projetos para melhorar os resultados da organização em múltiplas perspectivas; diagnosticar o contexto organizacional para escolher métodos preditivos, ágeis ou híbridos; elaborar artefatos de plano de projeto por meio de um estudo de caso.</p>
+<div class="deflist">
+<div class="defitem"><div class="t">Bibliografia recomendada</div><div class="d">Barcaui &amp; Rego, <em>Fundamentos do gerenciamento de projetos</em> (FGV, 2019) · Freitas, <em>Gestão estratégica por meio de projetos e agilidade</em> (Brasport, 2024) · Kerzner, <em>Gestão de projetos: as melhores práticas</em> (4ª ed., 2020) · PMI, <em>Guia PMBOK</em> (7ª ed., 2021).</div></div>
+<div class="defitem"><div class="t">Bibliografia complementar</div><div class="d">ISO 21500 (2022) · Kerzner (abordagem de sistemas; best practices) · Meredith &amp; Mantel, <em>Project Management: a managerial approach</em> · PMI, <em>Agile Practice Guide</em> (2017) · PMI, <em>Process Groups Practice Guide</em> (2022) · PMBOK 6ª e 7ª ed.</div></div>
+<div class="defitem"><div class="t">Professor</div><div class="d">Norberto de Oliveira Almeida, PhD, PMP. CEO da Portfolio Expert e criador do BAM (Business Agility Management). Autor de <em>Jornada VMO</em>, <em>Métodos Ágeis</em>, <em>Gerenciamento de Portfólio e PMO</em>, <em>Gestão Profissional do Portfólio de Projetos</em> e <em>PMO</em>. Certificado PMP, SMC, SPOC e SAMC.</div></div>
+</div>
+</section>
+
+<!-- ============ RECALL ============ -->
+<section id="recall">
+<h2>Recall Ativo</h2>
+<div class="recall"><p><span class="rn">01</span>Quais são as 3 características de um projeto? Por que "temporário" não significa "curto"?</p></div>
+<div class="recall"><p><span class="rn">02</span>Qual a diferença entre programa e portfólio? Qual dos dois pode incluir operações?</p></div>
+<div class="recall"><p><span class="rn">03</span>Cite os 5 grupos de processos e os 7 domínios de desempenho do PMBOK 8. Quais domínios formam a restrição tripla?</p></div>
+<div class="recall"><p><span class="rn">04</span>Compare VPL, TIR, Payback, Scoring e WSJF. Qual é a principal limitação do Payback? Qual método permite comparar projetos de naturezas distintas?</p></div>
+<div class="recall"><p><span class="rn">05</span>Desenhe o Quadrante WSJF. Em qual quadrante fica um projeto de alto valor e alto esforço? Como uma PoC poderia mudar essa decisão?</p></div>
+<div class="recall"><p><span class="rn">06</span>Quais os 4 fatores para escolher entre abordagem preditiva e adaptativa? No triângulo invertido, o que é fixo em cada uma?</p></div>
+<div class="recall"><p><span class="rn">07</span>Quem emite o Termo de Abertura e quais são suas duas funções principais? Liste 5 itens do seu conteúdo.</p></div>
+<div class="recall"><p><span class="rn">08</span>Quais são as 5 perguntas do Project Model Canvas e quais campos pertencem a cada uma? Justificativas e benefícios se referem a qual tempo?</p></div>
+<div class="recall"><p><span class="rn">09</span>Na matriz de qualificação do professor, quem são os bloqueadores, aliados, desaceleradores e membros de rede? Em quem focar primeiro?</p></div>
+<div class="recall"><p><span class="rn">10</span>Cite as regras da EAP. Por que entregas usam substantivos e atividades usam verbos? Como se nomeia um marco?</p></div>
+<div class="recall"><p><span class="rn">11</span>Diferencie premissa de restrição com um exemplo de cada.</p></div>
+<div class="recall"><p><span class="rn">12</span>Quais são os 5 passos do cronograma? O que caracteriza o caminho crítico? Quais são as três estimativas do PERT?</p></div>
+<div class="recall"><p><span class="rn">13</span>O que significa cada letra da técnica ERICA? E cada campo do 6W1H?</p></div>
+<div class="recall"><p><span class="rn">14</span>Quais as respostas para riscos negativos, positivos e para ambos? Qual a diferença entre aceitação passiva e ativa? O que é um trigger?</p></div>
+<div class="recall"><p><span class="rn">15</span>Na matriz de riscos da dinâmica, por que "alocar recursos adicionais" não é uma transferência?</p></div>
+<div class="recall"><p><span class="rn">16</span>Diferencie custos diretos x indiretos e fixos x variáveis, com exemplos.</p></div>
+<div class="recall"><p><span class="rn">17</span>Explique o 3-5-3 do Scrum. Por que o Scrum Master não é gerente? O que o professor conta como a 5ª cerimônia?</p></div>
+<div class="recall"><p><span class="rn">18</span>Como o ESG afeta cada fase do ciclo de vida do projeto? Dê um risco e uma oportunidade ESG de cada dimensão.</p></div>
+<div class="recall"><p><span class="rn">19</span>Cite três coisas que a IA faz bem em projetos e três em que o GP humano é insubstituível.</p></div>
+</section>
+
+</div>
+</body>
+</html>
