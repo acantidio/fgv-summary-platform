@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Revisão para a Prova · Gestão de Projetos — FGV MBA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300..700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+--bg:#FAF9F6;--bg-card:#FFFFFF;--bg-surface:#F3F1EC;--bg-accent:#E8E4DB;
+--text-primary:#1A1A18;--text-secondary:#5C5B56;--text-tertiary:#8A8985;
+--border:#DDD9D0;--border-light:#ECEAE4;
+--purple-50:#EEEDFE;--purple-400:#7F77DD;--purple-600:#534AB7;--purple-800:#3C3489;
+--amber-50:#FAEEDA;--amber-400:#BA7517;--amber-600:#854F0B;--amber-800:#633806;
+--teal-50:#E6F4F1;--teal-400:#1D9E75;--teal-600:#0F6E56;--teal-800:#085041;
+--blue-50:#E6F1FB;--blue-400:#378ADD;--blue-600:#185FA5;--blue-800:#0C447C;
+--rose-50:#FDE8EC;--rose-600:#C81E3A;
+--accent:#185FA5;--accent-light:#E6F1FB;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text-primary);font-family:'DM Sans',-apple-system,sans-serif;line-height:1.65;font-size:17px;}
+a{color:inherit;}
+.wrap{max-width:920px;margin:0 auto;padding:0 24px;}
+.backlink{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-tertiary);text-decoration:none;display:inline-block;margin:28px 0 0;}
+.backlink:hover{color:var(--accent);}
+header.page{padding:24px 0 28px;border-bottom:1px solid var(--border);}
+header.page h1{font-family:'DM Serif Display',Georgia,serif;font-size:46px;line-height:1.1;font-weight:400;margin-bottom:14px;}
+.badge{font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.5px;background:var(--accent-light);color:var(--blue-800);padding:5px 12px;border-radius:20px;font-weight:500;}
+.subtitle{color:var(--text-secondary);margin-top:14px;max-width:680px;}
+.meta{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-tertiary);margin-top:10px;}
+nav.sticky{position:sticky;top:0;z-index:50;background:rgba(250,249,246,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);margin-bottom:8px;}
+nav.sticky .wrap{display:flex;gap:6px;overflow-x:auto;padding:12px 24px;scrollbar-width:thin;}
+nav.sticky a{font-family:'JetBrains Mono',monospace;font-size:12px;text-decoration:none;color:var(--text-secondary);white-space:nowrap;padding:5px 11px;border-radius:6px;}
+nav.sticky a:hover{background:var(--accent-light);color:var(--blue-800);}
+section{padding:38px 0;border-bottom:1px solid var(--border-light);}
+h2{font-family:'DM Serif Display',Georgia,serif;font-size:31px;font-weight:400;margin-bottom:20px;}
+h3{font-family:'DM Sans';font-size:20px;font-weight:600;margin:30px 0 14px;color:var(--text-primary);}
+p{margin-bottom:14px;}
+strong{font-weight:600;color:var(--text-primary);}
+em{color:inherit;}
+ul.plain,ol.plain{margin:0 0 14px 22px;color:var(--text-secondary);}
+ul.plain li,ol.plain li{margin-bottom:4px;}
+/* hero summary */
+.hero{background:var(--bg-card);border-top:4px solid var(--accent);border-radius:8px;padding:34px;margin:34px 0 8px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+.hero .lbl{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--accent);font-weight:600;}
+.hero p{font-size:19px;line-height:1.6;margin:14px 0 0;color:var(--text-secondary);}
+.hero .blocks{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:22px;}
+.hero .blk{background:var(--accent-light);border-radius:6px;padding:12px 14px;}
+.hero .blk .n{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);font-weight:600;}
+.hero .blk .t{font-weight:600;font-size:15px;color:var(--blue-800);}
+/* callouts */
+.key{background:var(--purple-50);border-left:4px solid var(--purple-600);border-radius:0 8px 8px 0;padding:18px 22px;margin:22px 0;}
+.key .lbl{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--purple-800);font-weight:600;display:block;margin-bottom:6px;}
+.key p{margin:0 0 8px;color:var(--text-secondary);}
+.key p:last-child{margin-bottom:0;}
+.key p strong,.key li strong{color:var(--purple-800);}
+.key ul,.key ol{margin:8px 0 0 18px;color:var(--text-secondary);}
+.key li{margin-bottom:3px;}
+.exam{background:var(--amber-50);border:1px solid var(--amber-400);border-radius:8px;padding:18px 22px 18px 48px;margin:22px 0;position:relative;}
+.exam::before{content:"⚠";position:absolute;left:18px;top:16px;font-size:20px;}
+.exam .lbl{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--amber-800);font-weight:600;display:block;margin-bottom:6px;}
+.exam p{margin:0 0 8px;color:var(--amber-800);}
+.exam p:last-child{margin-bottom:0;}
+.exam ul,.exam ol{margin:6px 0 8px 18px;color:var(--amber-800);}
+.exam li{margin-bottom:3px;}
+.exam strong{color:var(--amber-800);}
+.exam table{margin:10px 0;}
+.exam th{background:var(--amber-600);}
+/* cards grid */
+.cards{display:grid;gap:16px;margin:20px 0;}
+.cards.c2{grid-template-columns:repeat(2,1fr);}
+.cards.c3{grid-template-columns:repeat(3,1fr);}
+.cards.c4{grid-template-columns:repeat(4,1fr);}
+.cards.c5{grid-template-columns:repeat(5,1fr);}
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:20px;}
+.card h4{font-family:'DM Sans';font-size:17px;font-weight:600;margin-bottom:8px;color:var(--accent);}
+.card .tag{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:4px;}
+.card p{font-size:15px;color:var(--text-secondary);margin:0;}
+.card p+p{margin-top:8px;}
+.card ul{margin:8px 0 0 16px;font-size:15px;color:var(--text-secondary);}
+/* pillars */
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:20px 0;}
+.pillars.p5{grid-template-columns:repeat(5,1fr);gap:12px;}
+.pillar{background:var(--accent-light);border-radius:8px;padding:20px;}
+.pillar .n{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);font-weight:600;}
+.pillar h4{font-family:'DM Serif Display',Georgia,serif;font-size:21px;font-weight:400;margin:6px 0 8px;line-height:1.2;}
+.pillars.p5 .pillar h4{font-size:18px;}
+.pillar p{font-size:15px;color:var(--text-secondary);margin:0;}
+/* stepper */
+.stepper{margin:24px 0;}
+.step{display:flex;gap:18px;padding-bottom:22px;position:relative;}
+.step:not(:last-child)::before{content:"";position:absolute;left:17px;top:38px;bottom:0;width:2px;background:var(--border);}
+.step .num{flex:none;width:36px;height:36px;border-radius:50%;background:var(--accent);color:#fff;font-family:'JetBrains Mono',monospace;font-weight:600;display:flex;align-items:center;justify-content:center;font-size:15px;}
+.step .body h4{margin:5px 0 4px;font-size:17px;}
+.step .body p{margin:0;font-size:15px;color:var(--text-secondary);}
+/* horizontal phases */
+.phases{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:22px 0;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:var(--bg-card);}
+.phase{padding:18px;border-right:1px solid var(--border-light);position:relative;}
+.phase:last-child{border-right:none;}
+.phase .risk{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.5px;text-transform:uppercase;font-weight:600;padding:3px 8px;border-radius:4px;display:inline-block;margin-bottom:10px;}
+.phase h4{font-size:16px;font-weight:600;margin-bottom:4px;color:var(--blue-800);}
+.phase .motto{font-family:'DM Serif Display',Georgia,serif;font-size:17px;font-style:italic;color:var(--accent);margin-bottom:8px;}
+.phase p{font-size:14px;color:var(--text-secondary);margin:0 0 6px;}
+.phase ul{margin:6px 0 0 16px;font-size:13.5px;color:var(--text-secondary);}
+.r-hi{background:var(--rose-50);color:var(--rose-600);}
+.r-mh{background:var(--amber-50);color:var(--amber-800);}
+.r-md{background:var(--blue-50);color:var(--blue-800);}
+.r-lo{background:var(--teal-50);color:var(--teal-800);}
+.phases-axis{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--text-tertiary);text-align:center;margin-top:-12px;margin-bottom:20px;}
+/* 2x2 quadrant */
+.quadwrap{display:grid;grid-template-columns:28px 1fr;grid-template-rows:auto auto;gap:8px;margin:22px 0;}
+.quad-ylab{writing-mode:vertical-rl;transform:rotate(180deg);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--text-tertiary);text-align:center;}
+.quad{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.quad .q{border-radius:8px;padding:18px 20px;min-height:110px;}
+.quad .q .qn{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;}
+.quad .q h4{font-family:'DM Serif Display',Georgia,serif;font-size:22px;font-weight:400;margin:4px 0 6px;}
+.quad .q p{font-size:14px;margin:0;color:var(--text-secondary);}
+.q-teal{background:var(--teal-50);} .q-teal .qn,.q-teal h4{color:var(--teal-800);}
+.q-blue{background:var(--blue-50);} .q-blue .qn,.q-blue h4{color:var(--blue-800);}
+.q-amber{background:var(--amber-50);} .q-amber .qn,.q-amber h4{color:var(--amber-800);}
+.q-rose{background:var(--rose-50);} .q-rose .qn,.q-rose h4{color:var(--rose-600);}
+.q-purple{background:var(--purple-50);} .q-purple .qn,.q-purple h4{color:var(--purple-800);}
+.quad-xlab{grid-column:2;display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--text-tertiary);}
+/* canvas */
+.canvas{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:22px 0;}
+.canvas .top{grid-column:1 / -1;display:grid;grid-template-columns:1fr 4fr;gap:8px;}
+.cv{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:12px 14px;}
+.cv .f{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--blue-800);display:block;}
+.cv .s{font-size:12px;color:var(--text-tertiary);}
+.cvcol{display:flex;flex-direction:column;gap:8px;}
+.cvcol .qq{font-family:'DM Serif Display',Georgia,serif;font-size:20px;color:var(--accent);text-align:center;background:var(--accent-light);border-radius:8px;padding:8px;}
+/* concentric layers */
+.layers{display:grid;gap:10px;margin:22px 0;}
+.layer{border-radius:8px;padding:16px 20px;}
+.layer .ll{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:8px;}
+.layer .chips{display:flex;flex-wrap:wrap;gap:8px;}
+.chip{background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:5px 13px;font-size:14.5px;color:var(--text-primary);}
+.l1{background:var(--blue-50);} .l1 .ll{color:var(--blue-800);}
+.l2{background:var(--rose-50);} .l2 .ll{color:var(--rose-600);}
+.l3{background:var(--purple-50);} .l3 .ll{color:var(--purple-800);}
+/* wbs tree */
+.tree{margin:20px 0;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:20px 22px;font-size:15px;}
+.tree .root{font-weight:600;color:var(--blue-800);margin-bottom:10px;font-family:'DM Serif Display',Georgia,serif;font-size:19px;}
+.tree ul{list-style:none;margin:0;padding-left:18px;border-left:2px solid var(--border-light);}
+.tree > ul{padding-left:0;border-left:none;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.tree > ul > li{background:var(--accent-light);border-radius:6px;padding:10px 12px;}
+.tree > ul > li > span{font-weight:600;color:var(--blue-800);display:block;margin-bottom:4px;}
+.tree li li{color:var(--text-secondary);font-size:14px;padding:1px 0;}
+.tree li li > span{color:var(--text-primary);font-weight:500;}
+.tree.t6 > ul{grid-template-columns:repeat(3,1fr);}
+/* levels */
+.levels{display:grid;gap:6px;margin:20px 0;}
+.lvl{display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:14px;background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:10px 14px;}
+.lvl .n{font-family:'JetBrains Mono',monospace;font-weight:600;color:#fff;background:var(--accent);border-radius:4px;text-align:center;padding:3px 0;font-size:13px;}
+.lvl .t{font-weight:600;}
+.lvl .g{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-tertiary);text-transform:uppercase;}
+.lvl.act{border-style:dashed;background:var(--bg-surface);}
+.lvl.act .n{background:var(--text-tertiary);}
+/* table */
+table{width:100%;border-collapse:collapse;margin:20px 0;background:var(--bg-card);border-radius:8px;overflow:hidden;border:1px solid var(--border);font-size:15px;}
+th{background:var(--accent);color:#fff;font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.5px;text-align:left;padding:12px 16px;font-weight:600;vertical-align:bottom;}
+td{padding:12px 16px;border-top:1px solid var(--border-light);color:var(--text-secondary);vertical-align:top;}
+td strong{color:var(--text-primary);}
+td.c,th.c{text-align:center;}
+tr.total td{background:var(--accent-light);color:var(--blue-800);font-weight:600;}
+.table-scroll{overflow-x:auto;margin:20px 0;}
+.table-scroll table{margin:0;}
+table.compact{font-size:14px;}
+table.compact td,table.compact th{padding:9px 11px;}
+td.good{color:var(--teal-800);font-weight:600;}
+td.bad{color:var(--rose-600);font-weight:600;}
+/* bars */
+.bars{display:grid;gap:14px;margin:20px 0;}
+.bar .bl{font-size:14px;font-weight:600;margin-bottom:5px;}
+.bar .track{display:flex;height:26px;border-radius:5px;overflow:hidden;font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:600;}
+.bar .track span{display:flex;align-items:center;justify-content:center;white-space:nowrap;overflow:hidden;}
+.b-ok{background:var(--blue-600);color:#fff;}
+.b-part{background:var(--amber-50);color:var(--amber-800);}
+.b-fail{background:var(--rose-600);color:#fff;}
+.legend{display:flex;gap:16px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--text-secondary);flex-wrap:wrap;}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:5px;vertical-align:-1px;}
+/* deflist */
+.deflist{display:grid;gap:12px;margin:18px 0;}
+.defitem{background:var(--bg-card);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:6px;padding:14px 18px;}
+.defitem .t{font-weight:600;color:var(--accent);}
+.defitem .d{font-size:15px;color:var(--text-secondary);}
+/* note */
+.note{background:var(--bg-surface);border-radius:8px;padding:18px 22px;margin:20px 0;font-size:15px;color:var(--text-secondary);}
+.note .lbl{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--text-tertiary);font-weight:600;display:block;margin-bottom:6px;}
+.note strong{color:var(--text-primary);}
+.note p{margin:0 0 8px;} .note p:last-child{margin:0;}
+.note ul{margin:6px 0 0 18px;}
+.note li{margin-bottom:5px;}
+.formula{background:var(--bg-surface);border:1px dashed var(--border);border-radius:8px;padding:16px 20px;margin:16px 0;font-family:'JetBrains Mono',monospace;font-size:14.5px;color:var(--text-primary);overflow-x:auto;}
+/* letters (SMART / ERICA) */
+.letters{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:14px 0 4px;}
+.letter{background:var(--bg-card);border-radius:8px;padding:14px;text-align:center;border:1px solid var(--border-light);}
+.letter .L{font-family:'DM Serif Display',Georgia,serif;font-size:34px;line-height:1;color:var(--purple-600);}
+.letter .w{font-weight:600;font-size:14px;margin:6px 0 4px;color:var(--purple-800);}
+.letter .x{font-size:13px;color:var(--text-secondary);}
+/* versus */
+.versus{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0;}
+.vs{border-radius:8px;padding:20px;}
+.vs h4{font-family:'DM Serif Display',Georgia,serif;font-size:22px;font-weight:400;margin-bottom:8px;}
+.vs .fixed{font-family:'JetBrains Mono',monospace;font-size:12px;margin:8px 0;}
+.vs .fixed b{display:inline-block;padding:2px 8px;border-radius:4px;margin-right:6px;font-weight:600;}
+.vs p{font-size:15px;color:var(--text-secondary);margin:0 0 6px;}
+.vs-a{background:var(--blue-50);} .vs-a h4{color:var(--blue-800);}
+.vs-b{background:var(--teal-50);} .vs-b h4{color:var(--teal-800);}
+.fx{background:var(--bg-card);color:var(--text-primary);border:1px solid var(--border);}
+.vr{background:transparent;color:var(--text-tertiary);border:1px dashed var(--border);}
+/* 353 */
+.s353{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:20px 0;}
+.s353 .col{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.s353 .hd{background:var(--accent);color:#fff;padding:14px 18px;}
+.s353 .hd .big{font-family:'DM Serif Display',Georgia,serif;font-size:40px;line-height:1;}
+.s353 .hd .nm{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:1px;text-transform:uppercase;}
+.s353 .hd .sub{font-size:13px;opacity:.85;}
+.s353 ul{list-style:none;padding:12px 18px;}
+.s353 li{padding:7px 0;border-bottom:1px solid var(--border-light);font-size:15px;}
+.s353 li:last-child{border-bottom:none;}
+.s353 li.alt{color:var(--amber-800);}
+/* recall */
+.recall{background:var(--teal-50);border-left:4px solid var(--teal-600);border-radius:0 8px 8px 0;padding:16px 20px 16px 46px;margin:14px 0;position:relative;}
+.recall::before{content:"?";position:absolute;left:16px;top:14px;font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:600;color:var(--teal-600);}
+.recall p{margin:0;color:var(--teal-800);}
+.recall .rn{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--teal-600);font-weight:600;margin-right:6px;}
+.compl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.5px;text-transform:uppercase;background:var(--bg-accent);color:var(--text-secondary);padding:2px 7px;border-radius:4px;margin-right:4px;}
+@media(max-width:640px){
+header.page h1{font-size:34px;}
+body{font-size:16px;}
+h2{font-size:26px;}
+.hero{padding:24px 20px;}
+.hero .blocks,.cards.c2,.cards.c3,.cards.c4,.cards.c5,.pillars,.pillars.p5,.phases,.versus,.s353,.letters,.tree > ul,.tree.t6 > ul{grid-template-columns:1fr;}
+.phase{border-right:none;border-bottom:1px solid var(--border-light);}
+.canvas{grid-template-columns:1fr 1fr;}
+.canvas .top{grid-template-columns:1fr;}
+.quad .q h4{font-size:18px;}
+.quad .q{padding:14px;}
+.lvl{grid-template-columns:40px 1fr;}
+.lvl .g{grid-column:2;}
+}
+/* revisão */
+.btn-rev{display:inline-block;margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;text-decoration:none;background:var(--accent);color:#fff;padding:9px 16px;border-radius:6px;}
+.btn-rev:hover{background:var(--blue-800);}
+.crumbs{display:flex;gap:16px;flex-wrap:wrap;}
+.qz{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:20px 22px;margin:16px 0;}
+.qz .qh{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--accent);font-weight:600;display:block;margin-bottom:8px;}
+.qz p{margin:0 0 10px;}
+.qz ol.alt{list-style:none;margin:0 0 12px;display:grid;gap:6px;}
+.qz ol.alt li{background:var(--bg-surface);border-radius:6px;padding:8px 12px;font-size:15px;color:var(--text-secondary);}
+.qz ol.alt li b{font-family:'JetBrains Mono',monospace;color:var(--text-primary);margin-right:6px;}
+details.ans{border-top:1px dashed var(--border);padding-top:10px;}
+details.ans summary{cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--teal-600);text-transform:uppercase;letter-spacing:.5px;}
+details.ans[open] summary{margin-bottom:8px;}
+details.ans p,details.ans ul{font-size:15px;color:var(--teal-800);margin:0 0 6px;}
+details.ans ul{margin-left:18px;}
+.disclaimer{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-tertiary);margin-top:6px;}
+</style>
+</head>
+<body>
+
+<div class="wrap crumbs">
+<a class="backlink" href="../../index.html">← FGV MBA</a>
+<a class="backlink" href="../index.html">← Gestão de Projetos</a>
+</div>
+
+<header class="page">
+<div class="wrap">
+<h1>Revisão para a Prova · Gestão de Projetos</h1>
+<span class="badge">Revisão</span>
+<p class="subtitle">Resumo objetivo do que mais cai, as pegadinhas do material e um simulado no estilo das provas de MBA da FGV, com 16 questões objetivas e 3 discursivas, todas com gabarito comentado.</p>
+<p class="meta">Prof. Norberto de Oliveira Almeida · Avaliação individual 7 pts + grupo 3 pts</p>
+</div>
+</header>
+
+<nav class="sticky">
+<div class="wrap">
+<a href="#r-fundamentos">Fundamentos</a>
+<a href="#r-pmbok">PMBOK</a>
+<a href="#r-selecao">Seleção</a>
+<a href="#r-abordagens">Abordagens</a>
+<a href="#r-planejamento">Planejamento</a>
+<a href="#r-riscos">Riscos</a>
+<a href="#r-controle">Controle</a>
+<a href="#r-scrum">Scrum</a>
+<a href="#r-tendencias">Tendências</a>
+<a href="#simulado">Simulado</a>
+<a href="#discursivas">Discursivas</a>
+</div>
+</nav>
+
+<div class="wrap">
+
+<div class="hero">
+<span class="lbl">◎ Como usar esta página</span>
+<p>Leia os blocos de resumo, com atenção especial aos alertas <strong>⚠ Cai na prova</strong>, que reúnem as pegadinhas clássicas. Depois faça o <a href="#simulado"><strong>simulado</strong></a> sem abrir o gabarito. Para cada questão, toque em <em>Ver gabarito</em> só depois de escolher sua resposta. Se travar num tema, volte à <a href="../index.html"><strong>página completa da disciplina</strong></a>.</p>
+</div>
+
+<!-- ============ FUNDAMENTOS ============ -->
+<section id="r-fundamentos">
+<h2>1. Fundamentos</h2>
+<div class="pillars">
+<div class="pillar"><span class="n">01</span><h4>Temporário</h4><p>Tem início e fim, mas <strong>não é necessariamente curto</strong>. Termina quando atinge os objetivos, quando eles ficam inatingíveis ou quando a necessidade deixa de existir.</p></div>
+<div class="pillar"><span class="n">02</span><h4>Único</h4><p>O resultado é diferente de outros similares.</p></div>
+<div class="pillar"><span class="n">03</span><h4>Elaboração progressiva</h4><p>O detalhamento cresce à medida que o entendimento do escopo evolui.</p></div>
+</div>
+<div class="cards c3">
+<div class="card"><span class="tag">Entrega um resultado</span><h4>Projeto</h4><p>Esforço temporário para criar um resultado único.</p></div>
+<div class="card"><span class="tag">Entrega benefícios</span><h4>Programa</h4><p>Projetos relacionados, coordenados para obter <strong>benefícios</strong> que não viriam se fossem gerenciados separadamente.</p></div>
+<div class="card"><span class="tag">Atinge a estratégia</span><h4>Portfólio</h4><p>Projetos, programas e <strong>operações</strong>, não necessariamente relacionados, voltados aos <strong>objetivos estratégicos</strong>.</p></div>
+</div>
+<div class="exam">
+<span class="lbl">Cai na prova</span>
+<ul>
+<li><strong>Só o portfólio inclui operações.</strong></li>
+<li>Operação é contínua e repetitiva; projeto é temporário e único. Os dois são feitos por pessoas, com recursos limitados, e são planejados, executados e controlados.</li>
+<li><strong>PMO</strong> é a área que centraliza e coordena os projetos, e pode ir de <strong>suporte</strong> até <strong>gerenciamento direto</strong>.</li>
+</ul>
+</div>
+<ul class="plain">
+<li><strong>Pilares do GP profissional (Almeida):</strong> governança, metodologia, tecnologia (SIGP), fluxo de valor e pessoas capacitadas.</li>
+<li><strong>Maturidade maior leva a mais sucesso.</strong> O fracasso cai de 18,3% para 4,8% no MMGP e de 21% para 11% no PMI Pulse. A maturidade média no Brasil ainda é baixa (cerca de 2,4 a 2,9 numa escala de 1 a 5).</li>
+</ul>
+</section>
+
+<!-- ============ PMBOK ============ -->
+<section id="r-pmbok">
+<h2>2. PMBOK</h2>
+<div class="exam">
+<span class="lbl">Cai na prova · Pegadinha clássica</span>
+<p><strong>O PMBOK não é uma metodologia.</strong> É um conjunto de <strong>boas práticas</strong> geralmente reconhecidas.</p>
+</div>
+<div class="stepper">
+<div class="step"><div class="num">1</div><div class="body"><h4>Iniciação</h4><p>Define e <strong>autoriza</strong> o projeto ou uma fase.</p></div></div>
+<div class="step"><div class="num">2</div><div class="body"><h4>Planejamento</h4><p>Define e refina os objetivos e planeja as ações.</p></div></div>
+<div class="step"><div class="num">3</div><div class="body"><h4>Execução</h4><p>Integra pessoas e recursos para realizar o plano.</p></div></div>
+<div class="step"><div class="num">4</div><div class="body"><h4>Monitoramento e Controle</h4><p>Mede variações em relação ao plano e aplica ações corretivas ou preventivas.</p></div></div>
+<div class="step"><div class="num">5</div><div class="body"><h4>Encerramento</h4><p>Formaliza a aceitação e conduz o projeto a um final ordenado.</p></div></div>
+</div>
+<div class="layers">
+<div class="layer l1"><span class="ll">Centro · Mentalidade</span><div class="chips"><span class="chip">Proativo</span><span class="chip">Senso de dono</span><span class="chip">Orientado por valor</span></div></div>
+<div class="layer l2"><span class="ll">6 Princípios</span><div class="chips"><span class="chip">Visão holística</span><span class="chip">Foco no valor</span><span class="chip">Qualidade nos processos</span><span class="chip">Líder responsável</span><span class="chip">Sustentabilidade</span><span class="chip">Cultura empoderada</span></div></div>
+<div class="layer l3"><span class="ll">7 Domínios de desempenho</span><div class="chips"><span class="chip">Governança</span><span class="chip">Escopo</span><span class="chip">Cronograma</span><span class="chip">Finanças</span><span class="chip">Partes Interessadas</span><span class="chip">Recursos</span><span class="chip">Riscos</span></div></div>
+</div>
+<p>A <strong>restrição tripla</strong> é formada por escopo, cronograma e custo.</p>
+</section>
+
+<!-- ============ SELEÇÃO ============ -->
+<section id="r-selecao">
+<h2>3. Seleção e priorização</h2>
+<p><strong>Projeto sem alinhamento estratégico consome recursos escassos sem gerar valor.</strong></p>
+<div class="table-scroll"><table>
+<tr><th>Método</th><th>O que lembrar</th></tr>
+<tr><td><strong>VPL</strong></td><td>Fluxos descontados. <strong>VPL &gt; 0 indica que o projeto é viável.</strong></td></tr>
+<tr><td><strong>TIR</strong></td><td>Comparar com a TMA. <strong>TIR &gt; TMA favorece o projeto.</strong></td></tr>
+<tr><td><strong>Payback</strong></td><td>É simples, mas <strong>ignora os fluxos depois do retorno</strong>.</td></tr>
+<tr><td><strong>Scoring</strong></td><td>Usa critérios ponderados. <strong>Permite comparar projetos de naturezas diferentes.</strong></td></tr>
+<tr><td><strong>WSJF</strong></td><td>Faz primeiro o que tem <strong>maior valor com menor esforço</strong> (custo do atraso ÷ tamanho do trabalho).</td></tr>
+</table></div>
+<h3>Quadrante WSJF (versão do slide e do Mural)</h3>
+<div class="quadwrap">
+<div class="quad-ylab">Esforço − ↑ · ↓ +</div>
+<div class="quad">
+<div class="q q-amber"><span class="qn">Quadrante 3</span><h4>Faça mais tarde</h4><p>Valor baixo · esforço baixo</p></div>
+<div class="q q-teal"><span class="qn">Quadrante 1</span><h4>Faça agora</h4><p>Valor alto · esforço baixo</p></div>
+<div class="q q-rose"><span class="qn">Quadrante 4</span><h4>Não faça</h4><p>Valor baixo · esforço alto</p></div>
+<div class="q q-blue"><span class="qn">Quadrante 2</span><h4>Faça a seguir</h4><p>Valor alto · esforço alto</p></div>
+</div>
+<div class="quad-xlab"><span>← Valor −</span><span>Valor + →</span></div>
+</div>
+<div class="exam">
+<span class="lbl">Cai na prova</span>
+<p>A dinâmica (docx) traz os quadrantes 2 e 3 <strong>invertidos</strong>. Siga o slide e o Mural: <strong>o valor vem primeiro e o esforço desempata.</strong></p>
+</div>
+<p>Para reduzir o risco do investimento, o projeto pode amadurecer em etapas: <strong>PoC</strong> (aprender barato) → <strong>Piloto</strong> (validar na prática) → <strong>Fase 1</strong> (entregar valor) → <strong>Escala</strong> (consolidar ganhos). O risco cai a cada etapa.</p>
+</section>
+
+<!-- ============ ABORDAGENS ============ -->
+<section id="r-abordagens">
+<h2>4. Preditiva, adaptativa e híbrida</h2>
+<div class="versus">
+<div class="vs vs-a"><h4>Preditiva</h4><p class="fixed"><b class="fx">Fixo</b> Escopo</p><p class="fixed"><b class="vr">Varia</b> Tempo e custo</p><p>O foco é o planejamento e a previsibilidade. Indicada para escopo claro e baixa incerteza.</p></div>
+<div class="vs vs-b"><h4>Adaptativa</h4><p class="fixed"><b class="fx">Fixo</b> Tempo e custo</p><p class="fixed"><b class="vr">Varia</b> Escopo</p><p>O foco é o aumento de valor. Indicada para alta incerteza e requisitos que evoluem.</p></div>
+</div>
+<div class="exam">
+<span class="lbl">Cai na prova · 4 fatores de escolha</span>
+<p>Clareza do escopo, grau de incerteza, envolvimento do cliente e cultura organizacional. <strong>Não existe abordagem superior.</strong> A tendência é a <strong>híbrida</strong>: adaptar o método ao contexto, e não o contrário.</p>
+</div>
+</section>
+
+<!-- ============ PLANEJAMENTO ============ -->
+<section id="r-planejamento">
+<h2>5. Planejamento (preditivo)</h2>
+
+<div class="exam">
+<span class="lbl">Cai na prova · TAP</span>
+<ul>
+<li><strong>Autoriza formalmente</strong> o projeto.</li>
+<li><strong>Dá autoridade ao gerente do projeto (GP).</strong></li>
+<li>É <strong>emitido por um patrocinador ou gerente externo ao projeto</strong>. Não é o próprio GP quem emite.</li>
+<li>Seus objetivos devem ser <strong>SMART</strong>: específicos, mensuráveis, atingíveis, relevantes e com prazo.</li>
+</ul>
+</div>
+
+<h3>Project Model Canvas (Finocchio)</h3>
+<div class="table-scroll"><table class="compact">
+<tr><th>Pergunta</th><th>Campos</th></tr>
+<tr><td><strong>Por quê?</strong></td><td>Justificativas (<strong>passado</strong>) · Objetivo SMART · Benefícios (<strong>futuro</strong>)</td></tr>
+<tr><td><strong>O quê?</strong></td><td>Produto · Requisitos</td></tr>
+<tr><td><strong>Quem?</strong></td><td>Stakeholders e fatores externos · Equipe</td></tr>
+<tr><td><strong>Como?</strong></td><td>Premissas · Grupo de entregas · Restrições</td></tr>
+<tr><td><strong>Quando e quanto?</strong></td><td>Riscos · Linha do tempo · Custos</td></tr>
+</table></div>
+
+<div class="versus">
+<div class="vs vs-a"><h4>Premissa</h4><p>É algo <strong>suposto</strong> como verdadeiro para planejar. <strong>Se falhar, vira risco.</strong></p><p><em>Ex.: "A equipe de vendas estará disponível para o treinamento."</em></p></div>
+<div class="vs vs-b"><h4>Restrição</h4><p>É algo <strong>imposto</strong>, que limita as opções.</p><p><em>Ex.: "Orçamento máximo de R$ 30 mil"; "Plataforma obrigatoriamente SaaS."</em></p></div>
+</div>
+
+<h3>Stakeholders: poder x posicionamento</h3>
+<div class="quadwrap">
+<div class="quad-ylab">Poder baixo · alto</div>
+<div class="quad">
+<div class="q q-rose"><span class="qn">Poder alto · Contra</span><h4>Bloqueadores</h4><p>Foco prioritário.</p></div>
+<div class="q q-teal"><span class="qn">Poder alto · A favor</span><h4>Aliados</h4><p>Ajudam a neutralizar os bloqueadores.</p></div>
+<div class="q q-amber"><span class="qn">Poder baixo · Contra</span><h4>Desaceleradores</h4><p>Foco prioritário.</p></div>
+<div class="q q-blue"><span class="qn">Poder baixo · A favor</span><h4>Membros de rede</h4><p>Apoio e influência lateral.</p></div>
+</div>
+<div class="quad-xlab"><span>← Contra</span><span>A favor →</span></div>
+</div>
+<p>Na versão clássica de Mendelow: <strong>gerenciar de perto</strong> (poder e interesse altos), <strong>manter satisfeito</strong> (poder alto, interesse baixo), <strong>manter informado</strong> (poder baixo, interesse alto) e <strong>monitorar</strong> (os dois baixos).</p>
+
+<h3>EAP</h3>
+<div class="levels">
+<div class="lvl"><span class="n">1</span><span class="t">Projeto</span><span class="g">topo</span></div>
+<div class="lvl"><span class="n">2</span><span class="t">Entregas</span><span class="g">substantivo</span></div>
+<div class="lvl"><span class="n">3</span><span class="t">Subentregas</span><span class="g">substantivo</span></div>
+<div class="lvl"><span class="n">4</span><span class="t">Pacotes de trabalho</span><span class="g">último nível da EAP</span></div>
+<div class="lvl act"><span class="n">↓</span><span class="t">Atividades</span><span class="g">verbo · fora da EAP</span></div>
+</div>
+<div class="exam">
+<span class="lbl">Cai na prova · Regras da EAP</span>
+<ul>
+<li><strong>Regra dos 100%:</strong> cada nível decompõe inteiramente o anterior.</li>
+<li>Nenhum elemento é compartilhado entre ramos.</li>
+<li><strong>Nenhum "filho único".</strong></li>
+<li>Cada elemento tem código único.</li>
+<li>Não detalhar além do que dá para estimar e controlar.</li>
+<li>Ter um dicionário da EAP.</li>
+<li>Incluir <strong>Gerenciamento do Projeto</strong> como entrega.</li>
+</ul>
+<p><strong>Nomenclatura:</strong> entregas usam substantivo ("Piso"); atividades usam verbo ("Instalar piso"); marcos usam substantivo + particípio ("Piso concluído").</p>
+</div>
+
+<h3>Cronograma</h3>
+<p><strong>Passos:</strong> definir atividades → sequenciar → estimar duração → caminho crítico → baseline.</p>
+<p><strong>Técnicas de estimativa:</strong> opinião especializada, análoga, paramétrica e de 3 pontos (PERT).</p>
+<div class="key">
+<span class="lbl">◆ Conceito-chave</span>
+<p>O <strong>caminho crítico</strong> é a sequência <strong>mais longa</strong> de atividades. Ele define a <strong>duração mínima</strong> do projeto e tem <strong>folga zero</strong>.</p>
+<p><span class="compl">Complemento</span> PERT: duração esperada = (Otimista + 4 × Mais provável + Pessimista) ÷ 6.</p>
+</div>
+
+<h3>Responsabilidades, comunicação e custos</h3>
+<div class="cards c3">
+<div class="card"><span class="tag">Matriz RAM</span><h4>ERICA</h4><p><strong>E</strong>xecutante · <strong>R</strong>esponsável · <strong>I</strong>nformado · <strong>C</strong>onsultado · <strong>A</strong>provador. Cruza itens da EAP (linhas) com stakeholders (colunas).</p></div>
+<div class="card"><span class="tag">Matriz de comunicação</span><h4>6W1H</h4><p>Informação (what), propósito (why), frequência (when), mídia (how), onde (where), responsável (who) e destinatários (whom). Objetivo: a informação certa para a pessoa certa no momento certo.</p></div>
+<div class="card"><span class="tag">Tipos de custo</span><h4>Custos</h4><p><strong>Direto:</strong> não precisa de rateio. <strong>Indireto:</strong> serve a vários projetos e exige rateio. <strong>Variável:</strong> muda com o volume de trabalho. <strong>Fixo:</strong> não muda (ex.: aluguel).</p></div>
+</div>
+</section>
+
+<!-- ============ RISCOS ============ -->
+<section id="r-riscos">
+<h2>6. Riscos</h2>
+<ul class="plain">
+<li><strong>Análise qualitativa</strong> é a <strong>mais usada</strong>: escala de 0,1 / 0,3 / 0,5 / 0,7 / 0,9.</li>
+<li><strong>Análise quantitativa</strong> é a <strong>mais precisa</strong>: probabilidade em % e impacto em R$.</li>
+<li><strong>Severidade = Probabilidade × Impacto.</strong> O Mural chama esse resultado de "valor esperado".</li>
+<li><strong>Trigger</strong> é o sinal de que o risco está prestes a acontecer.</li>
+</ul>
+<div class="table-scroll"><table>
+<tr><th>Ameaça (negativo)</th><th>Oportunidade (positivo)</th></tr>
+<tr><td><strong>Evitar:</strong> elimina a probabilidade ou o impacto.</td><td><strong>Explorar:</strong> garante que a oportunidade aconteça.</td></tr>
+<tr><td><strong>Transferir:</strong> passa para <strong>terceiros</strong> (seguro, contrato).</td><td><strong>Compartilhar:</strong> divide com terceiros (parceria, joint venture).</td></tr>
+<tr><td><strong>Mitigar:</strong> <strong>reduz</strong> a probabilidade ou o impacto.</td><td><strong>Aumentar:</strong> eleva a probabilidade ou o impacto.</td></tr>
+<tr class="total"><td colspan="2">Servem para os dois tipos: <strong>Aceitar</strong> (passivo ou ativo, com contingência) · <strong>Contingência</strong> (executada depois do trigger) · <strong>Escalar</strong> (leva o risco a um nível hierárquico superior)</td></tr>
+</table></div>
+<div class="exam">
+<span class="lbl">Cai na prova · Pegadinha</span>
+<p>"Alocar recursos adicionais" é <strong>mitigar</strong>, não transferir. Repassar o risco a uma <strong>área interna</strong> (ex.: Compliance) também não é transferência. Transferir exige uma <strong>terceira parte</strong> que assuma o risco.</p>
+</div>
+</section>
+
+<!-- ============ CONTROLE ============ -->
+<section id="r-controle">
+<h2>7. Execução, controle e encerramento</h2>
+<div class="exam">
+<span class="lbl">Cai na prova</span>
+<p>O <strong>controle integrado de mudanças</strong> acontece do início ao fim do projeto. O GP <strong>influencia os fatores que geram mudanças e controla o impacto delas</strong>, por meio de solicitação formal.</p>
+</div>
+<p><strong>Encerramento:</strong> aceite, encerramento dos contratos, <strong>lições aprendidas</strong> e fechamento administrativo e financeiro. Também vale para <strong>projeto cancelado</strong>.</p>
+</section>
+
+<!-- ============ SCRUM ============ -->
+<section id="r-scrum">
+<h2>8. Scrum (3-5-3)</h2>
+<div class="s353">
+<div class="col"><div class="hd"><div class="big">3</div><div class="nm">Papéis</div></div><ul><li><strong>PO:</strong> cuida do valor e ordena o backlog</li><li><strong>Scrum Master:</strong> líder-servidor, não é gerente</li><li><strong>Developers:</strong> time multifuncional e auto-organizado</li></ul></div>
+<div class="col"><div class="hd"><div class="big">5</div><div class="nm">Cerimônias</div></div><ul><li>Sprint Planning</li><li>Daily Scrum</li><li>Sprint Review</li><li>Sprint Retrospective</li><li class="alt">Refinamento (versão do professor)</li></ul></div>
+<div class="col"><div class="hd"><div class="big">3</div><div class="nm">Artefatos</div></div><ul><li>Product Backlog</li><li>Sprint Backlog</li><li>Incremento</li></ul></div>
+</div>
+<div class="exam">
+<span class="lbl">Cai na prova</span>
+<ul>
+<li>O <strong>Scrum Master não atribui tarefas nem cobra prazos individuais</strong>. Ele remove impedimentos e protege o processo.</li>
+<li>No Scrum Guide oficial, a 5ª cerimônia é a própria Sprint. Na prova, siga a versão do professor (Refinamento).</li>
+<li><strong>5 valores:</strong> coragem, foco, comprometimento, respeito e abertura.</li>
+<li><strong>Esforço em Fibonacci:</strong> quanto maior o item, maior a incerteza. O "?" indica que o item precisa de refinamento.</li>
+</ul>
+</div>
+</section>
+
+<!-- ============ TENDÊNCIAS ============ -->
+<section id="r-tendencias">
+<h2>9. Tendências</h2>
+<div class="cards c3">
+<div class="card"><span class="tag">ESG</span><h4>Uma lente, não burocracia</h4><p>Aparece em todas as fases: critérios ESG na seleção, riscos ESG na matriz, monitoramento de água e energia na execução, e comparação dos benefícios entregues com os planejados no encerramento.</p></div>
+<div class="card"><span class="tag">Transformação digital</span><h4>Mais que digitalizar</h4><p>Muda cultura, processos e modelo de negócio, e não só as ferramentas.</p></div>
+<div class="card"><span class="tag">IA</span><h4>Amplia, não substitui</h4><p>A IA analisa dados, gera rascunhos e classifica riscos. O GP humano é insubstituível em contexto político, negociação, ética, liderança e decisões em situações ambíguas.</p></div>
+</div>
+</section>
+
+<!-- ============ SIMULADO ============ -->
+<section id="simulado">
+<h2>Simulado: questões objetivas</h2>
+<p class="disclaimer">Questões elaboradas no estilo típico das provas de MBA da FGV. Não é gabarito oficial.</p>
+
+<div class="qz"><span class="qh">Questão 01 · Conceito de projeto</span>
+<p>Uma empresa vai implantar um ERP em 3 anos, em fases. Um diretor afirma: "Isso não é projeto, é operação, porque dura muito tempo." A afirmação é:</p>
+<ol class="alt"><li><b>a)</b>Correta, porque projetos devem durar menos de um ano.</li><li><b>b)</b>Incorreta, porque "temporário" significa ter início e fim definidos, não ter curta duração.</li><li><b>c)</b>Correta, porque o ERP vai gerar rotinas contínuas.</li><li><b>d)</b>Incorreta, porque todo esforço com orçamento aprovado é um projeto.</li></ol>
+<details class="ans"><summary>Ver gabarito</summary><p><strong>b)</strong> "Temporário" não significa curto. A alternativa (d) está errada porque orçamento aprovado não é o que define um projeto.</p></details></div>
+
+<div class="qz"><span class="qh">Questão 02 · Projeto, programa, portfólio</span>
+<p>Um banco administra, para cumprir seus objetivos estratégicos, um conjunto que inclui a operação de crédito, um programa de digitalização e projetos isolados de compliance. Esse conjunto é um:</p>
+<ol class="alt"><li><b>a)</b>Programa</li><li><b>b)</b>Portfólio</li><li><b>c)</b>PMO</li><li><b>d)</b>Projeto complexo</li></ol>
+<details class="ans"><summary>Ver gabarito</summary><p><strong>b)</strong> O conjunto inclui <strong>operações</strong> e mira <strong>objetivos estratégicos</strong>, e só o portfólio tem essas duas características.</p></details></div>
+
+<div class="qz"><span class="qh">Questão 03 · TAP</span>
+<p>Sobre o Termo de Abertura do Projeto, assinale a alternativa <strong>correta</strong>:</p>
+<ol class="alt"><li><b>a)</b>É elaborado e emitido pelo gerente do projeto, para comprovar sua autoridade.</li><li><b>b)</b>Detalha os pacotes de trabalho e a linha de base do cronograma.</li><li><b>c)</b>Autoriza formalmente o projeto e é emitido por um patrocinador externo ao projeto.</li><li><b>d)</b>É opcional em projetos de baixo orçamento.</li></ol>
+<details class="ans"><summary>Ver gabarito</summary><p><strong>c)</strong> O TAP é emitido por alguém externo ao projeto e concede autoridade ao GP. Pacotes de trabalho e baseline fazem parte do PGP, não do TAP.</p></details></div>
+
+<div class="qz"><span class="qh">Questão 04 · Premissas x restrições</span>
+<p>No projeto de CRM, considere os itens:<br>I. Orçamento máximo de R$ 30 mil, sem ajuste de verba.<br>II. A equipe de vendas estará disponível para os treinamentos.<br>III. A plataforma deve ser obrigatoriamente SaaS.<br>São <strong>restrições</strong>:</p>
+<ol class="alt"><li><b>a)</b>apenas I</li><li><b>b)</b>I e III</li><li><b>c)</b>II e III</li><li><b>d)</b>I, II e III</li></ol>
+<details class="ans"><summary>Ver gabarito</summary><p><strong>b)</strong> O item II é uma <strong>premissa</strong>: algo suposto, que vira risco se falhar. Os itens I e III são impostos.</p></details></div>
+
+<div class="qz"><span class="qh">Questão 05 · Regras da EAP</span>
+<p>Uma EAP tem a entrega "Marketing" decomposta em um único elemento, "Campanha de lançamento", e no 2º nível aparece o item "Contratar agência". Quantas regras ou convenções da EAP foram violadas?</p>
+<ol class="alt"><li><b>a)</b>Nenhuma</li><li><b>b)</b>Uma (filho único)</li><li><b>c)</b>Duas (filho único e verbo num elemento da EAP)</li><li><b>d)</b>Três, porque falta o código</li></ol>
+<details class="ans"><summary>Ver gabarito</summary><p><strong>c)</strong> "Campanha de lançamento" é filho único, e "Contratar agência" é uma atividade (com verbo) dentro da EAP, que só deve ter substantivos.</p></details></div>
+
+<div class="qz"><span class="qh">Questão 06 · WSJF</span>
+<p>Pelo quadrante WSJF apresentado em aula, um projeto de <strong>alto valor e alto esforço</strong> deve ser classificado como:</p>
+<ol class="alt"><li><b>a)</b>Faça agora</li><li><b>b)</b>Faça a seguir</li><li><b>c)</b>Faça mais tarde</li><li><b>d)</b>Não faça</li></ol>
+<details class="ans"><summary>Ver gabarito</summary><p><strong>b)</strong> O valor vem primeiro e o esforço desempata. Lembre que a tabela da dinâmica inverte os quadrantes 2 e 3; a prova deve seguir o slide.</p></details></div>
+
+<div class="qz"><span class="qh">Questão 07 · Métodos de seleção</span>
+<p>Um comitê precisa comparar um projeto de TI, uma campanha de marca e uma obra, usando ao mesmo tempo critérios de alinhamento estratégico, risco e viabilidade técnica. O método mais adequado é:</p>
+<ol class="alt"><li><b>a)</b>Payback</li><li><b>b)</b>TIR</li><li><b>c)</b>Scoring</li><li><b>d)</b>VPL</li></ol>
+<details class="ans"><summary>Ver gabarito</summary><p><strong>c)</strong> O Scoring combina vários critérios ponderados e permite comparar projetos de naturezas diferentes. VPL, TIR e Payback olham só para o aspecto financeiro.</p></details></div>
+
+<div class="qz"><span class="qh">Questão 08 · Severidade do risco</span>
+<p>Um risco tem probabilidade de 0,7 e impacto de 0,5. Outro tem probabilidade de 0,5 e impacto de 0,9. Qual deve ser priorizado e qual é a sua severidade?</p>
+<ol class="alt"><li><b>a)</b>O primeiro, 0,35</li><li><b>b)</b>O segundo, 0,45</li><li><b>c)</b>Os dois empatam</li><li><b>d)</b>O primeiro, 1,2</li></ol>
+<details class="ans"><summary>Ver gabarito</summary><p><strong>b)</strong> 0,5 × 0,9 = 0,45, maior que 0,7 × 0,5 = 0,35. A alternativa (d) soma em vez de multiplicar, um erro comum.</p></details></div>
+
+<div class="qz"><span class="qh">Questão 09 · Respostas a ameaças</span>
+<p>Para enfrentar o risco de atraso na integração, o GP "aloca dois desenvolvedores adicionais". A matriz classifica isso como "Transferência". A classificação correta seria:</p>
+<ol class="alt"><li><b>a)</b>Transferir, porque o risco foi passado a outras pessoas.</li><li><b>b)</b>Mitigar, porque a ação reduz a probabilidade ou o impacto, sem uma terceira parte assumindo o risco.</li><li><b>c)</b>Aceitar ativamente.</li><li><b>d)</b>Escalar.</li></ol>
+<details class="ans"><summary>Ver gabarito</summary><p><strong>b)</strong> Transferir exige uma terceira parte, como seguradora ou fornecedor contratado. Esse erro está na matriz da dinâmica.</p></details></div>
+
+<div class="qz"><span class="qh">Questão 10 · Respostas a oportunidades</span>
+<p>Uma empresa fecha uma <em>joint venture</em> para aproveitar juntos uma licitação que nenhum dos dois venceria sozinho. A resposta ao risco positivo é:</p>
+<ol class="alt"><li><b>a)</b>Explorar</li><li><b>b)</b>Aumentar</li><li><b>c)</b>Compartilhar</li><li><b>d)</b>Transferir</li></ol>
+<details class="ans"><summary>Ver gabarito</summary><p><strong>c)</strong> Dividir a oportunidade com uma terceira parte é compartilhar. "Transferir" é resposta a ameaças.</p></details></div>
+
+<div class="qz"><span class="qh">Questão 11 · Escolha da abordagem</span>
+<p>Os requisitos de um projeto são instáveis, o cliente pode participar toda semana e a cultura da empresa valoriza autonomia. A abordagem mais indicada e o elemento fixo no triângulo invertido são:</p>
+<ol class="alt"><li><b>a)</b>Preditiva; escopo fixo.</li><li><b>b)</b>Adaptativa; tempo e custo fixos, escopo variável.</li><li><b>c)</b>Adaptativa; escopo fixo.</li><li><b>d)</b>Preditiva; tempo fixo.</li></ol>
+<details class="ans"><summary>Ver gabarito</summary><p><strong>b)</strong> Os 4 fatores (escopo, incerteza, cliente e cultura) apontam para a abordagem adaptativa. No ágil, o triângulo se inverte: tempo e custo ficam fixos e o escopo varia.</p></details></div>
+
+<div class="qz"><span class="qh">Questão 12 · Papéis do Scrum</span>
+<p>Num time Scrum, o Scrum Master distribui as tarefas da sprint entre os desenvolvedores e cobra prazos individuais. Isso:</p>
+<ol class="alt"><li><b>a)</b>É adequado, porque o SM é o gerente do time.</li><li><b>b)</b>É um desvio: o SM é um líder-servidor que remove impedimentos, e o time se auto-organiza.</li><li><b>c)</b>É adequado se o PO aprovar.</li><li><b>d)</b>É função do PO, não do SM.</li></ol>
+<details class="ans"><summary>Ver gabarito</summary><p><strong>b)</strong> Os Developers são auto-organizados e montam o plano da sprint. O PO ordena o backlog, mas também não distribui tarefas.</p></details></div>
+
+<div class="qz"><span class="qh">Questão 13 · Stakeholders</span>
+<p>A Equipe de Vendas tem alto poder e é contra o novo CRM. Pela qualificação vista em aula, ela é ___ e a estratégia recomendada é ___:</p>
+<ol class="alt"><li><b>a)</b>Desaceleradora; monitorar.</li><li><b>b)</b>Bloqueadora; usar aliados (por exemplo, o RH) para negociar e neutralizar a resistência.</li><li><b>c)</b>Aliada; manter informada.</li><li><b>d)</b>Membro de rede; ignorar.</li></ol>
+<details class="ans"><summary>Ver gabarito</summary><p><strong>b)</strong> Poder alto + contra = bloqueador. A lógica do professor é usar aliados e membros de rede para lidar com bloqueadores e desaceleradores, como o G1 fez no CRM.</p></details></div>
+
+<div class="qz"><span class="qh">Questão 14 · Custos</span>
+<p>O aluguel de um escritório usado por todos os projetos da empresa é um custo:</p>
+<ol class="alt"><li><b>a)</b>Direto e variável</li><li><b>b)</b>Indireto e fixo</li><li><b>c)</b>Direto e fixo</li><li><b>d)</b>Indireto e variável</li></ol>
+<details class="ans"><summary>Ver gabarito</summary><p><strong>b)</strong> É indireto porque beneficia mais de um projeto e exige rateio, e fixo porque não varia com o volume de trabalho.</p></details></div>
+
+<div class="qz"><span class="qh">Questão 15 · PERT <span class="compl">Complemento</span></span>
+<p>As estimativas de uma atividade são: otimista 4 dias, mais provável 6 e pessimista 14. A duração esperada pelo PERT é:</p>
+<ol class="alt"><li><b>a)</b>6</li><li><b>b)</b>7</li><li><b>c)</b>8</li><li><b>d)</b>8,4</li></ol>
+<details class="ans"><summary>Ver gabarito</summary><p><strong>b)</strong> (4 + 4 × 6 + 14) ÷ 6 = 42 ÷ 6 = 7. A alternativa (c) é a média simples, (4 + 6 + 14) ÷ 3 = 8.</p></details></div>
+
+<div class="qz"><span class="qh">Questão 16 · Assinale a incorreta</span>
+<p>Assinale a alternativa <strong>incorreta</strong>:</p>
+<ol class="alt"><li><b>a)</b>O PMBOK é uma metodologia prescritiva que deve ser seguida integralmente.</li><li><b>b)</b>Só o portfólio inclui operações.</li><li><b>c)</b>No Canvas, as Justificativas se referem ao passado e os Benefícios ao futuro.</li><li><b>d)</b>O caminho crítico tem folga zero.</li></ol>
+<details class="ans"><summary>Ver gabarito</summary><p><strong>a)</strong> O PMBOK é um conjunto de boas práticas, não uma metodologia.</p></details></div>
+</section>
+
+<!-- ============ DISCURSIVAS ============ -->
+<section id="discursivas">
+<h2>Questões discursivas prováveis</h2>
+
+<div class="qz"><span class="qh">Discursiva 1 · Priorização de portfólio</span>
+<p>Uma empresa tem R$ 800 mil e capacidade para 2 projetos simultâneos. Como você priorizaria 6 propostas?</p>
+<details class="ans"><summary>Ver roteiro de resposta</summary>
+<ul>
+<li>Comece pelo <strong>alinhamento estratégico</strong>, porque projeto desalinhado consome recursos sem gerar valor.</li>
+<li>Aplique um critério objetivo: VPL, TIR ou Scoring, e o <strong>WSJF</strong> para ordenar.</li>
+<li>Classifique cada proposta no quadrante.</li>
+<li>Respeite as restrições de orçamento e de capacidade.</li>
+<li>Para projetos caros e incertos (como a 4ª clínica ou o laudo com IA), proponha <strong>PoC ou piloto</strong>.</li>
+<li>Feche com: "priorizar também é decidir o que não fazer agora".</li>
+</ul>
+</details></div>
+
+<div class="qz"><span class="qh">Discursiva 2 · Escolha da abordagem</span>
+<p>Preditiva, ágil ou híbrida para implantar um CRM? Justifique.</p>
+<details class="ans"><summary>Ver roteiro de resposta</summary>
+<ul>
+<li>Use os <strong>4 fatores</strong>: escopo, incerteza, envolvimento do cliente e cultura.</li>
+<li><strong>Híbrida:</strong> contratação, contrato e migração seguem o modelo preditivo (escopo claro, fornecedor, LGPD).</li>
+<li>Parametrização, dashboards e treinamentos seguem o modelo iterativo, com feedback dos vendedores.</li>
+<li>Encerre com "adaptar o método ao contexto, não o contrário".</li>
+</ul>
+</details></div>
+
+<div class="qz"><span class="qh">Discursiva 3 · Plano de riscos</span>
+<p>Monte 3 riscos para o seu projeto, com pelo menos uma oportunidade.</p>
+<details class="ans"><summary>Ver roteiro de resposta</summary>
+<ul>
+<li>Para cada risco, informe: evento, trigger, P, I, P×I, tipo de resposta coerente com a ação, e dono.</li>
+<li><strong>Ameaça (CRM):</strong> baixa adoção. P 0,5, I 0,7, severidade 0,35. Resposta: <strong>mitigar</strong>, com bônus por uso e treinamento. Dono: RH.</li>
+<li><strong>Oportunidade (CRM):</strong> aumento do NPS. Resposta: <strong>explorar</strong> ou <strong>aumentar</strong>.</li>
+<li>Cuidado para não chamar de "transferir" uma ação feita por uma área interna.</li>
+</ul>
+</details></div>
+
+<p style="margin-top:28px"><a class="btn-rev" href="../index.html">← Voltar à página completa da disciplina</a></p>
+</section>
+
+</div>
+</body>
+</html>
